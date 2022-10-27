@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://s4devci91vml.civic.mississauga.ca:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://s4devci91vml.civic.mississauga.ca:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://s4devci91vml.civic.mississauga.ca:8000/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZGC_C_REQUESTS_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <EntityType Name="zgc_c_requestsType" sap:label="Consumption View for Requests" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="req_uuid"/>
+                </Key>
+                <Property Name="req_uuid" Type="Edm.Guid" Nullable="false" sap:label="" sap:quickinfo="Growth Charges Key"/>
+                <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID"/>
+                <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
+                <Property Name="status" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Status"/>
+                <Property Name="applicant_bp_id" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Business Partner" sap:quickinfo="Business Partner Number"/>
+                <Property Name="invoice_bp_id" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Business Partner" sap:quickinfo="Business Partner Number"/>
+                <Property Name="dc_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="DC Applicable"/>
+                <Property Name="cbc_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="CBC Applicable"/>
+                <Property Name="cil_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="CIL Applicable"/>
+                <Property Name="is_residential" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Residential"/>
+                <Property Name="is_non_residential" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Non-Residential"/>
+                <Property Name="is_industrial" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Industrial"/>
+                <Property Name="is_non_industrial" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Non-Industrial"/>
+                <Property Name="is_spec_insdustrial" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Speculative Indus" sap:quickinfo="Is Speculative Industrial"/>
+                <Property Name="is_new" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is New"/>
+                <Property Name="is_addition" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Addition"/>
+                <Property Name="is_mezzanine" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Mezzanine"/>
+                <Property Name="is_chg_of_use" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Change of use"/>
+                <Property Name="is_demolition" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Demolition"/>
+                <Property Name="is_other" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Other"/>
+                <Property Name="loc_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Letter of Credit - D" sap:quickinfo="Letter of Credit - Date"/>
+                <Property Name="loc_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:label="Letter of Credit - A" sap:quickinfo="Letter of Credit - Amount"/>
+                <Property Name="swm_lot_area" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Storm Water Mgmt Lot" sap:quickinfo="Storm Water Mgmt Lot Area"/>
+                <Property Name="swm_net_dev" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Net Developable Area"/>
+                <Property Name="swm_comments" Type="Edm.String" sap:label="SWM Comments"/>
+                <Property Name="total_units" Type="Edm.Int32" sap:label="Number of units"/>
+                <Property Name="exist_gfa" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Existing GFA"/>
+                <Property Name="prop_gfa" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Proposed GFA"/>
+                <Property Name="int_comments_sap" Type="Edm.String" sap:label="Internal Comments"/>
+                <Property Name="int_comments" Type="Edm.String" sap:label="Internal Comments"/>
+                <Property Name="ext_comments" Type="Edm.String" sap:label="Exernal Comments"/>
+                <Property Name="exm_comments" Type="Edm.String" MaxLength="500" sap:display-format="UpperCase" sap:label="Exemption Comments"/>
+                <Property Name="invoice_calculation_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Invoice Calculation" sap:quickinfo="Invoice Calculation Date"/>
+                <Property Name="entry_completed_by" Type="Edm.String" MaxLength="100" sap:display-format="UpperCase" sap:label="MAX Entry Completed" sap:quickinfo="MAX Entry Completed By"/>
+                <Property Name="max_approval_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="MAX Approval Date"/>
+                <Property Name="max_approval_by" Type="Edm.String" MaxLength="100" sap:display-format="UpperCase" sap:label="MAX Approval By"/>
+                <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
+                <Property Name="created_on" Type="Edm.String" MaxLength="14" sap:display-format="UpperCase" sap:label="Created On"/>
+                <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
+                <Property Name="updated_on" Type="Edm.String" MaxLength="14" sap:display-format="UpperCase" sap:label="Updated On"/>
+            </EntityType>
+            <EntityContainer Name="ZGC_C_REQUESTS_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="zgc_c_requests" EntityType="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" sap:creatable="false" sap:deletable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requests" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="swm_comments"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="int_comments_sap"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="int_comments"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ext_comments"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>swm_comments</PropertyPath>
+                                <PropertyPath>int_comments_sap</PropertyPath>
+                                <PropertyPath>int_comments</PropertyPath>
+                                <PropertyPath>ext_comments</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://s4devci91vml.civic.mississauga.ca:8000/sap/opu/odata/sap/ZGC_C_REQUESTS_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://s4devci91vml.civic.mississauga.ca:8000/sap/opu/odata/sap/ZGC_C_REQUESTS_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
