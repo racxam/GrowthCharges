@@ -17,7 +17,7 @@
         },
         "dataSources": {
             "mainService": {
-                "uri": "/sap/opu/odata/sap/ZGC_C_REQUESTS_CDS/?saml2=disabled/",
+                "uri": "/sap/opu/odata/sap/ZGC_C_REQUESTS_CDS",
                 "type": "OData",
                 "settings": {
                     "annotations": [
@@ -78,7 +78,7 @@
     "sap.ui5": {
         "flexEnabled": true,
         "dependencies": {
-            "minUI5Version": "1.71.40",
+            "minUI5Version": "1.96.14",
             "libs": {
                 "sap.m": {},
                 "sap.ui.core": {},
@@ -86,7 +86,8 @@
                 "sap.f": {},
                 "sap.ui.comp": {},
                 "sap.ui.generic.app": {},
-                "sap.suite.ui.generic.template": {}
+                "sap.suite.ui.generic.template": {},
+                "sap.se.mi.plm.lib.attachmentservice": {}
             }
         },
         "contentDensities": {
@@ -157,6 +158,18 @@
                         "defaultLayoutTypeIfExternalNavigation": "MidColumnFullScreen",
                         "component": {
                             "name": "sap.suite.ui.generic.template.ObjectPage"
+                        },
+                        "embeddedComponents":{
+                            "simple::Attachments": {
+                                "id": "simple::Attachments",
+                                "componentName": "sap.se.mi.plm.lib.attachmentservice.attachment.components.stcomponent",
+                                "title": "Attachments",
+                                "settings": {
+                                "mode": "{= ${ui>/editable}?'C':'D'}",
+                                "objectType": "ZATTACH",
+                                "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
+                                }
+                            }
                         }
                     }
                 }
