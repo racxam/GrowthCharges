@@ -159,15 +159,15 @@
                         "component": {
                             "name": "sap.suite.ui.generic.template.ObjectPage"
                         },
-                        "embeddedComponents":{
+                        "embeddedComponents": {
                             "simple::Attachments": {
                                 "id": "simple::Attachments",
                                 "componentName": "sap.se.mi.plm.lib.attachmentservice.attachment.components.stcomponent",
                                 "title": "Attachments",
                                 "settings": {
-                                "mode": "{= ${ui>/editable}?'C':'D'}",
-                                "objectType": "ZATTACH",
-                                "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
+                                    "mode": "{= ${ui>/editable}?'C':'D'}",
+                                    "objectType": "ZATTACH",
+                                    "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
                                 }
                             }
                         }
