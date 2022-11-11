@@ -13,6 +13,10 @@
     </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+            <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
+                <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
+        </Annotations>   
         </Schema>
     </edmx:DataServices>
+ 
 </edmx:Edmx>
