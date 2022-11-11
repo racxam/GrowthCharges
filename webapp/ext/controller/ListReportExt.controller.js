@@ -1,41 +1,49 @@
 sap.ui.define([
     "sap/m/Dialog",
-    "sap/m/Text",
+    "sap/m/TextArea",
     "sap/m/Button"
 ],
-function (Dialog,Text,Button){
+function (Dialog,TextArea,Button){
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.ListReportExt", {
       
         onPressComments: function (oEvent,sKey) {
-            if (!this.oDefaultDialog) {
-                this.oDefaultDialog = new Dialog({
+            const oListCommentDialog = {"CIL":"","CBC":"","DC":""};
+            let sFieldText = "";
+            if(sKey === "DC"){
+                sFieldText = "dc_int_comments_sap";
+            }else if(sKey === "CBC"){
+                sFieldText = "cbcComments";
+            }else{
+                sFieldText = "cilComments";
+            }
+
+            if (!oListCommentDialog[sKey]) {
+                oListCommentDialog[sKey] = new Dialog({
                     title: "Comments",
-                    content: new Text({
-                        text:"{street}"
-                    }),
-                    beginButton: new Button({
-                        text: "OK",
-                        press: function () {
-                            this.oDefaultDialog.close();
-                        }.bind(this)
+                    class:"sapUiSmallMarginBottom",
+                    content: new TextArea({
+                        value:`{${sFieldText}}`,
+                        class: "sapUiMediumMargin",
+                        editable:false,
+                        growing:true
                     }),
                     endButton: new Button({
                         text: "Close",
                         press: function () {
-                            this.oDefaultDialog.close();
-                        }.bind(this)
+                            oListCommentDialog[sKey].close();
+                        }
                     })
                 });
                 
                 // to get access to the controller's model
-                this.getView().addDependent(this.oDefaultDialog);
+                this.getView().addDependent(oListCommentDialog[sKey]);
             }
             const oSelectedItem = oEvent.getSource();
             const oBindingContext = oSelectedItem.getBindingContext();
            
-            this.oDefaultDialog.setBindingContext(oBindingContext);
-            this.oDefaultDialog.open();
+            oListCommentDialog[sKey].setBindingContext(oBindingContext);
+            oListCommentDialog[sKey].open();
         },
 
         showStatusCIL : function(sStatus){
