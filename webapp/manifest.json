@@ -163,6 +163,7 @@
             "objectPageHeaderType": "Dynamic",
             "considerAnalyticalParameters": true,
             "showDraftToggle": false,
+            "useColumnLayoutForSmartForm": false,
             "flexibleColumnLayout": {
                 "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
                 "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
