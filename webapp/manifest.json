@@ -148,15 +148,7 @@
                         "controllerName": "com.gc.dashboard.ext.controller.ListReportExt",
                         "sap.ui.generic.app": {
                             "zgc_c_requests": {
-                                "EntitySet": "zgc_c_requests",
-                                "Actions": {
-                                    "test": {
-                                        "id": "testButton",
-                                        "text": "test",
-                                        "press": "onPressComments",
-                                        "global": true
-                                    }
-                                }
+                                "EntitySet": "zgc_c_requests"
                             }
                         }
                     }
