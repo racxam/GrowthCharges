@@ -192,11 +192,11 @@
                         "defaultLayoutTypeIfExternalNavigation": "MidColumnFullScreen",
                         "component": {
                             "name": "sap.suite.ui.generic.template.ObjectPage",
-                            "sections": {
-                                "settings": {
-                                    "to_dccal::com.sap.vocabularies.UI.v1.LineItem": {
+                            "settings": {
+                                "sections": {
+                                    "TotalDC-ID": {
                                         "navigationProperty": "to_dccal",
-                                        "entitySet": "zgc_c_dc_calcltnsType",
+                                        "entitySet": "zgc_c_dc_calcltns",
                                         "createMode": "Inline"
                                     }
                                 }
@@ -209,7 +209,7 @@
                                 "title": "Attachments",
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
-                                    "objectType": "ZATTACH",
+                                    "objectType": "ZGC_APPRVL",
                                     "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
                                 }
                             }
