@@ -25,8 +25,10 @@ function (Dialog,TextArea,Button){
                     content: new TextArea({
                         value:`{${sFieldText}}`,
                         class: "sapUiMediumMargin",
+                        width: "100%",
                         editable:false,
-                        growing:true
+                        growing:true,
+                        wrapping: "Soft"
                     }),
                     endButton: new Button({
                         text: "Close",
