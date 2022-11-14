@@ -197,8 +197,18 @@
                                     "TotalDC-ID": {
                                         "navigationProperty": "to_dccal",
                                         "entitySet": "zgc_c_dc_calcltns",
-                                        "createMode": "Inline"
+                                        "createMode": "inline"
                                     }
+                                }
+                            }
+                        },
+                        "pages": {
+                            "ObjectPage|to_dccal": {
+                                "navigationProperty": "to_dccal",
+                                "entitySet": "zgc_c_dc_calcltns",
+                                "defaultLayoutTypeIfExternalNavigation": "MidColumnFullScreen",
+                                "component": {
+                                    "name": "sap.suite.ui.generic.template.ObjectPage"
                                 }
                             }
                         },
