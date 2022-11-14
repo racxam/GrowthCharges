@@ -27,6 +27,7 @@ function (Dialog,TextArea,Button){
                         class: "sapUiMediumMargin",
                         width: "100%",
                         editable:false,
+                        enabled:false,
                         growing:true,
                         wrapping: "Soft"
                     }),
