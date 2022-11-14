@@ -13,7 +13,7 @@
     "devDependencies": {
         "@ui5/cli": "^2.14.1",
         "@sap/ux-ui5-tooling": "1",
-        "@sap/ux-specification": "UI5-1.71",
+        "@sap/ux-specification": "UI5-1.108",
         "eslint": "7.32.0",
         "eslint-plugin-fiori-custom": "2.2.1",
         "@babel/eslint-parser": "7.14.7",

@@ -12,7 +12,7 @@
     <Column>
         <Text text="{i18n>listColumnTextCBC_Comments}"/>
         <customData>
-            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn3&quot;, &quot;leadingProperty&quot;: &quot;cbcComments&quot;, &quot;columnIndex&quot;: &quot;8&quot;}"/>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn3&quot;, &quot;leadingProperty&quot;: &quot;cbccomments&quot;, &quot;columnIndex&quot;: &quot;8&quot;}"/>
         </customData>
     </Column>
     <Column>

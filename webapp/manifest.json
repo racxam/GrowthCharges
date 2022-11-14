@@ -78,7 +78,7 @@
     "sap.ui5": {
         "flexEnabled": true,
         "dependencies": {
-            "minUI5Version": "1.71.43",
+            "minUI5Version": "1.108.0",
             "libs": {
                 "sap.m": {},
                 "sap.ui.core": {},
@@ -162,7 +162,7 @@
             "forceGlobalRefresh": false,
             "objectPageHeaderType": "Dynamic",
             "considerAnalyticalParameters": true,
-            "showDraftToggle": false,
+            "showDraftToggle": true,
             "useColumnLayoutForSmartForm": false,
             "flexibleColumnLayout": {
                 "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
@@ -191,7 +191,16 @@
                         "entitySet": "zgc_c_requests",
                         "defaultLayoutTypeIfExternalNavigation": "MidColumnFullScreen",
                         "component": {
-                            "name": "sap.suite.ui.generic.template.ObjectPage"
+                            "name": "sap.suite.ui.generic.template.ObjectPage",
+                            "sections": {
+                                "settings": {
+                                    "to_dccal::com.sap.vocabularies.UI.v1.LineItem": {
+                                        "navigationProperty": "to_dccal",
+                                        "entitySet": "zgc_c_dc_calcltnsType",
+                                        "createMode": "Inline"
+                                    }
+                                }
+                            }
                         },
                         "embeddedComponents": {
                             "simple::Attachments": {
