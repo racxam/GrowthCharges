@@ -86,8 +86,16 @@
                 "sap.f": {},
                 "sap.ui.comp": {},
                 "sap.ui.generic.app": {},
-                "sap.suite.ui.generic.template": {},
-                "sap.se.mi.plm.lib.attachmentservice": {}
+                "sap.suite.ui.generic.template": {}
+            },
+            "components": {
+                "sap.se.mi.plm.lib.attachmentservice.attachment.components.stcomponent": {"lazy":true}
+            }
+        },
+        "componentUsages": {
+            "attachmentReuseComponent": {
+                "name": "sap.se.mi.plm.lib.attachmentservice.attachment.components.stcomponent",
+                "settings": {}
             }
         },
         "contentDensities": {
@@ -213,16 +221,50 @@
                             }
                         },
                         "embeddedComponents": {
-                            "simple::Attachments": {
-                                "id": "simple::Attachments",
-                                "componentName": "sap.se.mi.plm.lib.attachmentservice.attachment.components.stcomponent",
+                            "CBC::Attachments": {
+                                "id": "CBC::Attachments",
+                                "componentUsage": "attachmentReuseComponent",
                                 "title": "Attachments",
+                                "leadingSectionIdOrPath": "CBC",
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
                                     "objectType": "ZGC_APPRVL",
                                     "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
                                 }
-                            }
+                            },
+                            "DevelopmentCharges::Attachments": {
+                                "id": "DevelopmentCharges::Attachments",
+                                "componentUsage": "attachmentReuseComponent",
+                                "title": "Attachments",
+                                "leadingSectionIdOrPath": "DevelopmentCharges",
+                                "settings": {
+                                    "mode": "{= ${ui>/editable}?'C':'D'}",
+                                    "objectType": "ZGC_APPRVL",
+                                    "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
+                                }
+                            },
+                            "CIL::Attachments": {
+                                "id": "CIL::Attachments",
+                                "componentUsage": "attachmentReuseComponent",
+                                "title": "Attachments",
+                                "leadingSectionIdOrPath": "CIL",
+                                "settings": {
+                                    "mode": "{= ${ui>/editable}?'C':'D'}",
+                                    "objectType": "ZGC_APPRVL",
+                                    "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
+                                }
+                            },
+                            "InPayRef::Attachments": {
+                                "id": "InPayRef::Attachments",
+                                "componentUsage": "attachmentReuseComponent",
+                                "title": "Attachments",
+                                "leadingSectionIdOrPath": "InPayRef",
+                                "settings": {
+                                    "mode": "{= ${ui>/editable}?'C':'D'}",
+                                    "objectType": "ZGC_APPRVL",
+                                    "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
+                                }
+                            }                                                                                    
                         }
                     }
                 }
