@@ -56,6 +56,26 @@ function (Dialog,TextArea,Button){
             oListCommentDialog[sKey].open();
         },
 
+        // Formatter to handle visiblity of Status Icons based on Application Charges
+
+        showCILStatusIcon : function(bCIL){
+            if(!bCIL){
+                return true;
+            }return false;
+        },
+
+        showCBCStatusIcon : function(bCBC){
+            if(!bCBC){
+                return true;
+            }return false;
+        },
+
+        showDCStatusIcon : function(bDC){
+            if(!bDC){
+                return true;
+            }return false;
+        },
+
         showStatusCIL : function(sStatus){
             if(sStatus === "INP"){
                 return "Information";
@@ -126,7 +146,7 @@ function (Dialog,TextArea,Button){
             }
         },
         
-        showStatusRefund : function(sStatus){
+        showStatusClosed : function(sStatus){
             if(sStatus === "INP"){
                 return "Information";
             } else if(sStatus === "PCILAPP"){
@@ -149,33 +169,10 @@ function (Dialog,TextArea,Button){
                 return "None";
             }
         },
-        showStatusPayment : function(sStatus){
-            if(sStatus === "INP"){
-                return "Information";
-            } else if(sStatus === "PCILAPP"){
-                return "Warning";
-            }else if(sStatus === "PCILAPP"){
-                return "Error";
-            }else if(sStatus === "CILA"){
+        showStatusHold : function(sStatus){
+            if(sStatus === "HLD"){
                 return "Success";
-            }else if(sStatus === "PFIAPP"){
-                return "Success";
-            }else if(sStatus === "CLSD"){
-                return "Information";
-            }else if(sStatus === "HLD"){
-                return "Information";
-            }else if(sStatus === "FRJ"){
-                return "Error";
-            }else if(sStatus === "PCLSD"){
-                return "Information";
-            }else{
-                return "None";
-            }
-        },
-
-        setIcon : function(){
-            sap.ui.core.IconPool.addIcon("CIL", "customfont", "icomoon", "e900");
-            return "./img/CIL.png";
+            }return "None";
         }
     
     });
