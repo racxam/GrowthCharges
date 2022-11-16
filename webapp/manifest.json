@@ -149,11 +149,25 @@
                             "type": "XML"
                         }
                     },
-                    "sap.suite.ui.generic.template.ObjectPage.view.Details": {}
+                    "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+                        "ReplaceHeaderFacet|zgc_c_requests|headerEditable::com.sap.vocabularies.UI.v1.FieldGroup::HeaderItems": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.AfterHeaderFacetExtFacet",
+                            "type": "XML"
+                        }
+                    }
                 },
                 "sap.ui.controllerExtensions": {
                     "sap.suite.ui.generic.template.ListReport.view.ListReport": {
                         "controllerName": "com.gc.dashboard.ext.controller.ListReportExt",
+                        "sap.ui.generic.app": {
+                            "zgc_c_requests": {
+                                "EntitySet": "zgc_c_requests"
+                            }
+                        }
+                    },
+                    "sap.suite.ui.generic.template.ListReport.view.Details": {
+                        "controllerName": "com.gc.dashboard.ext.controller.ObjPageDetailExt",
                         "sap.ui.generic.app": {
                             "zgc_c_requests": {
                                 "EntitySet": "zgc_c_requests"
