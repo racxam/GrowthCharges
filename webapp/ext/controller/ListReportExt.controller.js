@@ -6,7 +6,14 @@ sap.ui.define([
 function (Dialog,TextArea,Button){
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.ListReportExt", {
-      
+        onInit: function() {
+            var oMySmartFilterBar = this.getView().byId("listReportFilter");
+            var liveMode = oMySmartFilterBar.getLiveMode();
+            if(!liveMode) {
+                oMySmartFilterBar.setLiveMode(true);
+            }
+        },
+
         onPressComments: function (oEvent,sKey) {
             const oListCommentDialog = {"CIL":"","CBC":"","DC":""};
             let sFieldText = "";
