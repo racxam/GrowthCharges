@@ -223,17 +223,22 @@
                                         "navigationProperty": "to_dccal",
                                         "entitySet": "zgc_c_dc_calcltns",
                                         "createMode": "inline"
+                                    },
+                                    "ExemptionCBC-ID": {
+                                        "navigationProperty": "to_cbcexm",
+                                        "entitySet": "zgc_c_cbc_exm",
+                                        "createMode": "inline"
+                                    },
+                                    "InKindContr-ID": {
+                                        "navigationProperty": "to_cbckind",
+                                        "entitySet": "zgc_c_cbc_kind",
+                                        "createMode": "inline"
+                                    },
+                                    "DemoExm-ID": {
+                                        "navigationProperty": "to_cbcdem",
+                                        "entitySet": "zgc_c_cbc_dem",
+                                        "createMode": "inline"
                                     }
-                                }
-                            }
-                        },
-                        "pages": {
-                            "ObjectPage|to_dccal": {
-                                "navigationProperty": "to_dccal",
-                                "entitySet": "zgc_c_dc_calcltns",
-                                "defaultLayoutTypeIfExternalNavigation": "MidColumnFullScreen",
-                                "component": {
-                                    "name": "sap.suite.ui.generic.template.ObjectPage"
                                 }
                             }
                         },
