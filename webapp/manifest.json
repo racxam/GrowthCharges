@@ -201,6 +201,9 @@
                         "condensedTableLayout": true,
                         "smartVariantManagement": true,
                         "enableTableFilterInPageVariant": true,
+                        "dataLoadSettings": {
+                            "loadDataOnAppLaunch": "always"
+                        },
                         "filterSettings": {
                             "dateSettings": {
                                 "useDateRange": true
