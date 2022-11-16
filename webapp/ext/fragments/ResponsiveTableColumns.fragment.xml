@@ -8,7 +8,7 @@
     <Column>
         <Text text="{i18n>listColumnTextCBC_Comments}"/>
         <customData>
-            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn3&quot;, &quot;leadingProperty&quot;: &quot;cbccomments&quot;, &quot;columnIndex&quot;: &quot;8&quot;}"/>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn2&quot;, &quot;leadingProperty&quot;: &quot;cbccomments&quot;, &quot;columnIndex&quot;: &quot;8&quot;}"/>
         </customData>
     </Column>
     <Column>
@@ -17,10 +17,10 @@
             <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn3&quot;, &quot;leadingProperty&quot;: &quot;swm_comments&quot;, &quot;columnIndex&quot;: &quot;9&quot;}"/>
         </customData>
     </Column>
-    <Column importance="High">
+    <Column>
         <Text text="{i18n>listColumnTextStatus}"/>
         <customData>
-            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn3&quot;, &quot;leadingProperty&quot;: &quot;status&quot;, &quot;columnIndex&quot;: &quot;10&quot;}"/>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn4&quot;, &quot;leadingProperty&quot;: &quot;status&quot;, &quot;columnIndex&quot;: &quot;10&quot;}"/>
         </customData>
     </Column>
 </core:FragmentDefinition>
