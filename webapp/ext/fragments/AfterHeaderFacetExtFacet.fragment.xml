@@ -1,11 +1,10 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:commons="sap.suite.ui.commons" xmlns:l="sap.ui.layout" 
 xmlns:smartField="sap.ui.comp.smartfield">
-
 <VBox wrap="Wrap" fitContainer="true">
     <l:HorizontalLayout >
-        <ObjectStatus title="DC ID" text="{applicant_bp_id}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
+        <ObjectStatus title="DC ID" text="{request_id}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
         <ObjectStatus title="Permit Number" text="{permit}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
-        <ObjectStatus title="Address" text="{applicant_bp_id}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
+        <ObjectStatus title="Address" text="{street}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
         <ObjectStatus title="Is Deferral" text="{is_deferral_txt}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
     </l:HorizontalLayout>
     <commons:MicroProcessFlow>
@@ -18,17 +17,16 @@ xmlns:smartField="sap.ui.comp.smartfield">
             <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusDC1' }" >
             <commons:customControl>
                 <ObjectStatus text="DC" state="{ path: 'status', formatter: '.showStatusDC1' }" inverted="true"/>
-                </commons:customControl>
-                </commons:MicroProcessFlowItem> 
+            </commons:customControl>
+            </commons:MicroProcessFlowItem> 
             <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusCBC1' }" >
              <commons:customControl>
                 <ObjectStatus text="CBC" state="{ path: 'status', formatter: '.showStatusCBC1' }" inverted="true"/>
-                </commons:customControl>
-                 </commons:MicroProcessFlowItem> 
+            </commons:customControl>
+            </commons:MicroProcessFlowItem> 
             <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusClosed1' }" icon="sap-icon://paid-leave"/>  
-             <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusHold1' }" icon="sap-icon://media-pause"/>
+            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusHold1' }" icon="sap-icon://media-pause"/>
 		</commons:content>
-	</commons:MicroProcessFlow>
-				
+	</commons:MicroProcessFlow>	
 </VBox>
 </core:FragmentDefinition>
