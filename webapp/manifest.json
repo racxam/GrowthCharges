@@ -212,10 +212,7 @@
                                     "TotalDC-ID": {
                                         "navigationProperty": "to_dccal",
                                         "entitySet": "zgc_c_dc_calcltns",
-                                        "createMode": "inline",
-                                        "tableSettings": {
-                                            "type": "TreeTable"
-                                        }
+                                        "createMode": "inline"
                                     },
                                     "ExemptionCBC-ID": {
                                         "navigationProperty": "to_cbcexm",
