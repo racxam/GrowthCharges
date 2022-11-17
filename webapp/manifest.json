@@ -198,8 +198,7 @@
                     "settings": {
                         "condensedTableLayout": true,
                         "smartVariantManagement": true,
-                        "enableTableFilterInPageVariant": true,
-                        "tableType": "TreeTable"
+                        "enableTableFilterInPageVariant": true
                     }
                 },
                 "pages": {
@@ -213,7 +212,10 @@
                                     "TotalDC-ID": {
                                         "navigationProperty": "to_dccal",
                                         "entitySet": "zgc_c_dc_calcltns",
-                                        "createMode": "inline"
+                                        "createMode": "inline",
+                                        "tableSettings": {
+                                            "type": "TreeTable"
+                                        }
                                     },
                                     "ExemptionCBC-ID": {
                                         "navigationProperty": "to_cbcexm",
