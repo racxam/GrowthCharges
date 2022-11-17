@@ -89,7 +89,9 @@
                 "sap.suite.ui.generic.template": {}
             },
             "components": {
-                "sap.se.mi.plm.lib.attachmentservice.attachment.components.stcomponent": {"lazy":true}
+                "sap.se.mi.plm.lib.attachmentservice.attachment.components.stcomponent": {
+                    "lazy": true
+                }
             }
         },
         "componentUsages": {
@@ -185,11 +187,7 @@
             "objectPageHeaderType": "Dynamic",
             "considerAnalyticalParameters": true,
             "showDraftToggle": true,
-            "useColumnLayoutForSmartForm": false,
-            "flexibleColumnLayout": {
-                "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
-                "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
-            }
+            "useColumnLayoutForSmartForm": false
         },
         "pages": {
             "ListReport|zgc_c_requests": {
@@ -201,14 +199,7 @@
                         "condensedTableLayout": true,
                         "smartVariantManagement": true,
                         "enableTableFilterInPageVariant": true,
-                        "dataLoadSettings": {
-                            "loadDataOnAppLaunch": "always"
-                        },
-                        "filterSettings": {
-                            "dateSettings": {
-                                "useDateRange": true
-                            }
-                        }
+                        "tableType": "TreeTable"
                     }
                 },
                 "pages": {
@@ -286,7 +277,7 @@
                                     "objectType": "ZGC_APPRVL",
                                     "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
                                 }
-                            }                                                                                    
+                            }
                         }
                     }
                 }
