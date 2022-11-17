@@ -5,9 +5,9 @@ sap.ui.define([
 ],
 function (Dialog,TextArea,Button){
     "use strict";
-    return sap.ui.controller("com.gc.dashboard.ext.controller.ObjPageDetailExt", {
+    return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
 
-        showStatusCIL : function(sStatus){
+        showStatusCIL1 : function(sStatus){
             if(sStatus === "INP"){
                 return "Information";
             } else if(sStatus === "PCILAPP"){
@@ -30,7 +30,7 @@ function (Dialog,TextArea,Button){
                 return "None";
             }
         }, 
-        showStatusCBC : function(sStatus){
+        showStatusCBC1 : function(sStatus){
             if(sStatus === "INP"){
                 return "Information";
             } else if(sStatus === "PCILAPP"){
@@ -53,54 +53,7 @@ function (Dialog,TextArea,Button){
                 return "None";
             }
         }, 
-        showStatusDC : function(sStatus){
-            if(sStatus === "INP"){
-                return "Information";
-            } else if(sStatus === "PCILAPP"){
-                return "Warning";
-            }else if(sStatus === "PCILAPP"){
-                return "Error";
-            }else if(sStatus === "CILA"){
-                return "Success";
-            }else if(sStatus === "PFIAPP"){
-                return "Success";
-            }else if(sStatus === "CLSD"){
-                return "Information";
-            }else if(sStatus === "HLD"){
-                return "Information";
-            }else if(sStatus === "FRJ"){
-                return "Error";
-            }else if(sStatus === "PCLSD"){
-                return "Information";
-            }else{
-                return "None";
-            }
-        },
-        
-        showStatusRefund : function(sStatus){
-            if(sStatus === "INP"){
-                return "Information";
-            } else if(sStatus === "PCILAPP"){
-                return "Warning";
-            }else if(sStatus === "PCILAPP"){
-                return "Error";
-            }else if(sStatus === "CILA"){
-                return "Success";
-            }else if(sStatus === "PFIAPP"){
-                return "Success";
-            }else if(sStatus === "CLSD"){
-                return "Information";
-            }else if(sStatus === "HLD"){
-                return "Information";
-            }else if(sStatus === "FRJ"){
-                return "Error";
-            }else if(sStatus === "PCLSD"){
-                return "Information";
-            }else{
-                return "None";
-            }
-        },
-        showStatusPayment : function(sStatus){
+        showStatusDC1 : function(sStatus){
             if(sStatus === "INP"){
                 return "Information";
             } else if(sStatus === "PCILAPP"){
@@ -124,9 +77,33 @@ function (Dialog,TextArea,Button){
             }
         },
 
-        setIcon : function(){
-            sap.ui.core.IconPool.addIcon("CIL", "customfont", "icomoon", "e900");
-            return "./img/CIL.png";
+        showStatusClosed1 : function(sStatus){
+            if(sStatus === "INP"){
+                return "Information";
+            } else if(sStatus === "PCILAPP"){
+                return "Warning";
+            }else if(sStatus === "PCILAPP"){
+                return "Error";
+            }else if(sStatus === "CILA"){
+                return "Success";
+            }else if(sStatus === "PFIAPP"){
+                return "Success";
+            }else if(sStatus === "CLSD"){
+                return "Information";
+            }else if(sStatus === "HLD"){
+                return "Information";
+            }else if(sStatus === "FRJ"){
+                return "Error";
+            }else if(sStatus === "PCLSD"){
+                return "Information";
+            }else{
+                return "None";
+            }
+        },
+        showStatusHold1 : function(sStatus){
+            if(sStatus === "HLD"){
+                return "Success";
+            }return "None";
         }
     
     });

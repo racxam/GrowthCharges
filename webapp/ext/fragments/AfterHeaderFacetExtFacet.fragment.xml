@@ -2,41 +2,33 @@
 xmlns:smartField="sap.ui.comp.smartfield">
 
 <VBox wrap="Wrap" fitContainer="true">
-				<l:HorizontalLayout >
-					
-				</l:HorizontalLayout>
-				<commons:MicroProcessFlow>
-					<commons:content>
-						      <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusCIL' }"  >
-             <commons:customControl>
-             <!-- icon="./img/CIL.png" -->
-                <ObjectStatus text="CIL" state="{ path: 'status', formatter: '.showStatusCIL' }" />
-                </commons:customControl>
-                </commons:MicroProcessFlowItem> 
-            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusDC' }" >
+    <l:HorizontalLayout >
+        <ObjectStatus title="DC ID" text="{applicant_bp_id}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
+        <ObjectStatus title="Permit Number" text="{permit}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
+        <ObjectStatus title="Address" text="{applicant_bp_id}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
+        <ObjectStatus title="Is Deferral" text="{is_deferral_txt}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
+    </l:HorizontalLayout>
+    <commons:MicroProcessFlow>
+		<commons:content>
+			<commons:MicroProcessFlowItem  state="{ path: 'status', formatter: '.showStatusCIL1' }">
             <commons:customControl>
-            <!--icon="./img/CIL.png"-->
-                <ObjectStatus text="DC" state="{ path: 'status', formatter: '.showStatusDC' }" />
+                <ObjectStatus text="CIL"  state="{ path: 'status', formatter: '.showStatusCIL1' }" inverted="true"/>
+            </commons:customControl>
+            </commons:MicroProcessFlowItem> 
+            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusDC1' }" >
+            <commons:customControl>
+                <ObjectStatus text="DC" state="{ path: 'status', formatter: '.showStatusDC1' }" inverted="true"/>
                 </commons:customControl>
                 </commons:MicroProcessFlowItem> 
-            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusCBC' }" >
+            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusCBC1' }" >
              <commons:customControl>
-             <!--icon="./img/CIL.png"-->
-                <ObjectStatus text="CBC" state="{ path: 'status', formatter: '.showStatusCBC' }" />
+                <ObjectStatus text="CBC" state="{ path: 'status', formatter: '.showStatusCBC1' }" inverted="true"/>
                 </commons:customControl>
                  </commons:MicroProcessFlowItem> 
-            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusRefund' }" icon="sap-icon://opportunities"/>
-            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusPayment' }" icon="sap-icon://paid-leave">
-            <commons:customControl>
-                <!-- <Image width="30%" src="./img/CIL.png"/> -->
-                <!-- <ObjectStatus
-			class="sapUiSmallMarginBottom"
-			text="CIL"
-			icon="./img/CIL.png"
-			state="{ path: 'status', formatter: '.showStatusPayment' }" /> -->
-                </commons:customControl>
-            </commons:MicroProcessFlowItem>   
-					</commons:content>
-				</commons:MicroProcessFlow>
-			</VBox>
+            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusClosed1' }" icon="sap-icon://paid-leave"/>  
+             <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusHold1' }" icon="sap-icon://media-pause"/>
+		</commons:content>
+	</commons:MicroProcessFlow>
+				
+</VBox>
 </core:FragmentDefinition>
