@@ -219,6 +219,11 @@
                                         "entitySet": "zgc_c_dc_demos",
                                         "createMode": "inline"
                                     },
+                                    "DCExemption-ID": {
+                                        "navigationProperty": "to_exemptions",
+                                        "entitySet": "zgc_c_dc_exms",
+                                        "createMode": "inline"
+                                    },
                                     "ExemptionCBC-ID": {
                                         "navigationProperty": "to_cbcexm",
                                         "entitySet": "zgc_c_cbc_exm",
