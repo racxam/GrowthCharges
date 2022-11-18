@@ -12,6 +12,13 @@ function (Dialog,TextArea,Button){
             if(!liveMode) {
                 oMySmartFilterBar.setLiveMode(true);
             }
+
+            // Share Button
+            const oShareBtn = this.getView().byId(
+                "com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--template::Share"
+            );
+            oShareBtn.setVisible(false);
+            
         },
 
         onPressComments: function (oEvent,sKey) {
