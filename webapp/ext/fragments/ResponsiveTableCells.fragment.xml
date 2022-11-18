@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:commons="sap.suite.ui.commons">
-    <Button icon="sap-icon://comment" press=".onPressComments($event,'DC')"/>
-    <Button icon="sap-icon://comment" press=".onPressComments($event,'CBC')"/>
-    <Button icon="sap-icon://comment" press=".onPressComments($event,'CIL')"/>
+    <Button icon="sap-icon://comment" visible="{  path: 'dc_int_comments_sap' ,formatter: '.showDCComments' }" press=".onPressComments($event,'DC')"/>
+    <Button icon="sap-icon://comment" visible="{  path: 'cbcComments' ,formatter: '.showCBCComments' }" press=".onPressComments($event,'CBC')"/>
+    <Button icon="sap-icon://comment" visible="{  path: 'cilComments' ,formatter: '.showCILComments' }" press=".onPressComments($event,'CIL')"/>
     <commons:MicroProcessFlow>
         <commons:content>
             <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusCIL' }" visible="{ path: 'cil_applicable' ,formatter: '.showCILStatusIcon' }" >

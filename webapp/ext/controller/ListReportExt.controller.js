@@ -173,6 +173,27 @@ function (Dialog,TextArea,Button){
             if(sStatus === "HLD"){
                 return "Success";
             }return "None";
+        },
+
+        showDCComments : function(sComments){
+            if(sComments){
+                return true;
+            }
+            return false;
+        },
+
+        showCBCComments : function(sComments){
+            if(sComments){
+                return true;
+            }
+            return false;
+        },
+
+        showCILComments : function(sComments){
+            if(sComments){
+                return true;
+            }
+            return false;
         }
     
     });
