@@ -214,6 +214,11 @@
                                         "entitySet": "zgc_c_dc_calcltns",
                                         "createMode": "inline"
                                     },
+                                    "DemolitionCred-ID": {
+                                        "navigationProperty": "to_demos",
+                                        "entitySet": "zgc_c_dc_demos",
+                                        "createMode": "inline"
+                                    },
                                     "ExemptionCBC-ID": {
                                         "navigationProperty": "to_cbcexm",
                                         "entitySet": "zgc_c_cbc_exm",
