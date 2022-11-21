@@ -31,6 +31,7 @@ server:
         backend:
           - path: /sap
             url: http://s4devci91vml.civic.mississauga.ca:8000
+            client: '200'
     - name: sap-fe-mockserver
       beforeMiddleware: csp
       configuration:
