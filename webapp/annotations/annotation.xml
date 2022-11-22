@@ -10,6 +10,12 @@
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
             </Annotations>
+            <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsSubmit">
+                <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
+            </Annotations>
+             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsCreate_new_version">
+                <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
+            </Annotations>
         <Annotations Target="SAP.zgc_c_requestsType">
             <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="InvCalcDateChanged">            
                 <Record>            
