@@ -215,7 +215,8 @@
                                     "DemolitionCred-ID": {
                                         "navigationProperty": "to_demos",
                                         "entitySet": "zgc_c_dc_demos",
-                                        "createMode": "inline"
+                                        "createMode": "inline",
+                                        "tableType": "TreeTable"
                                     },
                                     "DCExemption-ID": {
                                         "navigationProperty": "to_exemptions",
