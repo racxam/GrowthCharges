@@ -195,7 +195,13 @@
                     "settings": {
                         "condensedTableLayout": true,
                         "smartVariantManagement": true,
-                        "enableTableFilterInPageVariant": true
+                        "enableTableFilterInPageVariant": true,
+                        "filterSettings": {
+                            "showClearButton": true,
+                            "dateSettings" :{
+                                "useDateRange": true
+                            }
+                        }
                     }
                 },
                 "pages": {
@@ -249,8 +255,8 @@
                                 "leadingSectionIdOrPath": "CBC",
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
-                                    "objectType": "ZGC_APPRVL",
-                                    "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
+                                    "objectType": "ZGC_INV_OP",
+                                    "objectKey": "{parts:[{path:'VERSION'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
                                 }
                             },
                             "DevelopmentCharges::Attachments": {
@@ -260,7 +266,7 @@
                                 "leadingSectionIdOrPath": "DevelopmentCharges",
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
-                                    "objectType": "ZGC_APPRVL",
+                                    "objectType": "ZGC_INV_OP",
                                     "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
                                 }
                             },
@@ -271,7 +277,7 @@
                                 "leadingSectionIdOrPath": "CIL",
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
-                                    "objectType": "ZGC_APPRVL",
+                                    "objectType": "ZGC_INV_OP",
                                     "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
                                 }
                             },
@@ -282,7 +288,7 @@
                                 "leadingSectionIdOrPath": "InPayRef",
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
-                                    "objectType": "ZGC_APPRVL",
+                                    "objectType": "ZGC_INV_OP",
                                     "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
                                 }
                             }
