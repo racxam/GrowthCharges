@@ -13,6 +13,8 @@ function (Dialog,TextArea,Button){
                 oMySmartFilterBar.setLiveMode(true);
             }
 
+            oMySmartFilterBar.setShowClearOnFB(true);
+
             // Share Button
             const oShareBtn = this.getView().byId(
                 "com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--template::Share"
