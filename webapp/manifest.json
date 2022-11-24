@@ -184,7 +184,11 @@
             "objectPageHeaderType": "Dynamic",
             "considerAnalyticalParameters": true,
             "showDraftToggle": true,
-            "useColumnLayoutForSmartForm": false
+            "useColumnLayoutForSmartForm": false,
+            "flexibleColumnLayout": {
+                "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+                "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+            }
         },
         "pages": {
             "ListReport|zgc_c_requests": {
@@ -198,7 +202,7 @@
                         "enableTableFilterInPageVariant": true,
                         "filterSettings": {
                             "showClearButton": true,
-                            "dateSettings" :{
+                            "dateSettings": {
                                 "useDateRange": true
                             }
                         }
@@ -258,22 +262,22 @@
                                     "objectType": "ZGC_INV_OP",
                                     "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter: 'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getCBCObjectKey'}",
                                     "attributeHandling": {
-										"_VisibleAttributes": {
-											"UPLOADEDBY": true,
-											"UPLOADEDON": true,
-											"FILESIZE": true,
-											"ENABLELINK": true,
-											"ATTACHMENTSTATUS": true,
-											"ATTACHMENTTITLE": true,
-											"SOURCE": false,
-											"DIRDETAILS": true
-										},
-										"_VisibleActions": {
-											"RENAME": true,
-											"DELETE": true,
-											"ADD": true
-										}
-									}
+                                        "_VisibleAttributes": {
+                                            "UPLOADEDBY": true,
+                                            "UPLOADEDON": true,
+                                            "FILESIZE": true,
+                                            "ENABLELINK": true,
+                                            "ATTACHMENTSTATUS": true,
+                                            "ATTACHMENTTITLE": true,
+                                            "SOURCE": false,
+                                            "DIRDETAILS": true
+                                        },
+                                        "_VisibleActions": {
+                                            "RENAME": true,
+                                            "DELETE": true,
+                                            "ADD": true
+                                        }
+                                    }
                                 }
                             },
                             "DevelopmentCharges::Attachments": {
