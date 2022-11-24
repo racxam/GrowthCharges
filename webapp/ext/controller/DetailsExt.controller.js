@@ -1,9 +1,6 @@
-sap.ui.define([
-    "sap/m/Dialog",
-    "sap/m/TextArea",
-    "sap/m/Button"
-],
-function (Dialog,TextArea,Button){
+jQuery.sap.require("com.gc.dashboard.ext.formatter.ObjectPageFormatter");
+sap.ui.define([],
+function (){
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
         onInit: function() {
@@ -78,7 +75,6 @@ function (Dialog,TextArea,Button){
                 return "None";
             }
         },
-
         showStatusClosed1 : function(sStatus){
             if(sStatus === "INP"){
                 return "Information";
@@ -106,8 +102,7 @@ function (Dialog,TextArea,Button){
             if(sStatus === "HLD"){
                 return "Success";
             }return "None";
-        }
-    
+        }    
     });
     });
     

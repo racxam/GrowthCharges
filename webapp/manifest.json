@@ -256,7 +256,24 @@
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
                                     "objectType": "ZGC_INV_OP",
-                                    "objectKey": "{parts:[{path:'VERSION'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter: 'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getCBCObjectKey'}",
+                                    "attributeHandling": {
+										"_VisibleAttributes": {
+											"UPLOADEDBY": true,
+											"UPLOADEDON": true,
+											"FILESIZE": true,
+											"ENABLELINK": true,
+											"ATTACHMENTSTATUS": true,
+											"ATTACHMENTTITLE": true,
+											"SOURCE": false,
+											"DIRDETAILS": true
+										},
+										"_VisibleActions": {
+											"RENAME": true,
+											"DELETE": true,
+											"ADD": true
+										}
+									}
                                 }
                             },
                             "DevelopmentCharges::Attachments": {
@@ -267,7 +284,7 @@
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
                                     "objectType": "ZGC_INV_OP",
-                                    "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getDCObjectKey'}"
                                 }
                             },
                             "CIL::Attachments": {
@@ -278,7 +295,7 @@
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
                                     "objectType": "ZGC_INV_OP",
-                                    "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getCILObjectKey'}"
                                 }
                             },
                             "InPayRef::Attachments": {
@@ -289,7 +306,7 @@
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
                                     "objectType": "ZGC_INV_OP",
-                                    "objectKey": "{parts:[{path:'Travreq'},{path:'DraftUUID'}],formatter:'com.sap.fiori.travel.model.formatter.returnAttachmentKey'}"
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getPayObjectKey'}"
                                 }
                             }
                         }
