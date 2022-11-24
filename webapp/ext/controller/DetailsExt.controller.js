@@ -106,7 +106,16 @@ function (Dialog,TextArea,Button){
             if(sStatus === "HLD"){
                 return "Success";
             }return "None";
+        },
+
+        beforeLineItemDeleteExtension : function(oBeforeLineItemDeleteProperties){
+            const oMessageText = {
+                text: "Are you sure you want to delete the row? This action cannot be undone."
+            };
+            return oMessageText;
         }
+
+
     
     });
     });
