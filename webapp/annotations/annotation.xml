@@ -69,7 +69,21 @@
                         </Collection>       
                   </PropertyValue>     
                 </Record>            
-            </Annotation>          
+            </Annotation>  
+            <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CILCappedRateChanged">            
+                <Record>            
+                    <PropertyValue Property="SourceProperties">            
+                        <Collection>            
+                            <PropertyPath>cil_capped_rate</PropertyPath>            
+                        </Collection>            
+                    </PropertyValue>            
+                    <PropertyValue Property="TargetProperties">            
+                        <Collection>
+                            <String>cil_capped_to_date</String>
+                        </Collection>       
+                  </PropertyValue>     
+                </Record>            
+            </Annotation>         
         </Annotations>
         <Annotations Target="SAP.zgc_c_cil_calType">
             <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="UnitsChanged">            
@@ -103,8 +117,6 @@
             </Record>
             </Annotation>         
         </Annotations>
-        
         </Schema>
     </edmx:DataServices>
- 
 </edmx:Edmx>

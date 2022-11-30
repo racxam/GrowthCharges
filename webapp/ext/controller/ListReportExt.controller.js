@@ -20,6 +20,12 @@ function (Dialog,TextArea,Button){
                 "com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--template::Share"
             );
             oShareBtn.setVisible(false);
+
+            // const oShowHideBtn = this.getView().byId(
+            //     "com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--listReport-btnShowHideDetails"
+            // );
+            // oShowHideBtn.setVisible(false);
+            
             
         },
 

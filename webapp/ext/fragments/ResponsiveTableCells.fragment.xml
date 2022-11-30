@@ -1,27 +1,41 @@
-<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:commons="sap.suite.ui.commons">
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:commons="sap.suite.ui.commons">
     <Button icon="sap-icon://comment" visible="{  path: 'dc_int_comments_sap' ,formatter: '.showDCComments' }" press=".onPressComments($event,'DC')"/>
     <Button icon="sap-icon://comment" visible="{  path: 'cbcComments' ,formatter: '.showCBCComments' }" press=".onPressComments($event,'CBC')"/>
     <Button icon="sap-icon://comment" visible="{  path: 'cilComments' ,formatter: '.showCILComments' }" press=".onPressComments($event,'CIL')"/>
     <commons:MicroProcessFlow>
         <commons:content>
-            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusCIL' }" visible="{ path: 'cil_applicable' ,formatter: '.showCILStatusIcon' }" >
-             <commons:customControl>
-                <ObjectStatus text="CIL" state="{ path: 'status', formatter: '.showStatusCIL' }" inverted="true"/>
+            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusCIL' }" visible="{ path: 'cil_applicable' ,formatter: '.showCILStatusIcon' }">
+                <commons:customControl>
+                    <ObjectStatus text="CIL" state="{ path: 'status', formatter: '.showStatusCIL' }" inverted="true"/>
                 </commons:customControl>
-                </commons:MicroProcessFlowItem> 
+            </commons:MicroProcessFlowItem>
             <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusDC' }" visible="{  path: 'dc_applicable' ,formatter: '.showDCStatusIcon' }">
-            <commons:customControl>
-                <ObjectStatus text="DC" state="{ path: 'status', formatter: '.showStatusDC' }" inverted="true"/>
+                <commons:customControl>
+                    <ObjectStatus text="DC" state="{ path: 'status', formatter: '.showStatusDC' }" inverted="true"/>
                 </commons:customControl>
-                </commons:MicroProcessFlowItem> 
+            </commons:MicroProcessFlowItem>
             <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusCBC' }" visible="{  path: 'cbc_applicable' ,formatter: '.showCBCStatusIcon' }">
-             <commons:customControl>
-                <ObjectStatus text="CBC" state="{ path: 'status', formatter: '.showStatusCBC' }" inverted="true"/>
+                <commons:customControl>
+                    <ObjectStatus text="CBC" state="{ path: 'status', formatter: '.showStatusCBC' }" inverted="true"/>
                 </commons:customControl>
-                 </commons:MicroProcessFlowItem> 
-           
-            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusClosed' }" icon="sap-icon://paid-leave"/>  
-             <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusHold' }" icon="sap-icon://media-pause"/>
+            </commons:MicroProcessFlowItem>
+
+            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusClosed' }" visible="{  path: 'cbc_applicable' ,formatter: '.showCBCStatusIcon' }">
+                <commons:customControl>
+                    <ObjectStatus text="CLSD" state="{ path: 'status', formatter: '.showStatusClosed' }" inverted="true"/>
+                </commons:customControl>
+            </commons:MicroProcessFlowItem>
+
+            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusHold' }" visible="{  path: 'cbc_applicable' ,formatter: '.showCBCStatusIcon' }">
+                <commons:customControl>
+                    <ObjectStatus text="HOLD" state="{ path: 'status', formatter: '.showStatusHold' }" inverted="true"/>
+                </commons:customControl>
+            </commons:MicroProcessFlowItem>
+
+            <!-- <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusClosed' }" icon="sap-icon://paid-leave"/>
+            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusHold' }" icon="sap-icon://media-pause"/> -->
         </commons:content>
     </commons:MicroProcessFlow>
 </core:FragmentDefinition>
