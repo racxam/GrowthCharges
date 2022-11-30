@@ -36,4 +36,5 @@ com.gc.dashboard.ext.formatter.ObjectPageFormatter = {
         }            
         return sObjectKey;
     }
+    
 	};

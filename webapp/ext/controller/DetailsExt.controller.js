@@ -6,7 +6,14 @@ function (){
         onInit: function() {
             var oTable = this.getView().getContent()[0].getAggregation("sections")[2].getSubSections()[1].getBlocks()[0].getContent()[0];
         },
-        showStatusCIL1 : function(sStatus){
+
+        /**
+         * Formatter to control state of CIL Processflow
+         * @public
+         * @param {string} sStatus value
+         * @returns {state} State
+         */
+        getStatusStateForCIL : function(sStatus){
             if(sStatus === "INP"){
                 return "Information";
             } else if(sStatus === "PCILAPP"){
@@ -29,7 +36,14 @@ function (){
                 return "None";
             }
         }, 
-        showStatusCBC1 : function(sStatus){
+
+        /**
+         * Formatter to control state of CBC Processflow
+         * @public
+         * @param {string} sStatus value
+         * @returns {state} State
+         */
+        getStatusStateForCBC : function(sStatus){
             if(sStatus === "INP"){
                 return "Information";
             } else if(sStatus === "PCILAPP"){
@@ -52,7 +66,14 @@ function (){
                 return "None";
             }
         }, 
-        showStatusDC1 : function(sStatus){
+
+        /**
+         * Formatter to control state of DC Processflow
+         * @public
+         * @param {string} sStatus value
+         * @returns {state} State
+         */
+        getStatusStateForDC : function(sStatus){
             if(sStatus === "INP"){
                 return "Information";
             } else if(sStatus === "PCILAPP"){
@@ -75,7 +96,14 @@ function (){
                 return "None";
             }
         },
-        showStatusClosed1 : function(sStatus){
+
+        /**
+         * Formatter to control state of Closed Processflow
+         * @public
+         * @param {string} sStatus value
+         * @returns {state} State
+         */
+        getStatusStateForClosed : function(sStatus){
             if(sStatus === "INP"){
                 return "Information";
             } else if(sStatus === "PCILAPP"){
@@ -98,11 +126,25 @@ function (){
                 return "None";
             }
         },
-        showStatusHold1 : function(sStatus){
+
+        /**
+         * Formatter to control state of Hold Processflow
+         * @public
+         * @param {string} sStatus value
+         * @returns {state} State
+         */
+        getStatusStateForHold : function(sStatus){
             if(sStatus === "HLD"){
                 return "Success";
             }return "None";
         },
+
+        /**
+         * Method to return Confirmation Message(Delete)
+         * @public
+         * @param {event} oBeforeLineItemDeleteProperties s
+         * @returns {msg} oMessageText
+         */
         beforeLineItemDeleteExtension : function(oBeforeLineItemDeleteProperties){
             const oMessageText = {
                 text: "Are you sure you want to delete the row? This action cannot be undone."

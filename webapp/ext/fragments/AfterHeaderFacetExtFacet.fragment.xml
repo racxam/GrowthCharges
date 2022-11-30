@@ -2,31 +2,40 @@
 xmlns:smartField="sap.ui.comp.smartfield">
 <VBox id="_IDGenVBox1" wrap="Wrap" fitContainer="true">
     <l:HorizontalLayout id="_IDGenHorizontalLayout1" >
-         <ObjectStatus id="_IDGenObjectStatus0" title="Version" text="{version}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
-        <ObjectStatus id="_IDGenObjectStatus1" title="DC ID" text="{request_id}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
-        <ObjectStatus id="_IDGenObjectStatus2" title="Permit Number" text="{permit}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
-        <ObjectStatus id="_IDGenObjectStatus3" title="Address" text="{street}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
-        <ObjectStatus id="_IDGenObjectStatus4" title="Is Deferral" text="{is_deferral_txt}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
+         <ObjectStatus id="_IDGenObjectStatus0" title="{i18n>objHeaderTextVersion}" text="{version}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
+        <ObjectStatus id="_IDGenObjectStatus1" title="{i18n>objHeaderTextDCID}" text="{request_id}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
+        <ObjectStatus id="_IDGenObjectStatus2" title="{i18n>objHeaderTextPermitNo}" text="{permit}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
+        <ObjectStatus id="_IDGenObjectStatus3" title="{i18n>objHeaderTextAddress}" text="{street}" class="sapUiMediumMarginBegin sapUiMediumMarginBottom"/>
     </l:HorizontalLayout>
     <commons:MicroProcessFlow id="_IDGenMicroProcessFlow1">
 		<commons:content>
-			<commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem1"  state="{ path: 'status', formatter: '.showStatusCIL1' }">
+			<commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem1" >
             <commons:customControl>
-                <ObjectStatus id="_IDGenObjectStatus5" text="CIL"  state="{ path: 'status', formatter: '.showStatusCIL1' }" inverted="true"/>
+                <ObjectStatus id="_IDGenObjectStatus5" text="{i18n>titleCIL}" state="{ path: 'status', formatter: '.getStatusStateForCIL' }" inverted="true"/>
             </commons:customControl>
             </commons:MicroProcessFlowItem> 
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem2" state="{ path: 'status', formatter: '.showStatusDC1' }" >
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem2" >
             <commons:customControl>
-                <ObjectStatus id="_IDGenObjectStatus6" text="DC" state="{ path: 'status', formatter: '.showStatusDC1' }" inverted="true"/>
+                <ObjectStatus id="_IDGenObjectStatus6" text="{i18n>titleDC}" state="{ path: 'status', formatter: '.getStatusStateForDC' }" inverted="true"/>
             </commons:customControl>
             </commons:MicroProcessFlowItem> 
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem3" state="{ path: 'status', formatter: '.showStatusCBC1' }" >
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem3">
              <commons:customControl>
-                <ObjectStatus id="_IDGenObjectStatus7" text="CBC" state="{ path: 'status', formatter: '.showStatusCBC1' }" inverted="true"/>
+                <ObjectStatus id="_IDGenObjectStatus7" text="{i18n>titleCBC}" state="{ path: 'status', formatter: '.getStatusStateForCBC' }" inverted="true"/>
             </commons:customControl>
             </commons:MicroProcessFlowItem> 
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" state="{ path: 'status', formatter: '.showStatusClosed1' }" icon="sap-icon://paid-leave"/>  
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5" state="{ path: 'status', formatter: '.showStatusHold1' }" icon="sap-icon://media-pause"/>
+             <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4">
+             <commons:customControl>
+                <ObjectStatus id="_IDGenObjectStatus8" text="{i18n>titleClosed}" state="{ path: 'status', formatter: '.getStatusStateForClosed' }" inverted="true"/>
+            </commons:customControl>
+            </commons:MicroProcessFlowItem> 
+             <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5">
+             <commons:customControl>
+                <ObjectStatus id="_IDGenObjectStatus9" text="{i18n>titleHold}" state="{ path: 'status', formatter: '.getStatusStateForHold' }" inverted="true"/>
+            </commons:customControl>
+            </commons:MicroProcessFlowItem> 
+            <!-- <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" state="{ path: 'status', formatter: '.showStatusClosed1' }" icon="sap-icon://paid-leave"/>  
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5" state="{ path: 'status', formatter: '.showStatusHold1' }" icon="sap-icon://media-pause"/> -->
 		</commons:content>
 	</commons:MicroProcessFlow>	
 </VBox>
