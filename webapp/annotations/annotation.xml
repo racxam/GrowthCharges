@@ -1,4 +1,7 @@
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
         <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
     </edmx:Reference>
@@ -10,113 +13,120 @@
     </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+            <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requests">
+                <Annotation Term="Org.OData.Capabilities.V1.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
             </Annotations>
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsSubmit">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
             </Annotations>
-             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsCreate_new_version">
+            <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsCreate_new_version">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
             </Annotations>
-        <Annotations Target="SAP.zgc_c_requestsType">
-            <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="InvCalcDateChanged">            
-                <Record>            
-                    <PropertyValue Property="SourceProperties">            
-                        <Collection>            
-                            <PropertyPath>invoice_calculation_date</PropertyPath>            
-                        </Collection>            
-                    </PropertyValue>            
-                  <PropertyValue Property="TargetEntities">            
-                     <Collection>            
-                        <NavigationPropertyPath>to_dccal</NavigationPropertyPath>            
-                     </Collection>            
-                  </PropertyValue>     
-                </Record>            
-            </Annotation>          
-        </Annotations>   
-             
-        <Annotations Target="SAP.zgc_c_cil_calType"  >
-            <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="BuildingTypeChanged" >
-                <Record>
-                    <PropertyValue Property="SourceProperties">            
-                        <Collection>            
-                            <PropertyPath>cil_build_type</PropertyPath>
-                            <PropertyPath>res_type</PropertyPath>        
-                            <PropertyPath>nres_type</PropertyPath>     
-                        </Collection>
-                    </PropertyValue>            
-                  <PropertyValue Property="TargetEntities">            
-                     <Collection>            
-                        <NavigationPropertyPath></NavigationPropertyPath>            
-                     </Collection>            
-                  </PropertyValue>                      
-                </Record>
-            </Annotation>        
-        </Annotations>
-        <Annotations Target="SAP.zgc_c_cil_calType">
-            <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects">            
-                <Record>            
-                    <PropertyValue Property="SourceProperties">            
-                        <Collection>            
-                            <PropertyPath>cil_build_type</PropertyPath>            
-                        </Collection>            
-                    </PropertyValue>            
-                    <PropertyValue Property="TargetProperties">            
-                        <Collection>
-                            <String>res_type</String>
-                            <String>nres_type</String>
-                        </Collection>       
-                  </PropertyValue>     
-                </Record>            
-            </Annotation>  
-            <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CILCappedRateChanged">            
-                <Record>            
-                    <PropertyValue Property="SourceProperties">            
-                        <Collection>            
-                            <PropertyPath>cil_capped_rate</PropertyPath>            
-                        </Collection>            
-                    </PropertyValue>            
-                    <PropertyValue Property="TargetProperties">            
-                        <Collection>
-                            <String>cil_capped_to_date</String>
-                        </Collection>       
-                  </PropertyValue>     
-                </Record>            
-            </Annotation>         
-        </Annotations>
-        <Annotations Target="SAP.zgc_c_cil_calType">
-            <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="UnitsChanged">            
-                <Record>            
-                    <PropertyValue Property="SourceProperties">            
-                        <Collection>            
-                            <PropertyPath>new_units</PropertyPath>        
-                            <PropertyPath>exst_units</PropertyPath>   
-                            <PropertyPath>demo_units</PropertyPath>   
-                            <PropertyPath>oth_cr_units</PropertyPath>   
-                            <PropertyPath>exm_units</PropertyPath>       
-                        </Collection>            
-                    </PropertyValue>            
-                    <PropertyValue Property="TargetProperties">            
-                        <Collection>
-                            <String>total_units</String>
-                        </Collection>       
-                  </PropertyValue>     
-                </Record>            
-            </Annotation>  
-            <Annotation Term="UI.FieldGroup" Qualifier="resi_low_hidden">
-            <Record Type="UI.FieldGroupType">
-                <PropertyValue property="Data">
-                        <Collection >
-                            <Record Type="UI.DataField" >
-                                <PropertyValue Property="Value" path="nres_type" />
-                                <Annotation Term="UI.Hidden" bool="true" />
-                            </Record>
-                        </Collection>
-                </PropertyValue>
-            </Record>
-            </Annotation>         
-        </Annotations>
+            <Annotations Target="SAP.zgc_c_requestsType">
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="InvCalcDateChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>invoice_calculation_date</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="SAP.zgc_c_cil_calType">
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="BuildingTypeChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>cil_build_type</PropertyPath>
+                                <PropertyPath>res_type</PropertyPath>
+                                <PropertyPath>nres_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath></NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_cil_calType">
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>cil_build_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>res_type</String>
+                                <String>nres_type</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CILCappedRateChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>cil_capped_rate</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>cil_capped_to_date</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_cil_calType">
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="UnitsChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>new_units</PropertyPath>
+                                <PropertyPath>exst_units</PropertyPath>
+                                <PropertyPath>demo_units</PropertyPath>
+                                <PropertyPath>oth_cr_units</PropertyPath>
+                                <PropertyPath>exm_units</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>total_units</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="resi_low_hidden">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue property="Data">
+                            <Collection >
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" path="nres_type" />
+                                    <Annotation Term="UI.Hidden" bool="true" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>
