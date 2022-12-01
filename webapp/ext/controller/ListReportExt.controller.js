@@ -12,21 +12,7 @@ function (Dialog,TextArea,Button){
             if(!liveMode) {
                 oMySmartFilterBar.setLiveMode(true);
             }
-
-            oMySmartFilterBar.setShowClearOnFB(true);
-
-            // Share Button
-            const oShareBtn = this.getView().byId(
-                "com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--template::Share"
-            );
-            oShareBtn.setVisible(false);
-
-            // const oShowHideBtn = this.getView().byId(
-            //     "com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--listReport-btnShowHideDetails"
-            // );
-            // oShowHideBtn.setVisible(false);
-            
-            
+            oMySmartFilterBar.setShowClearOnFB(true);  
         },
 
         onPressComments: function (oEvent,sKey) {
