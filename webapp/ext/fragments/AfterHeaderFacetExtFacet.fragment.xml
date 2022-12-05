@@ -34,8 +34,8 @@ xmlns:smartField="sap.ui.comp.smartfield">
                 <ObjectStatus id="_IDGenObjectStatus9" text="{i18n>titleHold}" state="{ path: 'status', formatter: '.getStatusStateForHold' }" inverted="true"/>
             </commons:customControl>
             </commons:MicroProcessFlowItem> 
-            <!-- <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" state="{ path: 'status', formatter: '.showStatusClosed1' }" icon="sap-icon://paid-leave"/>  
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5" state="{ path: 'status', formatter: '.showStatusHold1' }" icon="sap-icon://media-pause"/> -->
+            <!-- <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" state="{ path: 'status', formatter: '.getStatusStateForClosed' }" icon="sap-icon://paid-leave"/>  
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5" state="{ path: 'status', formatter: '.getStatusStateForHold' }" icon="sap-icon://media-pause"/> -->
 		</commons:content>
 	</commons:MicroProcessFlow>	
 </VBox>

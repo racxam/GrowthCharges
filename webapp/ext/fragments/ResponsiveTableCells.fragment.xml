@@ -1,36 +1,36 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core"
     xmlns="sap.m"
     xmlns:commons="sap.suite.ui.commons">
-    <Button icon="sap-icon://comment" visible="{  path: 'dc_int_comments_sap' ,formatter: '.showDCComments' }" press=".onPressComments($event,'DC')"/>
-    <Button icon="sap-icon://comment" visible="{  path: 'cbcComments' ,formatter: '.showCBCComments' }" press=".onPressComments($event,'CBC')"/>
-    <Button icon="sap-icon://comment" visible="{  path: 'cilComments' ,formatter: '.showCILComments' }" press=".onPressComments($event,'CIL')"/>
-    <commons:MicroProcessFlow>
+    <Button id="_IDGenButton1" icon="sap-icon://comment" visible="{  path: 'dc_int_comments_sap' ,formatter: '.showDCComments' }" press=".onPressComments($event,'DC')"/>
+    <Button id="_IDGenButton2" icon="sap-icon://comment" visible="{  path: 'cbcComments' ,formatter: '.showCBCComments' }" press=".onPressComments($event,'CBC')"/>
+    <Button id="_IDGenButton3" icon="sap-icon://comment" visible="{  path: 'cilComments' ,formatter: '.showCILComments' }" press=".onPressComments($event,'CIL')"/>
+    <commons:MicroProcessFlow id="_IDGenMicroProcessFlow1">
         <commons:content>
-            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusCIL' }" visible="{ path: 'cil_applicable' ,formatter: '.showCILStatusIcon' }">
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem1" state="{ path: 'status', formatter: '.showStatusCIL' }" visible="{ path: 'cil_applicable' ,formatter: '.showCILStatusIcon' }">
                 <commons:customControl>
-                    <ObjectStatus text="CIL" state="{ path: 'status', formatter: '.showStatusCIL' }" inverted="true"/>
+                    <ObjectStatus id="_IDGenObjectStatus1" text="{i18n>titleCIL}" state="{ path: 'status', formatter: '.showStatusCIL' }" inverted="true"/>
                 </commons:customControl>
             </commons:MicroProcessFlowItem>
-            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusDC' }" visible="{  path: 'dc_applicable' ,formatter: '.showDCStatusIcon' }">
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem2" state="{ path: 'status', formatter: '.showStatusDC' }" visible="{  path: 'dc_applicable' ,formatter: '.showDCStatusIcon' }">
                 <commons:customControl>
-                    <ObjectStatus text="DC" state="{ path: 'status', formatter: '.showStatusDC' }" inverted="true"/>
+                    <ObjectStatus id="_IDGenObjectStatus2" text="{i18n>titleDC}" state="{ path: 'status', formatter: '.showStatusDC' }" inverted="true"/>
                 </commons:customControl>
             </commons:MicroProcessFlowItem>
-            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusCBC' }" visible="{  path: 'cbc_applicable' ,formatter: '.showCBCStatusIcon' }">
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem3" state="{ path: 'status', formatter: '.showStatusCBC' }" visible="{  path: 'cbc_applicable' ,formatter: '.showCBCStatusIcon' }">
                 <commons:customControl>
-                    <ObjectStatus text="CBC" state="{ path: 'status', formatter: '.showStatusCBC' }" inverted="true"/>
-                </commons:customControl>
-            </commons:MicroProcessFlowItem>
-
-            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusClosed' }" visible="{  path: 'cbc_applicable' ,formatter: '.showCBCStatusIcon' }">
-                <commons:customControl>
-                    <ObjectStatus text="CLSD" state="{ path: 'status', formatter: '.showStatusClosed' }" inverted="true"/>
+                    <ObjectStatus id="_IDGenObjectStatus3" text="{i18n>titleCBC}" state="{ path: 'status', formatter: '.showStatusCBC' }" inverted="true"/>
                 </commons:customControl>
             </commons:MicroProcessFlowItem>
 
-            <commons:MicroProcessFlowItem state="{ path: 'status', formatter: '.showStatusHold' }" visible="{  path: 'cbc_applicable' ,formatter: '.showCBCStatusIcon' }">
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" state="{ path: 'status', formatter: '.showStatusClosed' }" >
                 <commons:customControl>
-                    <ObjectStatus text="HOLD" state="{ path: 'status', formatter: '.showStatusHold' }" inverted="true"/>
+                    <ObjectStatus id="_IDGenObjectStatus4" text="{i18n>titleClosed}" state="{ path: 'status', formatter: '.showStatusClosed' }" inverted="true"/>
+                </commons:customControl>
+            </commons:MicroProcessFlowItem>
+
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5" state="{ path: 'status', formatter: '.showStatusHold' }" >
+                <commons:customControl>
+                    <ObjectStatus id="_IDGenObjectStatus5" text="{i18n>titleHold}" state="{ path: 'status', formatter: '.showStatusHold' }" inverted="true"/>
                 </commons:customControl>
             </commons:MicroProcessFlowItem>
 

@@ -18,20 +18,20 @@ function (){
                 return "Information";
             } else if(sStatus === "PCILAPP"){
                 return "Warning";
-            }else if(sStatus === "PCILAPP"){
+            }else if(sStatus === "CILR"){
                 return "Error";
             }else if(sStatus === "CILA"){
                 return "Success";
             }else if(sStatus === "PFIAPP"){
-                return "Success";
+                return "Warning";
             }else if(sStatus === "CLSD"){
-                return "Information";
+                return "Success";
             }else if(sStatus === "HLD"){
-                return "Information";
+                return "Success";
             }else if(sStatus === "FRJ"){
                 return "Error";
             }else if(sStatus === "PCLSD"){
-                return "Information";
+                return "Success";
             }else{
                 return "None";
             }
@@ -48,20 +48,20 @@ function (){
                 return "Information";
             } else if(sStatus === "PCILAPP"){
                 return "Warning";
-            }else if(sStatus === "PCILAPP"){
+            }else if(sStatus === "CILR"){
                 return "Error";
             }else if(sStatus === "CILA"){
                 return "Success";
             }else if(sStatus === "PFIAPP"){
-                return "Success";
+                return "Warning";
             }else if(sStatus === "CLSD"){
-                return "Information";
+                return "Success";
             }else if(sStatus === "HLD"){
-                return "Information";
+                return "Success";
             }else if(sStatus === "FRJ"){
                 return "Error";
             }else if(sStatus === "PCLSD"){
-                return "Information";
+                return "Success";
             }else{
                 return "None";
             }
@@ -78,20 +78,20 @@ function (){
                 return "Information";
             } else if(sStatus === "PCILAPP"){
                 return "Warning";
-            }else if(sStatus === "PCILAPP"){
+            }else if(sStatus === "CILR"){
                 return "Error";
             }else if(sStatus === "CILA"){
                 return "Success";
             }else if(sStatus === "PFIAPP"){
-                return "Success";
+                return "Warning";
             }else if(sStatus === "CLSD"){
-                return "Information";
+                return "Success";
             }else if(sStatus === "HLD"){
-                return "Information";
+                return "Success";
             }else if(sStatus === "FRJ"){
                 return "Error";
             }else if(sStatus === "PCLSD"){
-                return "Information";
+                return "Success";
             }else{
                 return "None";
             }
@@ -108,20 +108,20 @@ function (){
                 return "Information";
             } else if(sStatus === "PCILAPP"){
                 return "Warning";
-            }else if(sStatus === "PCILAPP"){
+            }else if(sStatus === "CILR"){
                 return "Error";
             }else if(sStatus === "CILA"){
                 return "Success";
             }else if(sStatus === "PFIAPP"){
-                return "Success";
+                return "Warning";
             }else if(sStatus === "CLSD"){
-                return "Information";
+                return "Success";
             }else if(sStatus === "HLD"){
-                return "Information";
+                return "Success";
             }else if(sStatus === "FRJ"){
                 return "Error";
             }else if(sStatus === "PCLSD"){
-                return "Information";
+                return "Success";
             }else{
                 return "None";
             }

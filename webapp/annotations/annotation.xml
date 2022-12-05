@@ -44,6 +44,22 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+
+                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CILPayableChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>total_cil_payable</PropertyPath>
+                                <PropertyPath>cil_paid_previously</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>current_cil_payable</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
 
             <Annotations Target="SAP.zgc_c_cil_calType">
@@ -54,6 +70,19 @@
                                 <PropertyPath>cil_build_type</PropertyPath>
                                 <PropertyPath>res_type</PropertyPath>
                                 <PropertyPath>nres_type</PropertyPath>
+                                <PropertyPath>appr_value_rate</PropertyPath>
+                                <PropertyPath>plan_act_rate</PropertyPath>
+                                <PropertyPath>site_cil_rate</PropertyPath>
+                                <PropertyPath>cil_capped_rate</PropertyPath>
+                                <PropertyPath>total_units</PropertyPath>
+                                <PropertyPath>cil_rate</PropertyPath>
+                                <PropertyPath>ext_gfa</PropertyPath>
+                                <PropertyPath>prop_gfa</PropertyPath>
+                                <PropertyPath>demo_gfa</PropertyPath>
+                                <PropertyPath>exm_gfa</PropertyPath>
+                                <PropertyPath>density_payable</PropertyPath>
+                                <PropertyPath>nr_vacant_payable</PropertyPath>
+                                <PropertyPath>nr_ext_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
@@ -110,18 +139,6 @@
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <String>total_units</String>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="UI.FieldGroup" Qualifier="resi_low_hidden">
-                    <Record Type="UI.FieldGroupType">
-                        <PropertyValue property="Data">
-                            <Collection >
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" path="nres_type" />
-                                    <Annotation Term="UI.Hidden" bool="true" />
-                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>

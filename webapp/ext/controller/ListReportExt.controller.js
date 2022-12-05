@@ -147,6 +147,12 @@ function (Dialog,TextArea,Button){
             }
         },
         
+        /**
+         * Formatter to control state of Closed Processflow
+         * @public
+         * @param {string} sStatus value
+         * @returns {state} State
+         */
         showStatusClosed : function(sStatus){
             if(sStatus === "INP"){
                 return "Information";
@@ -170,6 +176,12 @@ function (Dialog,TextArea,Button){
                 return "None";
             }
         },
+        /**
+         * Formatter to control state of Hold Processflow
+         * @public
+         * @param {string} sStatus value
+         * @returns {state} State
+         */
         showStatusHold : function(sStatus){
             if(sStatus === "HLD"){
                 return "Success";
