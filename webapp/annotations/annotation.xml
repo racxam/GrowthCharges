@@ -75,7 +75,8 @@
                                 <PropertyPath>site_cil_rate</PropertyPath>
                                 <PropertyPath>cil_capped_rate</PropertyPath>
                                 <PropertyPath>total_units</PropertyPath>
-                                <PropertyPath>cil_rate</PropertyPath>
+                                <PropertyPath>cil_rate_res</PropertyPath>
+                                <PropertyPath>cil_rate_nres</PropertyPath>
                                 <PropertyPath>ext_gfa</PropertyPath>
                                 <PropertyPath>prop_gfa</PropertyPath>
                                 <PropertyPath>demo_gfa</PropertyPath>
@@ -83,6 +84,9 @@
                                 <PropertyPath>density_payable</PropertyPath>
                                 <PropertyPath>nr_vacant_payable</PropertyPath>
                                 <PropertyPath>nr_ext_payable</PropertyPath>
+
+                                 <!-- <PropertyPath>resi_high_med_hidden</PropertyPath>
+                                  <PropertyPath>resi_low_hidden</PropertyPath> -->
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
