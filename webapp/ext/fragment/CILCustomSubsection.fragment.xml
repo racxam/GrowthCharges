@@ -76,7 +76,7 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelCharArea" label="{i18n>labelCharacterArea}">
 							<forms:fields>
-								<m:Text id="idCIL_DisplayTextCharArea" text="{to_cilcal/dev_area}" />
+								<m:Text id="idCIL_DisplayTextCharArea" text="{to_cilcal/char_area_text}" />
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelFinCILAmt" label="{i18n>labelFinalCILAmount}">
@@ -183,7 +183,10 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelCharArea" label="{i18n>labelCharacterArea}">
 							<forms:fields>
-								<m:Input id="idCIL_EditInpCharArea" value="{to_cilcal/dev_area}" />
+								<!-- <m:Input id="idCIL_EditInpCharArea" value="{to_cilcal/dev_area}" /> -->
+								<m:ComboBox id="idCIL_EditDDCharArea" items="{/ZGC_CHAR_AREA_VH}" selectedKey="{to_cilcal/char_area}">
+									<core:Item id="idCIL_DDItemCharArea" key="{char_area}" text="{char_area_text}" />
+								</m:ComboBox>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelFinCILAmt" label="{i18n>labelFinalCILAmount}">
