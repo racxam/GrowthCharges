@@ -159,8 +159,6 @@ function (){
         },
         
         onPressRB : function(oEvent){
-           
-
             // const bResLowSelected = oEvent.getParameter("selectedIndex") === 1 ? true : false;
 
             // if(bResLowSelected){
@@ -171,8 +169,6 @@ function (){
             //     this.getView().getModel().setProperty(oEvent.getSource().getParent().getBindingContext().getPath() + "/resi_low_hidden" , false);
             // }
             // this.getView().getModel().submitChanges();
-
-            
         },
 
         onPressBuildingType : function(oEvent){
