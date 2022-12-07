@@ -81,7 +81,7 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelFinCILAmt" label="{i18n>labelFinalCILAmount}">
 							<forms:fields>
-								<m:Text id="idCIL_DisplayTextFinCILAmt" text="{to_cilcal/total_cil_payable}" />
+								<m:Text id="idCIL_DisplayTextFinCILAmt" text="{total_cil_payable}" />
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelIntComm" label="{i18n>labelInternalComments}">
@@ -119,36 +119,36 @@
 						<forms:FormElement id="idCIL_EditFormLabelBuildType" label="{i18n>labelSelectBuildingType}">
 							<forms:fields>
 								<m:RadioButtonGroup id="idCIL_EditRBGrpBuildType" select=".onPressBuildingType">
-									<m:RadioButton id="idCIL_EditRBBuildTypeRes" selected="{=${to_cilcal/cil_build_type} === 'RES'}" text="{i18n>labelResidential}" />
-									<m:RadioButton id="idCIL_EditRBBuildTypeNRes" selected="{=${to_cilcal/cil_build_type} === 'NRS'}" text="{i18n>labelNonResidential}" />
-									<m:RadioButton id="idCIL_EditRBBuildTypeMixd" selected="{=${to_cilcal/cil_build_type} === 'MXD'}" text="{i18n>labelMixed}" />
+									<m:RadioButton id="idCIL_EditRBBuildTypeRes" selected="{=${to_cilcal/cil_build_type} === 'RES'}" text="{i18n>labelResidential}" editable="{=${cil_applicable}}"/>
+									<m:RadioButton id="idCIL_EditRBBuildTypeNRes" selected="{=${to_cilcal/cil_build_type} === 'NRS'}" text="{i18n>labelNonResidential}" editable="{=${cil_applicable}}"/>
+									<m:RadioButton id="idCIL_EditRBBuildTypeMixd" selected="{=${to_cilcal/cil_build_type} === 'MXD'}" text="{i18n>labelMixed}" editable="{=${cil_applicable}}"/>
 								</m:RadioButtonGroup>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelResGFA" label="{i18n>labelResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD'}">
 							<forms:fields>
-								<m:Input id="idCIL_EditInpResGFA" value="{to_cilcal/res_gfa_prcnt}"/>
+								<m:Input id="idCIL_EditInpResGFA" value="{to_cilcal/res_gfa_prcnt}" editable="{=${cil_applicable}}"/>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD'}">
 							<forms:fields>
-								<m:Input id="idCIL_EditInpNResGFA" value="{to_cilcal/nres_gfa_prcnt}"/>
+								<m:Input id="idCIL_EditInpNResGFA" value="{to_cilcal/nres_gfa_prcnt}" editable="{=${cil_applicable}}"/>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelResType" label="{i18n>labelSelectResidentialType}" visible="{=${to_cilcal/cil_build_type} !== 'NRS'}">
 							<forms:fields>
 								<m:RadioButtonGroup id="idCIL_EditRBGrpResType" select=".onPressRBGrpResType">
-									<m:RadioButton id="idCIL_EditRBResTypeHi" selected="{=${to_cilcal/res_type} === 'HDE'}" text="{i18n>labelHighDensity}" />
-									<m:RadioButton id="idCIL_EditRBResTypeMed" selected="{=${to_cilcal/res_type} === 'MDE'}" text="{i18n>labelMediumDensity}" />
-									<m:RadioButton id="idCIL_EditRBResTypeLow" selected="{=${to_cilcal/res_type} === 'LDE'}" text="{i18n>labelLowDensity}" />
+									<m:RadioButton id="idCIL_EditRBResTypeHi" selected="{=${to_cilcal/res_type} === 'HDE'}" text="{i18n>labelHighDensity}" editable="{=${cil_applicable}}"/>
+									<m:RadioButton id="idCIL_EditRBResTypeMed" selected="{=${to_cilcal/res_type} === 'MDE'}" text="{i18n>labelMediumDensity}" editable="{=${cil_applicable}}"/>
+									<m:RadioButton id="idCIL_EditRBResTypeLow" selected="{=${to_cilcal/res_type} === 'LDE'}" text="{i18n>labelLowDensity}" editable="{=${cil_applicable}}"/>
 								</m:RadioButtonGroup>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelNResType" label="{i18n>labelNonResidentialType}" visible="{=${to_cilcal/cil_build_type} !== 'RES'}">
 							<forms:fields>
 								<m:RadioButtonGroup id="idCIL_EditRBGrpNResType" select=".onPressRBGrpNResType">
-									<m:RadioButton id="idCIL_EditRBNResTypeVac" selected="{=${to_cilcal/nres_type} === 'VAC'}" text="{i18n>labelVacant}" />
-									<m:RadioButton id="idCIL_EditRBNResTypeExist" selected="{=${to_cilcal/nres_type} === 'EXT'}" text="{i18n>labelExisting}" />
+									<m:RadioButton id="idCIL_EditRBNResTypeVac" selected="{=${to_cilcal/nres_type} === 'VAC'}" text="{i18n>labelVacant}" editable="{=${cil_applicable}}"/>
+									<m:RadioButton id="idCIL_EditRBNResTypeExist" selected="{=${to_cilcal/nres_type} === 'EXT'}" text="{i18n>labelExisting}" editable="{=${cil_applicable}}"/>
 								</m:RadioButtonGroup>
 							</forms:fields>
 						</forms:FormElement>
@@ -166,11 +166,7 @@
 								<m:Text id="idCIL_EditTextMaxID" text="{to_cilcal/maxid}" />
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelExtComm" label="{i18n>labelExternalComments}">
-							<forms:fields>
-								<m:TextArea id="idCIL_EditTextExtComm" valueLiveUpdate="true" value="{to_cilcal/ext_comments}"/>
-							</forms:fields>
-						</forms:FormElement>
+						
 						<forms:FormElement id="idCIL_EditFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" visible="{=${version} !== '01'}">
 							<forms:fields>
 								<m:Text id="idCIL_EditTextPrevAmntPaid" text="{cil_paid_previously}" />
@@ -184,14 +180,19 @@
 						<forms:FormElement id="idCIL_EditFormLabelCharArea" label="{i18n>labelCharacterArea}">
 							<forms:fields>
 								<!-- <m:Input id="idCIL_EditInpCharArea" value="{to_cilcal/dev_area}" /> -->
-								<m:ComboBox id="idCIL_EditDDCharArea" items="{/ZGC_CHAR_AREA_VH}" selectedKey="{to_cilcal/char_area}">
+								<m:ComboBox id="idCIL_EditDDCharArea" items="{/ZGC_CHAR_AREA_VH}" editable="{=${cil_applicable}}" selectedKey="{to_cilcal/char_area}">
 									<core:Item id="idCIL_DDItemCharArea" key="{char_area}" text="{char_area_text}" />
 								</m:ComboBox>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelFinCILAmt" label="{i18n>labelFinalCILAmount}">
 							<forms:fields>
-								<m:Input id="idCIL_EditInpFinCILAmt" value="{total_cil_payable}" />
+							<m:Text id="idCIL_EditTextFinCILAmt" text="{total_cil_payable}" />
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelExtComm" label="{i18n>labelExternalComments}">
+							<forms:fields>
+								<m:TextArea id="idCIL_EditTextExtComm" valueLiveUpdate="true" value="{to_cilcal/ext_comments}" editable="{=${cil_applicable}}"/>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelIntComm" label="{i18n>labelInternalComments}">
@@ -199,6 +200,15 @@
 								<m:TextArea id="idCIL_EditTextIntComm" valueLiveUpdate="true" value="{to_cilcal/int_comments}"/>
 							</forms:fields>
 						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelMngrAppr" label="{i18n>labelManagerApprovalReq}" visible="{=!${cil_applicable}}">
+							<forms:fields>
+								<m:RadioButtonGroup id="idCIL_EditRBGrpMngrAppReq" columns="2" select=".onPressRBGrpMngrAppReq">
+									<m:RadioButton id="idCIL_EditRBMngrAppYes" selected="{=${to_cilcal/mgr_apr_reqd}}" text="{i18n>labelYes}"/>
+									<m:RadioButton id="idCIL_EditRBMngrAppNo" selected="{=${to_cilcal/mgr_apr_reqd}}" text="{i18n>labelNo}" />
+								</m:RadioButtonGroup>
+							</forms:fields>
+						</forms:FormElement>
+						
 					</forms:formElements>
 				</forms:FormContainer>
 			</forms:formContainers>

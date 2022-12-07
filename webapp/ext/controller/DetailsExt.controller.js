@@ -175,6 +175,14 @@ function (){
             const sPath = oBindingContext.getPath();
             const iSelectedIndex = oEvent.getParameter("selectedIndex");
             const oModel = this.getView().getModel();
+
+            oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden` , true);
+            oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden` , true);
+            oModel.setProperty(`${sPath}/to_cilcal/non_resi_existing_hidden` , true);
+            oModel.setProperty(`${sPath}/to_cilcal/non_resi_vacant_hidden` , true);
+
+            oModel.setProperty(`${sPath}/to_cilcal/res_type` , "");
+            oModel.setProperty(`${sPath}/to_cilcal/nres_type` , "");
             if(iSelectedIndex === 0){
                 oModel.setProperty(`${sPath}/to_cilcal/cil_build_type` , "RES");
             }else if (iSelectedIndex === 1){
@@ -182,7 +190,7 @@ function (){
             }else{
                 oModel.setProperty(`${sPath}/to_cilcal/cil_build_type` , "MXD");
             }
-            oModel.submitChanges();
+            // oModel.submitChanges();
         },
 
         onPressRBGrpResType : function(oEvent){
@@ -212,7 +220,7 @@ function (){
                 oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden` , false);
                 oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden` , true);
             }
-            oModel.submitChanges();
+            // oModel.submitChanges();
 
         },
         onPressRBGrpNResType : function(oEvent){
@@ -235,9 +243,25 @@ function (){
                 oModel.setProperty(`${sPath}/to_cilcal/non_resi_vacant_hidden` , true);
                 oModel.setProperty(`${sPath}/to_cilcal/non_resi_existing_hidden` , false);
             }
-            oModel.submitChanges();
+            // oModel.submitChanges();
 
-        }
+        },
+
+        onPressRBGrpMngrAppReq : function(oEvent){
+            const oSource = oEvent.getSource();
+            const oBindingContext = oSource.getBindingContext();
+            const sPath = oBindingContext.getPath();
+            const iSelectedIndex = oEvent.getParameter("selectedIndex");
+            const oModel = this.getView().getModel();
+
+            if(iSelectedIndex === 0){
+                oModel.setProperty(`${sPath}/to_cilcal/mgr_apr_reqd` , true);
+            }else{
+                oModel.setProperty(`${sPath}/to_cilcal/mgr_apr_reqd` , false);
+            }
+           
+
+        } 
     });
     });
     
