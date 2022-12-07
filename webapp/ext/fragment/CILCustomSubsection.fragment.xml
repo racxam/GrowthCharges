@@ -59,11 +59,7 @@
 								<m:Text id="idCIL_DisplayTextMaxID" text="{to_cilcal/maxid}" />
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_DisplayFormLabelExtComm" label="{i18n>labelExternalComments}">
-							<forms:fields>
-								<m:Text id="idCIL_DisplayTextExtComm" text="{to_cilcal/ext_comments}" wrapping="true"/>
-							</forms:fields>
-						</forms:FormElement>
+						
 						<forms:FormElement id="idCIL_DisplayFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" visible="{=${version} !== '01'}">
 							<forms:fields>
 								<m:Text id="idCIL_DisplayTextPrevAmntPaid" text="{to_cilcal/cil_paid_previously}" />
@@ -82,6 +78,11 @@
 						<forms:FormElement id="idCIL_DisplayFormLabelFinCILAmt" label="{i18n>labelFinalCILAmount}">
 							<forms:fields>
 								<m:Text id="idCIL_DisplayTextFinCILAmt" text="{total_cil_payable}" />
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelExtComm" label="{i18n>labelExternalComments}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextExtComm" text="{to_cilcal/ext_comments}" wrapping="true"/>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelIntComm" label="{i18n>labelInternalComments}">
@@ -110,7 +111,7 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelCILAppl" label="{i18n>labelCILApplicable}">
 							<forms:fields>
-								<m:RadioButtonGroup id="idCIL_EditRBGrpCILAppl" columns="2" select=".onPressRB">
+								<m:RadioButtonGroup id="idCIL_EditRBGrpCILAppl" columns="2" >
 									<m:RadioButton id="idCIL_EditRBCILApplYs" selected="{cil_applicable}" text="{i18n>labelYes}" />
 									<m:RadioButton id="idCIL_EditRBCILApplNo" selected="{=!${cil_applicable}}" text="{i18n>labelNo}" />
 								</m:RadioButtonGroup>
