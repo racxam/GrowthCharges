@@ -5,7 +5,6 @@ function (){
     return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
         onInit: function() {
             var oTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
-
         },
         onBeforeRebindTableExtension: function(oEvent) {
             var oBindingParams = oEvent.getParameter("bindingParams");
