@@ -10,7 +10,7 @@ function (){
         onBeforeRebindTableExtension: function(oEvent) {
             var oBindingParams = oEvent.getParameter("bindingParams");
             oBindingParams.parameters = oBindingParams.parameters || {};
-            oBindingParams.parameters.numberOfExpandedLevels = 1;
+            oBindingParams.parameters.operationMode = "Client";
         },
 
         /**
