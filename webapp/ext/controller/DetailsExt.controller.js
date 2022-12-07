@@ -4,7 +4,13 @@ function (){
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
         onInit: function() {
-            var oTable = this.getView().getContent()[0].getAggregation("sections")[2].getSubSections()[1].getBlocks()[0].getContent()[0];
+            var oTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
+
+        },
+        onBeforeRebindTableExtension: function(oEvent) {
+            var oBindingParams = oEvent.getParameter("bindingParams");
+            oBindingParams.parameters = oBindingParams.parameters || {};
+            oBindingParams.parameters.numberOfExpandedLevels = 1;
         },
 
         /**
