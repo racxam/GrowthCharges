@@ -3,10 +3,11 @@ sap.ui.define([],
 function (){
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
-        onInit: function() {
-            var oTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
-        },
         onBeforeRebindTableExtension: function(oEvent) {
+            //Binding parameter change is only for the DC Table
+            if (oEvent.getSource().getId() !== "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table"){
+                return;
+            }
             var oBindingParams = oEvent.getParameter("bindingParams");
             oBindingParams.parameters = oBindingParams.parameters || {};
             oBindingParams.parameters.operationMode = "Client";
