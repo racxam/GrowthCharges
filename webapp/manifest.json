@@ -263,7 +263,7 @@
                             "CBC::Attachments": {
                                 "id": "CBC::Attachments",
                                 "componentUsage": "attachmentReuseComponent",
-                                "title": "Attachments",
+                                "title": "{{Attachments}}",
                                 "leadingSectionIdOrPath": "CBC",
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
