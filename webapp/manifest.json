@@ -313,11 +313,11 @@
                                             "UPLOADEDBY": true,
                                             "UPLOADEDON": true,
                                             "FILESIZE": true,
-                                            "ENABLELINK": true,
-                                            "ATTACHMENTSTATUS": true,
+                                            "ENABLELINK": false,
+                                            "ATTACHMENTSTATUS": false,
                                             "ATTACHMENTTITLE": true,
                                             "SOURCE": false,
-                                            "DIRDETAILS": true
+                                            "DIRDETAILS": false
                                         },
                                         "_VisibleActions": {
                                             "RENAME": true,
