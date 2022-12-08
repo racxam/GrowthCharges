@@ -179,7 +179,7 @@ function (){
             const oModel = this.getView().getModel();
 
             oModel.setProperty(`${sPath}/residential_hidden` , true);
-            oModel.setProperty(`${sPath}/non_res_hidden` , true);
+            oModel.setProperty(`${sPath}/non_resi_hidden` , true);
             oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden` , true);
             oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden` , true);
             oModel.setProperty(`${sPath}/to_cilcal/non_resi_existing_hidden` , true);
@@ -211,12 +211,10 @@ function (){
                 oModel.setProperty(`${sPath}/to_cilcal/res_type` , "HDE");
                 oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden` , false);
                 oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden` , true);
-                oModel.setProperty(`${sPath}/non_res_hidden` , true);
             }else if(iSelectedIndex === 1){
                 oModel.setProperty(`${sPath}/to_cilcal/res_type` , "MDE");
                 oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden` , false);
                 oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden` , true);
-                oModel.setProperty(`${sPath}/non_res_hidden` , true);
             }
             else{
                 oModel.setProperty(`${sPath}/to_cilcal/res_type` , "LDE");
@@ -236,17 +234,15 @@ function (){
             // Hide the Res Section --> not required because of mixed
             // oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden` , true);
             // oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden` , true);
-
+            oModel.setProperty(`${sPath}/non_resi_hidden` , false);
             if(iSelectedIndex === 0){
                 oModel.setProperty(`${sPath}/to_cilcal/nres_type` , "VAC");
                 oModel.setProperty(`${sPath}/to_cilcal/non_resi_existing_hidden` , true);
                 oModel.setProperty(`${sPath}/to_cilcal/non_resi_vacant_hidden` , false);
-                oModel.setProperty(`${sPath}/residential_hidden` , true);
             }else{
                 oModel.setProperty(`${sPath}/to_cilcal/nres_type` , "EXT");
                 oModel.setProperty(`${sPath}/to_cilcal/non_resi_vacant_hidden` , true);
                 oModel.setProperty(`${sPath}/to_cilcal/non_resi_existing_hidden` , false);
-                oModel.setProperty(`${sPath}/residential_hidden` , true);
             }
             // oModel.submitChanges();
 
