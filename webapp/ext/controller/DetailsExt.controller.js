@@ -180,7 +180,6 @@ function (){
 
             oModel.setProperty(`${sPath}/residential_hidden` , true);
             oModel.setProperty(`${sPath}/non_res_hidden` , true);
-
             oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden` , true);
             oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden` , true);
             oModel.setProperty(`${sPath}/to_cilcal/non_resi_existing_hidden` , true);
