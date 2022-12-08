@@ -30,7 +30,7 @@ com.gc.dashboard.ext.formatter.ObjectPageFormatter = {
     getPayObjectKey: function(requestID, version1, DraftGuid){
         var sObjectKey = "";
         if(requestID){
-            sObjectKey = `${requestID}${version1}PAY`;
+            sObjectKey = `${requestID}01PAY`;
         }else{
             sObjectKey = DraftGuid;
         }            
