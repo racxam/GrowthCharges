@@ -291,7 +291,7 @@
                             "DevelopmentCharges::Attachments": {
                                 "id": "DevelopmentCharges::Attachments",
                                 "componentUsage": "attachmentReuseComponent",
-                                "title": "Attachments",
+                                "title": "{{Attachments}}",
                                 "leadingSectionIdOrPath": "DevelopmentCharges",
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
@@ -302,18 +302,35 @@
                             "CIL::Attachments": {
                                 "id": "CIL::Attachments",
                                 "componentUsage": "attachmentReuseComponent",
-                                "title": "Attachments",
+                                "title": "{{Attachments}}",
                                 "leadingSectionIdOrPath": "CIL",
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
                                     "objectType": "ZGC_INV_OP",
-                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getCILObjectKey'}"
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getCILObjectKey'}",
+                                    "attributeHandling": {
+                                        "_VisibleAttributes": {
+                                            "UPLOADEDBY": true,
+                                            "UPLOADEDON": true,
+                                            "FILESIZE": true,
+                                            "ENABLELINK": false,
+                                            "ATTACHMENTSTATUS": false,
+                                            "ATTACHMENTTITLE": true,
+                                            "SOURCE": false,
+                                            "DIRDETAILS": false
+                                        },
+                                        "_VisibleActions": {
+                                            "RENAME": true,
+                                            "DELETE": true,
+                                            "ADD": true
+                                        }
+                                    }
                                 }
                             },
                             "InPayRef::Attachments": {
                                 "id": "InPayRef::Attachments",
                                 "componentUsage": "attachmentReuseComponent",
-                                "title": "Attachments",
+                                "title": "{{Attachments}}",
                                 "leadingSectionIdOrPath": "InPayRef",
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
