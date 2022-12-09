@@ -207,6 +207,23 @@ function (Dialog,TextArea,Button){
                 return true;
             }
             return false;
+        },
+
+        showApplicationCharges : function(bDC,bCIL,bCBC){
+            
+            let sAppCharges = ""; 
+            if(bDC){
+                sAppCharges = sAppCharges + "DC" + ",";
+            }
+            if(bCIL){
+                sAppCharges = sAppCharges + "CIL" + ",";
+            }
+            if(bCBC){
+                sAppCharges = sAppCharges + "CBC" + ",";
+            }
+            let iLastIndex = sAppCharges.lastIndexOf(",");
+            sAppCharges = sAppCharges.substring(0,iLastIndex);
+            return sAppCharges;
         }
     
     });

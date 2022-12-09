@@ -1,4 +1,11 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Column id="textColumnAppCharges">
+		<Text text="{i18n>listColumnTextAppCharges}" />
+		<customData>
+			<core:CustomData key="p13nData"
+				value='\{"columnKey": "CustomColumn1", "leadingProperty":"dc_applicable,cil_applicable,cbc_applicable", "columnIndex" : "5"}' />
+		</customData>
+	</Column>
     <Column>
         <Text text="{i18n>listColumnTextDC_Comments}"/>
         <customData>
