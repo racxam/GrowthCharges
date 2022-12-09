@@ -3,6 +3,14 @@ sap.ui.define([],
 function (){
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
+        onInit: function() {
+            const oVariantManagement = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--template::PageVariant");
+            oVariantManagement.getVariantItems().filter(function (oVariant) {
+                return oVariant.getAuthor() !== sap.ushell.Container.getService("UserInfo").getId();
+            }).forEach(function (oForeignVariant) {
+                oForeignVariant.setProperty("readOnly", true);
+            });
+        },
         onBeforeRebindTableExtension: function(oEvent) {
             //Binding parameter change is only for the DC Table
             if (oEvent.getSource().getId() !== "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table"){
