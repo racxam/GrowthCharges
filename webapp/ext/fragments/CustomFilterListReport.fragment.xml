@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartfilterbar="sap.ui.comp.smartfilterbar"
+    xmlns:core="sap.ui.core">
+    <smartfilterbar:ControlConfiguration index="12" id="controlConfigFilterBar" groupId="_BASIC" key="AppCharges" label="Application Charges" visibleInAdvancedArea="true">
+        <smartfilterbar:customControl>
+            <MultiComboBox id="AppChargesId">
+                <core:Item key="DC" text="DC"/>
+                <core:Item key="CBC" text="CBC"/>
+                <core:Item key="CIL" text="CIL"/>
+            </MultiComboBox>
+        </smartfilterbar:customControl>
+    </smartfilterbar:ControlConfiguration>
+</core:FragmentDefinition>
