@@ -8,25 +8,25 @@
     <Column id="colDC_Comments" width="auto">
         <Text id="_IDTextDC_Comments" text="{i18n>listColumnTextDC_Comments}"/>
         <customData>
-            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn1&quot;, &quot;leadingProperty&quot;: &quot;dc_int_comments_sap&quot;, &quot;columnIndex&quot;: &quot;7&quot;}"/>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn2&quot;, &quot;leadingProperty&quot;: &quot;dc_int_comments_sap&quot;, &quot;columnIndex&quot;: &quot;7&quot;}"/>
         </customData>
     </Column>
     <Column id="colCBC_Comments" width="auto">
         <Text id="_IDTextCBC_Comments" text="{i18n>listColumnTextCBC_Comments}"/>
         <customData>
-            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn2&quot;, &quot;leadingProperty&quot;: &quot;cbccomments&quot;, &quot;columnIndex&quot;: &quot;8&quot;}"/>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn3&quot;, &quot;leadingProperty&quot;: &quot;cbccomments&quot;, &quot;columnIndex&quot;: &quot;8&quot;}"/>
         </customData>
     </Column>
     <Column id="colCIL_Comments" width="auto">
         <Text id="_IDTextCIL_Comments" text="{i18n>listColumnTextCIL_Comments}"/>
         <customData>
-            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn3&quot;, &quot;leadingProperty&quot;: &quot;swm_comments&quot;, &quot;columnIndex&quot;: &quot;9&quot;}"/>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn4&quot;, &quot;leadingProperty&quot;: &quot;swm_comments&quot;, &quot;columnIndex&quot;: &quot;9&quot;}"/>
         </customData>
     </Column>
     <Column id="colStatus" importance="High" width="10rem">
         <Text id="_IDTextStatus" text="{i18n>listColumnTextStatus}"/>
         <customData>
-            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn4&quot;, &quot;leadingProperty&quot;: &quot;status&quot;, &quot;columnIndex&quot;: &quot;10&quot;}"/>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn5&quot;, &quot;leadingProperty&quot;: &quot;status&quot;, &quot;columnIndex&quot;: &quot;10&quot;}"/>
         </customData>
     </Column>
 </core:FragmentDefinition>
