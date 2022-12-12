@@ -14,6 +14,8 @@ function (){
             } catch (error) {  
                 //If opened not using FLP, there will be an error              
             }
+
+            
         },
         onBeforeRebindTableExtension: function(oEvent) {
             //Binding parameter change is only for the DC Table
