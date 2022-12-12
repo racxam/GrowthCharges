@@ -28,6 +28,7 @@ function (Dialog,TextArea,Button,Filter, SmartFilterBar, MultiComboBox){
         onClearButtonPress: function () {
             // Get a reference to all the custom filters to be cleared 
             this.byId("AppChargesId").setSelectedKeys([]);
+            this.byId("VersionId").setSelectedKeys([]);
           },
 
         getCustomAppStateDataExtension: function (oCustomData) {
@@ -37,6 +38,10 @@ function (Dialog,TextArea,Button,Filter, SmartFilterBar, MultiComboBox){
                 var oCustomField1 = this.oView.byId("AppChargesId");
                 if (oCustomField1) {
                     oCustomData.AppCharges = oCustomField1.getSelectedKeys();
+                }
+                var oCustomField2 = this.oView.byId("VersionId");
+                if (oCustomField2) {
+                    oCustomData.Version = oCustomField2.getSelectedKeys();
                 }
             }
         },
@@ -56,35 +61,49 @@ function (Dialog,TextArea,Button,Filter, SmartFilterBar, MultiComboBox){
         onBeforeRebindTableExtension: function(oEvent) {
             var oBindingParams = oEvent.getParameter("bindingParams");
             oBindingParams.parameters = oBindingParams.parameters || {};
-
             const oSmartTable = oEvent.getSource();
             const oSmartFilterBar = this.byId(oSmartTable.getSmartFilterId());
+            let aFilters = [];
             if (oSmartFilterBar instanceof SmartFilterBar) {
-                var oCustomControl = oSmartFilterBar.getControlByKey("AppCharges");
-                if (oCustomControl instanceof MultiComboBox) {
-                    let aKeys = oCustomControl.getSelectedKeys();
-                    if (aKeys.length === 0) {
-						return null;
-					}
-					aKeys.forEach((oElement) => {
-                        switch (oElement) {
-                            case "DC" :
-                                oBindingParams.filters.push(new Filter("dc_applicable", "EQ", true));
-                                break;
-                            case "CBC" :
-                                oBindingParams.filters.push(new Filter("cbc_applicable", "EQ", true));
-                                break;
-                            case "CIL" :
-                                oBindingParams.filters.push(new Filter("cil_applicable", "EQ", true));
-                                break;
-                            default:
-                                break;
-                        }
-					});
+                const aCustomFiltersKey = ["AppCharges","Version"];
+                let oCustomControl = "";
+                aCustomFiltersKey.forEach((mFilterKey) => {
+                    oCustomControl = oSmartFilterBar.getControlByKey(mFilterKey);
+                    if(oCustomControl instanceof MultiComboBox){
+                        let aKeys = oCustomControl.getSelectedKeys();
+                        if (aKeys.length === 0) {
+                            return null;
+                        }   
+                        if(mFilterKey === "AppCharges"){
+                            aKeys.forEach((oElement) => {
+                                switch (oElement) {
+                                    case "DC" :
+                                        aFilters.push(new Filter("dc_applicable", "EQ", true));
+                                        break;
+                                    case "CBC" :
+                                        aFilters.push(new Filter("cbc_applicable", "EQ", true));
+                                        break;
+                                    case "CIL" :
+                                        aFilters.push(new Filter("cil_applicable", "EQ", true));
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }); 
+                        }else{
+                            aKeys.forEach((mKey) => {
+                                aFilters.push(new Filter("version", "EQ", mKey));
 
-                    
+                            });
+                        }  
+                    }
+                });
+                if(aFilters.length > 0){
+                    oBindingParams.filters.push(new Filter(aFilters,true));
                 }
+                
             }
+            
         },
 
         onPressComments: function (oEvent,sKey) {
