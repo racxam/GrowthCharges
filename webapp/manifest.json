@@ -212,7 +212,7 @@
                     "settings": {
                         "condensedTableLayout": true,
                         "smartVariantManagement": true,
-                        "enableTableFilterInPageVariant": true,
+                        "enableTableFilterInPageVariant": false,
                         "filterSettings": {
                             "showClearButton": true,
                             "dateSettings": {
