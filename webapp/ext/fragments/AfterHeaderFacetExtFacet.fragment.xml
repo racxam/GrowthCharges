@@ -9,29 +9,29 @@ xmlns:smartField="sap.ui.comp.smartfield">
     </l:HorizontalLayout>
     <commons:MicroProcessFlow id="_IDGenMicroProcessFlow1">
 		<commons:content>
-			<commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem1" >
+			<commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem1" showSeparator="{cil_applicable}">
             <commons:customControl>
-                <ObjectStatus id="_IDGenObjectStatus5" text="{i18n>titleCIL}" state="{ path: 'status', formatter: '.getStatusStateForCIL' }" inverted="true"/>
+                <ObjectStatus id="_IDGenObjectStatus5" text="{i18n>titleCIL}" state="{ path: 'status', formatter: '.getStatusStateForCIL' }" inverted="true" visible="{cil_applicable}"/>
             </commons:customControl>
             </commons:MicroProcessFlowItem> 
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem2" >
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem2" showSeparator="{dc_applicable}">
             <commons:customControl>
-                <ObjectStatus id="_IDGenObjectStatus6" text="{i18n>titleDC}" state="{ path: 'status', formatter: '.getStatusStateForDC' }" inverted="true"/>
+                <ObjectStatus id="_IDGenObjectStatus6" text="{i18n>titleDC}" state="{ path: 'status', formatter: '.getStatusStateForDC' }" inverted="true" visible="{dc_applicable}"/>
             </commons:customControl>
             </commons:MicroProcessFlowItem> 
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem3">
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem3" showSeparator="{cbc_applicable}">
              <commons:customControl>
-                <ObjectStatus id="_IDGenObjectStatus7" text="{i18n>titleCBC}" state="{ path: 'status', formatter: '.getStatusStateForCBC' }" inverted="true"/>
+                <ObjectStatus id="_IDGenObjectStatus7" text="{i18n>titleCBC}" state="{ path: 'status', formatter: '.getStatusStateForCBC' }" inverted="true" visible="{cbc_applicable}"/>
             </commons:customControl>
             </commons:MicroProcessFlowItem> 
-             <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4">
+             <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" showSeparator="{=${status} === 'CLSD'}">
              <commons:customControl>
-                <ObjectStatus id="_IDGenObjectStatus8" text="{i18n>titleClosed}" state="{ path: 'status', formatter: '.getStatusStateForClosed' }" inverted="true"/>
+                <ObjectStatus id="_IDGenObjectStatus8" text="{i18n>titleClosed}" state="{ path: 'status', formatter: '.getStatusStateForClosed' }" inverted="true" visible="{=${status} === 'CLSD'}"/>
             </commons:customControl>
             </commons:MicroProcessFlowItem> 
-             <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5">
+             <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5" showSeparator="{=${status} === 'HLD'}">
              <commons:customControl>
-                <ObjectStatus id="_IDGenObjectStatus9" text="{i18n>titleHold}" state="{ path: 'status', formatter: '.getStatusStateForHold' }" inverted="true"/>
+                <ObjectStatus id="_IDGenObjectStatus9" text="{i18n>titleHold}" state="{ path: 'status', formatter: '.getStatusStateForHold' }" inverted="true" visible="{=${status} === 'HLD'}"/>
             </commons:customControl>
             </commons:MicroProcessFlowItem> 
             <!-- <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" state="{ path: 'status', formatter: '.getStatusStateForClosed' }" icon="sap-icon://paid-leave"/>  
