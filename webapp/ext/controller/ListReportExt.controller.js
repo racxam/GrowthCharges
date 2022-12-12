@@ -10,15 +10,26 @@ function (Dialog,TextArea,Button,Filter, SmartFilterBar, MultiComboBox){
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.ListReportExt", {
         onInit: function() {
-            var oMySmartFilterBar = this.getView().byId("listReportFilter");
-            var liveMode = oMySmartFilterBar.getLiveMode();
+            const oMySmartFilterBar = this.getView().byId("listReportFilter");
+            const liveMode = oMySmartFilterBar.getLiveMode();
             if(!liveMode) {
                 oMySmartFilterBar.setLiveMode(true);
             }
             oMySmartFilterBar.setShowClearOnFB(true);  
+
+            const oClearButton = this.getView().byId("com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--listReportFilter-btnClear");
+            oClearButton.attachPress(this.onClearButtonPress, this);
         },
 
-      
+         /**
+         * handler to clear filters 
+         * @public
+         */
+        onClearButtonPress: function () {
+            // Get a reference to all the custom filters to be cleared 
+            this.byId("AppChargesId").setSelectedKeys([]);
+          },
+
         getCustomAppStateDataExtension: function (oCustomData) {
             //the content of the custom field will be stored in the app state, so that it can be restored later, for example after a back navigation.
             //The developer has to ensure that the content of the field is stored in the object that is passed to this method.
@@ -39,15 +50,6 @@ function (Dialog,TextArea,Button,Filter, SmartFilterBar, MultiComboBox){
                         oCustomData.AppCharges
                     );
                 }
-            }
-        },
-
-        onClearFilterExtension: function(oEvent) {
-            debugger;
-            // Logic for clearing extended filters
-            "use strict";
-            if ( this.byId("AppChargesId") ) {
-                 this.byId("AppChargesId").setSelectedKey(null);
             }
         },
 
