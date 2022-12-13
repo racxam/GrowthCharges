@@ -4,7 +4,7 @@
     "changeType": "propertyChange",
     "moduleName": "",
     "reference": "com.gc.dashboard",
-    "packageName": "",
+    "packageName": "ZGROWTH_CHARGES",
     "content": {
         "property": "useIconTabBar",
         "newValue": true

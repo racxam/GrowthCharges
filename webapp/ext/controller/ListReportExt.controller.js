@@ -1,18 +1,109 @@
 sap.ui.define([
     "sap/m/Dialog",
     "sap/m/TextArea",
-    "sap/m/Button"
+    "sap/m/Button",
+    "sap/ui/model/Filter", 
+    "sap/ui/comp/smartfilterbar/SmartFilterBar", 
+    "sap/m/MultiComboBox"
 ],
-function (Dialog,TextArea,Button){
+function (Dialog,TextArea,Button,Filter, SmartFilterBar, MultiComboBox){
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.ListReportExt", {
         onInit: function() {
-            var oMySmartFilterBar = this.getView().byId("listReportFilter");
-            var liveMode = oMySmartFilterBar.getLiveMode();
+            const oMySmartFilterBar = this.getView().byId("listReportFilter");
+            const liveMode = oMySmartFilterBar.getLiveMode();
             if(!liveMode) {
                 oMySmartFilterBar.setLiveMode(true);
             }
             oMySmartFilterBar.setShowClearOnFB(true);  
+
+            const oClearButton = this.getView().byId("com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--listReportFilter-btnClear");
+            oClearButton.attachPress(this.onClearButtonPress, this);
+        },
+
+         /**
+         * handler to clear filters 
+         * @public
+         */
+        onClearButtonPress: function () {
+            // Get a reference to all the custom filters to be cleared 
+            this.byId("AppChargesId").setSelectedKeys([]);
+            this.byId("VersionId").setSelectedKeys([]);
+          },
+
+        getCustomAppStateDataExtension: function (oCustomData) {
+            //the content of the custom field will be stored in the app state, so that it can be restored later, for example after a back navigation.
+            //The developer has to ensure that the content of the field is stored in the object that is passed to this method.
+            if (oCustomData) {
+                var oCustomField1 = this.oView.byId("AppChargesId");
+                if (oCustomField1) {
+                    oCustomData.AppCharges = oCustomField1.getSelectedKeys();
+                }
+                var oCustomField2 = this.oView.byId("VersionId");
+                if (oCustomField2) {
+                    oCustomData.Version = oCustomField2.getSelectedKeys();
+                }
+            }
+        },
+        restoreCustomAppStateDataExtension: function (oCustomData) {
+            //in order to restore the content of the custom field in the filter bar, for example after a back navigation,
+            //an object with the content is handed over to this method. Now the developer has to ensure that the content of the custom filter is set to the control
+            if (oCustomData) {
+                if (oCustomData.AppCharges) {
+                    var oComboBox = this.oView.byId("AppChargesId");
+                    oComboBox.setSelectedKeys(
+                        oCustomData.AppCharges
+                    );
+                }
+            }
+        },
+
+        onBeforeRebindTableExtension: function(oEvent) {
+            var oBindingParams = oEvent.getParameter("bindingParams");
+            oBindingParams.parameters = oBindingParams.parameters || {};
+            const oSmartTable = oEvent.getSource();
+            const oSmartFilterBar = this.byId(oSmartTable.getSmartFilterId());
+            let aFilters = [];
+            if (oSmartFilterBar instanceof SmartFilterBar) {
+                const aCustomFiltersKey = ["AppCharges","Version"];
+                let oCustomControl = "";
+                aCustomFiltersKey.forEach((mFilterKey) => {
+                    oCustomControl = oSmartFilterBar.getControlByKey(mFilterKey);
+                    if(oCustomControl instanceof MultiComboBox){
+                        let aKeys = oCustomControl.getSelectedKeys();
+                        if (aKeys.length === 0) {
+                            return null;
+                        }   
+                        if(mFilterKey === "AppCharges"){
+                            aKeys.forEach((oElement) => {
+                                switch (oElement) {
+                                    case "DC" :
+                                        aFilters.push(new Filter("dc_applicable", "EQ", true));
+                                        break;
+                                    case "CBC" :
+                                        aFilters.push(new Filter("cbc_applicable", "EQ", true));
+                                        break;
+                                    case "CIL" :
+                                        aFilters.push(new Filter("cil_applicable", "EQ", true));
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }); 
+                        }else{
+                            aKeys.forEach((mKey) => {
+                                aFilters.push(new Filter("version", "EQ", mKey));
+
+                            });
+                        }  
+                    }
+                });
+                if(aFilters.length > 0){
+                    oBindingParams.filters.push(new Filter(aFilters,true));
+                }
+                
+            }
+            
         },
 
         onPressComments: function (oEvent,sKey) {
@@ -57,25 +148,35 @@ function (Dialog,TextArea,Button){
             oListCommentDialog[sKey].open();
         },
 
-        // Formatter to handle visiblity of Status Icons based on Application Charges
-
-        showCILStatusIcon : function(bCIL){
-            if(!bCIL){
-                return true;
-            }return false;
-        },
-
-        showCBCStatusIcon : function(bCBC){
-            if(!bCBC){
-                return true;
-            }return false;
-        },
-
-        showDCStatusIcon : function(bDC){
-            if(!bDC){
-                return true;
-            }return false;
-        },
+        /**
+         * Formatter to control state of CIL Processflow
+         * @public
+         * @param {string} sStatus value
+         * @returns {state} State
+         */
+        getStatusStateForCIL : function(sStatus){
+            if(sStatus === "INP"){
+                return "Information";
+            } else if(sStatus === "PCILAPP"){
+                return "Warning";
+            }else if(sStatus === "CILR"){
+                return "Error";
+            }else if(sStatus === "CILA"){
+                return "Success";
+            }else if(sStatus === "PFIAPP"){
+                return "Warning";
+            }else if(sStatus === "CLSD"){
+                return "Success";
+            }else if(sStatus === "HLD"){
+                return "Success";
+            }else if(sStatus === "FRJ"){
+                return "Error";
+            }else if(sStatus === "PCLSD"){
+                return "Success";
+            }else{
+                return "None";
+            }
+        }, 
 
         showStatusCIL : function(sStatus){
             if(sStatus === "INP"){
@@ -207,6 +308,23 @@ function (Dialog,TextArea,Button){
                 return true;
             }
             return false;
+        },
+
+        showApplicationCharges : function(bDC,bCIL,bCBC){
+            
+            let sAppCharges = ""; 
+            if(bDC){
+                sAppCharges = sAppCharges + "DC" + ",";
+            }
+            if(bCIL){
+                sAppCharges = sAppCharges + "CIL" + ",";
+            }
+            if(bCBC){
+                sAppCharges = sAppCharges + "CBC" + ",";
+            }
+            let iLastIndex = sAppCharges.lastIndexOf(",");
+            sAppCharges = sAppCharges.substring(0,iLastIndex);
+            return sAppCharges;
         }
     
     });

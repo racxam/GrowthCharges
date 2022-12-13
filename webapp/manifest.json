@@ -137,6 +137,11 @@
             "extensions": {
                 "sap.ui.viewExtensions": {
                     "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+                        "SmartFilterBarControlConfigurationExtension|zgc_c_requests": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.CustomFilterListReport",
+                            "type": "XML"
+                        },
                         "ResponsiveTableColumnsExtension|zgc_c_requests": {
                             "className": "sap.ui.core.Fragment",
                             "fragmentName": "com.gc.dashboard.ext.fragments.ResponsiveTableColumns",
@@ -207,7 +212,7 @@
                     "settings": {
                         "condensedTableLayout": true,
                         "smartVariantManagement": true,
-                        "enableTableFilterInPageVariant": true,
+                        "enableTableFilterInPageVariant": false,
                         "filterSettings": {
                             "showClearButton": true,
                             "dateSettings": {
