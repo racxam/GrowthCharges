@@ -91,10 +91,11 @@ function (Dialog,TextArea,Button,Filter, SmartFilterBar, MultiComboBox){
                                 }
                             }); 
                         }else{
+                            let aVFilters = [];
                             aKeys.forEach((mKey) => {
-                                aFilters.push(new Filter("version", "EQ", mKey));
-
+                                aVFilters.push(new Filter("version", "EQ", mKey));
                             });
+                            aFilters.push(new Filter(aVFilters,false));
                         }  
                     }
                 });
