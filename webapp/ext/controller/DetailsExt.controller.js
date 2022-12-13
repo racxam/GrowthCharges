@@ -15,6 +15,40 @@ function (){
                 //If opened not using FLP, there will be an error              
             }
         },
+        onAfterRendering: function() {
+
+            //Set the Grid Layout for the SubSection
+            const exmSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Exm-SS::SubSection");
+            exmSubSection.onAfterRendering = function() {
+                var a = this.getBlocks();
+                for (const block in a){
+                    a[block].setLayoutData(new sap.ui.layout.GridData({
+                        span: "L12 M12 S12"
+                    }));
+                }
+            };
+
+            const kindSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-InK-SS::SubSection");
+            kindSubSection.onAfterRendering = function() {
+                var a = this.getBlocks();
+                for (const block in a){
+                    a[block].setLayoutData(new sap.ui.layout.GridData({
+                        span: "L12 M12 S12"
+                    }));
+                }
+            };
+            
+            const demSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Dem-SS::SubSection");
+            demSubSection.onAfterRendering = function() {
+                var a = this.getBlocks();
+                for (const block in a){
+                    a[block].setLayoutData(new sap.ui.layout.GridData({
+                        span: "L12 M12 S12"
+                    }));
+                }
+            };            
+
+        },
         onBeforeRebindTableExtension: function(oEvent) {
             //Binding parameter change is only for the DC Table
             if (oEvent.getSource().getId() !== "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table"){
