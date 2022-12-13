@@ -88,6 +88,60 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="CBCLandAmtChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                            <PropertyPath>cbc_land_val_amt</PropertyPath>
+                            <PropertyPath>cbc_percentage</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>to_cbcexm/subtotal_cbc_payable</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="CBCSubtotalChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>subtotal_cbc_payable</PropertyPath>
+                                <PropertyPath>exm_cbc_charge</PropertyPath>
+                                <PropertyPath>kind_cbc_charge</PropertyPath>
+                                <PropertyPath>dem_cbc_charge</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="SourceEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_cbcexm</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_cbckind</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_cbcdem</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>total_cbc_payable</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="CBCTotalCBCChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>total_cbc_payable</PropertyPath>
+                                <PropertyPath>cbc_paid_previously</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>current_cbc_payable</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
 
             <Annotations Target="SAP.zgc_c_cil_calType">
