@@ -16,7 +16,10 @@ function (Dialog,TextArea,Button,Filter, SmartFilterBar, MultiComboBox){
                 oMySmartFilterBar.setLiveMode(true);
             }
             oMySmartFilterBar.setShowClearOnFB(true);  
-
+           const oTable = this.oView.byId("listReport");
+           oTable.onAfterRendering = function(){
+            oTable.rebindTable();
+        };
             const oClearButton = this.getView().byId("com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--listReportFilter-btnClear");
             oClearButton.attachPress(this.onClearButtonPress, this);
         },
