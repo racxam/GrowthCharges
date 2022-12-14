@@ -15,7 +15,9 @@ function (){
                 //If opened not using FLP, there will be an error              
             }
 
-            
+            //Enable icontabbar mode
+            const oObjectPage = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--objectPage");
+            oObjectPage.setUseIconTabBar(true);            
         },
         onAfterRendering: function() {
 
