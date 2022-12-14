@@ -1,4 +1,7 @@
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
     <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
         <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
     </edmx:Reference>
@@ -16,6 +19,49 @@
                         <PropertyValue Property="Deletable" Bool="false"/>
                     </Record>
                 </Annotation>
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="Submit"/>
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsSubmit"/>
+                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
+                            <PropertyValue Property="Determining" Bool="true"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="Attach Draft Invoice"/>
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsAttach_draft_invoice"/>
+                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="Create New Version"/>
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsCreate_new_version"/>
+                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="Withdraw Approval"/>
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval"/>
+                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="request_id"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="permit"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="street"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="is_deferral"/>
+                        </Record>
+                    </Collection>
+                </Annotation>                
             </Annotations>
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
