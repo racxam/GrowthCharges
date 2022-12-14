@@ -27,12 +27,20 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelResGFA" label="{i18n>labelResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD'}">
 							<forms:fields>
-								<m:Text id="idCIL_DisplayTextResGFA" text="{to_cilcal/res_gfa_prcnt}"/>
+								<m:HBox id="idCIL_DispHBoxResGFA" alignItems="Center">
+									<m:Text id="idCIL_DisplayTextResGFA" text="{to_cilcal/res_gfa}"/>
+									<m:Text id="idCIL_DisplayTextResGFAPer" text="{to_cilcal/res_gfa_prcnt}%"/>
+								</m:HBox>
+
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD'}">
 							<forms:fields>
-								<m:Text id="idCIL_DisplayTextNResGFA" text="{to_cilcal/nres_gfa_prcnt}"/>
+								<m:HBox id="idCIL_DispHBoxNResGFA" alignItems="Center">
+									<m:Text id="idCIL_DisplayTextNResGFA" text="{to_cilcal/nres_gfa}"/>
+									<m:Text id="idCIL_DisplayTextNResGFAPer" text="{to_cilcal/nres_gfa_prcnt}%"/>
+								</m:HBox>
+								
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelResType" label="{i18n>labelResidentialType}" visible="{=${to_cilcal/cil_build_type} !== 'NRS'}">
@@ -59,7 +67,7 @@
 								<m:Text id="idCIL_DisplayTextMaxID" text="{to_cilcal/maxid}" />
 							</forms:fields>
 						</forms:FormElement>
-						
+
 						<forms:FormElement id="idCIL_DisplayFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" visible="{=${version} !== '01'}">
 							<forms:fields>
 								<m:Text id="idCIL_DisplayTextPrevAmntPaid" text="{to_cilcal/cil_paid_previously}" />
@@ -106,12 +114,12 @@
 					<forms:formElements>
 						<forms:FormElement id="idCIL_EditFormLabelCILReq" label="{i18n>labelCILRequested}">
 							<forms:fields>
-							<m:Text id="idCIL_EditTextCILReq" text="{=${cil_requested} ? 'Yes' : 'No' }"/>
+								<m:Text id="idCIL_EditTextCILReq" text="{=${cil_requested} ? 'Yes' : 'No' }"/>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelCILAppl" label="{i18n>labelCILApplicable}">
 							<forms:fields>
-								<m:RadioButtonGroup id="idCIL_EditRBGrpCILAppl" columns="2" >
+								<m:RadioButtonGroup id="idCIL_EditRBGrpCILAppl" columns="2">
 									<m:RadioButton id="idCIL_EditRBCILApplYs" selected="{cil_applicable}" text="{i18n>labelYes}" />
 									<m:RadioButton id="idCIL_EditRBCILApplNo" selected="{=!${cil_applicable}}" text="{i18n>labelNo}" />
 								</m:RadioButtonGroup>
@@ -128,12 +136,19 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelResGFA" label="{i18n>labelResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD'}">
 							<forms:fields>
-								<m:Input id="idCIL_EditInpResGFA" value="{to_cilcal/res_gfa_prcnt}" editable="{=${cil_applicable}}"/>
+								<m:HBox id="idCIL_EditHBoxResGFA" alignItems="Center">
+									<m:Input id="idCIL_EditInpResGFA" value="{to_cilcal/res_gfa}" editable="{=${cil_applicable}}"/>
+									<m:Text id="idCIL_EditTextResGFAPer" text="{to_cilcal/res_gfa_prcnt}%"/>
+								</m:HBox>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD'}">
 							<forms:fields>
-								<m:Input id="idCIL_EditInpNResGFA" value="{to_cilcal/nres_gfa_prcnt}" editable="{=${cil_applicable}}"/>
+								<m:HBox id="idCIL_EditHBoxNResGFA" alignItems="Center">
+									<m:Input id="idCIL_EditInpNResGFA" value="{to_cilcal/nres_gfa}" editable="{=${cil_applicable}}"/>
+									<m:Text id="idCIL_EditTextNResGFAPer" text="{to_cilcal/nres_gfa_prcnt}%"/>
+								</m:HBox>
+								
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelResType" label="{i18n>labelSelectResidentialType}" visible="{=${to_cilcal/cil_build_type} !== 'NRS'}">
@@ -167,7 +182,7 @@
 								<m:Text id="idCIL_EditTextMaxID" text="{to_cilcal/maxid}" />
 							</forms:fields>
 						</forms:FormElement>
-						
+
 						<forms:FormElement id="idCIL_EditFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" visible="{=${version} !== '01'}">
 							<forms:fields>
 								<m:Text id="idCIL_EditTextPrevAmntPaid" text="{cil_paid_previously}" />
@@ -188,7 +203,7 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelFinCILAmt" label="{i18n>labelFinalCILAmount}">
 							<forms:fields>
-							<m:Text id="idCIL_EditTextFinCILAmt" text="{total_cil_payable}" />
+								<m:Text id="idCIL_EditTextFinCILAmt" text="{total_cil_payable}" />
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelExtComm" label="{i18n>labelExternalComments}">
@@ -209,7 +224,7 @@
 								</m:RadioButtonGroup>
 							</forms:fields>
 						</forms:FormElement>
-						
+
 					</forms:formElements>
 				</forms:FormContainer>
 			</forms:formContainers>
