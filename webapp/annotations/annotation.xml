@@ -73,10 +73,42 @@
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <String>days_of_interest</String>
+                                <String>dc_valid_until</String>
                             </Collection>
                         </PropertyValue>
                     </Record>
-                </Annotation>                
+                </Annotation>    
+                 <Annotation Term="Common.SideEffects" Qualifier="DCAppliChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_applicable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>tot_dc_payable</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>   
+
+                <Annotation Term="Common.SideEffects" Qualifier="DCAppealRefChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>tot_dc_payable</PropertyPath>
+                                <PropertyPath>dc_paid_previously</PropertyPath>
+                                <PropertyPath>is_appeal_refund</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>current_dc_payable</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>         
             </Annotations>
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
@@ -319,6 +351,38 @@
                     </Record>
                 </Annotation>
             </Annotations>
+            <Annotations Target="SAP.zgc_c_dc_calcltnsType">
+                <Annotation Term="Common.SideEffects" Qualifier="DCRateChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>to_request/dc_valid_until</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                 <Annotation Term="Common.SideEffects" Qualifier="DCAmtPayableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>amount_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>to_request/tot_dc_payable</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+               
+            </Annotations>
+           
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>
