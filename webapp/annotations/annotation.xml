@@ -224,6 +224,34 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="ResGFAChange">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                               <PropertyPath>res_gfa</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>res_gfa_prcnt</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                 <Annotation Term="Common.SideEffects" Qualifier="NResGFAChange">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                               <PropertyPath>nres_gfa</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>nres_gfa_prcnt</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
             <Annotations Target="SAP.zgc_c_cil_calType">
                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects">
