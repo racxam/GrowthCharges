@@ -264,6 +264,24 @@
                                         "entitySet": "zgc_c_cbc_dem",
                                         "createMode": "inline",
                                         "tableType": "GridTable"
+                                    },
+                                    "PaymentInfo-ID": {
+                                        "navigationProperty": "to_payments",
+                                        "entitySet": "zgc_c_payments",
+                                        "createMode": "inline",
+                                        "tableType": "GridTable"
+                                    },
+                                    "RefundInfo-ID": {
+                                        "navigationProperty": "to_refunds",
+                                        "entitySet": "zgc_c_refunds",
+                                        "createMode": "inline",
+                                        "tableType": "GridTable"
+                                    },
+                                    "DeferralInfo-ID": {
+                                        "navigationProperty": "to_deferrals",
+                                        "entitySet": "zgc_c_deferrals",
+                                        "createMode": "inline",
+                                        "tableType": "GridTable"
                                     }
                                 }
                             }

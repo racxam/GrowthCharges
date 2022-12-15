@@ -50,7 +50,37 @@ function (){
                         span: "L12 M12 S12"
                     }));
                 }
-            };            
+            };       
+            
+            const paymentSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Payment-SS::SubSection");
+            paymentSection.onAfterRendering = function() {
+                var a = this.getBlocks();
+                for (const block in a){
+                    a[block].setLayoutData(new sap.ui.layout.GridData({
+                        span: "L12 M12 S12"
+                    }));
+                }
+            };  
+
+            const refundSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Refund-SS::SubSection");
+            refundSection.onAfterRendering = function() {
+                var a = this.getBlocks();
+                for (const block in a){
+                    a[block].setLayoutData(new sap.ui.layout.GridData({
+                        span: "L12 M12 S12"
+                    }));
+                }
+            };
+
+            const deferralSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Deferral-SS::SubSection");
+            deferralSection.onAfterRendering = function() {
+                var a = this.getBlocks();
+                for (const block in a){
+                    a[block].setLayoutData(new sap.ui.layout.GridData({
+                        span: "L12 M12 S12"
+                    }));
+                }
+            };
 
         },
         onBeforeRebindTableExtension: function(oEvent) {
