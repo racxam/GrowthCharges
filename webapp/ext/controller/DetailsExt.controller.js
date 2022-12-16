@@ -21,66 +21,33 @@ function (){
         },
         onAfterRendering: function() {
 
+            const setBlocksRight = function() {
+                var blocks = this.getBlocks();
+                for (var i = 0; i < blocks.length; i++) {
+                    blocks[i].setLayoutData(new sap.ui.layout.GridData({
+                        span: "L12 M12 S12"
+                    }));
+                }
+            };
+
             //Set the Grid Layout for the SubSection
             const exmSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Exm-SS::SubSection");
-            exmSubSection.onAfterRendering = function() {
-                var a = this.getBlocks();
-                for (const block in a){
-                    a[block].setLayoutData(new sap.ui.layout.GridData({
-                        span: "L12 M12 S12"
-                    }));
-                }
-            };
+            exmSubSection.onAfterRendering = setBlocksRight;
 
             const kindSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-InK-SS::SubSection");
-            kindSubSection.onAfterRendering = function() {
-                var a = this.getBlocks();
-                for (const block in a){
-                    a[block].setLayoutData(new sap.ui.layout.GridData({
-                        span: "L12 M12 S12"
-                    }));
-                }
-            };
+            kindSubSection.onAfterRendering = setBlocksRight;
             
             const demSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Dem-SS::SubSection");
-            demSubSection.onAfterRendering = function() {
-                var a = this.getBlocks();
-                for (const block in a){
-                    a[block].setLayoutData(new sap.ui.layout.GridData({
-                        span: "L12 M12 S12"
-                    }));
-                }
-            };       
+            demSubSection.onAfterRendering = setBlocksRight;       
             
             const paymentSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Payment-SS::SubSection");
-            paymentSection.onAfterRendering = function() {
-                var a = this.getBlocks();
-                for (const block in a){
-                    a[block].setLayoutData(new sap.ui.layout.GridData({
-                        span: "L12 M12 S12"
-                    }));
-                }
-            };  
+            paymentSection.onAfterRendering = setBlocksRight;
 
             const refundSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Refund-SS::SubSection");
-            refundSection.onAfterRendering = function() {
-                var a = this.getBlocks();
-                for (const block in a){
-                    a[block].setLayoutData(new sap.ui.layout.GridData({
-                        span: "L12 M12 S12"
-                    }));
-                }
-            };
+            refundSection.onAfterRendering = setBlocksRight;
 
             const deferralSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Deferral-SS::SubSection");
-            deferralSection.onAfterRendering = function() {
-                var a = this.getBlocks();
-                for (const block in a){
-                    a[block].setLayoutData(new sap.ui.layout.GridData({
-                        span: "L12 M12 S12"
-                    }));
-                }
-            };
+            deferralSection.onAfterRendering = setBlocksRight;
 
         },
         onBeforeRebindTableExtension: function(oEvent) {
