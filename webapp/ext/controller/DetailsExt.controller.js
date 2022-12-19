@@ -49,6 +49,13 @@ function (){
             const deferralSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Deferral-SS::SubSection");
             deferralSection.onAfterRendering = setBlocksRight;
 
+
+            //Set the Grid Layout for the SubSection
+            const dcExemptionSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Exemption-SS::SubSection");
+            dcExemptionSection.onAfterRendering = setBlocksRight;
+           
+            
+
         },
         onBeforeRebindTableExtension: function(oEvent) {
             //Binding parameter change is only for the DC Table anddemolition table
