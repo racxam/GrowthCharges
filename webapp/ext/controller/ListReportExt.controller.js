@@ -22,6 +22,33 @@ function (Dialog,TextArea,Button,Filter, SmartFilterBar, MultiComboBox){
         };
             const oClearButton = this.getView().byId("com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--listReportFilter-btnClear");
             oClearButton.attachPress(this.onClearButtonPress, this);
+
+            // Get Inbox HashKey
+
+            const oRouter = this.getOwnerComponent().getRouter();
+           const sHashKey =  oRouter.getHashChanger().key;
+
+           if(sHashKey === "Child"){
+            var oExtensionAPI = this.extensionAPI;
+            var fnNavigate = function(oEvent){
+                    return new Promise(function(fnResolve,fnReject){
+                    var oNavigationController = oExtensionAPI.getNavigationController();
+                    oNavigationController.navigateInternal();
+                    fnResolve();
+            });
+            };
+
+            var fnNavigateEdit = function(){
+                return new Promise(function(fnResolve,fnReject){
+                    var oNavigationController = oExtensionAPI.getNavigationController();
+                    oNavigationController.navigateInternal();
+                    fnResolve();
+            });
+            };
+
+            this.extensionAPI.invokeActions().then(fnNavigateEdit.bind(this),fnNavigate.bind(this));
+           }
+
         },
 
          /**

@@ -15,11 +15,30 @@ function (){
                 //If opened not using FLP, there will be an error              
             }
 
+
+                this.extensionAPI.attachPageDataLoaded(function (event) {
+               var sPath = event.context.sPath;  // get the path
+                var oData = event.context.getModel().getProperty(sPath); // get the data to use further
+                // write rest of your code here ! happy coding!
+              });
+
             //Enable icontabbar mode
-            const oObjectPage = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--objectPage");
-            oObjectPage.setUseIconTabBar(true);            
+            // const oObjectPage = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--objectPage");
+            // oObjectPage.setUseIconTabBar(true);            
         },
+
+        
         onAfterRendering: function() {
+            
+            // const oDCTreeTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.Ob…ew.Details::zgc_c_requests--TotalDC-ID::treeTable");
+            // oDCTreeTable.getTable.setVisibleRowCountMode("Fixed");
+            // oDCTreeTable.getTable.setVisibleRowCount(15);
+
+            // sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::treeTable").getPlugins()[0].attachSelectionChange(
+            //     function (oEvent){ 
+            //         sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::action::ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities::zgc_c_dc_calcltnsCalculate").setEnabled(true);
+            //     }
+            //   );
 
             const setBlocksRight = function() {
                 var blocks = this.getBlocks();
@@ -53,6 +72,9 @@ function (){
             //Set the Grid Layout for the SubSection
             const dcExemptionSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Exemption-SS::SubSection");
             dcExemptionSection.onAfterRendering = setBlocksRight;
+
+            const dcBtnCalculate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::action::ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities::zgc_c_dc_calcltnsCalculate");
+            dcBtnCalculate.setEnabled(true);
            
             
 
