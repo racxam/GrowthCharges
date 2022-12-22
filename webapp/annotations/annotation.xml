@@ -194,7 +194,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>to_cbcexm/subtotal_cbc_payable</String>
+                                <String>subtotal_cbc_payable</String>
                             </Collection>
                         </PropertyValue>
                     </Record>

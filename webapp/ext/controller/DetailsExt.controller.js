@@ -72,9 +72,6 @@ function (){
             //Set the Grid Layout for the SubSection
             const dcExemptionSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Exemption-SS::SubSection");
             dcExemptionSection.onAfterRendering = setBlocksRight;
-
-            const dcBtnCalculate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::action::ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities::zgc_c_dc_calcltnsCalculate");
-            dcBtnCalculate.setEnabled(true);
            
             
 
