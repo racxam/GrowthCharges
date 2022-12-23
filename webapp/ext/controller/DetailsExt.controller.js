@@ -24,7 +24,10 @@ function (){
 
             //Enable icontabbar mode
             // const oObjectPage = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--objectPage");
-            // oObjectPage.setUseIconTabBar(true);            
+            // oObjectPage.setUseIconTabBar(true);  
+            
+            //Invoice Section
+            
         },
 
         
