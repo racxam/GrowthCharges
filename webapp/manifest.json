@@ -166,6 +166,14 @@
                             "sap.ui.generic.app": {
                                 "title": "CIL Header Information"
                             }
+                        },
+                        "AfterFacet|zgc_c_requests|InPayRef": {
+                            "type": "XML",
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragment.InvoiceSection",
+                            "sap.ui.generic.app": {
+                                "title": "Invoice"
+                            }
                         }
                     }
                 },
