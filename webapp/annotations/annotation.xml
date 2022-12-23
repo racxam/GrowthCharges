@@ -69,8 +69,8 @@
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
-                            <PropertyPath>invoice_calculation_date</PropertyPath>
-                            <PropertyPath>interest_applied_date</PropertyPath>
+                                <PropertyPath>invoice_calculation_date</PropertyPath>
+                                <PropertyPath>interest_applied_date</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
@@ -80,8 +80,8 @@
                             </Collection>
                         </PropertyValue>
                     </Record>
-                </Annotation>    
-                 <Annotation Term="Common.SideEffects" Qualifier="DCAppliChanged">
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DCAppliChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
@@ -94,7 +94,7 @@
                             </Collection>
                         </PropertyValue>
                     </Record>
-                </Annotation>   
+                </Annotation>
 
                 <Annotation Term="Common.SideEffects" Qualifier="DCAppealRefChanged">
                     <Record Type="Common.SideEffectsType">
@@ -111,7 +111,7 @@
                             </Collection>
                         </PropertyValue>
                     </Record>
-                </Annotation>         
+                </Annotation>
             </Annotations>
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
@@ -133,12 +133,15 @@
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_dccal/to_dcsscal</NavigationPropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
                 </Annotation>
 
-                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CILPayableChanged">
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CILPayableChanged">
                     <Record>
                         <PropertyValue Property="SourceProperties">
                             <Collection>
@@ -188,8 +191,8 @@
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
-                            <PropertyPath>cbc_land_val_amt</PropertyPath>
-                            <PropertyPath>cbc_percentage</PropertyPath>
+                                <PropertyPath>cbc_land_val_amt</PropertyPath>
+                                <PropertyPath>cbc_percentage</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
@@ -263,7 +266,7 @@
                                 <PropertyPath>nr_vacant_payable</PropertyPath>
                                 <PropertyPath>nr_ext_payable</PropertyPath>
 
-                                 <!-- <PropertyPath>resi_high_med_hidden</PropertyPath>
+                                <!-- <PropertyPath>resi_high_med_hidden</PropertyPath>
                                   <PropertyPath>resi_low_hidden</PropertyPath> -->
                             </Collection>
                         </PropertyValue>
@@ -278,7 +281,7 @@
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
-                               <PropertyPath>res_gfa</PropertyPath>
+                                <PropertyPath>res_gfa</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
@@ -288,11 +291,11 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                 <Annotation Term="Common.SideEffects" Qualifier="NResGFAChange">
+                <Annotation Term="Common.SideEffects" Qualifier="NResGFAChange">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
-                               <PropertyPath>nres_gfa</PropertyPath>
+                                <PropertyPath>nres_gfa</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
@@ -369,7 +372,7 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                 <Annotation Term="Common.SideEffects" Qualifier="DCAmtPayableChanged">
+                <Annotation Term="Common.SideEffects" Qualifier="DCAmtPayableChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
@@ -390,21 +393,115 @@
                             <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
                             <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
-                            <Annotation Term="Core.OperationAvailable"  Path="ActionEnabled"/>
+                            <Annotation Term="Core.OperationAvailable" Path="ActionEnabled"/>
                         </Record>
-                        <Record Type="UI.DataFieldForAction">
+                        <!-- <Record Type="UI.DataFieldForAction">
                             <PropertyValue Property="Label" String="Cal"/>
                             <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
                             <PropertyValue Property="RequiresContext" Bool="true"/>
                             <PropertyValue Property="Criticality" EnumMember="UI.CriticalityType/Positive"/>
                             <PropertyValue Property="Inline" Bool="false"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
-                        </Record>
+                        </Record> -->
                     </Collection>
                 </Annotation>
-               
+                <Annotation Term="Common.SideEffects" Qualifier="DCTableChanged">
+                    <Record>
+
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="SourceEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_dcsscal</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>amount_payable</String>
+                                <String>dc_rate</String>
+                                <String>quantity</String>
+                                <String>interest_rate</String>
+                                <String>interest_amount</String>
+                                <String>dc_and_interest</String>
+                                <String>exm_amount</String>
+                                <String>applied_dm_credit</String>
+                                <String>prv_dm_credit</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_dcsscal</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
             </Annotations>
-           
+            <Annotations Target="SAP.zgc_c_dc_demosType">
+                <Annotation Term="Common.SideEffects" Qualifier="DCDemoCredTableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                                <PropertyPath>tot_demo_credit</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <!-- <NavigationPropertyPath>to_dcsscal</NavigationPropertyPath> -->
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>dc_rate</String>
+                                <String>quantity</String>
+                                <String>interest_rate</String>
+                                <String>interest_amount</String>
+                                <String>demo_amount</String>
+                                <String>tot_demo_credit</String>
+                                <String>applied_credit</String>
+                                <String>permit_number</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_dc_exmsType">
+                <Annotation Term="Common.SideEffects" Qualifier="DCExemptTableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_partner</PropertyPath>
+                                <PropertyPath>exemption_type</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>dc_partner</PropertyPath>
+                                <PropertyPath>dc_partner_Text</PropertyPath>
+                                <PropertyPath>exm_amount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath></NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <!-- <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>interest_rate</String>
+                            </Collection>
+                        </PropertyValue> -->
+                    </Record>
+                </Annotation>
+            </Annotations>
+
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>
