@@ -1,5 +1,4 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
-    <Text text="Invoice"/>
     <ScrollContainer
 		height="100%"
 		width="100%"
@@ -7,7 +6,7 @@
 		vertical="true">
 		<FlexBox direction="Column" renderType="Div" class="sapUiSmallMargin">
         <Text text="Invoice Section"></Text>
-			<PDFViewer source="{/Source}" title="{/Title}" height="{/Height}">
+			<PDFViewer id="PDFViewer" source="{/Source}">
 				<layoutData>
 					<FlexItemData growFactor="1" />
 				</layoutData>

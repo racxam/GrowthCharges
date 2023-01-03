@@ -1,6 +1,6 @@
 jQuery.sap.require("com.gc.dashboard.ext.formatter.ObjectPageFormatter");
-sap.ui.define([],
-function (){
+sap.ui.define(["sap/ui/model/json/JSONModel"],
+function (JSONModel){
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
         onInit: function() {
@@ -27,7 +27,12 @@ function (){
             // oObjectPage.setUseIconTabBar(true);  
             
             //Invoice Section
-            
+
+            this._sValidPath = "/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='EXT48000000000002',Documentpart='',Documentversion='',ApplicationId='005056940AD91EDDA2F0473378DA7E15',FileId='005056940AD91EDDA2F0473378DA9E15')/$value";
+			this._oModel = new JSONModel({
+				Source: this._sValidPath
+			});
+			this.getView().byId("PDFViewer").setModel(this._oModel);
         },
 
         
