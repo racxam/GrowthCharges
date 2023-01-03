@@ -102,7 +102,7 @@
                 <Property Name="dem_permit" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Primary Build Permit" sap:quickinfo="Primary Building Permit No."/>
                 <Property Name="dev_area" Type="Edm.Decimal" Precision="15" Scale="4" sap:label="Development Area"/>
                 <Property Name="land_ass_area" Type="Edm.Decimal" Precision="12" Scale="3" sap:label="Land Value Assessmen" sap:quickinfo="Land Value Assessment Rate"/>
-                <Property Name="land_val_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Total Land Value Ass" sap:quickinfo="Total Land Value Assessment"/>
+                <Property Name="land_val_amt" Type="Edm.Decimal" Precision="13" Scale="2" sap:label="Total Land Value Ass" sap:quickinfo="Total Land Value Assessment"/>
                 <Property Name="dem_cbc_charge" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Total Demolition CBC" sap:quickinfo="Total Demolition CBC Charge"/>
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
                 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
@@ -129,9 +129,9 @@
                 <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
                 <Property Name="EXM_DESC" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="exm_type" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="EXM_DESC" sap:label="CBC Exemption Type" sap:value-list="fixed-values"/>
-                <Property Name="dev_area" Type="Edm.Decimal" Precision="15" Scale="4" sap:label="Development Area"/>
-                <Property Name="land_ass_area" Type="Edm.Decimal" Precision="12" Scale="3" sap:label="Land Value Assessmen" sap:quickinfo="Land Value Assessment Rate"/>
-                <Property Name="land_val_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Total Land Value Ass" sap:quickinfo="Total Land Value Assessment"/>
+                <Property Name="dev_area" Type="Edm.Decimal" Precision="15" Scale="2" sap:label="Development Area"/>
+                <Property Name="land_ass_area" Type="Edm.Decimal" Precision="11" Scale="2" sap:label="Land Value Assessmen" sap:quickinfo="Land Value Assessment Rate"/>
+                <Property Name="land_val_amt" Type="Edm.Decimal" Precision="13" Scale="2" sap:label="Total Land Value Ass" sap:quickinfo="Total Land Value Assessment"/>
                 <Property Name="subtotal_cbc_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Subtotal CBC Payable"/>
                 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
                 <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On"/>
@@ -274,7 +274,6 @@
                     <PropertyRef Name="dc_cal_uuid"/>
                     <PropertyRef Name="IsActiveEntity"/>
                 </Key>
-                <Property Name="Calculate_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="dc_type_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -337,6 +336,7 @@
                 <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="dc_type_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="dm_credit_type_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="quantity_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="unit_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -352,6 +352,7 @@
                 <Property Name="drill_state" Type="Edm.String" MaxLength="10" sap:hierarchy-drill-state-for="dem_uuid" sap:label="Drillstate" sap:quickinfo="Drill state"/>
                 <Property Name="expand_count" Type="Edm.Byte" sap:hierarchy-node-descendant-count-for="dem_uuid" sap:label="INT1" sap:quickinfo="1 Byte Unsigned Integer"/>
                 <Property Name="parent_uuid" Type="Edm.Guid" sap:hierarchy-parent-node-for="dem_uuid" sap:label="Growth Charges Key" sap:heading=""/>
+                <Property Name="dm_credit_type" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:field-control="dm_credit_type_fc" sap:label="Dem Cr Type" sap:quickinfo="Demolition Credit Type" sap:value-list="fixed-values"/>
                 <Property Name="dc_rate" Type="Edm.Decimal" Precision="12" Scale="3" sap:label="DC Rate" sap:quickinfo="Rate" sap:value-list="fixed-values"/>
                 <Property Name="quantity" Type="Edm.Decimal" Precision="15" Scale="4" sap:field-control="quantity_fc" sap:unit="unit" sap:label="Quantity" sap:quickinfo="Quantity - Either 'no of units' or area"/>
                 <Property Name="unit" Type="Edm.String" MaxLength="3" sap:field-control="unit_fc" sap:text="unit_Text" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
@@ -487,6 +488,7 @@
                     <PropertyRef Name="payment_uuid"/>
                     <PropertyRef Name="IsActiveEntity"/>
                 </Key>
+                <Property Name="Gen_def_invoice_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -494,14 +496,14 @@
                 <Property Name="req_uuid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading=""/>
                 <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID"/>
                 <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
-                <Property Name="deferral_year" Type="Edm.String" MaxLength="15" sap:display-format="UpperCase" sap:label="Year" sap:heading=""/>
-                <Property Name="installment_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Installment Amount" sap:heading=""/>
-                <Property Name="previous_payment" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Previous Payment" sap:heading=""/>
+                <Property Name="deferral_year" Type="Edm.String" MaxLength="15" sap:display-format="UpperCase" sap:label="Year" sap:heading="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="installment_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Installment Amount" sap:heading="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="previous_payment" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Previous Payment" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="payment_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Invoice Posted Date"/>
-                <Property Name="interest_days" Type="Edm.Int16" sap:label="Days of Interest"/>
-                <Property Name="interest_amount" Type="Edm.Decimal" Precision="13" Scale="4" sap:label="Interest Amount"/>
-                <Property Name="refund_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:label="Refund Amount"/>
-                <Property Name="refund_interest" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Refund with Interest" sap:heading=""/>
+                <Property Name="interest_days" Type="Edm.Int16" sap:label="Days of Interest" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="interest_amount" Type="Edm.Decimal" Precision="13" Scale="4" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="refund_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:label="Refund Amount" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="refund_interest" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Refund with Interest" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="generate_invoice" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Generate Invoice" sap:heading=""/>
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
                 <Property Name="city_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="City"/>
@@ -526,6 +528,8 @@
                     <PropertyRef Name="payment_uuid"/>
                     <PropertyRef Name="IsActiveEntity"/>
                 </Key>
+                <Property Name="Gen_pay_receipt_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Payment_table_action_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -533,12 +537,12 @@
                 <Property Name="req_uuid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading=""/>
                 <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID"/>
                 <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
-                <Property Name="invoice_no" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Invoice Document No." sap:quickinfo="Document Number of an Invoice Document"/>
-                <Property Name="invoice_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Invoice Amount" sap:heading=""/>
+                <Property Name="invoice_no" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Invoice Document No." sap:quickinfo="Document Number of an Invoice Document" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="invoice_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Invoice Amount" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="document_no" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="document_no" sap:label="Document Number" sap:quickinfo="Document Number of an Accounting Document" sap:value-list="standard"/>
-                <Property Name="payment_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Invoice Posted Date"/>
-                <Property Name="payment_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Payment Amount" sap:heading=""/>
-                <Property Name="balance_due" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Balance Due" sap:heading=""/>
+                <Property Name="payment_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Invoice Posted Date" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="payment_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Payment Amount" sap:heading="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="balance_due" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Balance Due" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="payee_details" Type="Edm.String" MaxLength="255" sap:label="Payee Name and Addre" sap:quickinfo="Payee Name and Address"/>
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
                 <Property Name="generate_reciept" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Generate Reciept?"/>
@@ -557,11 +561,42 @@
                 <NavigationProperty Name="to_defvh" Relationship="ZGC_C_REQUESTS_CDS.assoc_1516AC1229580BCCF3DECEFBBF8002A5" FromRole="FromRole_assoc_1516AC1229580BCCF3DECEFBBF8002A5" ToRole="ToRole_assoc_1516AC1229580BCCF3DECEFBBF8002A5"/>
                 <NavigationProperty Name="to_request" Relationship="ZGC_C_REQUESTS_CDS.assoc_CC5CE823F888E925A53E267CF5D48674" FromRole="ToRole_assoc_CC5CE823F888E925A53E267CF5D48674" ToRole="FromRole_assoc_CC5CE823F888E925A53E267CF5D48674"/>
             </EntityType>
+            <EntityType Name="ZGC_C_PRE_BLD_PERMIT_CRDType" sap:label="Consumtion View for Bldg Permit Credit" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="pr_build_permit_uuid"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="pr_build_permit_uuid" Type="Edm.Guid" Nullable="false" sap:label="Growth Charges Key" sap:heading=""/>
+                <Property Name="req_uuid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading=""/>
+                <Property Name="build_permit_no" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Building Permit No" sap:quickinfo="Building Permit Number"/>
+                <Property Name="dc_type" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="DC Type"/>
+                <Property Name="dc_partner" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="DC Partner"/>
+                <Property Name="credit_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:label="Credit Amount"/>
+                <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
+                <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
+                <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On"/>
+                <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
+                <Property Name="updated_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Updated On"/>
+                <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
+                <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On"/>
+                <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has active" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Has Draft" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Is active" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Relationship="ZGC_C_REQUESTS_CDS.assoc_68B97FFD0C197DF6E809A539E132A37B" FromRole="FromRole_assoc_68B97FFD0C197DF6E809A539E132A37B" ToRole="ToRole_assoc_68B97FFD0C197DF6E809A539E132A37B"/>
+                <NavigationProperty Name="SiblingEntity" Relationship="ZGC_C_REQUESTS_CDS.assoc_FBAF2B9ACE713487545C2797300C865C" FromRole="FromRole_assoc_FBAF2B9ACE713487545C2797300C865C" ToRole="ToRole_assoc_FBAF2B9ACE713487545C2797300C865C"/>
+                <NavigationProperty Name="to_request" Relationship="ZGC_C_REQUESTS_CDS.assoc_C7321FB52CDA5B80182A3CA10FA96447" FromRole="ToRole_assoc_C7321FB52CDA5B80182A3CA10FA96447" ToRole="FromRole_assoc_C7321FB52CDA5B80182A3CA10FA96447"/>
+            </EntityType>
             <EntityType Name="zgc_c_refundsType" sap:label="Refunds - Consumption View" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="refund_uuid"/>
                     <PropertyRef Name="IsActiveEntity"/>
                 </Key>
+                <Property Name="Gen_ref_receipt_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="refund_uuid" Type="Edm.Guid" Nullable="false" sap:label="Growth Charges Key" sap:heading=""/>
@@ -569,14 +604,15 @@
                 <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID"/>
                 <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
                 <Property Name="refund_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Refund Date"/>
-                <Property Name="refund_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:label="Refund Amount"/>
-                <Property Name="interest_amount" Type="Edm.Decimal" Precision="13" Scale="4" sap:label="Interest Amount"/>
-                <Property Name="refund_interest" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Refund with Interest" sap:heading=""/>
+                <Property Name="refund_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:label="Refund Amount" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="interest_amount" Type="Edm.Decimal" Precision="13" Scale="4" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="refund_interest" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Refund with Interest" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="amount_refunded" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Amount Refunded" sap:heading=""/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
                 <Property Name="recp_name" Type="Edm.String" MaxLength="100" sap:label="Reciepient Name"/>
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
                 <Property Name="generate_reciept" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Generate Reciept?"/>
+                <Property Name="refund_type" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Refund Type"/>
                 <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
                 <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On"/>
                 <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
@@ -611,6 +647,7 @@
                 <Property Name="cbc_appraisal_date_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="cbc_buld_type_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="cbc_dev_area_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="cbc_dev_area_unit1_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="cbc_ext_comments_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="cbc_land_ass_area_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="cbc_land_val_amt_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -673,9 +710,9 @@
                 <Property Name="total_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:filter-restriction="single-value" sap:label="Total Invoice Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="is_deferral" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:filter-restriction="single-value" sap:creatable="false" sap:updatable="false" sap:value-list="fixed-values"/>
                 <Property Name="is_deferral_txt" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Deferral Applicable?"/>
-                <Property Name="deferral_type" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Deferral Type"/>
+                <Property Name="deferral_type" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="deferraltype_txt" sap:label="Deferral Type" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="def_first_payment_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="1st Payment Due Date" sap:quickinfo="Deferral First Installment Date"/>
-                <Property Name="def_instal_years" Type="Edm.Byte" sap:label="Installment Years" sap:quickinfo="Deferral Installment Years"/>
+                <Property Name="def_instal_years" Type="Edm.Byte" sap:label="Installment Years" sap:quickinfo="Deferral Installment Years" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="is_residential" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Residential"/>
                 <Property Name="is_non_residential" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Non-Residential"/>
                 <Property Name="is_industrial" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Industrial"/>
@@ -687,6 +724,7 @@
                 <Property Name="is_chg_of_use" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Change of use"/>
                 <Property Name="is_dc_exemption" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Applicable Exemption" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="building_type" Type="Edm.String" MaxLength="255" sap:display-format="UpperCase" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="def_hidden" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="is_demolition" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Demolition" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="is_other" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Other"/>
                 <Property Name="loc_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:filter-restriction="single-value" sap:label="Letter of Credit - D" sap:quickinfo="Letter of Credit - Date"/>
@@ -696,7 +734,7 @@
                 <Property Name="swm_net_dev" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Net Developable Area"/>
                 <Property Name="swm_comments" Type="Edm.String" sap:label="SWM Comments"/>
                 <Property Name="total_units" Type="Edm.Int32" sap:label="Number of units" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="exist_gfa" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Existing GFA" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="exist_gfa" Type="Edm.Decimal" Precision="10" Scale="2" sap:label="Existing GFA" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="prop_gfa" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Proposed GFA" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_int_comments_max" Type="Edm.String" sap:label="Internal Comments" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_int_comments_sap" Type="Edm.String" sap:label="DC Int. Com. SAP" sap:quickinfo="DC Internal Comments SAP"/>
@@ -709,14 +747,16 @@
                 <Property Name="entry_completed_by" Type="Edm.String" MaxLength="100" sap:label="MAX Entry Completed" sap:quickinfo="MAX Entry Completed By" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="max_approval_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:filter-restriction="interval" sap:label="MAX Approval Date" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="max_approval_by" Type="Edm.String" MaxLength="100" sap:label="MAX Approval By" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
                 <Property Name="cbc_buld_type" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:field-control="cbc_buld_type_fc" sap:text="buld_txt" sap:label="CBC Building Type" sap:value-list="fixed-values"/>
                 <Property Name="cbc_ward" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Ward" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="cbc_appraisal_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:field-control="cbc_appraisal_date_fc" sap:label="Appraisal Date"/>
                 <Property Name="cbc_valid_until" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:field-control="cbc_valid_until_fc" sap:label="Valid Until"/>
-                <Property Name="cbc_dev_area" Type="Edm.Decimal" Precision="15" Scale="4" sap:field-control="cbc_dev_area_fc" sap:label="Development Area"/>
-                <Property Name="cbc_land_ass_area" Type="Edm.Decimal" Precision="12" Scale="3" sap:field-control="cbc_land_ass_area_fc" sap:label="Land Value Assessmen" sap:quickinfo="Land Value Assessment Rate"/>
-                <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
-                <Property Name="cbc_land_val_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:field-control="cbc_land_val_amt_fc" sap:unit="currency" sap:label="Total Land Value Ass" sap:quickinfo="Total Land Value Assessment"/>
+                <Property Name="unit_txt" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="cbc_dev_area_unit1" Type="Edm.String" MaxLength="3" sap:field-control="cbc_dev_area_unit1_fc" sap:text="unit_txt" sap:label="Development Area Unt" sap:quickinfo="CBC Development Area Unit" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
+                <Property Name="cbc_dev_area" Type="Edm.Decimal" Precision="15" Scale="2" sap:field-control="cbc_dev_area_fc" sap:label="Development Area"/>
+                <Property Name="cbc_land_ass_area" Type="Edm.Decimal" Precision="11" Scale="2" sap:field-control="cbc_land_ass_area_fc" sap:label="Land Value Assessmen" sap:quickinfo="Land Value Assessment Rate"/>
+                <Property Name="cbc_land_val_amt" Type="Edm.Decimal" Precision="13" Scale="2" sap:field-control="cbc_land_val_amt_fc" sap:label="Total Land Value Ass" sap:quickinfo="Total Land Value Assessment"/>
                 <Property Name="cbc_percentage" Type="Edm.Decimal" Precision="5" Scale="2" sap:field-control="cbc_percentage_fc" sap:label="CBC Percentage"/>
                 <Property Name="subtotal_cbc_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Subtotal CBC Payable" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="is_exm_cbc" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="is_exm_cbc_fc" sap:label="CBC Exemption Applic" sap:quickinfo="CBC Exemption Applicable?"/>
@@ -749,6 +789,7 @@
                 <Property Name="name_org1" Type="Edm.String" MaxLength="40" sap:text="name_org1" sap:label="Name 1" sap:quickinfo="Name 1 of organization" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="inv_nme" Type="Edm.String" MaxLength="40" sap:text="inv_nme" sap:label="Name 1" sap:quickinfo="Name 1 of organization" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="buld_txt" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="deferraltype_txt" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="pdsb_comments" Type="Edm.String" sap:label="PDSB Comments" sap:heading=""/>
                 <Property Name="dpcsb_comments" Type="Edm.String" sap:label="DPCSB Comments" sap:heading=""/>
                 <Property Name="rop_comments" Type="Edm.String" sap:label="Region of Peel Comments" sap:heading=""/>
@@ -764,7 +805,11 @@
                 <Property Name="cbc_knd_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="In-Kind Hidden" sap:quickinfo="In-Kind Section Hidden"/>
                 <Property Name="cbc_dem_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Demolition Hidden" sap:quickinfo="Demolition Section Hidden"/>
                 <Property Name="cbc_v2_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="V2 Hidden" sap:quickinfo="Field for V2 Hidden flag"/>
+                <Property Name="deferral_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Deferral Hidden"/>
+                <Property Name="cbc_exist_gfa" Type="Edm.Decimal" Precision="10" Scale="2" sap:label="CBC Existing GFA"/>
+                <Property Name="cbc_prop_gfa" Type="Edm.Decimal" Precision="10" Scale="2" sap:label="CBC Proposed GFA"/>
                 <Property Name="total_dc_exmp_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Total DC Exemption A" sap:quickinfo="Total DC Exemption Amount" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="old_dcid" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="Old DC ID"/>
                 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
                 <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On"/>
                 <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On"/>
@@ -786,14 +831,17 @@
                 <NavigationProperty Name="to_dcidvh" Relationship="ZGC_C_REQUESTS_CDS.assoc_48E4ADC494713547190201BC7FD76783" FromRole="FromRole_assoc_48E4ADC494713547190201BC7FD76783" ToRole="ToRole_assoc_48E4ADC494713547190201BC7FD76783"/>
                 <NavigationProperty Name="to_deferrals" Relationship="ZGC_C_REQUESTS_CDS.assoc_E4DC66551CF4259CA6235F537B9EFCE0" FromRole="FromRole_assoc_E4DC66551CF4259CA6235F537B9EFCE0" ToRole="ToRole_assoc_E4DC66551CF4259CA6235F537B9EFCE0"/>
                 <NavigationProperty Name="to_deferralvh" Relationship="ZGC_C_REQUESTS_CDS.assoc_753848FF8B312014A6C8E39137E86459" FromRole="FromRole_assoc_753848FF8B312014A6C8E39137E86459" ToRole="ToRole_assoc_753848FF8B312014A6C8E39137E86459"/>
+                <NavigationProperty Name="to_deftype_vh" Relationship="ZGC_C_REQUESTS_CDS.assoc_930B771A6EFCD3A78D1E7A552CCB38DD" FromRole="FromRole_assoc_930B771A6EFCD3A78D1E7A552CCB38DD" ToRole="ToRole_assoc_930B771A6EFCD3A78D1E7A552CCB38DD"/>
                 <NavigationProperty Name="to_demos" Relationship="ZGC_C_REQUESTS_CDS.assoc_5A8CB83283FFCAFD4B5BDDD8843BFB5D" FromRole="FromRole_assoc_5A8CB83283FFCAFD4B5BDDD8843BFB5D" ToRole="ToRole_assoc_5A8CB83283FFCAFD4B5BDDD8843BFB5D"/>
                 <NavigationProperty Name="to_exemptions" Relationship="ZGC_C_REQUESTS_CDS.assoc_438850E5B7F14478C33318B3C71EDB04" FromRole="FromRole_assoc_438850E5B7F14478C33318B3C71EDB04" ToRole="ToRole_assoc_438850E5B7F14478C33318B3C71EDB04"/>
                 <NavigationProperty Name="to_invh" Relationship="ZGC_C_REQUESTS_CDS.assoc_9CDEC3F8B211B65F519967BE9EAD05B7" FromRole="FromRole_assoc_9CDEC3F8B211B65F519967BE9EAD05B7" ToRole="ToRole_assoc_9CDEC3F8B211B65F519967BE9EAD05B7"/>
                 <NavigationProperty Name="to_invtxt" Relationship="ZGC_C_REQUESTS_CDS.assoc_5354A3531EA6C23E92632B7904B06C90" FromRole="FromRole_assoc_5354A3531EA6C23E92632B7904B06C90" ToRole="ToRole_assoc_5354A3531EA6C23E92632B7904B06C90"/>
                 <NavigationProperty Name="to_payments" Relationship="ZGC_C_REQUESTS_CDS.assoc_CC5CE823F888E925A53E267CF5D48674" FromRole="FromRole_assoc_CC5CE823F888E925A53E267CF5D48674" ToRole="ToRole_assoc_CC5CE823F888E925A53E267CF5D48674"/>
                 <NavigationProperty Name="to_permitvh" Relationship="ZGC_C_REQUESTS_CDS.assoc_ACD5FA6200FCEA2D0A9688345CF4456F" FromRole="FromRole_assoc_ACD5FA6200FCEA2D0A9688345CF4456F" ToRole="ToRole_assoc_ACD5FA6200FCEA2D0A9688345CF4456F"/>
+                <NavigationProperty Name="to_prvpermitcr" Relationship="ZGC_C_REQUESTS_CDS.assoc_C7321FB52CDA5B80182A3CA10FA96447" FromRole="FromRole_assoc_C7321FB52CDA5B80182A3CA10FA96447" ToRole="ToRole_assoc_C7321FB52CDA5B80182A3CA10FA96447"/>
                 <NavigationProperty Name="to_refunds" Relationship="ZGC_C_REQUESTS_CDS.assoc_39236CC838196FAA64E5F70401A958D1" FromRole="FromRole_assoc_39236CC838196FAA64E5F70401A958D1" ToRole="ToRole_assoc_39236CC838196FAA64E5F70401A958D1"/>
                 <NavigationProperty Name="to_statusvh" Relationship="ZGC_C_REQUESTS_CDS.assoc_E102E241F0FD9006FC2CC10CC5ACAA58" FromRole="FromRole_assoc_E102E241F0FD9006FC2CC10CC5ACAA58" ToRole="ToRole_assoc_E102E241F0FD9006FC2CC10CC5ACAA58"/>
+                <NavigationProperty Name="to_UOM" Relationship="ZGC_C_REQUESTS_CDS.assoc_7EB2CF035B0F82B86DC279F954716AF0" FromRole="FromRole_assoc_7EB2CF035B0F82B86DC279F954716AF0" ToRole="ToRole_assoc_7EB2CF035B0F82B86DC279F954716AF0"/>
             </EntityType>
             <EntityType Name="zgc_dcexem_type_vhType" sap:label="Value Help for DC Exemptions Type" sap:content-version="1">
                 <Key>
@@ -827,12 +875,26 @@
                 <Property Name="dc_type" Type="Edm.String" Nullable="false" MaxLength="30" sap:display-format="UpperCase" sap:text="dc_txt" sap:label="DC Type"/>
                 <Property Name="dc_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description"/>
             </EntityType>
+            <EntityType Name="zgc_deferraltype_vhType" sap:label="Deferral Type Value Help" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="deferral_type"/>
+                </Key>
+                <Property Name="deferral_type" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="deferraltype_txt" sap:label="Lower Value" sap:quickinfo="Values for Domains: Single Value / Upper Limit"/>
+                <Property Name="deferraltype_txt" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values"/>
+            </EntityType>
             <EntityType Name="zgc_deferral_vhType" sap:label="Value Help for Deferral" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="deferral_key"/>
                 </Key>
                 <Property Name="deferral_key" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="deferral_txt" sap:label="Lower Value" sap:quickinfo="Values for Domains: Single Value / Upper Limit"/>
                 <Property Name="deferral_txt" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values"/>
+            </EntityType>
+            <EntityType Name="ZGC_DEMO_CREDIT_TYPE_VHType" sap:label="Value Help - Demolition Credit Type" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="dm_cred_typ"/>
+                </Key>
+                <Property Name="dm_cred_typ" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="dm_cred_typ_txt" sap:label="Lower Value" sap:quickinfo="Values for Domains: Single Value / Upper Limit"/>
+                <Property Name="dm_cred_typ_txt" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values"/>
             </EntityType>
             <EntityType Name="zgc_exmtyp_vhType" sap:label="Value Help for Exemption Type" sap:content-version="1">
                 <Key>
@@ -876,11 +938,13 @@
             </EntityType>
             <EntityType Name="ZGC_PAY_DOC_VHType" sap:label="Payment Document Value Help" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="document_no"/>
+                    <PropertyRef Name="req_uuid"/>
                 </Key>
-                <Property Name="document_no" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="document_no" sap:label="Document Number" sap:quickinfo="Document Number of an Accounting Document"/>
+                <Property Name="req_uuid" Type="Edm.Guid" Nullable="false" sap:label="" sap:quickinfo="Growth Charges Key"/>
+                <Property Name="document_no" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="document_no" sap:label="Document Number" sap:quickinfo="Document Number of an Accounting Document"/>
                 <Property Name="company_code" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Company Code"/>
                 <Property Name="fiscal_year" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Fiscal Year"/>
+                <Property Name="doc_ref" Type="Edm.String" MaxLength="16" sap:display-format="UpperCase" sap:label="Reference" sap:quickinfo="Reference Document Number"/>
             </EntityType>
             <EntityType Name="zgc_permit_vhType" sap:label="Value Help for Permit" sap:content-version="1">
                 <Key>
@@ -1019,6 +1083,10 @@
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" Multiplicity="1" Role="FromRole_assoc_753848FF8B312014A6C8E39137E86459"/>
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_deferral_vhType" Multiplicity="0..1" Role="ToRole_assoc_753848FF8B312014A6C8E39137E86459"/>
             </Association>
+            <Association Name="assoc_930B771A6EFCD3A78D1E7A552CCB38DD" sap:content-version="1">
+                <End Type="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" Multiplicity="1" Role="FromRole_assoc_930B771A6EFCD3A78D1E7A552CCB38DD"/>
+                <End Type="ZGC_C_REQUESTS_CDS.zgc_deferraltype_vhType" Multiplicity="0..1" Role="ToRole_assoc_930B771A6EFCD3A78D1E7A552CCB38DD"/>
+            </Association>
             <Association Name="assoc_5A8CB83283FFCAFD4B5BDDD8843BFB5D" sap:content-version="1">
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" Multiplicity="1" Role="FromRole_assoc_5A8CB83283FFCAFD4B5BDDD8843BFB5D"/>
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType" Multiplicity="*" Role="ToRole_assoc_5A8CB83283FFCAFD4B5BDDD8843BFB5D"/>
@@ -1043,6 +1111,10 @@
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" Multiplicity="1" Role="FromRole_assoc_ACD5FA6200FCEA2D0A9688345CF4456F"/>
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_permit_vhType" Multiplicity="0..1" Role="ToRole_assoc_ACD5FA6200FCEA2D0A9688345CF4456F"/>
             </Association>
+            <Association Name="assoc_C7321FB52CDA5B80182A3CA10FA96447" sap:content-version="1">
+                <End Type="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" Multiplicity="1" Role="FromRole_assoc_C7321FB52CDA5B80182A3CA10FA96447"/>
+                <End Type="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" Multiplicity="*" Role="ToRole_assoc_C7321FB52CDA5B80182A3CA10FA96447"/>
+            </Association>
             <Association Name="assoc_39236CC838196FAA64E5F70401A958D1" sap:content-version="1">
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" Multiplicity="1" Role="FromRole_assoc_39236CC838196FAA64E5F70401A958D1"/>
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_c_refundsType" Multiplicity="*" Role="ToRole_assoc_39236CC838196FAA64E5F70401A958D1"/>
@@ -1051,6 +1123,10 @@
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" Multiplicity="1" Role="FromRole_assoc_E102E241F0FD9006FC2CC10CC5ACAA58"/>
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_status_vhType" Multiplicity="0..1" Role="ToRole_assoc_E102E241F0FD9006FC2CC10CC5ACAA58"/>
             </Association>
+            <Association Name="assoc_7EB2CF035B0F82B86DC279F954716AF0" sap:content-version="1">
+                <End Type="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" Multiplicity="1" Role="FromRole_assoc_7EB2CF035B0F82B86DC279F954716AF0"/>
+                <End Type="ZGC_C_REQUESTS_CDS.zgc_unit_of_measure_vhType" Multiplicity="0..1" Role="ToRole_assoc_7EB2CF035B0F82B86DC279F954716AF0"/>
+            </Association>
             <Association Name="assoc_899DB50C2FED84808AAD60727530AC2C" sap:content-version="1">
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_c_refundsType" Multiplicity="1" Role="FromRole_assoc_899DB50C2FED84808AAD60727530AC2C"/>
                 <End Type="ZGC_C_REQUESTS_CDS.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_899DB50C2FED84808AAD60727530AC2C"/>
@@ -1058,6 +1134,14 @@
             <Association Name="assoc_0C81958619F7C156747C73D48E292754" sap:content-version="1">
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_c_refundsType" Multiplicity="1" Role="FromRole_assoc_0C81958619F7C156747C73D48E292754"/>
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_c_refundsType" Multiplicity="0..1" Role="ToRole_assoc_0C81958619F7C156747C73D48E292754"/>
+            </Association>
+            <Association Name="assoc_68B97FFD0C197DF6E809A539E132A37B" sap:content-version="1">
+                <End Type="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" Multiplicity="1" Role="FromRole_assoc_68B97FFD0C197DF6E809A539E132A37B"/>
+                <End Type="ZGC_C_REQUESTS_CDS.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_68B97FFD0C197DF6E809A539E132A37B"/>
+            </Association>
+            <Association Name="assoc_FBAF2B9ACE713487545C2797300C865C" sap:content-version="1">
+                <End Type="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" Multiplicity="1" Role="FromRole_assoc_FBAF2B9ACE713487545C2797300C865C"/>
+                <End Type="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" Multiplicity="0..1" Role="ToRole_assoc_FBAF2B9ACE713487545C2797300C865C"/>
             </Association>
             <Association Name="assoc_9F3C951CEE0255B790840334F60B7E07" sap:content-version="1">
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_c_cbc_exmType" Multiplicity="1" Role="FromRole_assoc_9F3C951CEE0255B790840334F60B7E07"/>
@@ -1203,13 +1287,16 @@
                 <EntitySet Name="zgc_c_dc_ss_calcltns" EntityType="ZGC_C_REQUESTS_CDS.zgc_c_dc_ss_calcltnsType" sap:creatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZGC_C_DEFERRALS" EntityType="ZGC_C_REQUESTS_CDS.ZGC_C_DEFERRALSType" sap:content-version="1" sap:updatable-path="Update_mc"/>
                 <EntitySet Name="zgc_c_payments" EntityType="ZGC_C_REQUESTS_CDS.zgc_c_paymentsType" sap:content-version="1" sap:updatable-path="Update_mc"/>
+                <EntitySet Name="ZGC_C_PRE_BLD_PERMIT_CRD" EntityType="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
                 <EntitySet Name="zgc_c_refunds" EntityType="ZGC_C_REQUESTS_CDS.zgc_c_refundsType" sap:content-version="1"/>
                 <EntitySet Name="zgc_c_requests" EntityType="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" sap:creatable="false" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
                 <EntitySet Name="zgc_dcexem_type_vh" EntityType="ZGC_C_REQUESTS_CDS.zgc_dcexem_type_vhType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="zgc_dcid_vh" EntityType="ZGC_C_REQUESTS_CDS.zgc_dcid_vhType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="zgc_dcrates_vh" EntityType="ZGC_C_REQUESTS_CDS.zgc_dcrates_vhType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="zgc_dctype_vh" EntityType="ZGC_C_REQUESTS_CDS.zgc_dctype_vhType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="zgc_deferraltype_vh" EntityType="ZGC_C_REQUESTS_CDS.zgc_deferraltype_vhType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="zgc_deferral_vh" EntityType="ZGC_C_REQUESTS_CDS.zgc_deferral_vhType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZGC_DEMO_CREDIT_TYPE_VH" EntityType="ZGC_C_REQUESTS_CDS.ZGC_DEMO_CREDIT_TYPE_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="zgc_exmtyp_vh" EntityType="ZGC_C_REQUESTS_CDS.zgc_exmtyp_vhType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="zgc_invoice_txt" EntityType="ZGC_C_REQUESTS_CDS.zgc_invoice_txtType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="zgc_invpartner_vh" EntityType="ZGC_C_REQUESTS_CDS.zgc_invpartner_vhType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
@@ -1289,6 +1376,10 @@
                 <AssociationSet Name="assoc_CDFE8444BC27351AE0469C50E5F02F25" Association="ZGC_C_REQUESTS_CDS.assoc_CDFE8444BC27351AE0469C50E5F02F25" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="zgc_c_cbc_kind" Role="FromRole_assoc_CDFE8444BC27351AE0469C50E5F02F25"/>
                     <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_CDFE8444BC27351AE0469C50E5F02F25"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_C7321FB52CDA5B80182A3CA10FA96447" Association="ZGC_C_REQUESTS_CDS.assoc_C7321FB52CDA5B80182A3CA10FA96447" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zgc_c_requests" Role="FromRole_assoc_C7321FB52CDA5B80182A3CA10FA96447"/>
+                    <End EntitySet="ZGC_C_PRE_BLD_PERMIT_CRD" Role="ToRole_assoc_C7321FB52CDA5B80182A3CA10FA96447"/>
                 </AssociationSet>
                 <AssociationSet Name="assoc_E102E241F0FD9006FC2CC10CC5ACAA58" Association="ZGC_C_REQUESTS_CDS.assoc_E102E241F0FD9006FC2CC10CC5ACAA58" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="zgc_c_requests" Role="FromRole_assoc_E102E241F0FD9006FC2CC10CC5ACAA58"/>
@@ -1406,6 +1497,14 @@
                     <End EntitySet="zgc_c_dc_calcltns" Role="FromRole_assoc_CC314C9C33ED851B61A7F0D09E1AFE63"/>
                     <End EntitySet="zgc_dctype_vh" Role="ToRole_assoc_CC314C9C33ED851B61A7F0D09E1AFE63"/>
                 </AssociationSet>
+                <AssociationSet Name="assoc_FBAF2B9ACE713487545C2797300C865C" Association="ZGC_C_REQUESTS_CDS.assoc_FBAF2B9ACE713487545C2797300C865C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZGC_C_PRE_BLD_PERMIT_CRD" Role="FromRole_assoc_FBAF2B9ACE713487545C2797300C865C"/>
+                    <End EntitySet="ZGC_C_PRE_BLD_PERMIT_CRD" Role="ToRole_assoc_FBAF2B9ACE713487545C2797300C865C"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_930B771A6EFCD3A78D1E7A552CCB38DD" Association="ZGC_C_REQUESTS_CDS.assoc_930B771A6EFCD3A78D1E7A552CCB38DD" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zgc_c_requests" Role="FromRole_assoc_930B771A6EFCD3A78D1E7A552CCB38DD"/>
+                    <End EntitySet="zgc_deferraltype_vh" Role="ToRole_assoc_930B771A6EFCD3A78D1E7A552CCB38DD"/>
+                </AssociationSet>
                 <AssociationSet Name="assoc_CA86734BF8DA76F122B2CF514DFB2DA9" Association="ZGC_C_REQUESTS_CDS.assoc_CA86734BF8DA76F122B2CF514DFB2DA9" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="zgc_c_payments" Role="FromRole_assoc_CA86734BF8DA76F122B2CF514DFB2DA9"/>
                     <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_CA86734BF8DA76F122B2CF514DFB2DA9"/>
@@ -1434,6 +1533,10 @@
                     <End EntitySet="zgc_c_payments" Role="FromRole_assoc_4C37595DB11CF9DBC31E798F2EA82837"/>
                     <End EntitySet="zgc_c_payments" Role="ToRole_assoc_4C37595DB11CF9DBC31E798F2EA82837"/>
                 </AssociationSet>
+                <AssociationSet Name="assoc_68B97FFD0C197DF6E809A539E132A37B" Association="ZGC_C_REQUESTS_CDS.assoc_68B97FFD0C197DF6E809A539E132A37B" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZGC_C_PRE_BLD_PERMIT_CRD" Role="FromRole_assoc_68B97FFD0C197DF6E809A539E132A37B"/>
+                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_68B97FFD0C197DF6E809A539E132A37B"/>
+                </AssociationSet>
                 <AssociationSet Name="assoc_48E4ADC494713547190201BC7FD76783" Association="ZGC_C_REQUESTS_CDS.assoc_48E4ADC494713547190201BC7FD76783" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="zgc_c_requests" Role="FromRole_assoc_48E4ADC494713547190201BC7FD76783"/>
                     <End EntitySet="zgc_dcid_vh" Role="ToRole_assoc_48E4ADC494713547190201BC7FD76783"/>
@@ -1441,6 +1544,10 @@
                 <AssociationSet Name="assoc_ADFFD35B3EDF4627F490792068AD5A82" Association="ZGC_C_REQUESTS_CDS.assoc_ADFFD35B3EDF4627F490792068AD5A82" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="zgc_c_requests" Role="FromRole_assoc_ADFFD35B3EDF4627F490792068AD5A82"/>
                     <End EntitySet="zgc_c_cbc_exm" Role="ToRole_assoc_ADFFD35B3EDF4627F490792068AD5A82"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_7EB2CF035B0F82B86DC279F954716AF0" Association="ZGC_C_REQUESTS_CDS.assoc_7EB2CF035B0F82B86DC279F954716AF0" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zgc_c_requests" Role="FromRole_assoc_7EB2CF035B0F82B86DC279F954716AF0"/>
+                    <End EntitySet="zgc_unit_of_measure_vh" Role="ToRole_assoc_7EB2CF035B0F82B86DC279F954716AF0"/>
                 </AssociationSet>
                 <AssociationSet Name="assoc_03E0EF857B21DBEC26412E4178BE52EE" Association="ZGC_C_REQUESTS_CDS.assoc_03E0EF857B21DBEC26412E4178BE52EE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="zgc_c_dc_demos" Role="FromRole_assoc_03E0EF857B21DBEC26412E4178BE52EE"/>
@@ -1510,9 +1617,8 @@
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                     <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true" sap:label="SideEffectsQualifier"/>
                 </FunctionImport>
-                <FunctionImport Name="zgc_c_dc_calcltnsCalculate" ReturnType="ZGC_C_REQUESTS_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_calcltnsType" sap:applicable-path="Calculate_ac">
-                    <Parameter Name="dc_cal_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
-                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
+                <FunctionImport Name="zgc_c_dc_calcltnsCalculate" ReturnType="ZGC_C_REQUESTS_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_calcltnsType">
+                    <Parameter Name="req_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                 </FunctionImport>
                 <FunctionImport Name="zgc_c_dc_calcltnsPreparation" ReturnType="ZGC_C_REQUESTS_CDS.zgc_c_dc_calcltnsType" EntitySet="zgc_c_dc_calcltns" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_calcltnsType" sap:applicable-path="Preparation_ac">
                     <Parameter Name="dc_cal_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
@@ -1524,9 +1630,7 @@
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                     <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true" sap:label="SideEffectsQualifier"/>
                 </FunctionImport>
-                <FunctionImport Name="zgc_c_dc_demosAdd_misc_cred" ReturnType="Collection(ZGC_C_REQUESTS_CDS.DummyFunctionImportResult)" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType">
-                    <Parameter Name="dm_credit_type" Type="Edm.String" Mode="In" MaxLength="3" sap:label="Dem Cr Type"/>
-                </FunctionImport>
+                <FunctionImport Name="zgc_c_dc_demosAdd_misc_cred" ReturnType="Collection(ZGC_C_REQUESTS_CDS.DummyFunctionImportResult)" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType"/>
                 <FunctionImport Name="zgc_c_dc_demosPreparation" ReturnType="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType" EntitySet="zgc_c_dc_demos" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType" sap:applicable-path="Preparation_ac">
                     <Parameter Name="dem_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
@@ -1557,6 +1661,10 @@
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                     <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true" sap:label="SideEffectsQualifier"/>
                 </FunctionImport>
+                <FunctionImport Name="ZGC_C_DEFERRALSGen_def_invoice" ReturnType="ZGC_C_REQUESTS_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.ZGC_C_DEFERRALSType" sap:applicable-path="Gen_def_invoice_ac">
+                    <Parameter Name="payment_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
+                </FunctionImport>
                 <FunctionImport Name="ZGC_C_DEFERRALSPreparation" ReturnType="ZGC_C_REQUESTS_CDS.ZGC_C_DEFERRALSType" EntitySet="ZGC_C_DEFERRALS" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.ZGC_C_DEFERRALSType" sap:applicable-path="Preparation_ac">
                     <Parameter Name="payment_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
@@ -1567,6 +1675,10 @@
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                     <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true" sap:label="SideEffectsQualifier"/>
                 </FunctionImport>
+                <FunctionImport Name="zgc_c_paymentsPayment_table_action" ReturnType="ZGC_C_REQUESTS_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_paymentsType" sap:applicable-path="Payment_table_action_ac">
+                    <Parameter Name="payment_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
+                </FunctionImport>
                 <FunctionImport Name="zgc_c_paymentsPreparation" ReturnType="ZGC_C_REQUESTS_CDS.zgc_c_paymentsType" EntitySet="zgc_c_payments" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_paymentsType" sap:applicable-path="Preparation_ac">
                     <Parameter Name="payment_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
@@ -1576,6 +1688,20 @@
                     <Parameter Name="payment_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                     <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true" sap:label="SideEffectsQualifier"/>
+                </FunctionImport>
+                <FunctionImport Name="ZGC_C_PRE_BLD_PERMIT_CRDPreparation" ReturnType="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" EntitySet="ZGC_C_PRE_BLD_PERMIT_CRD" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" sap:applicable-path="Preparation_ac">
+                    <Parameter Name="pr_build_permit_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true" sap:label="SideEffectsQualifier"/>
+                </FunctionImport>
+                <FunctionImport Name="ZGC_C_PRE_BLD_PERMIT_CRDValidation" ReturnType="ZGC_C_REQUESTS_CDS.ValidationFunctionResult" m:HttpMethod="GET" sap:action-for="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" sap:applicable-path="Validation_ac">
+                    <Parameter Name="pr_build_permit_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true" sap:label="SideEffectsQualifier"/>
+                </FunctionImport>
+                <FunctionImport Name="zgc_c_refundsGen_ref_receipt" ReturnType="ZGC_C_REQUESTS_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_refundsType" sap:applicable-path="Gen_ref_receipt_ac">
+                    <Parameter Name="refund_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                 </FunctionImport>
                 <FunctionImport Name="zgc_c_refundsPreparation" ReturnType="ZGC_C_REQUESTS_CDS.zgc_c_refundsType" EntitySet="zgc_c_refunds" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_refundsType" sap:applicable-path="Preparation_ac">
                     <Parameter Name="refund_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
@@ -1652,6 +1778,7 @@
                                 <PropertyPath>cbc_appraisal_date_fc</PropertyPath>
                                 <PropertyPath>cbc_buld_type_fc</PropertyPath>
                                 <PropertyPath>cbc_dev_area_fc</PropertyPath>
+                                <PropertyPath>cbc_dev_area_unit1_fc</PropertyPath>
                                 <PropertyPath>cbc_ext_comments_fc</PropertyPath>
                                 <PropertyPath>cbc_land_ass_area_fc</PropertyPath>
                                 <PropertyPath>cbc_land_val_amt_fc</PropertyPath>
@@ -1673,6 +1800,7 @@
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
                                 <PropertyPath>building_type</PropertyPath>
+                                <PropertyPath>def_hidden</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
                                 <PropertyPath>HasDraftEntity</PropertyPath>
                                 <PropertyPath>IsActiveEntity</PropertyPath>
@@ -1783,6 +1911,7 @@
                                 <PropertyPath>cbc_appraisal_date_fc</PropertyPath>
                                 <PropertyPath>cbc_buld_type_fc</PropertyPath>
                                 <PropertyPath>cbc_dev_area_fc</PropertyPath>
+                                <PropertyPath>cbc_dev_area_unit1_fc</PropertyPath>
                                 <PropertyPath>cbc_ext_comments_fc</PropertyPath>
                                 <PropertyPath>cbc_land_ass_area_fc</PropertyPath>
                                 <PropertyPath>cbc_land_val_amt_fc</PropertyPath>
@@ -1804,6 +1933,7 @@
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
                                 <PropertyPath>building_type</PropertyPath>
+                                <PropertyPath>def_hidden</PropertyPath>
                                 <PropertyPath>swm_comments</PropertyPath>
                                 <PropertyPath>dc_int_comments_max</PropertyPath>
                                 <PropertyPath>dc_int_comments_sap</PropertyPath>
@@ -2076,7 +2206,6 @@
                     <Record>
                         <PropertyValue Property="NonFilterableProperties">
                             <Collection>
-                                <PropertyPath>Calculate_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>dc_type_fc</PropertyPath>
@@ -2095,7 +2224,6 @@
                     <Record>
                         <PropertyValue Property="NonSortableProperties">
                             <Collection>
-                                <PropertyPath>Calculate_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>dc_type_fc</PropertyPath>
@@ -2127,6 +2255,7 @@
                     <Record>
                         <PropertyValue Property="NonFilterableProperties">
                             <Collection>
+                                <PropertyPath>Gen_def_invoice_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
@@ -2149,6 +2278,7 @@
                     <Record>
                         <PropertyValue Property="NonSortableProperties">
                             <Collection>
+                                <PropertyPath>Gen_def_invoice_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
@@ -2180,6 +2310,7 @@
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>dc_type_fc</PropertyPath>
+                                <PropertyPath>dm_credit_type_fc</PropertyPath>
                                 <PropertyPath>quantity_fc</PropertyPath>
                                 <PropertyPath>unit_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
@@ -2198,6 +2329,7 @@
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>dc_type_fc</PropertyPath>
+                                <PropertyPath>dm_credit_type_fc</PropertyPath>
                                 <PropertyPath>quantity_fc</PropertyPath>
                                 <PropertyPath>unit_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
@@ -2284,6 +2416,8 @@
                     <Record>
                         <PropertyValue Property="NonFilterableProperties">
                             <Collection>
+                                <PropertyPath>Gen_pay_receipt_ac</PropertyPath>
+                                <PropertyPath>Payment_table_action_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
@@ -2306,10 +2440,55 @@
                     <Record>
                         <PropertyValue Property="NonSortableProperties">
                             <Collection>
+                                <PropertyPath>Gen_pay_receipt_ac</PropertyPath>
+                                <PropertyPath>Payment_table_action_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
                                 <PropertyPath>comments</PropertyPath>
+                                <PropertyPath>HasActiveEntity</PropertyPath>
+                                <PropertyPath>HasDraftEntity</PropertyPath>
+                                <PropertyPath>IsActiveEntity</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/ZGC_C_PRE_BLD_PERMIT_CRD" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.DraftNode">
+                    <Record>
+                        <PropertyValue Property="PreparationAction" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/ZGC_C_PRE_BLD_PERMIT_CRDPreparation"/>
+                        <PropertyValue Property="ValidationFunction" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/ZGC_C_PRE_BLD_PERMIT_CRDValidation"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.DraftActivationVia">
+                    <Collection>
+                        <String>ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requests</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>Delete_mc</PropertyPath>
+                                <PropertyPath>Update_mc</PropertyPath>
+                                <PropertyPath>HasActiveEntity</PropertyPath>
+                                <PropertyPath>HasDraftEntity</PropertyPath>
+                                <PropertyPath>IsActiveEntity</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>Delete_mc</PropertyPath>
+                                <PropertyPath>Update_mc</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
                                 <PropertyPath>HasDraftEntity</PropertyPath>
                                 <PropertyPath>IsActiveEntity</PropertyPath>
@@ -2334,6 +2513,7 @@
                     <Record>
                         <PropertyValue Property="NonFilterableProperties">
                             <Collection>
+                                <PropertyPath>Gen_ref_receipt_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
@@ -2355,6 +2535,7 @@
                     <Record>
                         <PropertyValue Property="NonSortableProperties">
                             <Collection>
+                                <PropertyPath>Gen_ref_receipt_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>comments</PropertyPath>
@@ -2692,6 +2873,27 @@
                     </Record>
                 </Annotation>
             </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType/dm_credit_type" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Value Help - Demolition Credit Type"/>
+                        <PropertyValue Property="CollectionPath" String="ZGC_DEMO_CREDIT_TYPE_VH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="dm_credit_type"/>
+                                    <PropertyValue Property="ValueListProperty" String="dm_cred_typ"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="dm_cred_typ_txt"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType/dc_rate" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ValueList">
                     <Record>
@@ -2865,10 +3067,16 @@
                                     <PropertyValue Property="ValueListProperty" String="document_no"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="req_uuid"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="company_code"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="fiscal_year"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="doc_ref"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -3009,6 +3217,26 @@
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="buld_txt"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/cbc_dev_area_unit1" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Value Help for UoM"/>
+                        <PropertyValue Property="CollectionPath" String="zgc_unit_of_measure_vh"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="cbc_dev_area_unit1"/>
+                                    <PropertyValue Property="ValueListProperty" String="unit"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="unit_txt"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
