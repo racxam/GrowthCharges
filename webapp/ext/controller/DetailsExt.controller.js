@@ -90,6 +90,22 @@ function (){
             oBindingParams.parameters.operationMode = "Client";
         },
 
+        onPressDCCalc : function(oEvent){
+					const oModel = this.getView().getModel();
+					
+					oModel.callFunction("/zgc_c_dc_calcltnsCalculate", {
+						method: "POST",
+
+						success: function (oData) {
+							debugger;
+						},
+						error: function (oError) {
+
+                            debugger;
+						}
+					});
+        },
+
         /**
          * Formatter to control state of CIL Processflow
          * @public

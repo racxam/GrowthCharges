@@ -188,9 +188,22 @@
                     },
                     "sap.suite.ui.generic.template.ObjectPage.view.Details": {
                         "controllerName": "com.gc.dashboard.ext.controller.DetailsExt",
-                        "sap.ui.generic.app": {
+                        "sap.ui.generic.app": {  
                             "zgc_c_requests": {
-                                "EntitySet": "zgc_c_requests"
+                                "EntitySet": "zgc_c_requests",
+                                "Sections": {
+                                    "TotalDC-ID": {
+                                        "id":"TotalDC-ID",
+                                        "Actions":{
+                                            "abc": {
+                                                "id": "CalculateButton",
+                                                "text": "Calculate",
+                                                "press": "onPressDCCalc",
+                                                "requiresSelection": false
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
