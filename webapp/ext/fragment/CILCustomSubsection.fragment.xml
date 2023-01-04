@@ -117,12 +117,10 @@
 								<m:Text id="idCIL_EditTextCILReq" text="{=${cil_requested} ? 'Yes' : 'No' }"/>
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelCILAppl" label="{i18n>labelCILApplicable}">
+						<forms:FormElement id="idCIL_EditFormLabelCILAppl" label="{i18n>labelIsCILApplicable}">
 							<forms:fields>
-								<m:RadioButtonGroup id="idCIL_EditRBGrpCILAppl" columns="2">
-									<m:RadioButton id="idCIL_EditRBCILApplYs" selected="{cil_applicable}" text="{i18n>labelYes}" />
-									<m:RadioButton id="idCIL_EditRBCILApplNo" selected="{=!${cil_applicable}}" text="{i18n>labelNo}" />
-								</m:RadioButtonGroup>
+								<m:CheckBox id="idCIL_EditRBGrpCILAppl" selected="{cil_applicable}"></m:CheckBox>
+								
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelBuildType" label="{i18n>labelSelectBuildingType}">
