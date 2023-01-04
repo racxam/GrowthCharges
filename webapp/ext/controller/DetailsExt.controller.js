@@ -81,6 +81,9 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                 const dcExemptionSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Exemption-SS::SubSection");
                 dcExemptionSection.onAfterRendering = setBlocksRight;
 
+                const deferralDCSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Deferral-SS::SubSection");
+                deferralDCSection.onAfterRendering = setBlocksRight;
+
 
 
             },

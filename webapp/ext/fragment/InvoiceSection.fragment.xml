@@ -4,9 +4,9 @@
 		width="100%"
 		horizontal="true"
 		vertical="true">
-		<FlexBox direction="Column" renderType="Div" class="sapUiSmallMargin">
+		<FlexBox direction="Column" renderType="Div"  height="600px">
         <Text text="Invoice Section"></Text>
-			<PDFViewer id="PDFViewer" source="{/Source}">
+			<PDFViewer id="PDFViewer" source="{/Source}" >
 				<layoutData>
 					<FlexItemData growFactor="1" />
 				</layoutData>
