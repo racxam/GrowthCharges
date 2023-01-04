@@ -2,7 +2,7 @@
     <Column id="colAppCharges" width="auto">
         <Text id="_IDTextAppCharges" text="{i18n>listColumnTextAppCharges}"/>
         <customData>
-            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn1&quot;, &quot;leadingProperty&quot;: &quot;dc_applicable,cil_applicable,cbc_applicable&quot;, &quot;columnIndex&quot;: &quot;6&quot;}"/>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn1&quot;, &quot;leadingProperty&quot;: &quot;dc_applicable,cil_applicable,cbc_applicable,invoice_valid_until&quot;, &quot;columnIndex&quot;: &quot;6&quot;}"/>
         </customData>
     </Column>
     <Column id="colDC_Comments" width="auto">
@@ -23,7 +23,7 @@
             <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn4&quot;, &quot;leadingProperty&quot;: &quot;swm_comments&quot;, &quot;columnIndex&quot;: &quot;9&quot;}"/>
         </customData>
     </Column>
-    <Column id="colStatus" importance="High" width="10rem">
+    <Column id="colStatus" width="10rem">
         <Text id="_IDTextStatus" text="{i18n>listColumnTextStatus}"/>
         <customData>
             <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn5&quot;, &quot;leadingProperty&quot;: &quot;status&quot;, &quot;columnIndex&quot;: &quot;10&quot;}"/>
