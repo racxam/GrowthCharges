@@ -22,12 +22,7 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                     // write rest of your code here ! happy coding!
                 });
 
-                //Enable icontabbar mode
-                // const oObjectPage = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--objectPage");
-                // oObjectPage.setUseIconTabBar(true);  
-
                 //Invoice Section
-
                 this._sValidPath = "/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='EXT48000000000002',Documentpart='',Documentversion='',ApplicationId='005056940AD91EDDA2F0473378DA7E15',FileId='005056940AD91EDDA2F0473378DA9E15')/$value";
                 this._oModel = new JSONModel({
                     Source: this._sValidPath
@@ -37,16 +32,6 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
 
 
             onAfterRendering: function () {
-
-                // const oDCTreeTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.Ob…ew.Details::zgc_c_requests--TotalDC-ID::treeTable");
-                // oDCTreeTable.getTable.setVisibleRowCountMode("Fixed");
-                // oDCTreeTable.getTable.setVisibleRowCount(15);
-
-                // sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::treeTable").getPlugins()[0].attachSelectionChange(
-                //     function (oEvent){ 
-                //         sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::action::ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities::zgc_c_dc_calcltnsCalculate").setEnabled(true);
-                //     }
-                //   );
 
                 const setBlocksRight = function () {
                     var blocks = this.getBlocks();
@@ -76,14 +61,11 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                 const deferralSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Deferral-SS::SubSection");
                 deferralSection.onAfterRendering = setBlocksRight;
 
-
                 //Set the Grid Layout for the SubSection
                 const dcExemptionSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Exemption-SS::SubSection");
                 dcExemptionSection.onAfterRendering = setBlocksRight;
-
-
-
             },
+
             onBeforeRebindTableExtension: function (oEvent) {
                 //Binding parameter change is only for the DC Table anddemolition table
                 if (oEvent.getSource().getId() !== "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table" ||
@@ -292,7 +274,6 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                 } else {
                     oModel.setProperty(`${sPath}/to_cilcal/cil_build_type`, "MXD");
                 }
-                // oModel.submitChanges();
             },
 
             onPressRBGrpResType: function (oEvent) {
@@ -320,8 +301,6 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                     oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden`, false);
                     oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden`, true);
                 }
-                // oModel.submitChanges();
-
             },
             onPressRBGrpNResType: function (oEvent) {
                 const oSource = oEvent.getSource();
@@ -330,9 +309,6 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                 const iSelectedIndex = oEvent.getParameter("selectedIndex");
                 const oModel = this.getView().getModel();
 
-                // Hide the Res Section --> not required because of mixed
-                // oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden` , true);
-                // oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden` , true);
                 oModel.setProperty(`${sPath}/non_resi_hidden`, false);
                 if (iSelectedIndex === 0) {
                     oModel.setProperty(`${sPath}/to_cilcal/nres_type`, "VAC");
@@ -343,8 +319,6 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                     oModel.setProperty(`${sPath}/to_cilcal/non_resi_vacant_hidden`, true);
                     oModel.setProperty(`${sPath}/to_cilcal/non_resi_existing_hidden`, false);
                 }
-                // oModel.submitChanges();
-
             },
 
             onPressRBGrpMngrAppReq: function (oEvent) {
@@ -359,8 +333,6 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                 } else {
                     oModel.setProperty(`${sPath}/to_cilcal/mgr_apr_reqd`, false);
                 }
-
-
             }
         });
     });
