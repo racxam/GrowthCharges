@@ -619,6 +619,31 @@
                 </Annotation>
             </Annotations>
 
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_paymentsType">
+                <Annotation Term="UI.FieldGroup" Qualifier="payment_FG">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataFieldForAction">
+                                    <PropertyValue Property="Label" String="Generate Recpt321"/>
+                                    <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_paymentsGen_pay_receipt"/>
+                                    <PropertyValue Property="Inline" Bool="true"/>
+                                    <PropertyValue Property="Determining" Bool="false"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataFieldForAnnotation">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#payment_FG" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>
