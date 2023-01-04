@@ -643,6 +643,61 @@
                             <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#payment_FG" />
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
                         </Record>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="Generate Reciept"/>
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_paymentsGen_pay_receipt"/>
+                            <PropertyValue Property="RequiresContext" Bool="true"/>
+                            <PropertyValue Property="Inline" Bool="true"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.ZGC_C_DEFERRALSType">
+                <Annotation Term="UI.LineItem" Qualifier="DeferralInfo">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Year"/>
+                            <PropertyValue Property="Value" Path="deferral_year"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Installment Amount"/>
+                            <PropertyValue Property="Value" Path="installment_amt"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Previously Paid"/>
+                            <PropertyValue Property="Value" Path="previous_payment"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Payment Date"/>
+                            <PropertyValue Property="Value" Path="payment_date"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Days of Interest"/>
+                            <PropertyValue Property="Value" Path="interest_days"/>
+                        </Record><Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Interest Amount"/>
+                            <PropertyValue Property="Value" Path="interest_amount"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Refund Amount"/>
+                            <PropertyValue Property="Value" Path="refund_amount"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Refund with Interest"/>
+                            <PropertyValue Property="Value" Path="refund_interest"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Generate Deferral Invoice"/>
+                            <PropertyValue Property="Value" Path="generate_invoice"/>
+                        </Record>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="Generate"/>
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/ZGC_C_DEFERRALSGen_def_invoice"/>
+                            <PropertyValue Property="RequiresContext" Bool="true"/>
+                            <PropertyValue Property="Inline" Bool="true"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
                     </Collection>
                 </Annotation>
             </Annotations>
