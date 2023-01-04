@@ -622,20 +622,89 @@
                 </Annotation>
             </Annotations>
 
-            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_paymentsType">
-                <Annotation Term="UI.LineItem">
+            <Annotations Target="SAP.zgc_c_paymentsType">
+                <Annotation Term="UI.LineItem" Qualifier="PaymentInfo">
                     <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>invoice}"/>
+                            <PropertyValue Property="Value" Path="invoice_no"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>invoiceAmount}"/>
+                            <PropertyValue Property="Value" Path="invoice_amt"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>paymentDocument}"/>
+                            <PropertyValue Property="Value" Path="document_no"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>paymentDate}"/>
+                            <PropertyValue Property="Value" Path="payment_date"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>paymentAmount}"/>
+                            <PropertyValue Property="Value" Path="payment_amt"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>balanceDueForPayment}"/>
+                            <PropertyValue Property="Value" Path="balance_due"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>payeeDetails}"/>
+                            <PropertyValue Property="Value" Path="payee_details"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>comments}"/>
+                            <PropertyValue Property="Value" Path="comments"/>
+                        </Record>
+
                         <Record Type="UI.DataFieldForAction">
-                            <PropertyValue Property="Label" String="Generate"/>
+                            <PropertyValue Property="Label" String="{@i18n>generateReceipt}"/>
                             <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_paymentsGen_pay_receipt"/>
                             <PropertyValue Property="Inline" Bool="true"/>
-                            <Annotation Term ="UI.Importance" EnumMember ="UI.ImportanceType/High" />
-                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                         </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_refundsType">
+                <Annotation Term="UI.LineItem" Qualifier="RefundInfo">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>refundDate}"/>
+                            <PropertyValue Property="Value" Path="refund_date"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>refundAmount}"/>
+                            <PropertyValue Property="Value" Path="refund_amount"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>interestAmount}"/>
+                            <PropertyValue Property="Value" Path="interest_amount"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>refundWithInterest}"/>
+                            <PropertyValue Property="Value" Path="refund_interest"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>amountRefunded}"/>
+                            <PropertyValue Property="Value" Path="amount_refunded"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>recipientName}"/>
+                            <PropertyValue Property="Value" Path="recp_name"/>
+                        </Record>
+                        
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>comments}"/>
+                            <PropertyValue Property="Value" Path="comments"/>
+                        </Record>
+
                         <Record Type="UI.DataFieldForAction">
-                            <PropertyValue Property="Label" String="Generate Reciept"/>
+                            <PropertyValue Property="Label" String="{@i18n>generateReceipt}"/>
                             <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_paymentsGen_pay_receipt"/>
-                            <PropertyValue Property="RequiresContext" Bool="true"/>
                             <PropertyValue Property="Inline" Bool="true"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                         </Record>
@@ -646,44 +715,44 @@
                 <Annotation Term="UI.LineItem" Qualifier="DeferralInfo">
                     <Collection>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Year"/>
+                            <PropertyValue Property="Label" String="{@i18n>year}"/>
                             <PropertyValue Property="Value" Path="deferral_year"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Installment Amount"/>
+                            <PropertyValue Property="Label" String="{@i18n>installmentAmount}"/>
                             <PropertyValue Property="Value" Path="installment_amt"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Previously Paid"/>
+                            <PropertyValue Property="Label" String="{@i18n>previouslyPaid}"/>
                             <PropertyValue Property="Value" Path="previous_payment"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Payment Date"/>
+                            <PropertyValue Property="Label" String="{@i18n>paymentDate}"/>
                             <PropertyValue Property="Value" Path="payment_date"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Days of Interest"/>
+                            <PropertyValue Property="Label" String="{@i18n>daysOfInterest}"/>
                             <PropertyValue Property="Value" Path="interest_days"/>
-                        </Record><Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Interest Amount"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>interestAmount}"/>
                             <PropertyValue Property="Value" Path="interest_amount"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Refund Amount"/>
+                            <PropertyValue Property="Label" String="{@i18n>refundAmount}"/>
                             <PropertyValue Property="Value" Path="refund_amount"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Refund with Interest"/>
+                            <PropertyValue Property="Label" String="{@i18n>refundWithInterest}"/>
                             <PropertyValue Property="Value" Path="refund_interest"/>
                         </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Generate Deferral Invoice"/>
+                        <!-- <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>generateDeferralInvoice}"/>
                             <PropertyValue Property="Value" Path="generate_invoice"/>
-                        </Record>
+                        </Record> -->
                         <Record Type="UI.DataFieldForAction">
-                            <PropertyValue Property="Label" String="Generate"/>
+                            <PropertyValue Property="Label" String="{@i18n>generateInvoice}"/>
                             <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/ZGC_C_DEFERRALSGen_def_invoice"/>
-                            <PropertyValue Property="RequiresContext" Bool="true"/>
                             <PropertyValue Property="Inline" Bool="true"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                         </Record>
