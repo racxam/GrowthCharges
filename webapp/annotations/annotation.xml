@@ -130,6 +130,7 @@
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <String>exm_cbc_charge</String>
+                                <String>cbc_exm_hidden</String>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -148,7 +149,8 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>exm_cbc_charge</String>
+                                <String>kind_cbc_charge</String>
+                                <String>cbc_knd_hidden</String>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -167,7 +169,8 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>exm_cbc_charge</String>
+                                <String>dem_cbc_charge</String>
+                                <String>cbc_dem_hidden</String>
                             </Collection>
                         </PropertyValue>
                     </Record>

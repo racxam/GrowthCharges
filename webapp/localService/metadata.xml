@@ -568,11 +568,13 @@
                 </Key>
                 <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="build_permit_no_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="pr_build_permit_uuid" Type="Edm.Guid" Nullable="false" sap:label="Growth Charges Key" sap:heading=""/>
                 <Property Name="req_uuid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading=""/>
-                <Property Name="build_permit_no" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Building Permit No" sap:quickinfo="Building Permit Number"/>
+                <Property Name="build_permit_no" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:field-control="build_permit_no_fc" sap:text="build_permit_no_Text" sap:label="Building Permit No" sap:quickinfo="Building Permit Number" sap:value-list="standard"/>
+                <Property Name="build_permit_no_Text" Type="Edm.String" MaxLength="255" sap:label="Permit Description" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_type" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="DC Type"/>
                 <Property Name="dc_partner" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="DC Partner"/>
                 <Property Name="credit_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:label="Credit Amount"/>
@@ -589,6 +591,7 @@
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Is active" sap:sortable="false" sap:filterable="false"/>
                 <NavigationProperty Name="DraftAdministrativeData" Relationship="ZGC_C_REQUESTS_CDS.assoc_68B97FFD0C197DF6E809A539E132A37B" FromRole="FromRole_assoc_68B97FFD0C197DF6E809A539E132A37B" ToRole="ToRole_assoc_68B97FFD0C197DF6E809A539E132A37B"/>
                 <NavigationProperty Name="SiblingEntity" Relationship="ZGC_C_REQUESTS_CDS.assoc_FBAF2B9ACE713487545C2797300C865C" FromRole="FromRole_assoc_FBAF2B9ACE713487545C2797300C865C" ToRole="ToRole_assoc_FBAF2B9ACE713487545C2797300C865C"/>
+                <NavigationProperty Name="to_permit_vh" Relationship="ZGC_C_REQUESTS_CDS.assoc_9FB243B692123619C1F4E22ED60E189D" FromRole="FromRole_assoc_9FB243B692123619C1F4E22ED60E189D" ToRole="ToRole_assoc_9FB243B692123619C1F4E22ED60E189D"/>
                 <NavigationProperty Name="to_request" Relationship="ZGC_C_REQUESTS_CDS.assoc_C7321FB52CDA5B80182A3CA10FA96447" FromRole="ToRole_assoc_C7321FB52CDA5B80182A3CA10FA96447" ToRole="FromRole_assoc_C7321FB52CDA5B80182A3CA10FA96447"/>
             </EntityType>
             <EntityType Name="zgc_c_refundsType" sap:label="Refunds - Consumption View" sap:content-version="1">
@@ -946,6 +949,13 @@
                 <Property Name="fiscal_year" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Fiscal Year"/>
                 <Property Name="doc_ref" Type="Edm.String" MaxLength="16" sap:display-format="UpperCase" sap:label="Reference" sap:quickinfo="Reference Document Number"/>
             </EntityType>
+            <EntityType Name="ZGC_PERMIT_NO_VHType" sap:label="Building Permit No Value Help" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="build_permit_no"/>
+                </Key>
+                <Property Name="build_permit_no" Type="Edm.String" Nullable="false" MaxLength="30" sap:display-format="UpperCase" sap:text="text" sap:label="Primary Build Permit" sap:quickinfo="Primary Building Permit No."/>
+                <Property Name="text" Type="Edm.String" MaxLength="255" sap:label="Permit Description"/>
+            </EntityType>
             <EntityType Name="zgc_permit_vhType" sap:label="Value Help for Permit" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="permit"/>
@@ -1143,6 +1153,10 @@
                 <End Type="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" Multiplicity="1" Role="FromRole_assoc_FBAF2B9ACE713487545C2797300C865C"/>
                 <End Type="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" Multiplicity="0..1" Role="ToRole_assoc_FBAF2B9ACE713487545C2797300C865C"/>
             </Association>
+            <Association Name="assoc_9FB243B692123619C1F4E22ED60E189D" sap:content-version="1">
+                <End Type="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" Multiplicity="1" Role="FromRole_assoc_9FB243B692123619C1F4E22ED60E189D"/>
+                <End Type="ZGC_C_REQUESTS_CDS.ZGC_PERMIT_NO_VHType" Multiplicity="0..1" Role="ToRole_assoc_9FB243B692123619C1F4E22ED60E189D"/>
+            </Association>
             <Association Name="assoc_9F3C951CEE0255B790840334F60B7E07" sap:content-version="1">
                 <End Type="ZGC_C_REQUESTS_CDS.zgc_c_cbc_exmType" Multiplicity="1" Role="FromRole_assoc_9F3C951CEE0255B790840334F60B7E07"/>
                 <End Type="ZGC_C_REQUESTS_CDS.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_9F3C951CEE0255B790840334F60B7E07"/>
@@ -1303,6 +1317,7 @@
                 <EntitySet Name="ZGC_KNDTYP_VH" EntityType="ZGC_C_REQUESTS_CDS.ZGC_KNDTYP_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="ZGC_NRES_TYPE_VH" EntityType="ZGC_C_REQUESTS_CDS.ZGC_NRES_TYPE_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="ZGC_PAY_DOC_VH" EntityType="ZGC_C_REQUESTS_CDS.ZGC_PAY_DOC_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZGC_PERMIT_NO_VH" EntityType="ZGC_C_REQUESTS_CDS.ZGC_PERMIT_NO_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="zgc_permit_vh" EntityType="ZGC_C_REQUESTS_CDS.zgc_permit_vhType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="ZGC_RATES_DECIMAL_VH" EntityType="ZGC_C_REQUESTS_CDS.ZGC_RATES_DECIMAL_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZGC_RATES_INTEGER_VH" EntityType="ZGC_C_REQUESTS_CDS.ZGC_RATES_INTEGER_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
@@ -1488,6 +1503,10 @@
                 <AssociationSet Name="assoc_C5EDF69CC778DEDCE008A7844C17776D" Association="ZGC_C_REQUESTS_CDS.assoc_C5EDF69CC778DEDCE008A7844C17776D" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="zgc_c_dc_ss_calcltns" Role="FromRole_assoc_C5EDF69CC778DEDCE008A7844C17776D"/>
                     <End EntitySet="zgc_c_dc_ss_calcltns" Role="ToRole_assoc_C5EDF69CC778DEDCE008A7844C17776D"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_9FB243B692123619C1F4E22ED60E189D" Association="ZGC_C_REQUESTS_CDS.assoc_9FB243B692123619C1F4E22ED60E189D" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZGC_C_PRE_BLD_PERMIT_CRD" Role="FromRole_assoc_9FB243B692123619C1F4E22ED60E189D"/>
+                    <End EntitySet="ZGC_PERMIT_NO_VH" Role="ToRole_assoc_9FB243B692123619C1F4E22ED60E189D"/>
                 </AssociationSet>
                 <AssociationSet Name="assoc_35180A89F5689B53ADE4A105D7A0BFBF" Association="ZGC_C_REQUESTS_CDS.assoc_35180A89F5689B53ADE4A105D7A0BFBF" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="zgc_c_cil_cal" Role="FromRole_assoc_35180A89F5689B53ADE4A105D7A0BFBF"/>
@@ -2476,6 +2495,7 @@
                             <Collection>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>build_permit_no_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
@@ -2491,6 +2511,7 @@
                             <Collection>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>build_permit_no_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
@@ -3081,6 +3102,26 @@
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="doc_ref"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType/build_permit_no" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Building Permit No Value Help"/>
+                        <PropertyValue Property="CollectionPath" String="ZGC_PERMIT_NO_VH"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="build_permit_no"/>
+                                    <PropertyValue Property="ValueListProperty" String="build_permit_no"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="text"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
