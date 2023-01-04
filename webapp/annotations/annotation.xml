@@ -37,18 +37,21 @@
                             <PropertyValue Property="Label" String="Attach Draft Invoice"/>
                             <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsAttach_draft_invoice"/>
                             <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
+                            <PropertyValue Property="Determining" Bool="true"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                         </Record>
                         <Record Type="UI.DataFieldForAction">
                             <PropertyValue Property="Label" String="Create New Version"/>
                             <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsCreate_new_version"/>
                             <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
+                            <PropertyValue Property="Determining" Bool="true"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                         </Record>
                         <Record Type="UI.DataFieldForAction">
                             <PropertyValue Property="Label" String="Withdraw Approval"/>
                             <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval"/>
                             <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
+                            <PropertyValue Property="Determining" Bool="true"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                         </Record>
                         <Record Type="UI.DataField">
