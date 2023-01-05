@@ -328,11 +328,11 @@
                                             "UPLOADEDBY": true,
                                             "UPLOADEDON": true,
                                             "FILESIZE": true,
-                                            "ENABLELINK": true,
+                                            "ENABLELINK": false,
                                             "ATTACHMENTSTATUS": true,
                                             "ATTACHMENTTITLE": true,
                                             "SOURCE": false,
-                                            "DIRDETAILS": true
+                                            "DIRDETAILS": false
                                         },
                                         "_VisibleActions": {
                                             "RENAME": true,
@@ -350,7 +350,24 @@
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
                                     "objectType": "ZGC_INV_OP",
-                                    "objectKey": "{parts:[{path:'request_id'},{path:'vsn'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getDCObjectKey'}"
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'vsn'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getDCObjectKey'}",
+                                    "attributeHandling": {
+                                        "_VisibleAttributes": {
+                                            "UPLOADEDBY": true,
+                                            "UPLOADEDON": true,
+                                            "FILESIZE": true,
+                                            "ENABLELINK": false,
+                                            "ATTACHMENTSTATUS": false,
+                                            "ATTACHMENTTITLE": true,
+                                            "SOURCE": false,
+                                            "DIRDETAILS": false
+                                        },
+                                        "_VisibleActions": {
+                                            "RENAME": true,
+                                            "DELETE": true,
+                                            "ADD": true
+                                        }
+                                    }                                    
                                 }
                             },
                             "CIL::Attachments": {
@@ -389,7 +406,24 @@
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
                                     "objectType": "ZGC_INV_OP",
-                                    "objectKey": "{parts:[{path:'request_id'},{path:'vsn'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getPayObjectKey'}"
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'vsn'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getPayObjectKey'}",
+                                    "attributeHandling": {
+                                        "_VisibleAttributes": {
+                                            "UPLOADEDBY": true,
+                                            "UPLOADEDON": true,
+                                            "FILESIZE": true,
+                                            "ENABLELINK": false,
+                                            "ATTACHMENTSTATUS": false,
+                                            "ATTACHMENTTITLE": true,
+                                            "SOURCE": false,
+                                            "DIRDETAILS": false
+                                        },
+                                        "_VisibleActions": {
+                                            "RENAME": true,
+                                            "DELETE": true,
+                                            "ADD": true
+                                        }
+                                    }                                    
                                 }
                             }
                         }
