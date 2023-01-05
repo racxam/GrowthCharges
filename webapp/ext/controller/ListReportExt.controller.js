@@ -7,7 +7,7 @@ sap.ui.define([
     "sap/m/MultiComboBox",
     "sap/f/library"
 ],
-    function (Dialog, TextArea, Button, Filter, SmartFilterBar, MultiComboBox,FioriLibrary) {
+    function (Dialog, TextArea, Button, Filter, SmartFilterBar, MultiComboBox, FioriLibrary) {
         "use strict";
         return sap.ui.controller("com.gc.dashboard.ext.controller.ListReportExt", {
             onInit: function () {
@@ -21,21 +21,12 @@ sap.ui.define([
                 const sHashKey = oRouter.getHashChanger().key;
 
                 if (sHashKey === "Child") {
-
-
-                    
-
                     oRouter.navTo("zgc_c_requests",
-						{
-							keys1: "req_uuid=guid'00505694-0ad9-1edd-9ee5-e13cacd017a7',IsActiveEntity=true",
-                            query:"?FCLLayout=MidColumnFullScreen"
-						},
-						true
-					);
-
-               
+                        { keys1: "req_uuid=guid'00505694-0ad9-1edd-9ee5-e13cacd017a7',IsActiveEntity=true" },
+                        true
+                    );
+                    
                 }
-
             },
 
             /**
@@ -364,7 +355,7 @@ sap.ui.define([
                 const oValidUntilDate = new Date(dInvoiceValidUntil);
                 const iSpent = oTodayDate.getTime() - oValidUntilDate.getTime();
                 const sState = Math.floor(iSpent / 86400000) > 0 ? true : false;
-			    return sState;
+                return sState;
             }
 
         });

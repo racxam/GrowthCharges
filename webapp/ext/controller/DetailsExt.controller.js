@@ -15,8 +15,20 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                     //If opened not using FLP, there will be an error              
                 }
 
+                const oRouter = this.getOwnerComponent().getRouter();
+                const sHashKey = oRouter.getHashChanger().key;
 
+                if (sHashKey === "Child") {
+                    sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--action::ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities::zgc_c_requestsSubmit::Determining").getParent().setVisible(false);
+                    sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--fullScreen").getParent().setVisible(false); 
+                }
                 this.extensionAPI.attachPageDataLoaded(function (event) {
+                    const oComponent = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests").getParent();
+                    const oRouterComp = oComponent.getRouter();
+                    const sHKey = oRouterComp.getHashChanger().key;
+                    if (sHKey === "Child") {
+                        sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--fullScreen").firePress();
+                    }
                     var sPath = event.context.sPath;  // get the path
                     var oData = event.context.getModel().getProperty(sPath); // get the data to use further
                     // write rest of your code here ! happy coding!
