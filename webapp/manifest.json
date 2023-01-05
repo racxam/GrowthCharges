@@ -250,7 +250,7 @@
                         "component": {
                             "name": "sap.suite.ui.generic.template.ObjectPage",
                             "settings": {
-                                "allowDeepLinking":true,
+                                "allowDeepLinking": true,
                                 "sections": {
                                     "TotalDC-ID": {
                                         "navigationProperty": "to_dccal",
@@ -369,7 +369,7 @@
                                             "DELETE": true,
                                             "ADD": true
                                         }
-                                    }                                    
+                                    }
                                 }
                             },
                             "CIL::Attachments": {
@@ -425,7 +425,7 @@
                                             "DELETE": true,
                                             "ADD": true
                                         }
-                                    }                                    
+                                    }
                                 }
                             }
                         }
