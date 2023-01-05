@@ -4,9 +4,10 @@ sap.ui.define([
     "sap/m/Button",
     "sap/ui/model/Filter",
     "sap/ui/comp/smartfilterbar/SmartFilterBar",
-    "sap/m/MultiComboBox"
+    "sap/m/MultiComboBox",
+    "sap/f/library"
 ],
-    function (Dialog, TextArea, Button, Filter, SmartFilterBar, MultiComboBox) {
+    function (Dialog, TextArea, Button, Filter, SmartFilterBar, MultiComboBox,FioriLibrary) {
         "use strict";
         return sap.ui.controller("com.gc.dashboard.ext.controller.ListReportExt", {
             onInit: function () {
@@ -20,24 +21,19 @@ sap.ui.define([
                 const sHashKey = oRouter.getHashChanger().key;
 
                 if (sHashKey === "Child") {
-                    var oExtensionAPI = this.extensionAPI;
-                    var fnNavigate = function (oEvent) {
-                        return new Promise(function (fnResolve, fnReject) {
-                            var oNavigationController = oExtensionAPI.getNavigationController();
-                            oNavigationController.navigateInternal();
-                            fnResolve();
-                        });
-                    };
 
-                    var fnNavigateEdit = function () {
-                        return new Promise(function (fnResolve, fnReject) {
-                            var oNavigationController = oExtensionAPI.getNavigationController();
-                            oNavigationController.navigateInternal();
-                            fnResolve();
-                        });
-                    };
 
-                    this.extensionAPI.invokeActions().then(fnNavigateEdit.bind(this), fnNavigate.bind(this));
+                    
+
+                    oRouter.navTo("zgc_c_requests",
+						{
+							keys1: "req_uuid=guid'00505694-0ad9-1edd-9ee5-e13cacd017a7',IsActiveEntity=true",
+                            query:"?FCLLayout=MidColumnFullScreen"
+						},
+						true
+					);
+
+               
                 }
 
             },
