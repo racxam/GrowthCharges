@@ -31,7 +31,6 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                     }
                     var sPath = event.context.sPath;  // get the path
                     var oData = event.context.getModel().getProperty(sPath); // get the data to use further
-                    // write rest of your code here ! happy coding!
                 });
 
                 //Invoice Section
@@ -54,6 +53,8 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                     }
                 };
 
+                const cbcGenSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC::SubSection");
+                cbcGenSubSection.onAfterRendering = setBlocksRight;
                 //Set the Grid Layout for the SubSection
                 const exmSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Exm-SS::SubSection");
                 exmSubSection.onAfterRendering = setBlocksRight;
