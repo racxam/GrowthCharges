@@ -520,14 +520,6 @@
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
                             <Annotation Term="Core.OperationAvailable" Path="ActionEnabled"/>
                         </Record>
-                        <!-- <Record Type="UI.DataFieldForAction">
-                            <PropertyValue Property="Label" String="Cal"/>
-                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
-                            <PropertyValue Property="RequiresContext" Bool="true"/>
-                            <PropertyValue Property="Criticality" EnumMember="UI.CriticalityType/Positive"/>
-                            <PropertyValue Property="Inline" Bool="false"/>
-                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
-                        </Record> -->
                     </Collection>
                 </Annotation>
                 <Annotation Term="Common.SideEffects" Qualifier="DCTableChanged">
