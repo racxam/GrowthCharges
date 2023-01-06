@@ -110,9 +110,7 @@ sap.ui.define([
                     if (aFilters.length > 0) {
                         oBindingParams.filters.push(new Filter(aFilters, true));
                     }
-
                 }
-
             },
 
             onPressComments: function (oEvent, sKey) {

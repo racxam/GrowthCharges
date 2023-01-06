@@ -119,11 +119,40 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
             },
 
             /**
-             * Function to handle the press of the New Credit button
+             * Function to handle the press of the New Credit button to show VH popup
              * @param {*} oEvent 
              */
             onPressNewPBP: function(oEvent) {
-
+                //Load the fragment
+                if (!this._oNewPBPDialog) {
+                    this._oNewPBPDialog = sap.ui.xmlfragment("com.gc.dashboard.ext.fragment.NewBuildingPermit", this);
+                    this.getView().addDependent(this._oNewPBPDialog);
+                }
+                this._oNewPBPDialog.open();
+            },
+            /**
+             * Function to call the backend action upon selecting a permit
+             * @param {*} sStatus 
+             * @returns 
+             */
+            onPressNewPBPConfirm: function(oEvent) {
+                const oModel = this.getView().getModel();
+                const reqGuid = this.getView().getBindingContext().getProperty("req_uuid");
+                const permitGuid = oEvent.getSource().getBindingContext().getProperty("permit_uuid");
+                oModel.callFunction("/zgc_c_newpbpCreate", {
+                    method: "POST",
+                    urlParameters: {
+                        req_uuid: reqGuid,
+                        permit_uuid: permitGuid
+                    },
+                    success: function (oData) {
+                        debugger;
+                        sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table").rebindTable();
+                    },
+                    error: function (oError) {
+                    }
+                });
+                this._oNewPBPDialog.close();
             },
             /**
              * Formatter to control state of CIL Processflow
