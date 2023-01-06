@@ -25,7 +25,7 @@ sap.ui.define([
                         { keys1: "req_uuid=guid'00505694-0ad9-1edd-9ee5-e13cacd017a7',IsActiveEntity=true" },
                         true
                     );
-                    
+
                 }
             },
 
@@ -348,12 +348,14 @@ sap.ui.define([
              * @returns {string} sState
              */
             showInvoiceValidIcon: function (dInvoiceValidUntil) {
-
-                const oTodayDate = new Date();
-                const oValidUntilDate = new Date(dInvoiceValidUntil);
-                const iSpent = oTodayDate.getTime() - oValidUntilDate.getTime();
-                const sState = Math.floor(iSpent / 86400000) > 0 ? true : false;
-                return sState;
+                let bState = false;
+                if (dInvoiceValidUntil) {
+                    const oTodayDate = new Date();
+                    const oValidUntilDate = new Date(dInvoiceValidUntil);
+                    const iSpent = oTodayDate.getTime() - oValidUntilDate.getTime();
+                    bState = Math.floor(iSpent / 86400000) > 0 ? true : false;
+                }
+                return bState;
             }
 
         });
