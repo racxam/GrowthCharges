@@ -119,6 +119,13 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
             },
 
             /**
+             * Function to handle the press of the New Credit button
+             * @param {*} oEvent 
+             */
+            onPressNewPBP: function(oEvent) {
+
+            },
+            /**
              * Formatter to control state of CIL Processflow
              * @public
              * @param {string} sStatus value

@@ -202,6 +202,18 @@
                                                 "requiresSelection": false
                                             }
                                         }
+                                    },
+                                    "Previous-Building-Permit-Credit-ID": {
+                                        "id": "Previous-Building-Permit-Credit-ID",
+                                        "Actions": {
+                                            "abc": {
+                                                "id": "NewPBPButton",
+                                                "text": "Add Credit",
+                                                "press": "onPressNewPBP",
+                                                "requiresSelection": false
+                                            }
+                                        }
+                                    },
                                     }
                                 }
                             }
