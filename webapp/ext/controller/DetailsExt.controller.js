@@ -84,7 +84,7 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
 
             onBeforeRebindTableExtension: function (oEvent) {
                 //Binding parameter change is only for the DC Table anddemolition table
-                if (oEvent.getSource().getId() !== "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table" ||
+                if (oEvent.getSource().getId() !== "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table" &&
                     oEvent.getSource().getId() !== "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table") {
                     return;
                 }
