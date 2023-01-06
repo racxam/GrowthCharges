@@ -8,9 +8,11 @@
         showClearButton="true"
         items="{
 			path : '/ZGC_C_PRE_BLD_PERMIT_CRD',
-			parameters : {
-                '$filter' : 'IsActiveEntity%20eq%20true'
-            }
+			filters : [{
+                path : 'IsActiveEntity',
+                operator : 'EQ',
+                value1 : 'true'
+            }]
 		}"
     >
         <ColumnListItem selected="{selected}">
