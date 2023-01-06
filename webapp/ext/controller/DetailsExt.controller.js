@@ -47,39 +47,40 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                 const setBlocksRight = function () {
                     var blocks = this.getBlocks();
                     for (var i = 0; i < blocks.length; i++) {
-                        blocks[i].setLayoutData(new sap.ui.layout.GridData({
-                            span: "L12 M12 S12"
-                        }));
+                        blocks[i].getLayoutData().setSpanS(12);
+                        blocks[i].getLayoutData().setSpanM(12);
+                        blocks[i].getLayoutData().setSpanL(12);
                     }
                 };
 
                 const cbcGenSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC::SubSection");
-                cbcGenSubSection.onAfterRendering = setBlocksRight;
+                if (cbcGenSubSection) {cbcGenSubSection.onAfterRendering = setBlocksRight;}
+
                 //Set the Grid Layout for the SubSection
                 const exmSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Exm-SS::SubSection");
-                exmSubSection.onAfterRendering = setBlocksRight;
+                if(exmSubSection) {exmSubSection.onAfterRendering = setBlocksRight;}
 
                 const kindSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-InK-SS::SubSection");
-                kindSubSection.onAfterRendering = setBlocksRight;
+                if(kindSubSection) {kindSubSection.onAfterRendering = setBlocksRight;}
 
                 const demSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Dem-SS::SubSection");
-                demSubSection.onAfterRendering = setBlocksRight;
+                if(demSubSection) {demSubSection.onAfterRendering = setBlocksRight;}
 
                 const paymentSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Payment-SS::SubSection");
-                paymentSection.onAfterRendering = setBlocksRight;
+                if(paymentSection) {paymentSection.onAfterRendering = setBlocksRight;}
 
                 const refundSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Refund-SS::SubSection");
-                refundSection.onAfterRendering = setBlocksRight;
+                if(refundSection) {refundSection.onAfterRendering = setBlocksRight;}
 
                 const deferralSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Deferral-SS::SubSection");
-                deferralSection.onAfterRendering = setBlocksRight;
+                if(deferralSection) {deferralSection.onAfterRendering = setBlocksRight;}
 
                 //Set the Grid Layout for the SubSection
                 const dcExemptionSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Exemption-SS::SubSection");
-                dcExemptionSection.onAfterRendering = setBlocksRight;
+                if(dcExemptionSection) {dcExemptionSection.onAfterRendering = setBlocksRight;}
 
                 const dcDeferralSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Deferral-SS::SubSection");
-                dcDeferralSection.onAfterRendering = setBlocksRight;
+                if(dcDeferralSection) {dcDeferralSection.onAfterRendering = setBlocksRight;}
             },
 
             onBeforeRebindTableExtension: function (oEvent) {
