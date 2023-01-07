@@ -2,7 +2,7 @@
 	xmlns="sap.ui.layout"
 	xmlns:forms="sap.ui.layout.form"
 	xmlns:core="sap.ui.core">
-	<m:VBox id="idCIL_DisplayVBox" visible="{=${$cmd>/com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--objectPage/Edit/visible}}">
+	<m:VBox id="idCIL_DisplayVBox" visible="{=!${ui>/editable}}">
 		<forms:Form id="idCIL_DisplayForm" width="100%">
 			<forms:layout>
 				<forms:ResponsiveGridLayout id="idCIL_DisplayResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false" />
@@ -104,7 +104,7 @@
 		</forms:Form>
 	</m:VBox>
 	<!-- *****************************EDIT SCENARIO *********************************************-->
-	<m:VBox id="idCIL_EditVBox" visible="{=!${$cmd>/com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--objectPage/Edit/visible}}">
+	<m:VBox id="idCIL_EditVBox" visible="{=${ui>/editable}}">
 		<forms:Form id="idCIL_EditForm" width="100%">
 			<forms:layout>
 				<forms:ResponsiveGridLayout id="idCIL_EditResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false" />
