@@ -137,17 +137,20 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
              */
             onPressNewPBPConfirm: function(oEvent) {
                 const oModel = this.getView().getModel();
-                const reqGuid = this.getView().getBindingContext().getProperty("req_uuid");
-                const permitGuid = oEvent.getSource().getBindingContext().getProperty("permit_uuid");
-                oModel.callFunction("/zgc_c_newpbpCreate", {
+                const oSelectedObject = oEvent.getParameter("selectedItem").getBindingContext().getObject();
+                const oRequestObject = oEvent.getSource().getBindingContext().getObject();
+                const reqGuid = oRequestObject.req_uuid;
+                const permitNo = oSelectedObject.build_permit_no;
+                oModel.callFunction("/ZGC_C_PRE_BLD_PERMIT_CRDAdd_build_permit", {
                     method: "POST",
                     urlParameters: {
-                        req_uuid: reqGuid,
-                        permit_uuid: permitGuid
+                        pr_build_permit_uuid: "00000000000000000000000000000000",
+                        IsActiveEntity: true,
+                        PermitNo: permitNo,
+                        req_uuid: reqGuid
                     },
-                    success: function (oData) {
-                        debugger;
-                        sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table").rebindTable();
+                    success: function () {
+                        sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table").rebindTable();
                     },
                     error: function (oError) {
                     }

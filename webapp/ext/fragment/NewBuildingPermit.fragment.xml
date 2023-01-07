@@ -7,12 +7,7 @@
         cancel=".handlePPValueHelpClose"
         showClearButton="true"
         items="{
-			path : '/ZGC_C_PRE_BLD_PERMIT_CRD',
-			filters : [{
-                path : 'IsActiveEntity',
-                operator : 'EQ',
-                value1 : 'true'
-            }]
+			path : '/ZGC_PERMIT_NO_VH'
 		}"
     >
         <ColumnListItem selected="{selected}">
