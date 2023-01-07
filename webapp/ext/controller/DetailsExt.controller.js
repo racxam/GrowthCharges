@@ -1,6 +1,6 @@
 jQuery.sap.require("com.gc.dashboard.ext.formatter.ObjectPageFormatter");
-sap.ui.define(["sap/ui/model/json/JSONModel"],
-    function (JSONModel) {
+sap.ui.define(["sap/ui/model/json/JSONModel", "sap/ui/core/Fragment", "sap/ui/table/Column", "sap/ui/model/Filter"],
+    function (JSONModel, Fragment, UIColumn, Filter) {
         "use strict";
         return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
             onInit: function () {
@@ -396,6 +396,54 @@ sap.ui.define(["sap/ui/model/json/JSONModel"],
                 } else {
                     oModel.setProperty(`${sPath}/to_cilcal/mgr_apr_reqd`, false);
                 }
-            }
+            },
+            onValueHelpRequested: function(oEvent) {
+            this.rateInput = oEvent.getSource();
+            const fragment = Fragment.load({name: "com.gc.dashboard.ext.fragment.DCRateValueHelp", controller: this}); 
+            //Date filter
+            const invoiceCalculationDate = this.getView().getBindingContext().getObject().invoice_calculation_date;
+            const startDateFilter = new Filter("start_date", "LE", invoiceCalculationDate);
+            const endDateFilter = new Filter("end_date", "GE", invoiceCalculationDate);
+            const dcFilter = new Filter("dc_type", "EQ", oEvent.getSource().getBindingContext().getObject().dc_type);   
+            this.rateFilters = [startDateFilter, endDateFilter, dcFilter];            
+            fragment.then(function(oDialog) {
+                    this._oValueHelpDialog = oDialog;
+                    this.getView().addDependent(oDialog);
+                    oDialog.getTableAsync().then(function (oTable) {
+                        oTable.setModel(this.getView().getModel());    
+                        // For Desktop and tabled the default table is sap.ui.table.Table
+                        if (oTable.bindRows) {
+                            // Bind rows to the ODataModel and add columns
+                            oTable.bindAggregation("rows", {
+                                path: "/zgc_dcrates_vh",
+                                filters: this.rateFilters,
+                                events: {
+                                    dataReceived: function() {
+                                        oDialog.update();
+                                    }
+                                }
+                            });
+                            oTable.addColumn(new UIColumn({label: "DC Rate", template: "dc_rate"}));
+                            oTable.addColumn(new UIColumn({label: "Begin Date", template: "start_date"}));
+                            oTable.addColumn(new UIColumn({label: "End Date", template: "end_date"}));
+                        }
+                        oDialog.update();
+                    }.bind(this));      
+                    oDialog.open();              
+                }.bind(this));
+            },
+    
+            onValueHelpOkPress: function (oEvent) {
+                this.rateInput.setValue(oEvent.getParameter("tokens")[0].getKey());
+                this._oValueHelpDialog.close();
+            },
+    
+            onValueHelpCancelPress: function () {
+                this._oValueHelpDialog.close();
+            },
+    
+            onValueHelpAfterClose: function () {
+                this._oValueHelpDialog.destroy();
+            }            
         });
     });

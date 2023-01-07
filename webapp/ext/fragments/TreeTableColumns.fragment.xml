@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns:smartfield="sap.ui.comp.smartfield" xmlns:core="sap.ui.core" xmlns:table="sap.ui.table" xmlns="sap.m">
+    <table:Column>
+        <Label text="DC Rate Ext" />
+        <table:template>
+            <Input width="100%" value="{dc_rate}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" />
+        </table:template>
+        <table:customData>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn1&quot;, &quot;leadingProperty&quot;: &quot;dc_rate&quot;, &quot;columnIndex&quot;: &quot;3&quot;}" />
+        </table:customData>
+    </table:Column>
+</core:FragmentDefinition>
