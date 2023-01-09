@@ -2,7 +2,7 @@
 	xmlns="sap.ui.layout"
 	xmlns:forms="sap.ui.layout.form"
 	xmlns:core="sap.ui.core">
-	<m:VBox id="idCIL_DisplayVBox" visible="{=!${ui>/editable &amp;&amp; {=${cil_applicable_fc} === 1}}">
+	<m:VBox id="idCIL_DisplayVBox" visible="{=!${ui>/editable} &amp;&amp; ${cil_applicable_fc} === 1}">
 		<forms:Form id="idCIL_DisplayForm" width="100%">
 			<forms:layout>
 				<forms:ResponsiveGridLayout id="idCIL_DisplayResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false" />
@@ -104,7 +104,7 @@
 		</forms:Form>
 	</m:VBox>
 	<!-- *****************************EDIT SCENARIO *********************************************-->
-	<m:VBox id="idCIL_EditVBox" visible="{=${ui>/editable} &amp;&amp; {=${cil_applicable_fc} !== 1}}">
+	<m:VBox id="idCIL_EditVBox" visible="{=${ui>/editable} &amp;&amp; ${cil_applicable_fc} !== 1}">
 		<forms:Form id="idCIL_EditForm" width="100%">
 			<forms:layout>
 				<forms:ResponsiveGridLayout id="idCIL_EditResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false" />
@@ -132,16 +132,15 @@
 								</m:RadioButtonGroup>
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelResGFA" label="{i18n>labelResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD'}">
+						<forms:FormElement id="idCIL_EditFormLabelResGFA" label="{i18n>labelResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' || =${to_cilcal/cil_build_type} === 'RES'}">
 							<forms:fields>
 								<m:HBox id="idCIL_EditHBoxResGFA" alignItems="Center">
-
 									<m:Input id="idCIL_EditInpResGFA" type="Number" value="{path:'to_cilcal/res_gfa',type: 'sap.ui.model.type.Float',formatOptions: {maxFractionDigits: 3} }" editable="{=${cil_applicable}}" />
 									<m:Text class="sapUiSmallMarginBegin" id="idCIL_EditTextResGFAPer" text="{to_cilcal/res_gfa_prcnt} %"/>
 								</m:HBox>
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD'}">
+						<forms:FormElement id="idCIL_EditFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' || =${to_cilcal/cil_build_type} === 'NRS'}">
 							<forms:fields>
 								<m:HBox id="idCIL_EditHBoxNResGFA" alignItems="Center">
 									<m:Input id="idCIL_EditInpNResGFA" type="Number" value="{path:'to_cilcal/nres_gfa',type: 'sap.ui.model.type.Float',formatOptions: {maxFractionDigits: 3} }" editable="{=${cil_applicable}}"/>
