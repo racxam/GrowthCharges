@@ -29,14 +29,18 @@ sap.ui.define(["sap/ui/model/json/JSONModel", "sap/ui/core/Fragment", "sap/ui/ta
                         sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--fullScreen").firePress();
                     }
 
-                    //Calculate Button Visibility 
+                    //Calculate and Add Credit Button Visibility 
                     const oCalBtn = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton");
+                    const oAddCreditBtn = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton");
                     const bEdit = oComponent.getModel("ui").getProperty("/editable");
                     if (bEdit) {
                         oCalBtn.setVisible(true);
+                        oAddCreditBtn.setVisible(true);
                     } else {
                         oCalBtn.setVisible(false);
-                    }
+                        oAddCreditBtn.setVisible(false);
+                    }                   
+
                 });
                 //Invoice Section
                 this._sValidPath = "/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='EXT48000000000002',Documentpart='',Documentversion='',ApplicationId='005056940AD91EDDA2F0473378DA7E15',FileId='005056940AD91EDDA2F0473378DA9E15')/$value";
