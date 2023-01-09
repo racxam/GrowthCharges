@@ -72,6 +72,19 @@ sap.ui.define([
                 const oSmartTable = oEvent.getSource();
                 const oSmartFilterBar = this.byId(oSmartTable.getSmartFilterId());
                 let aFilters = [];
+                const oTable  = oSmartTable.getTable();
+                const aColumns = oTable.getColumns();
+
+                //Width Setting
+                for (let i = 0; i < aColumns.length; i++) {
+
+                    if(!aColumns[i].getWidth()){
+                        aColumns[i].setWidth("6rem");
+                    }
+
+                    
+                }
+
                 if (oSmartFilterBar instanceof SmartFilterBar) {
                     const aCustomFiltersKey = ["AppCharges", "Version"];
                     let oCustomControl = "";
