@@ -179,7 +179,12 @@
                             "className": "sap.ui.core.Fragment",
                             "fragmentName": "com.gc.dashboard.ext.fragments.TreeTableColumns",
                             "type": "XML"
-                        }
+                        },
+                        "TreeTableColumnsExtension|zgc_c_dc_demos|DemolitionCred-ID": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.TreeTableColumns",
+                            "type": "XML"
+                        }                        
                     }
                 },
                 "sap.ui.controllerExtensions": {

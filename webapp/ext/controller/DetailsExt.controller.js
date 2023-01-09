@@ -1,6 +1,6 @@
 jQuery.sap.require("com.gc.dashboard.ext.formatter.ObjectPageFormatter");
-sap.ui.define(["sap/ui/model/json/JSONModel", "sap/ui/core/Fragment", "sap/ui/table/Column", "sap/ui/model/Filter"],
-    function (JSONModel, Fragment, UIColumn, Filter) {
+sap.ui.define(["sap/ui/model/json/JSONModel", "sap/ui/core/Fragment", "sap/ui/table/Column", "sap/ui/model/Filter", "sap/m/Text"],
+    function (JSONModel, Fragment, UIColumn, Filter, Text) {
         "use strict";
         return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
             onInit: function () {
@@ -423,9 +423,13 @@ sap.ui.define(["sap/ui/model/json/JSONModel", "sap/ui/core/Fragment", "sap/ui/ta
                                     }
                                 }
                             });
-                            oTable.addColumn(new UIColumn({label: "DC Rate", template: "dc_rate"}));
-                            oTable.addColumn(new UIColumn({label: "Begin Date", template: "start_date"}));
-                            oTable.addColumn(new UIColumn({label: "End Date", template: "end_date"}));
+
+                            const dcRateTemplate = new Text({text: "{dc_rate}"});
+                            const startDateTemplate = new Text({text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"});
+                            const endDateTemplate = new Text({text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"});
+                            oTable.addColumn(new UIColumn({label: "DC Rate", template: dcRateTemplate}));
+                            oTable.addColumn(new UIColumn({label: "Valid From", template: startDateTemplate}));
+                            oTable.addColumn(new UIColumn({label: "Valid To", template: endDateTemplate}));
                         }
                         oDialog.update();
                     }.bind(this));      
