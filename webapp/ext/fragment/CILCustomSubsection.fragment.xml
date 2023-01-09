@@ -25,7 +25,7 @@
 								<m:Text id="idCIL_DisplayTextBuildType" text="{to_cilcal/bldtyp_cil_t}"/>
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_DisplayFormLabelResGFA" label="{i18n>labelResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD'}">
+						<forms:FormElement id="idCIL_DisplayFormLabelResGFA" label="{i18n>labelResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' || ${to_cilcal/cil_build_type} === 'RES'}">
 							<forms:fields>
 								<m:HBox id="idCIL_DispHBoxResGFA" alignItems="Center">
 									<m:Text id="idCIL_DisplayTextResGFA" text="{to_cilcal/res_gfa}"/>
@@ -34,7 +34,7 @@
 
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_DisplayFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD'}">
+						<forms:FormElement id="idCIL_DisplayFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD'  || ${to_cilcal/cil_build_type} === 'NRS'}">
 							<forms:fields>
 								<m:HBox id="idCIL_DispHBoxNResGFA" alignItems="Center">
 									<m:Text id="idCIL_DisplayTextNResGFA" text="{to_cilcal/nres_gfa}"/>
@@ -132,7 +132,7 @@
 								</m:RadioButtonGroup>
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelResGFA" label="{i18n>labelResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' || =${to_cilcal/cil_build_type} === 'RES'}">
+						<forms:FormElement id="idCIL_EditFormLabelResGFA" label="{i18n>labelResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' || ${to_cilcal/cil_build_type} === 'RES'}">
 							<forms:fields>
 								<m:HBox id="idCIL_EditHBoxResGFA" alignItems="Center">
 									<m:Input id="idCIL_EditInpResGFA" type="Number" value="{path:'to_cilcal/res_gfa',type: 'sap.ui.model.type.Float',formatOptions: {maxFractionDigits: 3} }" editable="{=${cil_applicable}}" />
@@ -140,7 +140,7 @@
 								</m:HBox>
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' || =${to_cilcal/cil_build_type} === 'NRS'}">
+						<forms:FormElement id="idCIL_EditFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' || ${to_cilcal/cil_build_type} === 'NRS'}">
 							<forms:fields>
 								<m:HBox id="idCIL_EditHBoxNResGFA" alignItems="Center">
 									<m:Input id="idCIL_EditInpNResGFA" type="Number" value="{path:'to_cilcal/nres_gfa',type: 'sap.ui.model.type.Float',formatOptions: {maxFractionDigits: 3} }" editable="{=${cil_applicable}}"/>
