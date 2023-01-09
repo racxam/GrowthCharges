@@ -144,8 +144,6 @@ sap.ui.define(["sap/ui/model/json/JSONModel", "sap/ui/core/Fragment", "sap/ui/ta
                 oModel.callFunction("/ZGC_C_PRE_BLD_PERMIT_CRDAdd_build_permit", {
                     method: "POST",
                     urlParameters: {
-                        pr_build_permit_uuid: "00000000000000000000000000000000",
-                        IsActiveEntity: true,
                         PermitNo: permitNo,
                         req_uuid: reqGuid
                     },
