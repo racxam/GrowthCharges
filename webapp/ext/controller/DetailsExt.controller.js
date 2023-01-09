@@ -85,8 +85,8 @@ sap.ui.define(["sap/ui/model/json/JSONModel", "sap/ui/core/Fragment", "sap/ui/ta
                 const dcDeferralSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Deferral-SS::SubSection");
                 if (dcDeferralSection) { dcDeferralSection.onAfterRendering = setBlocksRight; }
 
-
-
+                const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table").getTable();
+                demoTable.attachBusyStateChanged(this._onBusyStateChanged);
             },
 
             onBeforeRebindTableExtension: function (oEvent) {
@@ -446,6 +446,26 @@ sap.ui.define(["sap/ui/model/json/JSONModel", "sap/ui/core/Fragment", "sap/ui/ta
     
             onValueHelpAfterClose: function () {
                 this._oValueHelpDialog.destroy();
-            }            
+            },
+            _onBusyStateChanged: function (oEvent) {
+
+                var bBusy = oEvent.getParameter("busy");
+                if (!bBusy && !this._bColumnOptimizationDone) {
+            var oTable = oEvent.getSource();
+            var oTpc = null;
+            if (sap.ui.table.TablePointerExtension) {
+                oTpc = new sap.ui.table.TablePointerExtension(oTable);
+            } else {
+                oTpc = new sap.ui.table.extensions.Pointer(oTable);
+            }
+            var aColumns = oTable.getColumns();
+            for (var i = aColumns.length; i >= 0; i--) {
+                oTpc.doAutoResizeColumn(i);
+            }
+            //This line can be commented if you want the columns to be adjusted on every scroll
+            //this._bColumnOptimizationDone = true;
+            }
+    
+        }                    
         });
     });
