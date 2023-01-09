@@ -21,8 +21,10 @@ sap.ui.define([
                 const sHashKey = oRouter.getHashChanger().key;
 
                 if (sHashKey === "Child") {
+                      const oCoreModel = sap.ui.getCore().getModel("CoreModel");
+                      const sGuid = oCoreModel.getProperty("/guid");
                     oRouter.navTo("zgc_c_requests",
-                        { keys1: "req_uuid=guid'00505694-0ad9-1edd-9ee5-e13cacd017a7',IsActiveEntity=true" },
+                        { keys1:`req_uuid=guid'${sGuid}',IsActiveEntity=true`},
                         true
                     );
 
