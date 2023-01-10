@@ -179,93 +179,47 @@ sap.ui.define([
             getStatusStateForCIL: function (sStatus) {
                 if (sStatus === "INP") {
                     return "Information";
-                } else if (sStatus === "PCILAPP") {
+                } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") {
                     return "Warning";
-                } else if (sStatus === "CILR") {
+                } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
                     return "Error";
-                } else if (sStatus === "CILA") {
+                } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR") {
                     return "Success";
-                } else if (sStatus === "PFIAPP") {
-                    return "Warning";
-                } else if (sStatus === "CLSD") {
+                }  else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
                     return "Success";
-                } else if (sStatus === "HLD") {
-                    return "Success";
-                } else if (sStatus === "FRJ") {
-                    return "Error";
-                } else if (sStatus === "PCLSD") {
-                    return "Success";
-                } else {
+                }  else {
                     return "None";
                 }
             },
 
-            showStatusCIL: function (sStatus) {
-                if (sStatus === "INP") {
-                    return "Information";
-                } else if (sStatus === "PCILAPP") {
-                    return "Warning";
-                } else if (sStatus === "PCILAPP") {
-                    return "Error";
-                } else if (sStatus === "CILA") {
-                    return "Success";
-                } else if (sStatus === "PFIAPP") {
-                    return "Success";
-                } else if (sStatus === "CLSD") {
-                    return "Information";
-                } else if (sStatus === "HLD") {
-                    return "Information";
-                } else if (sStatus === "FRJ") {
-                    return "Error";
-                } else if (sStatus === "PCLSD") {
-                    return "Information";
-                } else {
-                    return "None";
-                }
-            },
+            
             showStatusCBC: function (sStatus) {
                 if (sStatus === "INP") {
                     return "Information";
-                } else if (sStatus === "PCILAPP") {
+                } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") {
                     return "Warning";
-                } else if (sStatus === "PCILAPP") {
+                } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
                     return "Error";
-                } else if (sStatus === "CILA") {
+                } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR") {
                     return "Success";
-                } else if (sStatus === "PFIAPP") {
+                }  else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
                     return "Success";
-                } else if (sStatus === "CLSD") {
-                    return "Information";
-                } else if (sStatus === "HLD") {
-                    return "Information";
-                } else if (sStatus === "FRJ") {
-                    return "Error";
-                } else if (sStatus === "PCLSD") {
-                    return "Information";
-                } else {
+                }  else {
                     return "None";
                 }
             },
             showStatusDC: function (sStatus) {
                 if (sStatus === "INP") {
                     return "Information";
-                } else if (sStatus === "PCILAPP") {
+                } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") {
                     return "Warning";
-                } else if (sStatus === "PCILAPP") {
+                } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
                     return "Error";
-                } else if (sStatus === "CILA") {
+                } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR") {
                     return "Success";
-                } else if (sStatus === "PFIAPP") {
+                }  else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
                     return "Success";
-                } else if (sStatus === "CLSD") {
-                    return "Information";
-                } else if (sStatus === "HLD") {
-                    return "Information";
-                } else if (sStatus === "FRJ") {
-                    return "Error";
-                } else if (sStatus === "PCLSD") {
-                    return "Information";
-                } else {
+                }  else {
                     return "None";
                 }
             },
@@ -279,23 +233,15 @@ sap.ui.define([
             showStatusClosed: function (sStatus) {
                 if (sStatus === "INP") {
                     return "Information";
-                } else if (sStatus === "PCILAPP") {
+                } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") {
                     return "Warning";
-                } else if (sStatus === "PCILAPP") {
+                } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
                     return "Error";
-                } else if (sStatus === "CILA") {
+                } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR") {
                     return "Success";
-                } else if (sStatus === "PFIAPP") {
+                }  else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
                     return "Success";
-                } else if (sStatus === "CLSD") {
-                    return "Information";
-                } else if (sStatus === "HLD") {
-                    return "Information";
-                } else if (sStatus === "FRJ") {
-                    return "Error";
-                } else if (sStatus === "PCLSD") {
-                    return "Information";
-                } else {
+                }  else {
                     return "None";
                 }
             },
