@@ -301,7 +301,6 @@ sap.ui.define(
           },
           error: function (oError) { }
         });
-        this._oNewPBPDialog.close();
       },
       /**
        * Formatter to control state of CIL Processflow
