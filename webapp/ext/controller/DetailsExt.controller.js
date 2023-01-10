@@ -203,15 +203,25 @@ sap.ui.define(
           )
           .getTable();
         totalDCTable.attachBusyStateChanged(this._onBusyStateChanged);
+
+        //CBC
+        //Exemption Table
+
+        const oCBCExemptTable = sap.ui.getCore().byId(
+            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table"
+          )
+          .getTable();
+          oCBCExemptTable.attachBusyStateChanged(this._onBusyStateChanged);
+
       },
 
       onBeforeRebindTableExtension: function (oEvent) {
         //Binding parameter change is only for the DC Table anddemolition table
         if (
           oEvent.getSource().getId() !==
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table" &&
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table" &&
           oEvent.getSource().getId() !==
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table"
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table"
         ) {
           return;
         }
@@ -239,7 +249,7 @@ sap.ui.define(
               )
               .rebindTable();
           },
-          error: function (oError) {}
+          error: function (oError) { }
         });
       },
 
@@ -289,7 +299,7 @@ sap.ui.define(
               )
               .rebindTable();
           },
-          error: function (oError) {}
+          error: function (oError) { }
         });
         this._oNewPBPDialog.close();
       },

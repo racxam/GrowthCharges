@@ -160,6 +160,7 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelNResType" label="{i18n>labelNonResidentialType}" visible="{=${to_cilcal/cil_build_type} !== 'RES'}">
 							<forms:fields>
+							<!--If nonRes GFA is less than 20% then disable radio button-->
 								<m:RadioButtonGroup id="idCIL_EditRBGrpNResType" select=".onPressRBGrpNResType">
 									<m:RadioButton id="idCIL_EditRBNResTypeVac" selected="{=${to_cilcal/nres_type} === 'VAC'}" text="{i18n>labelVacant}" editable="{=${cil_applicable}}"/>
 									<m:RadioButton id="idCIL_EditRBNResTypeExist" selected="{=${to_cilcal/nres_type} === 'EXT'}" text="{i18n>labelExisting}" editable="{=${cil_applicable}}"/>
