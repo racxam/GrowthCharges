@@ -649,7 +649,7 @@ sap.ui.define(
               "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table-dc_type"
               || "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table-dc_type"
             ) {
-              aColumns[i].setWidth("300px");
+              aColumns[i]?.setWidth("300px");
             } else {
               oTpc.doAutoResizeColumn(i);
             }
