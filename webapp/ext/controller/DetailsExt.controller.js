@@ -275,6 +275,15 @@ sap.ui.define(
        */
       onPressNewPBPConfirm: function (oEvent) {
         const oModel = this.getView().getModel();
+
+        //Get rid of pendingchanges to ZGC_PERMIT_NO_VH entity
+        const currentChnages = oModel.getPendingChanges();
+        for (var key in currentChnages){
+          if (key.indexOf("ZGC_PERMIT_NO_VH") > -1){
+            oModel.resetChanges([`/${key}`]);
+          }
+        }        
+
         const oSelectedObject = oEvent
           .getParameter("selectedItem")
           .getBindingContext()
@@ -558,7 +567,7 @@ sap.ui.define(
                 // For Desktop and tabled the default table is sap.ui.table.Table
                 if (oTable.bindRows) {
                   // Bind rows to the ODataModel and add columns
-                  oTable.bindAggregation("rows", {
+                  oTable.bindRows({
                     path: "/zgc_dcrates_vh",
                     filters: this.rateFilters,
                     events: {
