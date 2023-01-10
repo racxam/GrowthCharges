@@ -311,11 +311,11 @@ sap.ui.define(
       getStatusStateForCIL: function (sStatus) {
         if (sStatus === "INP") {
           return "Information";
-        } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") {
+        } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" ) {
           return "Warning";
         } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
           return "Error";
-        } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR") {
+        } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "FIN_PND") {
           return "Success";
         } else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
           return "Success";
@@ -337,7 +337,8 @@ sap.ui.define(
           return "Warning";
         } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
           return "Error";
-        } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR") {
+          //sStatus === "CIL_APR" ||
+        } else if ( sStatus === "FIN_APR") {
           return "Success";
         } else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
           return "Success";
@@ -359,7 +360,8 @@ sap.ui.define(
           return "Warning";
         } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
           return "Error";
-        } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR") {
+         // sStatus === "CIL_APR" ||
+        } else if ( sStatus === "FIN_APR") {
           return "Success";
         } else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
           return "Success";
