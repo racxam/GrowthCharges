@@ -409,7 +409,7 @@ sap.ui.define(
         if (sStatus === "PCLSD") {
              return "None";
          } 
-         return "";
+         return "None";
      },
 
       /**
@@ -420,7 +420,7 @@ sap.ui.define(
        */
       getStatusStateForHold: function (sStatus) {
         if (sStatus === "HLD") { return "None"; }
-        return "";
+        return "None";
       },
 
       /**
