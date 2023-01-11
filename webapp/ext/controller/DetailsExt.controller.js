@@ -407,10 +407,10 @@ sap.ui.define(
              */
       showStatusPClosed: function (sStatus) {
         if (sStatus === "PCLSD") {
-             return "None";
-         } 
-         return "None";
-     },
+          return "None";
+        }
+        return "None";
+      },
 
       /**
        * Formatter to control state of Hold Processflow
@@ -522,60 +522,82 @@ sap.ui.define(
 
       //UPDATE CALL
 
-      onUpdateResGFA :  function(oEvent){
+      onUpdateResGFA: function (oEvent) {
         const oModel = this.getView().getModel();
         const sGuid = oEvent.getSource().getBindingContext().getObject().req_uuid;
         const sCilCalPath = oModel.createKey("/zgc_c_cil_cal", {
-					cil_uuid: sGuid,
-          IsActiveEntity:true
-				});
+          cil_uuid: sGuid,
+          IsActiveEntity: true
+        });
         let oPayload = {
           "res_gfa": parseInt(oEvent.getParameter("newValue"))
         };
 
         oModel.update(sCilCalPath, oPayload, {
-					refreshAfterChange: true,
-					success: function (oData, oResponse) {
+          refreshAfterChange: true,
+          success: function (oData, oResponse) {
             oModel.refresh();
-					},
-					error: function (oError) {
-						let sErrorMsg = "";
-						if (oError.responseText) {
-							sErrorMsg = JSON.parse(oError.responseText).error
-								.message.value;
-						} else {
-							sErrorMsg = this.oI18n.getText("msgErrorFail");
-						}
-					}.bind(this)
-				});
+          },
+          error: function (oError) {
+            let sErrorMsg = "";
+            if (oError.responseText) {
+              sErrorMsg = JSON.parse(oError.responseText).error
+                .message.value;
+            } else {
+              sErrorMsg = this.oI18n.getText("msgErrorFail");
+            }
+          }.bind(this)
+        });
       },
 
-      onUpdateNresGFA :  function(oEvent){
+      onUpdateNresGFA: function (oEvent) {
         const oModel = this.getView().getModel();
         const sGuid = oEvent.getSource().getBindingContext().getObject().req_uuid;
         const sCilCalPath = oModel.createKey("/zgc_c_cil_cal", {
-					cil_uuid: sGuid,
-          IsActiveEntity:true
-				});
+          cil_uuid: sGuid,
+          IsActiveEntity: true
+        });
         let oPayload = {
           "nres_gfa": parseInt(oEvent.getParameter("newValue"))
         };
 
         oModel.update(sCilCalPath, oPayload, {
-					refreshAfterChange: true,
-					success: function (oData, oResponse) {
+          refreshAfterChange: true,
+          success: function (oData, oResponse) {
             oModel.refresh();
-					},
-					error: function (oError) {
-						let sErrorMsg = "";
-						if (oError.responseText) {
-							sErrorMsg = JSON.parse(oError.responseText).error
-								.message.value;
-						} else {
-							sErrorMsg = this.oI18n.getText("msgErrorFail");
-						}
-					}.bind(this)
-				});
+          },
+          error: function (oError) {
+            let sErrorMsg = "";
+            if (oError.responseText) {
+              sErrorMsg = JSON.parse(oError.responseText).error
+                .message.value;
+            } else {
+              sErrorMsg = this.oI18n.getText("msgErrorFail");
+            }
+          }.bind(this)
+        });
+      },
+
+      /**
+      * Formatter to enable/disable NRes Type radio button
+      * incase nresgfa is less than 20% then disable
+      * @public
+      * @param {string} sBuildType value
+      * @param {string} sNGFAPer value
+      * @returns {state} State
+      */
+      onShowNResType: function (sBuildType, sNGFAPer) {
+        if (sBuildType === "MXD") {
+          if (parseFloat(sNGFAPer) > 20) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return true;
+        }
+
+
       },
 
       /**
