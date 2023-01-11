@@ -15,7 +15,7 @@
     <commons:MicroProcessFlow id="_IDGenMicroProcessFlow1">
         <commons:content>
             <!-- visible="{cil_applicable' ,formatter: '.showCILStatusIcon' }" -->
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem1" state="{ path: 'status', formatter: '.getStatusStateForCIL' }" visible="{cil_applicable' ,formatter: '.showCILStatusIcon' }">
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem1" state="{ path: 'status', formatter: '.getStatusStateForCIL' }" visible="{cil_applicable}">
                 <commons:customControl>
                     <ObjectStatus id="_IDGenObjectStatus1" text="{i18n>titleCIL}" state="{ path: 'status', formatter: '.getStatusStateForCIL' }" inverted="true"/>
                 </commons:customControl>
