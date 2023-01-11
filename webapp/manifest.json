@@ -351,7 +351,7 @@
                                             "UPLOADEDBY": true,
                                             "UPLOADEDON": true,
                                             "FILESIZE": true,
-                                            "ENABLELINK": false,
+                                            "ENABLELINK": true,
                                             "ATTACHMENTSTATUS": true,
                                             "ATTACHMENTTITLE": true,
                                             "SOURCE": false,
@@ -360,7 +360,9 @@
                                         "_VisibleActions": {
                                             "RENAME": true,
                                             "DELETE": true,
-                                            "ADD": true
+                                            "ADD": true,
+                                            "ADDURL": false,
+                                            "DOWNLOAD": true
                                         }
                                     }
                                 }
@@ -379,7 +381,7 @@
                                             "UPLOADEDBY": true,
                                             "UPLOADEDON": true,
                                             "FILESIZE": true,
-                                            "ENABLELINK": false,
+                                            "ENABLELINK": true,
                                             "ATTACHMENTSTATUS": false,
                                             "ATTACHMENTTITLE": true,
                                             "SOURCE": false,
@@ -388,7 +390,9 @@
                                         "_VisibleActions": {
                                             "RENAME": true,
                                             "DELETE": true,
-                                            "ADD": true
+                                            "ADD": true,
+                                            "ADDURL": false,
+                                            "DOWNLOAD": true
                                         }
                                     }
                                 }
@@ -407,7 +411,7 @@
                                             "UPLOADEDBY": true,
                                             "UPLOADEDON": true,
                                             "FILESIZE": true,
-                                            "ENABLELINK": false,
+                                            "ENABLELINK": true,
                                             "ATTACHMENTSTATUS": false,
                                             "ATTACHMENTTITLE": true,
                                             "SOURCE": false,
@@ -416,7 +420,9 @@
                                         "_VisibleActions": {
                                             "RENAME": true,
                                             "DELETE": true,
-                                            "ADD": true
+                                            "ADD": true,
+                                            "ADDURL": false,
+                                            "DOWNLOAD": true
                                         }
                                     }
                                 }
@@ -435,7 +441,7 @@
                                             "UPLOADEDBY": true,
                                             "UPLOADEDON": true,
                                             "FILESIZE": true,
-                                            "ENABLELINK": false,
+                                            "ENABLELINK": true,
                                             "ATTACHMENTSTATUS": false,
                                             "ATTACHMENTTITLE": true,
                                             "SOURCE": false,
@@ -444,7 +450,9 @@
                                         "_VisibleActions": {
                                             "RENAME": true,
                                             "DELETE": true,
-                                            "ADD": true
+                                            "ADD": true,
+                                            "ADDURL": false,
+                                            "DOWNLOAD": true
                                         }
                                     }
                                 }

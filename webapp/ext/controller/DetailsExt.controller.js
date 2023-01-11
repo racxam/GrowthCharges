@@ -660,6 +660,7 @@ sap.ui.define(
                   const endDateTemplate = new Text({
                     text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
                   });
+                  const rateComments = new Text({ text: "{rate_note}" });
                   oTable.addColumn(
                     new UIColumn({ label: "DC Rate", template: dcRateTemplate })
                   );
@@ -673,6 +674,12 @@ sap.ui.define(
                     new UIColumn({
                       label: "Valid To",
                       template: endDateTemplate
+                    })
+                  );
+                  oTable.addColumn(
+                    new UIColumn({
+                      label: "Comments",
+                      template: rateComments
                     })
                   );
                 }
