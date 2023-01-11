@@ -438,18 +438,6 @@ sap.ui.define(
         return oMessageText;
       },
 
-      onPressRB: function (oEvent) {
-        // const bResLowSelected = oEvent.getParameter("selectedIndex") === 1 ? true : false;
-        // if(bResLowSelected){
-        //     this.getView().getModel().setProperty(oEvent.getSource().getParent().getBindingContext().getPath() + "/resi_high_med_hidden" , false);
-        //     this.getView().getModel().setProperty(oEvent.getSource().getParent().getBindingContext().getPath() + "/resi_low_hidden" , true);
-        // }else{
-        //     this.getView().getModel().setProperty(oEvent.getSource().getParent().getBindingContext().getPath() + "/resi_high_med_hidden" , true);
-        //     this.getView().getModel().setProperty(oEvent.getSource().getParent().getBindingContext().getPath() + "/resi_low_hidden" , false);
-        // }
-        // this.getView().getModel().submitChanges();
-      },
-
       onPressBuildingType: function (oEvent) {
         const oSource = oEvent.getSource();
         const oBindingContext = oSource.getBindingContext();
@@ -489,47 +477,19 @@ sap.ui.define(
         oModel.setProperty(`${sPath}/residential_hidden`, false);
         if (iSelectedIndex === 0) {
           oModel.setProperty(`${sPath}/to_cilcal/res_type`, "HDE");
+
+          oModel.setProperty(`${sPath}/resi_high_med_hidden`, false);
+          oModel.setProperty(`${sPath}/resi_low_hidden`, true);
           oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden`, false);
           oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden`, true);
-
-          // let oPayload = {
-          // 	"res_type": "HDE",
-          //   "resi_high_med_hidden":false,
-          //   "resi_low_hidden" : true
-          // };
-          // this._updateOdataService(
-          // 	oModel,
-          // 	"/" + Object.keys(oModel.getPendingChanges())[0],
-          // 	oPayload
-          // );
         } else if (iSelectedIndex === 1) {
           oModel.setProperty(`${sPath}/to_cilcal/res_type`, "MDE");
           oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden`, false);
           oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden`, true);
-          // let oPayload = {
-          // 	"res_type": "MDE",
-          //   "resi_high_med_hidden":false,
-          //   "resi_low_hidden" : true
-          // };
-          // this._updateOdataService(
-          // 	oModel,
-          // 	"/" + Object.keys(oModel.getPendingChanges())[0],
-          // 	oPayload
-          // );
         } else {
           oModel.setProperty(`${sPath}/to_cilcal/res_type`, "LDE");
           oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden`, false);
           oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden`, true);
-          // let oPayload = {
-          // 	"res_type": "LDE",
-          //   "resi_low_hidden":false,
-          //   "resi_high_med_hidden" : true
-          // };
-          // this._updateOdataService(
-          // 	oModel,
-          // 	"/" + Object.keys(oModel.getPendingChanges())[0],
-          // 	oPayload
-          // );
         }
       },
       onPressRBGrpNResType: function (oEvent) {
@@ -561,6 +521,62 @@ sap.ui.define(
       },
 
       //UPDATE CALL
+
+      onUpdateResGFA :  function(oEvent){
+        const oModel = this.getView().getModel();
+        const sGuid = oEvent.getSource().getBindingContext().getObject().req_uuid;
+        const sCilCalPath = oModel.createKey("/zgc_c_cil_cal", {
+					cil_uuid: sGuid,
+          IsActiveEntity:true
+				});
+        let oPayload = {
+          "res_gfa": parseInt(oEvent.getParameter("newValue"))
+        };
+
+        oModel.update(sCilCalPath, oPayload, {
+					refreshAfterChange: true,
+					success: function (oData, oResponse) {
+            oModel.refresh();
+					},
+					error: function (oError) {
+						let sErrorMsg = "";
+						if (oError.responseText) {
+							sErrorMsg = JSON.parse(oError.responseText).error
+								.message.value;
+						} else {
+							sErrorMsg = this.oI18n.getText("msgErrorFail");
+						}
+					}.bind(this)
+				});
+      },
+
+      onUpdateNresGFA :  function(oEvent){
+        const oModel = this.getView().getModel();
+        const sGuid = oEvent.getSource().getBindingContext().getObject().req_uuid;
+        const sCilCalPath = oModel.createKey("/zgc_c_cil_cal", {
+					cil_uuid: sGuid,
+          IsActiveEntity:true
+				});
+        let oPayload = {
+          "nres_gfa": parseInt(oEvent.getParameter("newValue"))
+        };
+
+        oModel.update(sCilCalPath, oPayload, {
+					refreshAfterChange: true,
+					success: function (oData, oResponse) {
+            oModel.refresh();
+					},
+					error: function (oError) {
+						let sErrorMsg = "";
+						if (oError.responseText) {
+							sErrorMsg = JSON.parse(oError.responseText).error
+								.message.value;
+						} else {
+							sErrorMsg = this.oI18n.getText("msgErrorFail");
+						}
+					}.bind(this)
+				});
+      },
 
       /**
        * Update Service
