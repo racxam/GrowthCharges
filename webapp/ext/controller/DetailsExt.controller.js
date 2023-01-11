@@ -278,11 +278,11 @@ sap.ui.define(
 
         //Get rid of pendingchanges to ZGC_PERMIT_NO_VH entity
         const currentChnages = oModel.getPendingChanges();
-        for (var key in currentChnages){
-          if (key.indexOf("ZGC_PERMIT_NO_VH") > -1){
+        for (var key in currentChnages) {
+          if (key.indexOf("ZGC_PERMIT_NO_VH") > -1) {
             oModel.resetChanges([`/${key}`]);
           }
-        }        
+        }
 
         const oSelectedObject = oEvent
           .getParameter("selectedItem")
@@ -320,13 +320,13 @@ sap.ui.define(
       getStatusStateForCIL: function (sStatus) {
         if (sStatus === "INP") {
           return "Information";
-        } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" ) {
+        } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND") {
           return "Warning";
         } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
           return "Error";
         } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "FIN_PND") {
           return "Success";
-        } else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
+        } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
           return "Success";
         } else {
           return "None";
@@ -340,16 +340,15 @@ sap.ui.define(
        * @returns {state} State
        */
       getStatusStateForCBC: function (sStatus) {
-        if (sStatus === "INP") {
+        if (sStatus === "INP" || sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "CIL_APR") {
           return "Information";
-        } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") {
+        } else if (sStatus === "FIN_PND") {
           return "Warning";
-        } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
+        } else if (sStatus === "FIN_REJ") {
           return "Error";
-          //sStatus === "CIL_APR" ||
-        } else if ( sStatus === "FIN_APR") {
+        } else if (sStatus === "FIN_APR") {
           return "Success";
-        } else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
+        } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
           return "Success";
         } else {
           return "None";
@@ -363,16 +362,15 @@ sap.ui.define(
        * @returns {state} State
        */
       getStatusStateForDC: function (sStatus) {
-        if (sStatus === "INP") {
+        if (sStatus === "INP" || sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "CIL_APR") {
           return "Information";
-        } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") {
+        } else if (sStatus === "FIN_PND") {
           return "Warning";
-        } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
+        } else if (sStatus === "FIN_REJ") {
           return "Error";
-         // sStatus === "CIL_APR" ||
-        } else if ( sStatus === "FIN_APR") {
+        } else if (sStatus === "FIN_APR") {
           return "Success";
-        } else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
+        } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
           return "Success";
         } else {
           return "None";
@@ -394,12 +392,25 @@ sap.ui.define(
           return "Error";
         } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR") {
           return "Success";
-        } else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
+        } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
           return "Success";
         } else {
           return "None";
         }
       },
+
+      /**
+             * Formatter to control state of Closed Processflow
+             * @public
+             * @param {string} sStatus value
+             * @returns {state} State
+             */
+      showStatusPClosed: function (sStatus) {
+        if (sStatus === "PCLSD") {
+             return "None";
+         } 
+         return "";
+     },
 
       /**
        * Formatter to control state of Hold Processflow
@@ -408,10 +419,8 @@ sap.ui.define(
        * @returns {state} State
        */
       getStatusStateForHold: function (sStatus) {
-        if (sStatus === "HLD") {
-          return "Success";
-        }
-        return "None";
+        if (sStatus === "HLD") { return "None"; }
+        return "";
       },
 
       /**
@@ -465,6 +474,8 @@ sap.ui.define(
         }
       },
 
+
+
       onPressRBGrpResType: function (oEvent) {
         const oSource = oEvent.getSource();
         const oBindingContext = oSource.getBindingContext();
@@ -480,14 +491,45 @@ sap.ui.define(
           oModel.setProperty(`${sPath}/to_cilcal/res_type`, "HDE");
           oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden`, false);
           oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden`, true);
+
+          // let oPayload = {
+          // 	"res_type": "HDE",
+          //   "resi_high_med_hidden":false,
+          //   "resi_low_hidden" : true
+          // };
+          // this._updateOdataService(
+          // 	oModel,
+          // 	"/" + Object.keys(oModel.getPendingChanges())[0],
+          // 	oPayload
+          // );
         } else if (iSelectedIndex === 1) {
           oModel.setProperty(`${sPath}/to_cilcal/res_type`, "MDE");
           oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden`, false);
           oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden`, true);
+          // let oPayload = {
+          // 	"res_type": "MDE",
+          //   "resi_high_med_hidden":false,
+          //   "resi_low_hidden" : true
+          // };
+          // this._updateOdataService(
+          // 	oModel,
+          // 	"/" + Object.keys(oModel.getPendingChanges())[0],
+          // 	oPayload
+          // );
         } else {
           oModel.setProperty(`${sPath}/to_cilcal/res_type`, "LDE");
           oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden`, false);
           oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden`, true);
+          // let oPayload = {
+          // 	"res_type": "LDE",
+          //   "resi_low_hidden":false,
+          //   "resi_high_med_hidden" : true
+          // };
+          // this._updateOdataService(
+          // 	oModel,
+          // 	"/" + Object.keys(oModel.getPendingChanges())[0],
+          // 	oPayload
+          // );
         }
       },
       onPressRBGrpNResType: function (oEvent) {
@@ -516,6 +558,40 @@ sap.ui.define(
             false
           );
         }
+      },
+
+      //UPDATE CALL
+
+      /**
+       * Update Service
+       * @public
+       * @param {JSONModel} oModel - Path
+       * @param {string} sPath - Path
+       * @param {array} aPendingChangesObjects - Changed Components
+       *
+       */
+      _updateOdataService: function (
+        oModel,
+        sPath,
+        aPendingChangesObjects
+      ) {
+
+        oModel.update(sPath, aPendingChangesObjects, {
+          refreshAfterChange: true,
+          success: function (oData, oResponse) {
+            debugger;
+            this._onUpdateSuccess(oData, oResponse);
+          }.bind(this),
+          error: function (oError) {
+            let sErrorMsg = "";
+            if (oError.responseText) {
+              sErrorMsg = JSON.parse(oError.responseText).error
+                .message.value;
+            } else {
+              sErrorMsg = this.oI18n.getText("msgErrorFail");
+            }
+          }.bind(this)
+        });
       },
 
       onPressRBGrpMngrAppReq: function (oEvent) {

@@ -32,6 +32,11 @@
                     <ObjectStatus id="_IDGenObjectStatus3" text="{i18n>titleCBC}" state="{ path: 'status', formatter: '.showStatusCBC' }" inverted="true"/>
                 </commons:customControl>
             </commons:MicroProcessFlowItem>
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItemPCLSD" state="{ path: 'status', formatter: '.showStatusPClosed' }" visible="{=${status} === 'PCLSD'}">
+                <commons:customControl>
+                    <ObjectStatus id="_IDGenObjectStatusPCLSD" text="{i18n>titlePartialClosed}" state="{ path: 'status', formatter: '.showStatusPClosed' }" inverted="true"/>
+                </commons:customControl>
+            </commons:MicroProcessFlowItem>
             <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" state="{ path: 'status', formatter: '.showStatusClosed' }" visible="{=${status} === 'CLSD'}">
                 <commons:customControl>
                     <ObjectStatus id="_IDGenObjectStatus4" text="{i18n>titleClosed}" state="{ path: 'status', formatter: '.showStatusClosed' }" inverted="true"/>

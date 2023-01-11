@@ -185,7 +185,7 @@ sap.ui.define([
                     return "Error";
                 } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "FIN_PND") {
                     return "Success";
-                }  else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
+                }  else if (sStatus === "CLSD" || sStatus === "PCLSD") {
                     return "Success";
                 }  else {
                     return "None";
@@ -194,32 +194,30 @@ sap.ui.define([
 
             
             showStatusCBC: function (sStatus) {
-                if (sStatus === "INP") {
+                if (sStatus === "INP" || sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "CIL_APR") {
                     return "Information";
-                } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") {
+                } else if (sStatus === "FIN_PND") {
                     return "Warning";
-                } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
+                } else if (sStatus === "FIN_REJ") {
                     return "Error";
-                    //sStatus === "CIL_APR" ||
-                } else if ( sStatus === "FIN_APR") {
+                } else if (sStatus === "FIN_APR") {
                     return "Success";
-                }  else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
+                }  else if (sStatus === "CLSD"  || sStatus === "PCLSD") {
                     return "Success";
                 }  else {
                     return "None";
                 }
             },
             showStatusDC: function (sStatus) {
-                if (sStatus === "INP") {
+                if (sStatus === "INP" || sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "CIL_APR") {
                     return "Information";
-                } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") {
+                } else if (sStatus === "FIN_PND") {
                     return "Warning";
-                } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
+                } else if ( sStatus === "FIN_REJ") {
                     return "Error";
-                   // sStatus === "CIL_APR" ||
                 } else if ( sStatus === "FIN_APR") {
                     return "Success";
-                }  else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
+                }  else if (sStatus === "CLSD" || sStatus === "PCLSD") {
                     return "Success";
                 }  else {
                     return "None";
@@ -241,12 +239,26 @@ sap.ui.define([
                     return "Error";
                 } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR") {
                     return "Success";
-                }  else if (sStatus === "CLSD" || sStatus === "HLD" || sStatus === "PCLSD") {
+                }  else if (sStatus === "CLSD" || sStatus === "PCLSD") {
                     return "Success";
                 }  else {
                     return "None";
                 }
             },
+
+            /**
+             * Formatter to control state of Closed Processflow
+             * @public
+             * @param {string} sStatus value
+             * @returns {state} State
+             */
+            showStatusPClosed: function (sStatus) {
+               if (sStatus === "PCLSD") {
+                    return "None";
+                } 
+                return "";
+            },
+
             /**
              * Formatter to control state of Hold Processflow
              * @public
@@ -254,9 +266,10 @@ sap.ui.define([
              * @returns {state} State
              */
             showStatusHold: function (sStatus) {
-                if (sStatus === "HLD") {
-                    return "Success";
-                } return "None";
+                if (sStatus === "HLD") 
+                    {return "None";}
+                    return "";
+                
             },
 
             showDCComments: function (sComments) {

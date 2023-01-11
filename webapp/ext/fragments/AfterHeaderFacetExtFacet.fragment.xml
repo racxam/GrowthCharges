@@ -23,7 +23,13 @@ xmlns:smartField="sap.ui.comp.smartfield">
              <commons:customControl>
                 <ObjectStatus id="_IDGenObjectStatus7" text="{i18n>titleCBC}" state="{ path: 'status', formatter: '.getStatusStateForCBC' }" inverted="true" visible="{cbc_applicable}"/>
             </commons:customControl>
-            </commons:MicroProcessFlowItem> 
+            </commons:MicroProcessFlowItem>
+             <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItemPCLSD" state="{ path: 'status', formatter: '.showStatusPClosed' }" visible="{=${status} === 'PCLSD'}">
+                <commons:customControl>
+                    <ObjectStatus id="_IDGenObjectStatusPCLSD" text="{i18n>titlePartialClosed}" state="{ path: 'status', formatter: '.showStatusPClosed' }" inverted="true"/>
+                </commons:customControl>
+            </commons:MicroProcessFlowItem>
+            
              <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" showSeparator="{=${status} === 'CLSD'}">
              <commons:customControl>
                 <ObjectStatus id="_IDGenObjectStatus8" text="{i18n>titleClosed}" state="{ path: 'status', formatter: '.getStatusStateForClosed' }" inverted="true" visible="{=${status} === 'CLSD'}"/>

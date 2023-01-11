@@ -184,7 +184,7 @@
                             "className": "sap.ui.core.Fragment",
                             "fragmentName": "com.gc.dashboard.ext.fragments.TreeTableColumns",
                             "type": "XML"
-                        }                        
+                        }
                     }
                 },
                 "sap.ui.controllerExtensions": {
