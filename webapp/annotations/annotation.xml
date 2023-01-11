@@ -78,8 +78,8 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>days_of_interest</String>
-                                <String>dc_valid_until</String>
+                                <PropertyPath>days_of_interest</PropertyPath>
+                                <PropertyPath>dc_valid_until</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -108,7 +108,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>tot_dc_payable</String>
+                                <PropertyPath>tot_dc_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -125,7 +125,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>current_dc_payable</String>
+                                <PropertyPath>current_dc_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -144,8 +144,8 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>exm_cbc_charge</String>
-                                <String>cbc_exm_hidden</String>
+                                <PropertyPath>exm_cbc_charge</PropertyPath>
+                                <PropertyPath>cbc_exm_hidden</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -164,8 +164,8 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>kind_cbc_charge</String>
-                                <String>cbc_knd_hidden</String>
+                                <PropertyPath>kind_cbc_charge</PropertyPath>
+                                <PropertyPath>cbc_knd_hidden</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -184,8 +184,8 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>dem_cbc_charge</String>
-                                <String>cbc_dem_hidden</String>
+                                <PropertyPath>dem_cbc_charge</PropertyPath>
+                                <PropertyPath>cbc_dem_hidden</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -231,7 +231,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>current_cil_payable</String>
+                                <PropertyPath>current_cil_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -245,9 +245,9 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>applicant_addr</String>
-                                <String>tel_number</String>
-                                <String>applicant_email_id</String>
+                                <PropertyPath>applicant_addr</PropertyPath>
+                                <PropertyPath>tel_number</PropertyPath>
+                                <PropertyPath>applicant_email_id</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -262,8 +262,8 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>inv_addr</String>
-                                <String>inv_email1</String>
+                                <PropertyPath>inv_addr</PropertyPath>
+                                <PropertyPath>inv_email1</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -278,7 +278,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>subtotal_cbc_payable</String>
+                                <PropertyPath>subtotal_cbc_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -302,9 +302,9 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>total_cbc_payable</String>
-                                <String>kind_cbc_charge</String>
-                                <String>dem_cbc_charge</String>
+                                <PropertyPath>total_cbc_payable</PropertyPath>
+                                <PropertyPath>kind_cbc_charge</PropertyPath>
+                                <PropertyPath>dem_cbc_charge</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -319,7 +319,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>current_cbc_payable</String>
+                                <PropertyPath>current_cbc_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -370,7 +370,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>site_cil_calc</String>
+                                <PropertyPath>site_cil_calc</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -386,7 +386,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>cil_site_val_calc</String>
+                                <PropertyPath>cil_site_val_calc</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -400,7 +400,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>cil_site_val_perc</String>
+                                <PropertyPath>cil_site_val_perc</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -414,7 +414,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>res_gfa_prcnt</String>
+                                <PropertyPath>res_gfa_prcnt</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -428,7 +428,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>nres_gfa_prcnt</String>
+                                <PropertyPath>nres_gfa_prcnt</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -445,8 +445,8 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>res_type</String>
-                                <String>nres_type</String>
+                                <PropertyPath>res_type</PropertyPath>
+                                <PropertyPath>nres_type</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -460,7 +460,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>cil_capped_to_date</String>
+                                <PropertyPath>cil_capped_to_date</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -480,7 +480,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>total_units</String>
+                                <PropertyPath>total_units</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -496,7 +496,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>to_request/dc_valid_until</String>
+                                <PropertyPath>to_request/dc_valid_until</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -510,7 +510,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>to_request/tot_dc_payable</String>
+                                <PropertyPath>to_request/tot_dc_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -543,15 +543,15 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>amount_payable</String>
-                                <String>dc_rate</String>
-                                <String>quantity</String>
-                                <String>interest_rate</String>
-                                <String>interest_amount</String>
-                                <String>dc_and_interest</String>
-                                <String>exm_amount</String>
-                                <String>applied_dm_credit</String>
-                                <String>prv_dm_credit</String>
+                                <PropertyPath>amount_payable</PropertyPath>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>interest_rate</PropertyPath>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>dc_and_interest</PropertyPath>
+                                <PropertyPath>exm_amount</PropertyPath>
+                                <PropertyPath>applied_dm_credit</PropertyPath>
+                                <PropertyPath>prv_dm_credit</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
@@ -581,14 +581,14 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>dc_rate</String>
-                                <String>quantity</String>
-                                <String>interest_rate</String>
-                                <String>interest_amount</String>
-                                <String>demo_amount</String>
-                                <String>tot_demo_credit</String>
-                                <String>applied_credit</String>
-                                <String>permit_number</String>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>interest_rate</PropertyPath>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>demo_amount</PropertyPath>
+                                <PropertyPath>tot_demo_credit</PropertyPath>
+                                <PropertyPath>applied_credit</PropertyPath>
+                                <PropertyPath>permit_number</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -627,7 +627,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>to_request/exm_cbc_charge</String>
+                                <PropertyPath>to_request/exm_cbc_charge</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
@@ -653,7 +653,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>to_request/kind_cbc_charge</String>
+                                <PropertyPath>to_request/kind_cbc_charge</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -674,7 +674,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>to_request/dem_cbc_charge</String>
+                                <PropertyPath>to_request/dem_cbc_charge</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
