@@ -101,17 +101,21 @@ sap.ui.define(
         const setBlocksRight = function () {
           var blocks = this.getBlocks();
           for (var i = 0; i < blocks.length; i++) {
+            if(blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection"){
+              blocks[i].getContent()[0].getLayout().setColumnsM(1);
+              blocks[i].getContent()[0].getLayout().setColumnsL(1);
+              blocks[i].getContent()[0].getLayout().setColumnsXL(1);
+            }
             blocks[i].getLayoutData().setSpanS(12);
             blocks[i].getLayoutData().setSpanM(12);
             blocks[i].getLayoutData().setSpanL(12);
+            blocks[i].getLayoutData().setSpanXL(12);
           }
         };
-        const cbcGenSubSection = sap.ui
-          .getCore()
-          .byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC::SubSection"
-          );
+        const cbcGenSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection");
         if (cbcGenSubSection) {
+          
+          
           cbcGenSubSection.onAfterRendering = setBlocksRight;
         }
 
