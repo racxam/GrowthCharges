@@ -101,17 +101,22 @@ sap.ui.define(
         const setBlocksRight = function () {
           var blocks = this.getBlocks();
           for (var i = 0; i < blocks.length; i++) {
+            if(sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection")){
+              
+              sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::Form--Form--Grid").getParent().setColumnsM(1);
+           sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::Form--Form--Grid").getParent().setColumnsL(1);
+           sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::Form--Form--Grid").getParent().setColumnsXL(1);
+            }
             blocks[i].getLayoutData().setSpanS(12);
             blocks[i].getLayoutData().setSpanM(12);
             blocks[i].getLayoutData().setSpanL(12);
+            blocks[i].getLayoutData().setSpanXL(12);
           }
         };
-        const cbcGenSubSection = sap.ui
-          .getCore()
-          .byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC::SubSection"
-          );
+        const cbcGenSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection");
         if (cbcGenSubSection) {
+          
+          
           cbcGenSubSection.onAfterRendering = setBlocksRight;
         }
 
