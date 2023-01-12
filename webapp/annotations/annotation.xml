@@ -215,7 +215,8 @@
                                 <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
                                 <NavigationPropertyPath>to_demos</NavigationPropertyPath>
                                 <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
-                                <NavigationPropertyPath>to_dccal/to_dcsscal</NavigationPropertyPath>
+                                 <!--Commented on 12.01 as nav. removed ></!-->
+                                <!-- <NavigationPropertyPath>to_dccal/to_dcsscal</NavigationPropertyPath> -->
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -536,11 +537,12 @@
                                 <PropertyPath>dc_type</PropertyPath>
                             </Collection>
                         </PropertyValue>
-                        <PropertyValue Property="SourceEntities">
+                         <!--Commented on 12.01 as nav. removed ></!-->
+                        <!-- <PropertyValue Property="SourceEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_dcsscal</NavigationPropertyPath>
                             </Collection>
-                        </PropertyValue>
+                        </PropertyValue> -->
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>amount_payable</PropertyPath>
@@ -554,11 +556,12 @@
                                 <PropertyPath>prv_dm_credit</PropertyPath>
                             </Collection>
                         </PropertyValue>
-                        <PropertyValue Property="TargetEntities">
+                        <!--Commented on 12.01 as nav. removed ></!-->
+                        <!-- <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_dcsscal</NavigationPropertyPath>
                             </Collection>
-                        </PropertyValue>
+                        </PropertyValue> -->
                     </Record>
                 </Annotation>
 
