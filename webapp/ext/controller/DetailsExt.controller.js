@@ -691,7 +691,10 @@ sap.ui.define(
                     }
                   });
 
-                  const dcRateTemplate = new Text({ text: "{dc_rate}" });
+                  // Only two decimal places
+                  const dcRateTemplate = new Text({ 
+                    text: "{ path: 'dc_rate',type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" 
+                  });
                   const startDateTemplate = new Text({
                     text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
                   });
@@ -730,7 +733,10 @@ sap.ui.define(
       },
 
       onValueHelpOkPress: function (oEvent) {
-        this.rateInput.setValue(oEvent.getParameter("tokens")[0].getKey());
+        let selectedValue = oEvent.getParameter("tokens")[0].getText();
+        //Convert to two decimal digits
+        selectedValue = parseFloat(selectedValue).toFixed(2);
+        this.rateInput.setValue(selectedValue);
         this._oValueHelpDialog.close();
       },
 

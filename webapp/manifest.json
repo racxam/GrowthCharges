@@ -184,6 +184,11 @@
                             "className": "sap.ui.core.Fragment",
                             "fragmentName": "com.gc.dashboard.ext.fragments.TreeTableColumns",
                             "type": "XML"
+                        },
+                        "GridTableColumnsExtension|zgc_c_dc_exms|DCExemption-ID": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.TreeTableColumns",
+                            "type": "XML"
                         }
                     }
                 },
