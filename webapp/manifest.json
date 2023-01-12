@@ -332,6 +332,11 @@
                                         "entitySet": "ZGC_C_PRE_BLD_PERMIT_CRD",
                                         "createMode": "inline",
                                         "tableType": "GridTable"
+                                    },
+                                    "ApprHist-SS-ID": {
+                                        "navigationProperty": "to_reqhstry",
+                                        "entitySet": "zgc_c_req_history",
+                                        "tableType": "GridTable"
                                     }
                                 }
                             }
