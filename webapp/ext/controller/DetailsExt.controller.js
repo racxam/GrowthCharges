@@ -87,14 +87,18 @@ sap.ui.define(
             oCalBtn.setVisible(false);
             oAddCreditBtn.setVisible(false);
           }
-        });
+
         //Invoice Section
+        const view = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
+        const invoice_tech_details = view.getBindingContext().getObject()?.inv_tech_details;
+        const aInvoiceTechDetails = invoice_tech_details.split("-");
         this._sValidPath =
-          "/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='EXT48000000000002',Documentpart='',Documentversion='',ApplicationId='005056940AD91EDDA2F0473378DA7E15',FileId='005056940AD91EDDA2F0473378DA9E15')/$value";
+          `/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='${aInvoiceTechDetails[0]}',Documentpart='',Documentversion='',ApplicationId='${aInvoiceTechDetails[1]}',FileId='${aInvoiceTechDetails[2]}')/$value`;
         this._oModel = new JSONModel({
           Source: this._sValidPath
         });
-        this.getView().byId("PDFViewer").setModel(this._oModel);
+        view.byId("PDFViewer").setModel(this._oModel, "local");          
+        });
       },
 
       onAfterRendering: function () {
@@ -216,7 +220,7 @@ sap.ui.define(
         )
           .getTable();
         oCBCExemptTable.attachBusyStateChanged(this._onBusyStateChanged);
-
+        
       },
 
       onBeforeRebindTableExtension: function (oEvent) {
