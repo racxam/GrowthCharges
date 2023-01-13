@@ -212,7 +212,7 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelIntComm" label="{i18n>labelInternalComments}">
 							<forms:fields>
-								<m:TextArea id="idCIL_EditTextIntComm" valueLiveUpdate="true" value="{to_cilcal/int_comments}"/>
+								<m:TextArea id="idCIL_EditTextIntComm" required="{=!${cil_applicable}}" valueLiveUpdate="true" value="{to_cilcal/int_comments}"/>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelMngrAppr" label="{i18n>labelManagerApprovalReq}" visible="{=!${cil_applicable}}">
