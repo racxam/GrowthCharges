@@ -2,7 +2,7 @@
     xmlns="sap.m"
     xmlns:commons="sap.suite.ui.commons">
     <HBox id="_IDHBoxDCId">
-        <core:Icon id="iconNewDC" class="sapUiSmallMarginBegin" useIconTooltip="true" tooltip="Details from Max have been updated.Requires review." src="sap-icon://alert" visible="{bNew_version}" color="#333333" />
+        <core:Icon id="iconNewDC" class="sapUiSmallMarginBegin" useIconTooltip="true" tooltip="Details from Max have been updated.Requires review." src="sap-icon://alert" visible="false" color="#333333" /> <!--Hiding it for 13.1 walkthrough {bNew_version}-->
     </HBox>
     <HBox id="_IDHBoxAppCharges">
         <Text id="textApplCharges" text="{parts : [{path:'dc_applicable'},{path:'cil_applicable'},{path: 'cbc_applicable'}] ,formatter: '.showApplicationCharges'}" />
