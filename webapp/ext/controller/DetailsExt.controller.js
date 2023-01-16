@@ -739,6 +739,78 @@ sap.ui.define(
           }.bind(this)
         );
       },
+      onDNValueHelpRequested: function (oEvent) {
+        this.DNInput = oEvent.getSource();
+        const fragment = Fragment.load({
+          name: "com.gc.dashboard.ext.fragment.DocumentNoValueHelp",
+          controller: this
+        });
+        //Date filter
+        const request_id = this.getView()
+          .getBindingContext()
+          .getObject().request_id;
+        const startDateFilter = new Filter(
+          "doc_ref",
+          "EQ",
+          request_id
+        );
+
+        this.Filters = [startDateFilter];
+        fragment.then(
+          function (oDialog) {
+            this._oDNValueHelpDialog = oDialog;
+            this.getView().addDependent(oDialog);
+            oDialog.getTableAsync().then(
+              function (oTable) {
+                oTable.setModel(this.getView().getModel());
+                // For Desktop and tabled the default table is sap.ui.table.Table
+                if (oTable.bindRows) {
+                  // Bind rows to the ODataModel and add columns
+                  oTable.bindRows({
+                    path: "/ZGC_PAY_DOC_VH",
+                    filters: this.Filters,
+                    events: {
+                      dataReceived: function () {
+                        oDialog.update();
+                      }
+                    }
+                  });
+
+                  // Only two decimal places
+                  const documentNoTemplate = new Text({ 
+                    text: "{document_no}" 
+                  });
+                  const ccTemplate = new Text({
+                    text: "{company_code}"
+                  });
+                  const fyTemplate = new Text({ text: "{fiscal_year}" });
+
+                  oTable.addColumn(
+                    new UIColumn({
+                      label: "Payment Document #",
+                      template: documentNoTemplate
+                    })
+                  );
+                  oTable.addColumn(
+                    new UIColumn({
+                      label: "Company Code",
+                      template: ccTemplate
+                    })
+                  );
+                  oTable.addColumn(
+                    new UIColumn({
+                      label: "Fiscal Year",
+                      template: fyTemplate
+                    })
+                  );
+                }
+                oDialog.update();
+              }.bind(this)
+            );
+            oDialog.open();
+          }.bind(this)
+        );
+      },
 
       onValueHelpOkPress: function (oEvent) {
         let selectedValue = oEvent.getParameter("tokens")[0].getText();
@@ -748,13 +820,20 @@ sap.ui.define(
         this._oValueHelpDialog.close();
       },
 
-      onValueHelpCancelPress: function () {
-        this._oValueHelpDialog.close();
+      onDNValueHelpOkPress: function (oEvent) {
+        let selectedValue = oEvent.getParameter("tokens")[0].getKey();
+        this.DNInput.setValue(selectedValue);
+        this._oDNValueHelpDialog.close();
       },
 
-      onValueHelpAfterClose: function () {
-        this._oValueHelpDialog.destroy();
+      onValueHelpCancelPress: function (oEvt) {
+        oEvt.getSource().close();
       },
+
+      onValueHelpAfterClose: function (oEvt) {
+        oEvt.getSource().destroy();
+      },
+
       _onBusyStateChanged: function (oEvent) {
         var bBusy = oEvent.getParameter("busy");
         if (!bBusy && !this._bColumnOptimizationDone) {
