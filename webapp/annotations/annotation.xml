@@ -93,8 +93,8 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                                <String>cbc_hidden</String>
-                                <String>cbc_v2_hidden</String>
+                                <PropertyPath>cbc_hidden</PropertyPath>
+                                <PropertyPath>cbc_v2_hidden</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
