@@ -696,10 +696,6 @@
                             <PropertyValue Property="Value" Path="invoice_amt"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="{@i18n>paymentDocument}"/>
-                            <PropertyValue Property="Value" Path="document_no"/>
-                        </Record>
-                        <Record Type="UI.DataField">
                             <PropertyValue Property="Label" String="{@i18n>paymentDate}"/>
                             <PropertyValue Property="Value" Path="payment_date"/>
                         </Record>
