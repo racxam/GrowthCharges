@@ -3,7 +3,7 @@
         <Label text="Payment Document #" />
         <table:template>
             <VBox>
-                <Input width="100%" value="{document_no}" showValueHelp="true" valueHelpOnly="true" visible="{ui>/editable}" valueHelpRequest=".onDNValueHelpRequested" />
+                <Input width="100%" value="{document_no}" showValueHelp="true" valueHelpOnly="false" visible="{ui>/editable}" valueHelpRequest=".onDNValueHelpRequested" />
                 <Text width="100%" text="{document_no}" visible="{= !${ui>/editable}}"/>
             </VBox>
         </table:template>
