@@ -205,6 +205,24 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="CBCDEVINC-ID">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="cbc_exist_gfa"/>
+                                    <PropertyValue Property="Label" String="{@i18n>existingGfam2}"/>
+                                    <Annotation Term="UI.Hidden" Path="cbc_incremt_hidden"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="cbc_prop_gfa"/>
+                                     <PropertyValue Property="Label" String="{@i18n>proposedGfam2}"/>
+                                    <Annotation Term="UI.Hidden" Path="cbc_incremt_hidden"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
 
                 
             </Annotations>
