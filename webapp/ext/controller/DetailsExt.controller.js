@@ -746,16 +746,16 @@ sap.ui.define(
           controller: this
         });
         //Date filter
-        const request_id = this.getView()
+        const invoice_number = this.getView()
           .getBindingContext()
-          .getObject().request_id;
-        const startDateFilter = new Filter(
+          .getObject().invoice_number;
+        const invoiceFilter = new Filter(
           "doc_ref",
           "EQ",
-          request_id
+          invoice_number
         );
 
-        this.Filters = [startDateFilter];
+        this.Filters = [invoiceFilter];
         fragment.then(
           function (oDialog) {
             this._oDNValueHelpDialog = oDialog;
@@ -776,7 +776,6 @@ sap.ui.define(
                     }
                   });
 
-                  // Only two decimal places
                   const documentNoTemplate = new Text({ 
                     text: "{document_no}" 
                   });
