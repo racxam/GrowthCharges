@@ -249,7 +249,6 @@ sap.ui.define(
             req_uuid: reqGuid
           },
           success: function (oData) {
-            debugger;
             sap.ui
               .getCore()
               .byId(
@@ -452,6 +451,16 @@ sap.ui.define(
         const sPath = oBindingContext.getPath();
         const iSelectedIndex = oEvent.getParameter("selectedIndex");
         const oModel = this.getView().getModel();
+        let oPayload = {
+          "resi_low_hidden": true,
+          "resi_high_med_hidden":true,
+          "non_resi_existing_hidden":true,
+          "non_resi_vacant_hidden":true,
+          "res_type":"",
+          "nres_type":"",
+          "cil_build_type":"MXD"
+
+        };
 
         oModel.setProperty(`${sPath}/residential_hidden`, true);
         oModel.setProperty(`${sPath}/non_resi_hidden`, true);
@@ -463,11 +472,36 @@ sap.ui.define(
         oModel.setProperty(`${sPath}/to_cilcal/nres_type`, "");
         if (iSelectedIndex === 0) {
           oModel.setProperty(`${sPath}/to_cilcal/cil_build_type`, "RES");
+          oPayload.cil_build_type = "RES";
         } else if (iSelectedIndex === 1) {
           oModel.setProperty(`${sPath}/to_cilcal/cil_build_type`, "NRS");
+          oPayload.cil_build_type = "NRS";
         } else {
           oModel.setProperty(`${sPath}/to_cilcal/cil_build_type`, "MXD");
         }
+
+        // Do the Update Call
+          const sGuid = oEvent.getSource().getBindingContext().getObject().req_uuid;
+          const sCilCalPath = oModel.createKey("/zgc_c_cil_cal", {
+            cil_uuid: sGuid,
+            IsActiveEntity: true
+          });
+          oModel.update(sCilCalPath, oPayload, {
+            refreshAfterChange: true,
+            success: function (oData, oResponse) {
+              oModel.refresh();
+            },
+            error: function (oError) {
+              let sErrorMsg = "";
+              if (oError.responseText) {
+                sErrorMsg = JSON.parse(oError.responseText).error
+                  .message.value;
+              } else {
+                sErrorMsg = this.oI18n.getText("msgErrorFail");
+              }
+            }.bind(this)
+          });
+        
       },
 
 
@@ -482,6 +516,15 @@ sap.ui.define(
         // Hide the Non - Res Section --> not required because of mixed
         // oModel.setProperty(`${sPath}/to_cilcal/non_resi_existing_hidden` , true);
         // oModel.setProperty(`${sPath}/to_cilcal/non_resi_vacant_hidden` , true);
+
+        let oPayload = {
+          "resi_low_hidden": true,
+          "resi_high_med_hidden":true,
+          "non_resi_existing_hidden":true,
+          "non_resi_vacant_hidden":true,
+          "res_type":""
+
+        };
         oModel.setProperty(`${sPath}/residential_hidden`, false);
         if (iSelectedIndex === 0) {
           oModel.setProperty(`${sPath}/to_cilcal/res_type`, "HDE");
@@ -490,15 +533,53 @@ sap.ui.define(
           oModel.setProperty(`${sPath}/resi_low_hidden`, true);
           oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden`, false);
           oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden`, true);
+
+
+          //For Payload 
+          oPayload.res_type = "HDE";
+          oPayload.resi_high_med_hidden = false;
+          oPayload.resi_low_hidden = true;
         } else if (iSelectedIndex === 1) {
           oModel.setProperty(`${sPath}/to_cilcal/res_type`, "MDE");
           oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden`, false);
           oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden`, true);
+          //For Payload 
+          oPayload.res_type = "MDE";
+          oPayload.resi_high_med_hidden = false;
+          oPayload.resi_low_hidden = true;
         } else {
           oModel.setProperty(`${sPath}/to_cilcal/res_type`, "LDE");
-          oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden`, false);
           oModel.setProperty(`${sPath}/to_cilcal/resi_high_med_hidden`, true);
+          oModel.setProperty(`${sPath}/to_cilcal/resi_low_hidden`, false);
+          
+          //For Payload 
+          oPayload.res_type = "LDE";
+          oPayload.resi_high_med_hidden = true;
+          oPayload.resi_low_hidden = false;
         }
+
+
+        // Do the Update Call
+        const sGuid = oEvent.getSource().getBindingContext().getObject().req_uuid;
+        const sCilCalPath = oModel.createKey("/zgc_c_cil_cal", {
+          cil_uuid: sGuid,
+          IsActiveEntity: true
+        });
+        oModel.update(sCilCalPath, oPayload, {
+          refreshAfterChange: true,
+          success: function (oData, oResponse) {
+            oModel.refresh();
+          },
+          error: function (oError) {
+            let sErrorMsg = "";
+            if (oError.responseText) {
+              sErrorMsg = JSON.parse(oError.responseText).error
+                .message.value;
+            } else {
+              sErrorMsg = this.oI18n.getText("msgErrorFail");
+            }
+          }.bind(this)
+        });
       },
       onPressRBGrpNResType: function (oEvent) {
         const oSource = oEvent.getSource();
@@ -506,6 +587,14 @@ sap.ui.define(
         const sPath = oBindingContext.getPath();
         const iSelectedIndex = oEvent.getParameter("selectedIndex");
         const oModel = this.getView().getModel();
+        let oPayload = {
+          "resi_low_hidden": true,
+          "resi_high_med_hidden":true,
+          "non_resi_existing_hidden":true,
+          "non_resi_vacant_hidden":true,
+          "nres_type":""
+
+        };
 
         oModel.setProperty(`${sPath}/non_resi_hidden`, false);
         if (iSelectedIndex === 0) {
@@ -518,14 +607,46 @@ sap.ui.define(
             `${sPath}/to_cilcal/non_resi_vacant_hidden`,
             false
           );
+
+           //For Payload 
+           oPayload.nres_type = "VAC";
+           oPayload.non_resi_existing_hidden = true;
+           oPayload.non_resi_vacant_hidden = false;
         } else {
           oModel.setProperty(`${sPath}/to_cilcal/nres_type`, "EXT");
-          oModel.setProperty(`${sPath}/to_cilcal/non_resi_vacant_hidden`, true);
           oModel.setProperty(
             `${sPath}/to_cilcal/non_resi_existing_hidden`,
             false
           );
+          oModel.setProperty(`${sPath}/to_cilcal/non_resi_vacant_hidden`, true);
+          
+          //For Payload 
+          oPayload.nres_type = "EXT";
+          oPayload.non_resi_existing_hidden = false;
+          oPayload.non_resi_vacant_hidden = true;
         }
+
+          // Do the Update Call
+          const sGuid = oEvent.getSource().getBindingContext().getObject().req_uuid;
+          const sCilCalPath = oModel.createKey("/zgc_c_cil_cal", {
+            cil_uuid: sGuid,
+            IsActiveEntity: true
+          });
+          oModel.update(sCilCalPath, oPayload, {
+            refreshAfterChange: true,
+            success: function (oData, oResponse) {
+              oModel.refresh();
+            },
+            error: function (oError) {
+              let sErrorMsg = "";
+              if (oError.responseText) {
+                sErrorMsg = JSON.parse(oError.responseText).error
+                  .message.value;
+              } else {
+                sErrorMsg = this.oI18n.getText("msgErrorFail");
+              }
+            }.bind(this)
+          });
       },
 
       //UPDATE CALL
@@ -625,7 +746,6 @@ sap.ui.define(
         oModel.update(sPath, aPendingChangesObjects, {
           refreshAfterChange: true,
           success: function (oData, oResponse) {
-            debugger;
             this._onUpdateSuccess(oData, oResponse);
           }.bind(this),
           error: function (oError) {
