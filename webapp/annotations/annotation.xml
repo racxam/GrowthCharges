@@ -341,7 +341,6 @@
                     </Record>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.zgc_c_cil_calType">
                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="BuildingTypeChanged">
                     <Record>
@@ -741,6 +740,24 @@
                         </Record>
                     </Collection>
                 </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="PaymentNumberChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>document_no</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>payment_date</PropertyPath>
+                                <PropertyPath>payment_amt</PropertyPath>
+                                <PropertyPath>balance_due</PropertyPath>
+                                <PropertyPath>payee_details</PropertyPath>
+                                <PropertyPath>comments</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>                
             </Annotations>
             <Annotations Target="SAP.zgc_c_refundsType">
                 <Annotation Term="UI.LineItem" Qualifier="RefundInfo">

@@ -15,8 +15,11 @@ sap.ui.define([
                 const oClearButton = this.getView().byId("com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--listReportFilter-btnClear");
                 oClearButton.attachPress(this.onClearButtonPress, this);
 
+                //Disable popin in smarttable
+                const oSmartTable = this.getView().byId("com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--listReport");
+                oSmartTable.setDemandPopin(false);
+                
                 // Get Inbox HashKey
-
                 const oRouter = this.getOwnerComponent().getRouter();
                 const sHashKey = oRouter.getHashChanger().key;
 
@@ -27,7 +30,6 @@ sap.ui.define([
                         { keys1:`req_uuid=guid'${sGuid}',IsActiveEntity=true`},
                         true
                     );
-
                 }
             },
 
