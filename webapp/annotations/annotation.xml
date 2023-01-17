@@ -190,6 +190,21 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="IsAppealRefundChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>is_appeal_refund</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>appeal_calc_date</PropertyPath>
+                                <PropertyPath>appeal_int_percent</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
 
                 
             </Annotations>
@@ -357,6 +372,7 @@
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath></NavigationPropertyPath>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
