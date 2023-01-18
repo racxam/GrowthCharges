@@ -102,6 +102,95 @@ sap.ui.define(
       },
 
       onAfterRendering: function () {
+
+        //Value help for CIL capped rate and CIL rate
+        const cilUpdates = function () {
+          const cappedRateSF = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDenCappedRate-ID::cil_capped_rate::Field");
+          if (cappedRateSF){
+            cappedRateSF.onAfterRendering = function () {
+              const cilCappedRate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDenCappedRate-ID::cil_capped_rate::Field-input");
+              cilCappedRate.setShowValueHelp(true);
+              cilCappedRate.setValueHelpOnly(true);
+              cilCappedRate.attachValueHelpRequest(function (oEvent) {
+                this.VHInput = oEvent.getSource();
+                const fragment = Fragment.load({
+                  name: "com.gc.dashboard.ext.fragments.cil.cilCappedRate",
+                  controller: this
+                });
+                //Date filter
+                const startDateFilter = new Filter(
+                  "StartDate",
+                  "LE",
+                  oEvent.getSource().getBindingContext().getObject().created_on
+                );
+                const endDateFilter = new Filter(
+                  "EndDate",
+                  "GE",
+                  oEvent.getSource().getBindingContext().getObject().created_on
+                );
+
+                this._requestDateFilter = [startDateFilter, endDateFilter];
+                fragment.then(
+                  function (oDialog) {
+                    this._oCRValueHelpDialog = oDialog;
+                    this.getView().addDependent(oDialog);
+                    oDialog.getTableAsync().then(
+                      function (oTable) {
+                        oTable.setModel(this.getView().getModel());
+                        // For Desktop and tabled the default table is sap.ui.table.Table
+                        if (oTable.bindRows) {
+                          // Bind rows to the ODataModel and add columns
+                          oTable.bindRows({
+                            path: "/zgc_rates_cil_mh_vh",
+                            filters: this._requestDateFilter,
+                            events: {
+                              dataReceived: function () {
+                                oDialog.update();
+                              }
+                            }
+                          });
+        
+                          // Only two decimal places
+                          const dcRateTemplate = new Text({ 
+                            text: "{ path: 'rate',type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" 
+                          });
+                          const startDateTemplate = new Text({
+                            text: "{path: 'StartDate', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
+                          });
+                          const endDateTemplate = new Text({
+                            text: "{path: 'EndDate', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
+                          });
+
+                          oTable.addColumn(
+                            new UIColumn({ label: "Rate", template: dcRateTemplate })
+                          );
+                          oTable.addColumn(
+                            new UIColumn({
+                              label: "Valid From",
+                              template: startDateTemplate
+                            })
+                          );
+                          oTable.addColumn(
+                            new UIColumn({
+                              label: "Valid To",
+                              template: endDateTemplate
+                            })
+                          );
+                        }
+                        oDialog.update();
+                      }.bind(this)
+                    );
+                    oDialog.open();
+                  }.bind(this));                
+              }.bind(this));
+            }.bind(this);
+          }
+        };
+        const cilSS = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-Res-SS::SubSection");
+        if (cilSS){
+          cilSS.onAfterRendering = cilUpdates.bind(this);
+        }
+        
         const setBlocksRight = function () {
           var blocks = this.getBlocks();
           for (var i = 0; i < blocks.length; i++) {
@@ -117,9 +206,7 @@ sap.ui.define(
           }
         };
         const cbcGenSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection");
-        if (cbcGenSubSection) {
-          
-          
+        if (cbcGenSubSection) {          
           cbcGenSubSection.onAfterRendering = setBlocksRight;
         }
 
@@ -774,7 +861,7 @@ sap.ui.define(
         }
       },
       onValueHelpRequested: function (oEvent) {
-        this.rateInput = oEvent.getSource();
+        this.VHInput = oEvent.getSource();
         const fragment = Fragment.load({
           name: "com.gc.dashboard.ext.fragment.DCRateValueHelp",
           controller: this
@@ -860,7 +947,7 @@ sap.ui.define(
         );
       },
       onDNValueHelpRequested: function (oEvent) {
-        this.DNInput = oEvent.getSource();
+        this.VHInput = oEvent.getSource();
         const fragment = Fragment.load({
           name: "com.gc.dashboard.ext.fragment.DocumentNoValueHelp",
           controller: this
@@ -935,14 +1022,14 @@ sap.ui.define(
         let selectedValue = oEvent.getParameter("tokens")[0].getText();
         //Convert to two decimal digits
         selectedValue = parseFloat(selectedValue).toFixed(2);
-        this.rateInput.setValue(selectedValue);
-        this._oValueHelpDialog.close();
+        this.VHInput.setValue(selectedValue);
+        oEvent.getSource().close();
       },
 
       onDNValueHelpOkPress: function (oEvent) {
         let selectedValue = oEvent.getParameter("tokens")[0].getKey();
-        this.DNInput.setValue(selectedValue);
-        this._oDNValueHelpDialog.close();
+        this.VHInput.setValue(selectedValue);
+        oEvent.getSource().close();
       },
 
       onValueHelpCancelPress: function (oEvt) {

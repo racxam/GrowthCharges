@@ -2,13 +2,13 @@
 	xmlns="sap.ui.comp.valuehelpdialog"
 	xmlns:core="sap.ui.core">
 	<ValueHelpDialog
-		title="DC Rate"
+		title="CIL Capped Rate"
 		ok=".onValueHelpOkPress"
 		cancel=".onValueHelpCancelPress"
 		afterClose=".onValueHelpAfterClose"
 		supportMultiselect="false"		
-		key="dc_rate"
-		descriptionKey="dc_rate"				
+		key="rate"
+		descriptionKey="rate"				
 	>
 	</ValueHelpDialog>
 </core:FragmentDefinition>
