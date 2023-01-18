@@ -228,12 +228,87 @@
             </Annotations>
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
+                <Annotation Term="Common.SideEffects">
+                    <Record>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>_it/to_dccal</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_reqhstry</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbcdem</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbcexm</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbckind</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cilcal</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_deferrals</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_exemptions</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_payments</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_refunds</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>_it/status</PropertyPath>
+                                <PropertyPath>_it/Submit_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsSubmit">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
+                <Annotation Term="Common.SideEffects">
+                    <Record>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>_it/to_dccal</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_reqhstry</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbcdem</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbcexm</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbckind</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cilcal</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_deferrals</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_exemptions</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_payments</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_refunds</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>_it/status</PropertyPath>
+                                <PropertyPath>_it/Submit_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsCreate_new_version">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
+                <Annotation Term="Common.SideEffects">
+                    <Record>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>_it/to_dccal</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_reqhstry</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbcdem</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbcexm</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbckind</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cilcal</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_deferrals</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_exemptions</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_payments</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_refunds</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>_it/status</PropertyPath>
+                                <PropertyPath>_it/Submit_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
             <Annotations Target="SAP.zgc_c_requestsType">
                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="InvCalcDateChanged">
