@@ -216,15 +216,63 @@
                                 </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="cbc_prop_gfa"/>
-                                     <PropertyValue Property="Label" String="{@i18n>proposedGfam2}"/>
+                                    <PropertyValue Property="Label" String="{@i18n>proposedGfam2}"/>
                                     <Annotation Term="UI.Hidden" Path="cbc_incremt_hidden"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
                 </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="DCHeader3">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="com_associated_payment"/>
+                                    <PropertyValue Property="Label" String="{@i18n>comAssociatedPayment}"/>
+                                    <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="rop_associated_payment"/>
+                                      <PropertyValue Property="Label" String="{@i18n>ropAssociatedPayment}"/>
+                                   <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="tdsp_associated_payment"/>
+                                    <PropertyValue Property="Label" String="{@i18n>tdspAssociatedPayment}"/>
+                                    <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="dpcsb_associated_payment"/>
+                                      <PropertyValue Property="Label" String="{@i18n>dpcsbAssociatedPayment}"/>
+                                   <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="DCHeader4">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="appeal_calc_date"/>
+                                    <PropertyValue Property="Label" String="{@i18n>appealCalculationDate}"/>
+                                    <Annotation Term="UI.Hidden" Path="appeal_refund_hidden"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="appeal_int_percent"/>
+                                    <PropertyValue Property="Label" String="{@i18n>appealInterest}"/>
+                                    <Annotation Term="UI.Hidden" Path="appeal_refund_hidden"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+              
 
-                
+
+
             </Annotations>
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
@@ -323,7 +371,7 @@
                                 <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
                                 <NavigationPropertyPath>to_demos</NavigationPropertyPath>
                                 <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
-                                 <!--Commented on 12.01 as nav. removed ></!-->
+                                <!--Commented on 12.01 as nav. removed ></!-->
                                 <!-- <NavigationPropertyPath>to_dccal/to_dcsscal</NavigationPropertyPath> -->
                             </Collection>
                         </PropertyValue>
@@ -361,7 +409,7 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                
+
                 <Annotation Term="Common.SideEffects" Qualifier="onChangeCustomerInvoice">
                     <Record>
                         <PropertyValue Property="SourceProperties">
@@ -488,7 +536,7 @@
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
-                            
+
                                 <PropertyPath>cil_site_val_perc</PropertyPath>
                                 <PropertyPath>dev_area_appr</PropertyPath>
                             </Collection>
@@ -542,7 +590,7 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                
+
             </Annotations>
             <Annotations Target="SAP.zgc_c_cil_calType">
                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects">
@@ -645,7 +693,7 @@
                                 <PropertyPath>dc_type</PropertyPath>
                             </Collection>
                         </PropertyValue>
-                         <!--Commented on 12.01 as nav. removed ></!-->
+                        <!--Commented on 12.01 as nav. removed ></!-->
                         <!-- <PropertyValue Property="SourceEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_dcsscal</NavigationPropertyPath>
@@ -850,7 +898,7 @@
                             </Collection>
                         </PropertyValue>
                     </Record>
-                </Annotation>                
+                </Annotation>
             </Annotations>
             <Annotations Target="SAP.zgc_c_refundsType">
                 <Annotation Term="UI.LineItem" Qualifier="RefundInfo">
@@ -880,7 +928,7 @@
                             <PropertyValue Property="Label" String="{@i18n>recipientName}"/>
                             <PropertyValue Property="Value" Path="recp_name"/>
                         </Record>
-                        
+
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Label" String="{@i18n>comments}"/>
                             <PropertyValue Property="Value" Path="comments"/>
