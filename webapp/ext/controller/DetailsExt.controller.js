@@ -328,6 +328,21 @@ sap.ui.define(
         var oBindingParams = oEvent.getParameter("bindingParams");
         oBindingParams.parameters = oBindingParams.parameters || {};
         oBindingParams.parameters.operationMode = "Client";
+
+        //When CILParkplanner logs in DC Table Buttons should be hidden 
+        //Hiding the DC toolbar for CIL User
+        const bEditable = this.getView().getModel("ui").getProperty("/editable");
+        const bInvoiceCalDateEdit = this.getView().getBindingContext().getProperty("invoice_calculation_date_fc") !== 1 ? true : false;
+
+        if(oEvent.getSource().getId() ===
+        "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table"){
+          if(!bEditable && bInvoiceCalDateEdit){
+            sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table::Toolbar").setVisible(false);
+          }else{
+            sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table::Toolbar").setVisible(true);
+          }
+        }
+       
       },
 
       onPressDCCalc: function (oEvent) {
