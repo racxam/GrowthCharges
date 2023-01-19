@@ -872,18 +872,25 @@ sap.ui.define(
           controller: this
         });
         //Date filter
-        const invoiceCalculationDate = this.getView()
+        //If interest applicable, 
+        let dateFilter = this.getView()
+        .getBindingContext()
+        .getObject().interest_applied_date;
+        if (!dateFilter){
+          dateFilter = this.getView()
           .getBindingContext()
           .getObject().invoice_calculation_date;
+        }
+
         const startDateFilter = new Filter(
           "start_date",
           "LE",
-          invoiceCalculationDate
+          dateFilter
         );
         const endDateFilter = new Filter(
           "end_date",
           "GE",
-          invoiceCalculationDate
+          dateFilter
         );
         const dcFilter = new Filter(
           "dc_type",
