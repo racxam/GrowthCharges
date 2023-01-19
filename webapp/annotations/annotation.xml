@@ -282,6 +282,24 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="PaymentInfo_FG2">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="loc_date"/>
+                                    <PropertyValue Property="Label" String="{@i18n>letterOfCreditDate}"/>
+                                    <Annotation Term="UI.Hidden" Path="spec_ind_hidden"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="loc_amount"/>
+                                    <PropertyValue Property="Label" String="{@i18n>letterOfCreditAmount}"/>
+                                    <Annotation Term="UI.Hidden" Path="spec_ind_hidden"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
               
 
 
