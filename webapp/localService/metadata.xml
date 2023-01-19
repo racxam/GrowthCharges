@@ -667,6 +667,7 @@
                 <Property Name="is_kind_cbc_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="is_non_residential_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="is_residential_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="is_spec_insdustrial_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="loc_amount_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="loc_date_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="pdsb_comments_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -729,7 +730,7 @@
                 <Property Name="is_non_residential" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="is_non_residential_fc" sap:label="Is Non-Residential"/>
                 <Property Name="is_industrial" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Industrial"/>
                 <Property Name="is_non_industrial" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Non-Industrial"/>
-                <Property Name="is_spec_insdustrial" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Speculative Indus" sap:quickinfo="Is Speculative Industrial" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="is_spec_insdustrial" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="is_spec_insdustrial_fc" sap:label="Is Speculative Indus" sap:quickinfo="Is Speculative Industrial"/>
                 <Property Name="is_new" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is New"/>
                 <Property Name="is_addition" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Addition"/>
                 <Property Name="is_mezzanine" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is Mezzanine"/>
@@ -821,6 +822,7 @@
                 <Property Name="appeal_refund_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="App Refund Hidden" sap:quickinfo="Appeal refund Hidden Flag"/>
                 <Property Name="spec_ind_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Spec Ind Hidden" sap:quickinfo="Speculative Industry"/>
                 <Property Name="cbc_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="CBC Applicable"/>
+                <Property Name="refund_interest_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Truth Value" sap:quickinfo="Truth Value: True/False"/>
                 <Property Name="dc_calc_pending" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="DC Calc Pending" sap:quickinfo="DC Calculation Pending(Flag)"/>
                 <Property Name="cbc_exist_gfa" Type="Edm.Decimal" Precision="10" Scale="2" sap:unit="gfa_uom" sap:label="CBC Existing GFA" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="cbc_prop_gfa" Type="Edm.Decimal" Precision="10" Scale="2" sap:unit="gfa_uom" sap:label="CBC Proposed GFA" sap:creatable="false" sap:updatable="false"/>
@@ -1920,6 +1922,7 @@
                                 <PropertyPath>is_kind_cbc_fc</PropertyPath>
                                 <PropertyPath>is_non_residential_fc</PropertyPath>
                                 <PropertyPath>is_residential_fc</PropertyPath>
+                                <PropertyPath>is_spec_insdustrial_fc</PropertyPath>
                                 <PropertyPath>loc_amount_fc</PropertyPath>
                                 <PropertyPath>loc_date_fc</PropertyPath>
                                 <PropertyPath>pdsb_comments_fc</PropertyPath>
@@ -2076,6 +2079,7 @@
                                 <PropertyPath>is_kind_cbc_fc</PropertyPath>
                                 <PropertyPath>is_non_residential_fc</PropertyPath>
                                 <PropertyPath>is_residential_fc</PropertyPath>
+                                <PropertyPath>is_spec_insdustrial_fc</PropertyPath>
                                 <PropertyPath>loc_amount_fc</PropertyPath>
                                 <PropertyPath>loc_date_fc</PropertyPath>
                                 <PropertyPath>pdsb_comments_fc</PropertyPath>
