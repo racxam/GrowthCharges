@@ -104,92 +104,125 @@ sap.ui.define(
       onAfterRendering: function () {
 
         //Value help for CIL capped rate and CIL rate
-        const cilUpdates = function () {
-          const cappedRateSF = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDenCappedRate-ID::cil_capped_rate::Field");
-          if (cappedRateSF){
-            cappedRateSF.onAfterRendering = function () {
-              const cilCappedRate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDenCappedRate-ID::cil_capped_rate::Field-input");
-              cilCappedRate.setShowValueHelp(true);
-              cilCappedRate.setValueHelpOnly(true);
-              cilCappedRate.attachValueHelpRequest(function (oEvent) {
-                this.VHInput = oEvent.getSource();
-                const fragment = Fragment.load({
-                  name: "com.gc.dashboard.ext.fragments.cil.cilCappedRate",
-                  controller: this
-                });
-                //Date filter
-                const startDateFilter = new Filter(
-                  "StartDate",
-                  "LE",
-                  oEvent.getSource().getBindingContext().getObject().created_on
-                );
-                const endDateFilter = new Filter(
-                  "EndDate",
-                  "GE",
-                  oEvent.getSource().getBindingContext().getObject().created_on
-                );
-
-                this._requestDateFilter = [startDateFilter, endDateFilter];
-                fragment.then(
-                  function (oDialog) {
-                    this._oCRValueHelpDialog = oDialog;
-                    this.getView().addDependent(oDialog);
-                    oDialog.getTableAsync().then(
-                      function (oTable) {
-                        oTable.setModel(this.getView().getModel());
-                        // For Desktop and tabled the default table is sap.ui.table.Table
-                        if (oTable.bindRows) {
-                          // Bind rows to the ODataModel and add columns
-                          oTable.bindRows({
-                            path: "/zgc_rates_cil_mh_vh",
-                            filters: this._requestDateFilter,
-                            events: {
-                              dataReceived: function () {
-                                oDialog.update();
+        this._cilUpdates = {
+          "onAfterRendering": function () {
+            const id = this.id;
+            const input_id = `${id}-input`;
+            let rateId = this.rateId;
+            var that = this.that;
+            const cappedRateSF = sap.ui.getCore().byId(id);
+            if (cappedRateSF){
+              cappedRateSF.onAfterRendering = function () {
+                const cilRate = sap.ui.getCore().byId(input_id);
+                if (!cilRate){
+                  return;
+                }
+                cilRate.setShowValueHelp(true);
+                cilRate.setValueHelpOnly(true);
+                cilRate.attachValueHelpRequest(function (oEvent) {
+                  this.VHInput = oEvent.getSource();
+                  const fragment = Fragment.load({
+                    name: "com.gc.dashboard.ext.fragments.cil.cilRate",
+                    controller: this
+                  });
+                  
+                  //For NR this will not be set. So setting it here
+                  if (!rateId){
+                    if (this.getView().byId("idCIL_EditRBGrpNResType").getButtons()[0].getSelected()){
+                      rateId = "NON_RES_VAC";
+                    }else{
+                      rateId = "NON_RES_EXT";
+                    }
+                  }
+                  //Date filter
+                  const rateIDFilter = new Filter(
+                    "rate_id",
+                    "EQ",
+                    rateId
+                  );  
+                  this._requestDateFilter = [rateIDFilter];
+                  fragment.then(
+                    function (oDialog) {
+                      this._oCRValueHelpDialog = oDialog;
+                      this.getView().addDependent(oDialog);
+                      oDialog.getTableAsync().then(
+                        function (oTable) {
+                          oTable.setModel(this.getView().getModel());
+                          // For Desktop and tabled the default table is sap.ui.table.Table
+                          if (oTable.bindRows) {
+                            // Bind rows to the ODataModel and add columns
+                            oTable.bindRows({
+                              path: "/zgc_cil_ln_vh",
+                              filters: this._requestDateFilter,
+                              events: {
+                                dataReceived: function () {
+                                  oDialog.update();
+                                }
                               }
-                            }
-                          });
-        
-                          // Only two decimal places
-                          const dcRateTemplate = new Text({ 
-                            text: "{ path: 'rate',type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" 
-                          });
-                          const startDateTemplate = new Text({
-                            text: "{path: 'StartDate', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
-                          });
-                          const endDateTemplate = new Text({
-                            text: "{path: 'EndDate', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
-                          });
-
-                          oTable.addColumn(
-                            new UIColumn({ label: "Rate", template: dcRateTemplate })
-                          );
-                          oTable.addColumn(
-                            new UIColumn({
-                              label: "Valid From",
-                              template: startDateTemplate
-                            })
-                          );
-                          oTable.addColumn(
-                            new UIColumn({
-                              label: "Valid To",
-                              template: endDateTemplate
-                            })
-                          );
-                        }
-                        oDialog.update();
-                      }.bind(this)
-                    );
-                    oDialog.open();
-                  }.bind(this));                
-              }.bind(this));
-            }.bind(this);
+                            });
+          
+                            // Only two decimal places
+                            const dcRateTemplate = new Text({ 
+                              text: "{ path: 'rate',type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" 
+                            });
+                            const startDateTemplate = new Text({
+                              text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
+                            });
+                            const endDateTemplate = new Text({
+                              text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
+                            });
+  
+                            oTable.addColumn(
+                              new UIColumn({ label: "Rate", template: dcRateTemplate })
+                            );
+                            oTable.addColumn(
+                              new UIColumn({
+                                label: "Valid From",
+                                template: startDateTemplate
+                              })
+                            );
+                            oTable.addColumn(
+                              new UIColumn({
+                                label: "Valid To",
+                                template: endDateTemplate
+                              })
+                            );
+                          }
+                          oDialog.update();
+                        }.bind(this)
+                      );
+                      oDialog.open();
+                    }.bind(this));                
+                }.bind(that));
+              };
+            }
           }
         };
-        const cilSS = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-Res-SS::SubSection");
-        if (cilSS){
-          cilSS.onAfterRendering = cilUpdates.bind(this);
+        const id = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-ResLow-SS::SubSection";
+        const smartFieldId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::cil_rate_res::Field";
+        const cilResLowSS = sap.ui.getCore().byId(id);
+        if (cilResLowSS){
+          const context = {"that": this, "id": smartFieldId, "rateId": "RES_LOW_DEN"};
+          cilResLowSS.addEventDelegate(this._cilUpdates, context);
         }
+
+        //CIL Rate VH for Non Residential scenario - Existing
+        const nonResExtSSId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-NonResVac-SS::SubSection";
+        const nonResExtSS_smartFieldId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILNonResDensity-ID::cil_rate_nres::Field";
+        const nonResExtSS = sap.ui.getCore().byId(nonResExtSSId);
+        if (nonResExtSS){
+          const context = {"that": this, "id": nonResExtSS_smartFieldId};
+          nonResExtSS.addEventDelegate(this._cilUpdates, context);          
+        }      
+
+        //CIL Rate VH for Non Residential scenario - Vacant
+        const nonResVacSSId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-NonRes-SS::SubSection";
+        const nonResVacSS_smartFieldId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILNonResDensityVac-ID::cil_rate_nres::Field";
+        const nonResVacSS = sap.ui.getCore().byId(nonResVacSSId);
+        if (nonResVacSS){
+          const context = {"that": this, "id": nonResVacSS_smartFieldId};
+          nonResVacSS.addEventDelegate(this._cilUpdates, context);          
+        }          
         
         const setBlocksRight = function () {
           var blocks = this.getBlocks();
@@ -1046,13 +1079,19 @@ sap.ui.define(
       },
 
       onValueHelpOkPress: function (oEvent) {
-        let selectedValue = oEvent.getParameter("tokens")[0].getText();
+        let selectedValue = oEvent.getParameter("tokens")[0].getKey();
         //Convert to two decimal digits
         selectedValue = parseFloat(selectedValue).toFixed(2);
         this.VHInput.setValue(selectedValue);
         oEvent.getSource().close();
       },
-
+      onCILRateValueHelpOkPress: function (oEvent) {
+        let selectedValue = oEvent.getParameter("tokens")[0].getKey();
+        //Convert to integer
+        selectedValue = Math.trunc(selectedValue);
+        this.VHInput.setValue(selectedValue);
+        oEvent.getSource().close();
+      },
       onDNValueHelpOkPress: function (oEvent) {
         let selectedValue = oEvent.getParameter("tokens")[0].getKey();
         this.VHInput.setValue(selectedValue);

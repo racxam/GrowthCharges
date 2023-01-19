@@ -2,8 +2,8 @@
 	xmlns="sap.ui.comp.valuehelpdialog"
 	xmlns:core="sap.ui.core">
 	<ValueHelpDialog
-		title="CIL Capped Rate"
-		ok=".onValueHelpOkPress"
+		title="CIL Rate"
+		ok=".onCILRateValueHelpOkPress"
 		cancel=".onValueHelpCancelPress"
 		afterClose=".onValueHelpAfterClose"
 		supportMultiselect="false"		
