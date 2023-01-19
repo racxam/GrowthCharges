@@ -98,9 +98,20 @@
 								<m:Text id="idCIL_DisplayTextIntComm" text="{to_cilcal/int_comments}" wrapping="true"/>
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_DisplayFormLabelMngrAppr" label="{i18n>labelManagerApprovalReq}" > <!--visible="{=!${cil_applicable}}"-->
+						<forms:FormElement id="idCIL_DisplayFormLabelMngrAppr" label="{i18n>labelManagerApprovalReq}" >
 							<forms:fields>
 							<m:Text id="idCIL_DisplayTextMngrAppReq" text="{=${to_cilcal/mgr_apr_reqd} ? 'Yes' : 'No' }" wrapping="true"/>
+							</forms:fields>
+						</forms:FormElement>
+
+						<forms:FormElement id="idCIL_DisplayFormLabelAsoPermit" label="{i18n>labelCILAssociatedPermit}" >
+							<forms:fields>
+							<m:Text id="idCIL_DisplayTextAsoPermit" text="{=${cond_permit} ? 'Yes' : 'No' }" wrapping="true"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelAsoPaymnt" label="{i18n>labelCILAssociatedPayment}" >
+							<forms:fields>
+							<m:Text id="idCIL_DisplayTextAsoPaymnt" text="{cil_associated_payment}" wrapping="true"/>
 							</forms:fields>
 						</forms:FormElement>
 					</forms:formElements>
@@ -226,6 +237,18 @@
 									<m:RadioButton id="idCIL_EditRBMngrAppYes" selected="{=${to_cilcal/mgr_apr_reqd}}" text="{i18n>labelYes}"/>
 									<m:RadioButton id="idCIL_EditRBMngrAppNo" selected="{=${to_cilcal/mgr_apr_reqd}}" text="{i18n>labelNo}" />
 								</m:RadioButtonGroup>
+							</forms:fields>
+						</forms:FormElement>
+
+						<forms:FormElement id="idCIL_EditFormLabelAsoPermit" label="{i18n>labelCILAssociatedPermit}" >
+							<forms:fields>
+							<m:Text id="idCIL_EditAsoPermit" text="{=${cond_permit} ? 'Yes' : 'No' }" wrapping="true"/>
+							
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelAsoPaymnt" label="{i18n>labelCILAssociatedPayment}" visible="{cond_permit}">
+							<forms:fields>
+								<m:Input id="idCIL_EditTextAsoPaymnt" type="Number" value="{path:'cil_associated_payment',type: 'sap.ui.model.type.Float',formatOptions: {maxFractionDigits: 3} }" editable="{=${cond_permit}}" liveChange=".onUpdateAssoPayment" submit=".onUpdateAssoPayment"/>
 							</forms:fields>
 						</forms:FormElement>
 
