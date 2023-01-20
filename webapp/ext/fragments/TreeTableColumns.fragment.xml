@@ -3,8 +3,8 @@
         <Label text="DC Rate" />
         <table:template>
             <VBox>
-                <Input width="100%" value="{dc_rate}" showValueHelp="true" valueHelpOnly="true" visible="{ui>/editable}" valueHelpRequest=".onValueHelpRequested" />
-                <Text width="100%" text="{dc_rate}" visible="{= !${ui>/editable}}"/>
+                <Input width="100%" value="{dc_rate}" showValueHelp="true" valueHelpOnly="true" visible="{= ${ui>/editable} &amp;&amp; ${Update_mc}}" valueHelpRequest=".onValueHelpRequested" />
+                <Text width="100%" text="{dc_rate}" visible="{= !${ui>/editable} || !${Update_mc}}"/>
             </VBox>
         </table:template>
         <table:customData>
