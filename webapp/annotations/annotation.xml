@@ -685,37 +685,7 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                <Annotation Term="Common.SideEffects" Qualifier="DCAmtPayableChanged">
-                    <Record Type="Common.SideEffectsType">
-                        <PropertyValue Property="SourceProperties">
-                            <Collection>
-                                <PropertyPath>amount_payable</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                        <PropertyValue Property="TargetProperties">
-                            <Collection>
-                                <PropertyPath>to_request/current_dc_payable</PropertyPath>
-                                <PropertyPath>to_request/tot_dc_payable</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                        <PropertyValue Property="TargetEntities">
-                            <Collection>
-                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="UI.LineItem">
-                    <Collection>
-                        <Record Type="UI.DataFieldForAction">
-                            <PropertyValue Property="Label" String="Calculate"/>
-                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
-                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated"/>
-                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
-                            <Annotation Term="Core.OperationAvailable" Path="ActionEnabled"/>
-                        </Record>
-                    </Collection>
-                </Annotation>
+                <!--Removed Amount_payable sideeffects as non editable field-->
                 <Annotation Term="Common.SideEffects" Qualifier="DCTableChanged">
                     <Record>
 
