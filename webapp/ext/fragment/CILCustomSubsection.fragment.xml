@@ -109,7 +109,7 @@
 							<m:Text id="idCIL_DisplayTextAsoPermit" text="{=${cond_permit} ? 'Yes' : 'No' }" wrapping="true"/>
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_DisplayFormLabelAsoPaymnt" label="{i18n>labelCILAssociatedPayment}" >
+						<forms:FormElement id="idCIL_DisplayFormLabelAsoPaymnt" label="{i18n>labelCILAssociatedPayment}" visible="{cond_permit}" >
 							<forms:fields>
 							<m:Text id="idCIL_DisplayTextAsoPaymnt" text="{cil_associated_payment}" wrapping="true"/>
 							</forms:fields>
