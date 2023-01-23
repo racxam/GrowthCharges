@@ -81,12 +81,9 @@ sap.ui.define([
 
                 //Width Setting
                 for (let i = 0; i < aColumns.length; i++) {
-
                     if(!aColumns[i].getWidth()){
                         aColumns[i].setWidth("6rem");
-                    }
-
-                    
+                    }                    
                 }
 
                 if (oSmartFilterBar instanceof SmartFilterBar) {
@@ -335,9 +332,5 @@ sap.ui.define([
                 }
                 return bState;
             }
-
-           
-
-
         });
     });
