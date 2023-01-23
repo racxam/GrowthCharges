@@ -698,6 +698,11 @@
                                 <PropertyPath>to_request/tot_dc_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
                     </Record>
                 </Annotation>
                 <Annotation Term="UI.LineItem">
@@ -746,6 +751,12 @@
                                 <NavigationPropertyPath>to_dcsscal</NavigationPropertyPath>
                             </Collection>
                         </PropertyValue> -->
+
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
                     </Record>
                 </Annotation>
 
