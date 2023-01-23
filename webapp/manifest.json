@@ -164,7 +164,8 @@
                             "className": "sap.ui.core.Fragment",
                             "fragmentName": "com.gc.dashboard.ext.fragment.CILCustomSubsection",
                             "sap.ui.generic.app": {
-                                "title": "CIL Header Information"
+                                "title": "CIL Header Information",
+                                "enableLazyLoading":false
                             }
                         },
                         "AfterFacet|zgc_c_requests|InPayRef": {
