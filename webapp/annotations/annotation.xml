@@ -324,6 +324,8 @@
                             <Collection>
                                 <PropertyPath>_it/status</PropertyPath>
                                 <PropertyPath>_it/Submit_ac</PropertyPath>
+                                <PropertyPath>_it/Withdraw_approval_ac</PropertyPath>
+                                <PropertyPath>_it/Edit_ac</PropertyPath>                                    
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -352,6 +354,8 @@
                             <Collection>
                                 <PropertyPath>_it/status</PropertyPath>
                                 <PropertyPath>_it/Submit_ac</PropertyPath>
+                                <PropertyPath>_it/Withdraw_approval_ac</PropertyPath>
+                                <PropertyPath>_it/Edit_ac</PropertyPath>                                    
                             </Collection>
                         </PropertyValue>
                     </Record>
