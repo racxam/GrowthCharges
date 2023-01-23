@@ -694,6 +694,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
+                                <PropertyPath>to_request/current_dc_payable</PropertyPath>
                                 <PropertyPath>to_request/tot_dc_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
