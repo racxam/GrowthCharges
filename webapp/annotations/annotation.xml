@@ -782,7 +782,6 @@
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
-                                <PropertyPath>dc_partner</PropertyPath>
                                 <PropertyPath>exemption_type</PropertyPath>
                                 <PropertyPath>quantity</PropertyPath>
                                 <PropertyPath>dc_type</PropertyPath>
@@ -790,6 +789,11 @@
                                 <PropertyPath>dc_partner</PropertyPath>
                                 <PropertyPath>dc_partner_Text</PropertyPath>
                                 <PropertyPath>exm_amount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                         <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>to_request/total_dc_exmp_amt</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
