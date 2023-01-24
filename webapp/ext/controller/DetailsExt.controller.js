@@ -397,6 +397,8 @@ sap.ui.define(
                 "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table"
               )
               .rebindTable();
+             
+              oModel.refresh();
           },
           error: function (oError) { }
         });
