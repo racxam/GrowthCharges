@@ -231,11 +231,11 @@
 								<m:TextArea id="idCIL_EditTextIntComm" required="{=!${cil_applicable}}" valueLiveUpdate="true" value="{to_cilcal/int_comments}"/>
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelMngrAppr" label="{i18n>labelManagerApprovalReq}" > <!--visible="{=!${cil_applicable}}"-->
+						<forms:FormElement id="idCIL_EditFormLabelMngrAppr" label="{i18n>labelManagerApprovalReq}" >
 							<forms:fields>
 								<m:RadioButtonGroup id="idCIL_EditRBGrpMngrAppReq" columns="2" select=".onPressRBGrpMngrAppReq">
 									<m:RadioButton id="idCIL_EditRBMngrAppYes" selected="{=${to_cilcal/mgr_apr_reqd}}" text="{i18n>labelYes}"/>
-									<m:RadioButton id="idCIL_EditRBMngrAppNo" selected="{=${to_cilcal/mgr_apr_reqd}}" text="{i18n>labelNo}" />
+									<m:RadioButton id="idCIL_EditRBMngrAppNo" selected="{=!${to_cilcal/mgr_apr_reqd}}" text="{i18n>labelNo}" />
 								</m:RadioButtonGroup>
 							</forms:fields>
 						</forms:FormElement>
