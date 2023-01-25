@@ -297,7 +297,8 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                <Annotation Term="Common.SideEffects" Qualifier="clearDateChanged">
+                <!-- Temporary Comments - as discussed on 25th Jan-->
+                <!-- <Annotation Term="Common.SideEffects" Qualifier="clearDateChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
@@ -310,7 +311,7 @@
                             </Collection>
                         </PropertyValue>
                     </Record>
-                </Annotation>
+                </Annotation> -->
                 <Annotation Term="Common.SideEffects" Qualifier="cilApplicableChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
