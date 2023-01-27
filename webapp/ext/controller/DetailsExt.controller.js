@@ -622,7 +622,6 @@ sap.ui.define(
             IsActiveEntity: true
           });
           oModel.update(sCilCalPath, oPayload, {
-            refreshAfterChange: true,
             success: function (oData, oResponse) {
               oModel.refresh();
             },
@@ -701,7 +700,6 @@ sap.ui.define(
           IsActiveEntity: true
         });
         oModel.update(sCilCalPath, oPayload, {
-          refreshAfterChange: true,
           success: function (oData, oResponse) {
             oModel.refresh();
           },
@@ -768,7 +766,6 @@ sap.ui.define(
             IsActiveEntity: true
           });
           oModel.update(sCilCalPath, oPayload, {
-            refreshAfterChange: true,
             success: function (oData, oResponse) {
               oModel.refresh();
             },
@@ -798,7 +795,6 @@ sap.ui.define(
         };
 
         oModel.update(sCilCalPath, oPayload, {
-          refreshAfterChange: true,
           success: function (oData, oResponse) {
             oModel.refresh();
           },
@@ -826,7 +822,6 @@ sap.ui.define(
         };
 
         oModel.update(sCilCalPath, oPayload, {
-          refreshAfterChange: true,
           success: function (oData, oResponse) {
             oModel.refresh();
           },
