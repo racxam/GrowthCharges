@@ -135,8 +135,7 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelCILAppl" label="{i18n>labelIsCILApplicable}">
 							<forms:fields>
-								<m:CheckBox id="idCIL_EditRBGrpCILAppl" selected="{cil_applicable}"></m:CheckBox>
-								
+								<m:CheckBox id="idCIL_EditRBGrpCILAppl" selected="{= ${cil_applicable}}" select=".cilApplicableChanged"/>								
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelBuildType" label="{i18n>labelSelectBuildingType}">

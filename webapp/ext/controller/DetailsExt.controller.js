@@ -781,8 +781,32 @@ sap.ui.define(
           });
       },
 
-      //UPDATE CALL
+      cilApplicableChanged: function (oEvent) {
+        const oSource = oEvent.getSource();
+        const oBindingContext = oSource.getBindingContext();
+        const sPath = oBindingContext.getPath();
+        const oModel = this.getView().getModel();
+        const bCilApplicable = oEvent.getParameter("selected");
+        let oPayload = {
+          "cil_applicable": bCilApplicable
+        };
 
+        oModel.update(sPath, oPayload, {
+          success: function (oData, oResponse) {
+            oModel.refresh();
+          },
+          error: function (oError) {
+            let sErrorMsg = "";
+            if (oError.responseText) {
+              sErrorMsg = JSON.parse(oError.responseText).error
+                .message.value;
+            } else {
+              sErrorMsg = this.oI18n.getText("msgErrorFail");
+            }
+          }.bind(this)
+        });
+      },
+      //UPDATE CALL
       onUpdateResGFA: function (oEvent) {
         const oModel = this.getView().getModel();
         const sGuid = oEvent.getSource().getBindingContext().getObject().req_uuid;
@@ -855,8 +879,6 @@ sap.ui.define(
         } else {
           return true;
         }
-
-
       },
 
       /**
