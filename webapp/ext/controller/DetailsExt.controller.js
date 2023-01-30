@@ -610,7 +610,9 @@ sap.ui.define(
         }
 
         // Do the Update Call
-          const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::lot_frontage::Field-input").getBindingContext().getPath();
+          const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
+         
+          
           oModel.update(sCilCalPath, oPayload, {
             success: function (oData, oResponse) {
               oModel.refresh();
@@ -671,7 +673,7 @@ sap.ui.define(
 
 
         // Do the Update Call
-        const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::lot_frontage::Field-input").getBindingContext().getPath();
+        const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
         oModel.update(sCilCalPath, oPayload, {
           success: function (oData, oResponse) {
             oModel.refresh();
@@ -766,10 +768,9 @@ sap.ui.define(
       onUpdateResGFA: function (oEvent) {
         const oModel = this.getView().getModel();
         const sGuid = oEvent.getSource().getBindingContext().getObject().req_uuid;
-        const sCilCalPath = oModel.createKey("/zgc_c_cil_cal", {
-          cil_uuid: sGuid,
-          IsActiveEntity: false
-        });
+        const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
+
+
         let oPayload = {
           "res_gfa": parseInt(oEvent.getParameter("newValue"))
         };
@@ -794,10 +795,7 @@ sap.ui.define(
       onUpdateNresGFA: function (oEvent) {
         const oModel = this.getView().getModel();
         const sGuid = oEvent.getSource().getBindingContext().getObject().req_uuid;
-        const sCilCalPath = oModel.createKey("/zgc_c_cil_cal", {
-          cil_uuid: sGuid,
-          IsActiveEntity: false
-        });
+        const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::lot_frontage::Field-input").getBindingContext().getPath();
         let oPayload = {
           "nres_gfa": parseInt(oEvent.getParameter("newValue"))
         };
