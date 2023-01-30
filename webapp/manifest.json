@@ -348,6 +348,12 @@
                                         "navigationProperty": "to_reqhstry",
                                         "entitySet": "zgc_c_req_history",
                                         "tableType": "GridTable"
+                                    },
+                                    "TotalDC-ID-NonInd": {
+                                        "navigationProperty": "to_dc_spec",
+                                        "entitySet": "ZGC_C_DC_CAL_SPEC",
+                                        "createMode": "inline",
+                                        "tableType": "TreeTable"
                                     }
                                 }
                             }
