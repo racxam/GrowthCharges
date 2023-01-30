@@ -653,8 +653,6 @@ sap.ui.define(
         };
 
         if (iSelectedIndex === 0) {
-          oModel.setProperty(`${sPath}/resi_high_med_hidden`, false);
-          oModel.setProperty(`${sPath}/resi_low_hidden`, true);
           //For Payload 
           oPayload.res_type = "HDE";
           oPayload.resi_high_med_hidden = false;
