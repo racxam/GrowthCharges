@@ -1007,7 +1007,7 @@
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Label" String="{@i18n>refundAmount}"/>
                             <PropertyValue Property="Value" Path="refund_amount"/>
-                            <Annotation Term="UI.Hidden" Path="isVersionOne"/>
+                            <Annotation Term="UI.Hidden" Path="to_request/isVersionOne"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Label" String="{@i18n>refundWithInterest}"/>
