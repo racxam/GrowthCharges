@@ -988,6 +988,7 @@
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Label" String="{@i18n>previouslyPaid}"/>
                             <PropertyValue Property="Value" Path="previous_payment"/>
+                            <Annotation Term="UI.Hidden" Path="isVersionOne"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Label" String="{@i18n>paymentDate}"/>
@@ -996,14 +997,17 @@
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Label" String="{@i18n>daysOfInterest}"/>
                             <PropertyValue Property="Value" Path="interest_days"/>
+                            <Annotation Term="UI.Hidden" Path="isVersionOne"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Label" String="{@i18n>interestAmount}"/>
                             <PropertyValue Property="Value" Path="interest_amount"/>
+                            <Annotation Term="UI.Hidden" Path="isVersionOne"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Label" String="{@i18n>refundAmount}"/>
                             <PropertyValue Property="Value" Path="refund_amount"/>
+                            <Annotation Term="UI.Hidden" Path="isVersionOne"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Label" String="{@i18n>refundWithInterest}"/>
