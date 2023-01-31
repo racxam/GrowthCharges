@@ -115,7 +115,7 @@ sap.ui.define([
                             } else {
                                 let aVFilters = [];
                                 aKeys.forEach((mKey) => {
-                                    aVFilters.push(new Filter("vsn", "EQ", mKey));
+                                    aVFilters.push(new Filter("version", "EQ", mKey));
                                 });
                                 aFilters.push(new Filter(aVFilters, false));
                             }
