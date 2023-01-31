@@ -357,12 +357,14 @@ sap.ui.define(
           oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",Gen_pay_receipt_ac";
         }
 
-        //Binding parameter change is only for the DC Table anddemolition table
+        //Binding parameter change is only for the DC Table, Speculative and Demolition table
         if (
           oEvent.getSource().getId() !==
           "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table" &&
           oEvent.getSource().getId() !==
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table"
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table" &&
+          oEvent.getSource().getId() !==
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table"
         ) {
           return;
         }
