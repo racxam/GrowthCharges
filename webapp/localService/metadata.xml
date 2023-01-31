@@ -548,7 +548,6 @@
                 <Property Name="refund_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="Refund Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="refund_interest" Type="Edm.Decimal" Precision="10" Scale="4" sap:unit="currency" sap:label="Refund with Interest" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="generate_invoice" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Generate Invoice" sap:heading=""/>
-                <Property Name="isVersionOne" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Indicator" sap:quickinfo="General Flag" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
                 <Property Name="city_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="City"/>
                 <Property Name="region_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Region"/>
@@ -742,6 +741,7 @@
                 <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID" sap:value-list="standard"/>
                 <Property Name="street" Type="Edm.String" MaxLength="46" sap:display-format="UpperCase" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="vsn" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
+                <Property Name="isVersionOne" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Indicator" sap:quickinfo="General Flag" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="status" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="status_Text" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:value-list="fixed-values"/>
                 <Property Name="status_Text" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="status_txt" Type="Edm.String" MaxLength="60" sap:label="Status" sap:quickinfo="Short Text for Fixed Values" sap:creatable="false" sap:updatable="false"/>
@@ -2072,6 +2072,7 @@
                                 <PropertyPath>tdsp_associated_payment_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
+                                <PropertyPath>isVersionOne</PropertyPath>
                                 <PropertyPath>speculative_hidden</PropertyPath>
                                 <PropertyPath>building_type</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
@@ -2228,6 +2229,7 @@
                                 <PropertyPath>tdsp_associated_payment_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
+                                <PropertyPath>isVersionOne</PropertyPath>
                                 <PropertyPath>speculative_hidden</PropertyPath>
                                 <PropertyPath>building_type</PropertyPath>
                                 <PropertyPath>swm_comments</PropertyPath>
@@ -2561,7 +2563,6 @@
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
-                                <PropertyPath>isVersionOne</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
                                 <PropertyPath>HasDraftEntity</PropertyPath>
                                 <PropertyPath>IsActiveEntity</PropertyPath>
@@ -2585,7 +2586,6 @@
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
-                                <PropertyPath>isVersionOne</PropertyPath>
                                 <PropertyPath>comments</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
                                 <PropertyPath>HasDraftEntity</PropertyPath>
