@@ -181,6 +181,11 @@
                             "fragmentName": "com.gc.dashboard.ext.fragments.TreeTableColumns",
                             "type": "XML"
                         },
+                        "TreeTableColumnsExtension|ZGC_C_DC_CAL_SPEC|TotalDC-ID-NonInd": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.TreeTableColumns",
+                            "type": "XML"
+                        },
                         "TreeTableColumnsExtension|zgc_c_dc_demos|DemolitionCred-ID": {
                             "className": "sap.ui.core.Fragment",
                             "fragmentName": "com.gc.dashboard.ext.fragments.TreeTableColumns",
