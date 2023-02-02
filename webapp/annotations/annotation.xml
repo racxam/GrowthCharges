@@ -699,12 +699,12 @@
                                 <PropertyPath>to_request/dc_valid_until</PropertyPath>
                             </Collection>
                         </PropertyValue>
+                        <PropertyValue Property="TriggerAction" String="ZGC_C_REQUESTS_CDS.zgc_c_dc_calcltnsType/zgc_c_dc_calcltnsCalculate"/>
                     </Record>
                 </Annotation>
                 <!--Removed Amount_payable sideeffects as non editable field-->
                 <Annotation Term="Common.SideEffects" Qualifier="DCTableChanged">
                     <Record>
-
                         <PropertyValue Property="SourceProperties">
                             <Collection>
                                 <PropertyPath>dc_rate</PropertyPath>
@@ -712,12 +712,6 @@
                                 <PropertyPath>dc_type</PropertyPath>
                             </Collection>
                         </PropertyValue>
-                        <!--Commented on 12.01 as nav. removed ></!-->
-                        <!-- <PropertyValue Property="SourceEntities">
-                            <Collection>
-                                <NavigationPropertyPath>to_dcsscal</NavigationPropertyPath>
-                            </Collection>
-                        </PropertyValue> -->
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>amount_payable</PropertyPath>
@@ -731,13 +725,6 @@
                                 <PropertyPath>prv_dm_credit</PropertyPath>
                             </Collection>
                         </PropertyValue>
-                        <!--Commented on 12.01 as nav. removed ></!-->
-                        <!-- <PropertyValue Property="TargetEntities">
-                            <Collection>
-                                <NavigationPropertyPath>to_dcsscal</NavigationPropertyPath>
-                            </Collection>
-                        </PropertyValue> -->
-
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_request</NavigationPropertyPath>

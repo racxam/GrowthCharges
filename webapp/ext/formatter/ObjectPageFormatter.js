@@ -1,36 +1,36 @@
 jQuery.sap.declare("com.gc.dashboard.ext.formatter.ObjectPageFormatter");
 com.gc.dashboard.ext.formatter.ObjectPageFormatter = {
-    getCBCObjectKey: function(requestID, vsn, DraftGuid){
+    getCBCObjectKey: function(requestID, version, DraftGuid){
         var sObjectKey = "";
         if(requestID){
-            sObjectKey = `${requestID}${vsn}CBC`;
+            sObjectKey = `${requestID}${version}CBC`;
         }else{
             sObjectKey = DraftGuid;
         }            
         return sObjectKey;
     },
-    getDCObjectKey: function(requestID, vsn, DraftGuid){
+    getDCObjectKey: function(requestID, version, DraftGuid){
         var sObjectKey = "";
         if(requestID){
-            sObjectKey = `${requestID}${vsn}DC`;
+            sObjectKey = `${requestID}${version}DC`;
         }else{
             sObjectKey = DraftGuid;
         }            
         return sObjectKey;
     },
-    getCILObjectKey: function(requestID, vsn, DraftGuid){
+    getCILObjectKey: function(requestID, version, DraftGuid){
         var sObjectKey = "";
         if(requestID){
-            sObjectKey = `${requestID}${vsn}CIL`;
+            sObjectKey = `${requestID}${version}CIL`;
         }else{
             sObjectKey = DraftGuid;
         }            
         return sObjectKey;
     },
-    getPayObjectKey: function(requestID, vsn, DraftGuid){
+    getPayObjectKey: function(requestID, version, DraftGuid){
         var sObjectKey = "";
         if(requestID){
-            sObjectKey = `${requestID}${vsn}PAY`;
+            sObjectKey = `${requestID}${version}PAY`;
         }else{
             sObjectKey = DraftGuid;
         }            
