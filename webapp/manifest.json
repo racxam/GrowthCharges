@@ -402,7 +402,7 @@
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
                                     "objectType": "ZGC_INV_OP",
-                                    "objectKey": "{parts:[{path:'request_id'},{path:'vsn'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getDCObjectKey'}",
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getDCObjectKey'}",
                                     "attributeHandling": {
                                         "_VisibleAttributes": {
                                             "UPLOADEDBY": true,
@@ -432,7 +432,7 @@
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
                                     "objectType": "ZGC_INV_OP",
-                                    "objectKey": "{parts:[{path:'request_id'},{path:'vsn'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getCILObjectKey'}",
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getCILObjectKey'}",
                                     "attributeHandling": {
                                         "_VisibleAttributes": {
                                             "UPLOADEDBY": true,
@@ -462,7 +462,7 @@
                                 "settings": {
                                     "mode": "{= ${ui>/editable}?'C':'D'}",
                                     "objectType": "ZGC_INV_OP",
-                                    "objectKey": "{parts:[{path:'request_id'},{path:'vsn'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getPayObjectKey'}",
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getPayObjectKey'}",
                                     "attributeHandling": {
                                         "_VisibleAttributes": {
                                             "UPLOADEDBY": true,
