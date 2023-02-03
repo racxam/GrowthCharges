@@ -348,7 +348,6 @@ sap.ui.define(
         oCBCExemptTable.attachBusyStateChanged(this._onBusyStateChanged);
         
       },
-
       onBeforeRebindTableExtension: function (oEvent) {
         //Add $select for payment table
         if (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table") {
@@ -853,6 +852,8 @@ sap.ui.define(
         }
       },
       onValueHelpRequested: function (oEvent) {
+        //For the custom control, enable side effects
+        this._prepareSideEffects(oEvent);
         this.VHInput = oEvent.getSource();
         const fragment = Fragment.load({
           name: "com.gc.dashboard.ext.fragment.DCRateValueHelp",
@@ -944,6 +945,58 @@ sap.ui.define(
             oDialog.open();
           }.bind(this)
         );
+      },
+      _prepareSideEffects: function (oEvent) {
+        //Setup Side effect - copied from smartfield/SideEffectsUtil.js
+        //For a custom column or field, to trigger side effects,
+        // 1. The view should have custom data indicating the side effect and fieldgroupid
+        // 2. The custom control should have corresponding fieldgroupid
+        const oInput = oEvent.getSource();
+        //Check if fieldgroupid is already present
+        const aFieldGroupIds =  oInput.getFieldGroupIds();
+        if (aFieldGroupIds.length > 0){
+          return; //Was handled earlier
+        }
+
+        //THis column is used in multiple tables. FInd where is it coming from
+        const sEntitySet = oInput.getBindingContext().getPath().split("(")[0].substring(1);
+        switch (sEntitySet) {
+          case "zgc_c_dc_calcltns":
+            var originName = "zgc_c_dc_calcltnsType";
+            var annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCTableChanged";
+            break;
+          case "zgc_c_dc_demos":
+            originName = "zgc_c_dc_demosType";
+            annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCDemoCredTableChanged";
+            break;
+          case "ZGC_C_DC_CAL_SPEC":
+            originName = "ZGC_C_DC_CAL_SPECType";
+            annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCSpecTableChanged";
+        }
+        const oView = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
+        const oID = {
+          name: annotationName,
+          originType: "entityType",
+          originName: originName,
+          originNamespace: "ZGC_C_REQUESTS_CDS",
+          context: oEvent.getSource().getBindingContext().getPath()
+        };
+  
+        let sID = JSON.stringify(oID);
+        oID.contextObject = oEvent.getSource().getBindingContext();
+        sID = sID.substring(1, sID.length - 2);
+        let sUUID = oView.data(sID);
+        function uuidv4() {
+          return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+          );
+        }
+        if (!sUUID) {
+          sUUID = uuidv4();
+          oView.data(sUUID, oID);
+          oView.data(sID, sUUID);
+        }
+        oInput.setFieldGroupIds([sUUID]);
       },
       onDNValueHelpRequested: function (oEvent) {
         this.VHInput = oEvent.getSource();

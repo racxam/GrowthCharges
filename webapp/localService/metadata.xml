@@ -1840,7 +1840,7 @@
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                     <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true" sap:label="SideEffectsQualifier"/>
                 </FunctionImport>
-                <FunctionImport Name="zgc_c_dc_calcltnsCalculate" ReturnType="ZGC_C_REQUESTS_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_calcltnsType">
+                <FunctionImport Name="zgc_c_dc_calcltnsCalculate" ReturnType="Collection(ZGC_C_REQUESTS_CDS.zgc_c_dc_calcltnsType)" EntitySet="zgc_c_dc_calcltns" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_calcltnsType">
                     <Parameter Name="req_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                 </FunctionImport>
                 <FunctionImport Name="zgc_c_dc_calcltnsPreparation" ReturnType="ZGC_C_REQUESTS_CDS.zgc_c_dc_calcltnsType" EntitySet="zgc_c_dc_calcltns" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_calcltnsType" sap:applicable-path="Preparation_ac">
