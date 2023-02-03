@@ -1023,6 +1023,37 @@
                     </Collection>
                 </Annotation>
             </Annotations>
+            <Annotations Target="SAP.ZGC_C_DC_CAL_SPECType">
+                <Annotation Term="Common.SideEffects" Qualifier="SpecTableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>amount_payable</PropertyPath>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>interest_rate</PropertyPath>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>dc_and_interest</PropertyPath>
+                                <PropertyPath>exm_amount</PropertyPath>
+                                <PropertyPath>applied_dm_credit</PropertyPath>
+                                <PropertyPath>prv_dm_credit</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
 
         </Schema>
     </edmx:DataServices>

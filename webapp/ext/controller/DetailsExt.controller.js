@@ -338,6 +338,16 @@ sap.ui.define(
           .getTable();
         totalDCTable.attachBusyStateChanged(this._onBusyStateChanged);
 
+        //Non-Ind/Speculative
+        const totalNonIndDCTable = sap.ui
+        .getCore()
+        .byId(
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table"
+        )
+        .getTable();
+        totalNonIndDCTable.attachBusyStateChanged(this._onBusyStateChanged);
+
+
         //CBC
         //Exemption Table
 
@@ -1114,7 +1124,8 @@ sap.ui.define(
               aColumns[i]?.getId() ===
               "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table-dc_type"
               || "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table-dc_type"
-            ) {
+              || "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table-dc_type"
+              ) {
               aColumns[i]?.setWidth("300px");
             } else {
               oTpc.doAutoResizeColumn(i);
