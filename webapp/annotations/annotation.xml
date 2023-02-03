@@ -693,6 +693,7 @@
                             <Collection>
                                 <PropertyPath>dc_rate</PropertyPath>
                                 <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
@@ -727,6 +728,18 @@
                 </Annotation>
             </Annotations>            
             <Annotations Target="SAP.ZGC_C_DC_CAL_SPECType">
+                <Annotation Term="Common.SideEffects" Qualifier="DCSpecuTableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
+                    </Record>
+                </Annotation>                  
                 <Annotation Term="Common.SideEffects" Qualifier="DCSpecTableChanged">
                     <Record>
                         <PropertyValue Property="SourceProperties">
@@ -756,7 +769,19 @@
                 </Annotation>
             </Annotations>
             <Annotations Target="SAP.zgc_c_dc_demosType">
-                <Annotation Term="Common.SideEffects" Qualifier="DCDemoCredTableChanged">
+                <Annotation Term="Common.SideEffects" Qualifier="DemoTableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
+                    </Record>
+                </Annotation>                 
+                <Annotation Term="Common.SideEffects" Qualifier="DCDemoCredTableChanged">                    
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>

@@ -977,11 +977,11 @@ sap.ui.define(
             break;
           case "zgc_c_dc_demos":
             originName = "zgc_c_dc_demosType";
-            annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCDemoCredTableChanged";
+            annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DemoTableChanged";
             break;
           case "ZGC_C_DC_CAL_SPEC":
             originName = "ZGC_C_DC_CAL_SPECType";
-            annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCSpecTableChanged";
+            annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCSpecuTableChanged";
         }
         const oView = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
         const oID = {
