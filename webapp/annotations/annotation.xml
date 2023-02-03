@@ -687,6 +687,17 @@
                 </Annotation>
             </Annotations>
             <Annotations Target="SAP.zgc_c_dc_calcltnsType">
+                <Annotation Term="Common.SideEffects" Qualifier="DCRateChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
+                    </Record>
+                </Annotation>                
                 <Annotation Term="Common.SideEffects" Qualifier="DCTableChanged">
                     <Record>
                         <PropertyValue Property="SourceProperties">
@@ -757,7 +768,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
                             <Collection>
-                                <!-- <NavigationPropertyPath>to_dcsscal</NavigationPropertyPath> -->
+                                <NavigationPropertyPath></NavigationPropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">

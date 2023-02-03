@@ -973,7 +973,7 @@ sap.ui.define(
         switch (sEntitySet) {
           case "zgc_c_dc_calcltns":
             var originName = "zgc_c_dc_calcltnsType";
-            var annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCTableChanged";
+            var annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCRateChanged";
             break;
           case "zgc_c_dc_demos":
             originName = "zgc_c_dc_demosType";
