@@ -763,14 +763,33 @@ sap.ui.define(
           controller: this
         });
         //Date filter
-        //If interest applicable, 
-        let dateFilter = this.getView()
+        //If site-plan approved date is more than 2 years old than the invoice calculation date,
+        //use the invoice calculation date. If not, check if interest applied date is available. If yes, use that date.
+        //If not, use the invoice calculation date.
+        
+        const sitePlanApprovedDate = this.getView()
+          .getBindingContext()
+          .getObject().site_plan_approved_date;
+        const invoiceCalculationDate = this.getView()
+          .getBindingContext()
+          .getObject().invoice_calculation_date;
+        const interestAppliedDate = this.getView()
           .getBindingContext()
           .getObject().interest_applied_date;
-        if (!dateFilter) {
-          dateFilter = this.getView()
-            .getBindingContext()
-            .getObject().invoice_calculation_date;
+        let dateFilter = "";
+        if (sitePlanApprovedDate) {
+          let date1 = new Date(sitePlanApprovedDate);
+          date1.setFullYear(date1.getFullYear() + 2); //Two years from site plan approved date
+          const date2 = new Date(invoiceCalculationDate);
+          if (date2 > date1) {
+            dateFilter = invoiceCalculationDate;
+          } 
+        } else {
+          if (interestAppliedDate) {
+            dateFilter = interestAppliedDate;
+          } else {
+            dateFilter = invoiceCalculationDate;
+          }
         }
 
         const startDateFilter = new Filter(
