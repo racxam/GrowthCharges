@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.layout">
+	<!-- <TableSelectDialog noDataText="No Status Change" contentHeight="200px" title="Status History" cancel=".handleClose">
+	</TableSelectDialog> -->
+
+	<Dialog title="Status History" class="sapUiSizeCompact">
+		<content>
+			<Table mode="None" noDataText="No Status History" />
+		</content>
+		 <endButton>
+            <Button press=".onCloseStatusDialog" text="Cancel"/>
+        </endButton>
+	</Dialog>
+
+</core:FragmentDefinition>

@@ -6,9 +6,11 @@ sap.ui.define(
     "sap/ui/table/Column",
     "sap/ui/model/Filter",
     "sap/m/Text",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/m/ColumnListItem",
+    "sap/ui/core/format/DateFormat"
   ],
-  function (JSONModel, Fragment, UIColumn, Filter, Text,MessageBox) {
+  function (JSONModel, Fragment, UIColumn, Filter, Text, MessageBox, ColumnListItem, DateFormat) {
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
       onInit: function () {
@@ -89,16 +91,16 @@ sap.ui.define(
             oAddCreditBtn.setVisible(false);
           }
 
-        //Invoice Section
-        const view = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
-        const invoice_tech_details = view.getBindingContext().getObject()?.inv_tech_details;
-        const aInvoiceTechDetails = invoice_tech_details.split("-");
-        this._sValidPath =
-          `/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='${aInvoiceTechDetails[0]}',Documentpart='',Documentversion='',ApplicationId='${aInvoiceTechDetails[1]}',FileId='${aInvoiceTechDetails[2]}')/$value`;
-        this._oModel = new JSONModel({
-          Source: this._sValidPath
-        });
-        view.byId("PDFViewer").setModel(this._oModel, "local");          
+          //Invoice Section
+          const view = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
+          const invoice_tech_details = view.getBindingContext().getObject()?.inv_tech_details;
+          const aInvoiceTechDetails = invoice_tech_details.split("-");
+          this._sValidPath =
+            `/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='${aInvoiceTechDetails[0]}',Documentpart='',Documentversion='',ApplicationId='${aInvoiceTechDetails[1]}',FileId='${aInvoiceTechDetails[2]}')/$value`;
+          this._oModel = new JSONModel({
+            Source: this._sValidPath
+          });
+          view.byId("PDFViewer").setModel(this._oModel, "local");
         });
       },
 
@@ -112,10 +114,10 @@ sap.ui.define(
             let rateId = this.rateId;
             var that = this.that;
             const cappedRateSF = sap.ui.getCore().byId(id);
-            if (cappedRateSF){
+            if (cappedRateSF) {
               cappedRateSF.onAfterRendering = function () {
                 const cilRate = sap.ui.getCore().byId(input_id);
-                if (!cilRate){
+                if (!cilRate) {
                   return;
                 }
                 cilRate.setShowValueHelp(true);
@@ -126,12 +128,12 @@ sap.ui.define(
                     name: "com.gc.dashboard.ext.fragments.cil.cilRate",
                     controller: this
                   });
-                  
+
                   //For NR this will not be set. So setting it here
-                  if (!rateId){
-                    if (this.getView().byId("idCIL_EditRBGrpNResType").getButtons()[0].getSelected()){
+                  if (!rateId) {
+                    if (this.getView().byId("idCIL_EditRBGrpNResType").getButtons()[0].getSelected()) {
                       rateId = "NON_RES_VAC";
-                    }else{
+                    } else {
                       rateId = "NON_RES_EXT";
                     }
                   }
@@ -140,7 +142,7 @@ sap.ui.define(
                     "rate_id",
                     "EQ",
                     rateId
-                  );  
+                  );
                   this._requestDateFilter = [rateIDFilter];
                   fragment.then(
                     function (oDialog) {
@@ -161,10 +163,10 @@ sap.ui.define(
                                 }
                               }
                             });
-          
+
                             // Only two decimal places
-                            const dcRateTemplate = new Text({ 
-                              text: "{ path: 'rate',type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" 
+                            const dcRateTemplate = new Text({
+                              text: "{ path: 'rate',type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}"
                             });
                             const startDateTemplate = new Text({
                               text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
@@ -172,7 +174,7 @@ sap.ui.define(
                             const endDateTemplate = new Text({
                               text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
                             });
-  
+
                             oTable.addColumn(
                               new UIColumn({ label: "Rate", template: dcRateTemplate })
                             );
@@ -193,7 +195,7 @@ sap.ui.define(
                         }.bind(this)
                       );
                       oDialog.open();
-                    }.bind(this));                
+                    }.bind(this));
                 }.bind(that));
               };
             }
@@ -202,8 +204,8 @@ sap.ui.define(
         const id = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-ResLow-SS::SubSection";
         const smartFieldId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::cil_rate_res::Field";
         const cilResLowSS = sap.ui.getCore().byId(id);
-        if (cilResLowSS){
-          const context = {"that": this, "id": smartFieldId, "rateId": "RES_LOW_DEN"};
+        if (cilResLowSS) {
+          const context = { "that": this, "id": smartFieldId, "rateId": "RES_LOW_DEN" };
           cilResLowSS.addEventDelegate(this._cilUpdates, context);
         }
 
@@ -211,24 +213,24 @@ sap.ui.define(
         const nonResExtSSId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-NonResVac-SS::SubSection";
         const nonResExtSS_smartFieldId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILNonResDensity-ID::cil_rate_nres::Field";
         const nonResExtSS = sap.ui.getCore().byId(nonResExtSSId);
-        if (nonResExtSS){
-          const context = {"that": this, "id": nonResExtSS_smartFieldId};
-          nonResExtSS.addEventDelegate(this._cilUpdates, context);          
-        }      
+        if (nonResExtSS) {
+          const context = { "that": this, "id": nonResExtSS_smartFieldId };
+          nonResExtSS.addEventDelegate(this._cilUpdates, context);
+        }
 
         //CIL Rate VH for Non Residential scenario - Vacant
         const nonResVacSSId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-NonRes-SS::SubSection";
         const nonResVacSS_smartFieldId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILNonResDensityVac-ID::cil_rate_nres::Field";
         const nonResVacSS = sap.ui.getCore().byId(nonResVacSSId);
-        if (nonResVacSS){
-          const context = {"that": this, "id": nonResVacSS_smartFieldId};
-          nonResVacSS.addEventDelegate(this._cilUpdates, context);          
-        }          
-        
+        if (nonResVacSS) {
+          const context = { "that": this, "id": nonResVacSS_smartFieldId };
+          nonResVacSS.addEventDelegate(this._cilUpdates, context);
+        }
+
         const setBlocksRight = function () {
           var blocks = this.getBlocks();
           for (var i = 0; i < blocks.length; i++) {
-            if(blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection" || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCHeader-GI::SubSection"){
+            if (blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection" || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCHeader-GI::SubSection") {
               blocks[i].getContent()[0].getLayout().setColumnsM(1);
               blocks[i].getContent()[0].getLayout().setColumnsL(1);
               blocks[i].getContent()[0].getLayout().setColumnsXL(1);
@@ -340,11 +342,11 @@ sap.ui.define(
 
         //Non-Ind/Speculative
         const totalNonIndDCTable = sap.ui
-        .getCore()
-        .byId(
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table"
-        )
-        .getTable();
+          .getCore()
+          .byId(
+            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table"
+          )
+          .getTable();
         totalNonIndDCTable.attachBusyStateChanged(this._onBusyStateChanged);
 
 
@@ -356,7 +358,7 @@ sap.ui.define(
         )
           .getTable();
         oCBCExemptTable.attachBusyStateChanged(this._onBusyStateChanged);
-        
+
       },
 
       onBeforeRebindTableExtension: function (oEvent) {
@@ -381,7 +383,7 @@ sap.ui.define(
         var oBindingParams = oEvent.getParameter("bindingParams");
         oBindingParams.parameters = oBindingParams.parameters || {};
         oBindingParams.parameters.operationMode = "Client";
-       
+
       },
 
       onPressDCCalc: function (oEvent) {
@@ -401,8 +403,8 @@ sap.ui.define(
                 "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table"
               )
               .rebindTable();
-             
-              oModel.refresh();
+
+            oModel.refresh();
           },
           error: function (oError) { }
         });
@@ -466,117 +468,8 @@ sap.ui.define(
           error: function (oError) { }
         });
       },
-      /**
-       * Formatter to control state of CIL Processflow
-       * @public
-       * @param {string} sStatus value
-       * @returns {state} State
-       */
-      getStatusStateForCIL: function (sStatus) {
-        if (sStatus === "INP") {
-          return "Information";
-        } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND") {
-          return "Warning";
-        } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
-          return "Error";
-        } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "FIN_PND") {
-          return "Success";
-        } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
-          return "Success";
-        } else {
-          return "None";
-        }
-      },
 
-      /**
-       * Formatter to control state of CBC Processflow
-       * @public
-       * @param {string} sStatus value
-       * @returns {state} State
-       */
-      getStatusStateForCBC: function (sStatus) {
-        if (sStatus === "INP" || sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "CIL_APR") {
-          return "Information";
-        } else if (sStatus === "FIN_PND") {
-          return "Warning";
-        } else if (sStatus === "FIN_REJ") {
-          return "Error";
-        } else if (sStatus === "FIN_APR") {
-          return "Success";
-        } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
-          return "Success";
-        } else {
-          return "None";
-        }
-      },
 
-      /**
-       * Formatter to control state of DC Processflow
-       * @public
-       * @param {string} sStatus value
-       * @returns {state} State
-       */
-      getStatusStateForDC: function (sStatus) {
-        if (sStatus === "INP" || sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "CIL_APR") {
-          return "Information";
-        } else if (sStatus === "FIN_PND") {
-          return "Warning";
-        } else if (sStatus === "FIN_REJ") {
-          return "Error";
-        } else if (sStatus === "FIN_APR") {
-          return "Success";
-        } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
-          return "Success";
-        } else {
-          return "None";
-        }
-      },
-
-      /**
-       * Formatter to control state of Closed Processflow
-       * @public
-       * @param {string} sStatus value
-       * @returns {state} State
-       */
-      getStatusStateForClosed: function (sStatus) {
-        if (sStatus === "INP") {
-          return "Information";
-        } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") {
-          return "Warning";
-        } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
-          return "Error";
-        } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR") {
-          return "Success";
-        } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
-          return "Success";
-        } else {
-          return "None";
-        }
-      },
-
-      /**
-             * Formatter to control state of Closed Processflow
-             * @public
-             * @param {string} sStatus value
-             * @returns {state} State
-             */
-      showStatusPClosed: function (sStatus) {
-        if (sStatus === "PCLSD") {
-          return "None";
-        }
-        return "None";
-      },
-
-      /**
-       * Formatter to control state of Hold Processflow
-       * @public
-       * @param {string} sStatus value
-       * @returns {state} State
-       */
-      getStatusStateForHold: function (sStatus) {
-        if (sStatus === "HLD") { return "None"; }
-        return "None";
-      },
 
       /**
        * Method to return Confirmation Message(Delete)
@@ -602,17 +495,17 @@ sap.ui.define(
 
         let oPayload = {
           "resi_low_hidden": true,
-          "resi_high_med_hidden":true,
-          "non_resi_existing_hidden":true,
-          "non_resi_vacant_hidden":true,
-          "res_type":"",
-          "nres_type":"",
-          "cil_build_type":"MXD",
+          "resi_high_med_hidden": true,
+          "non_resi_existing_hidden": true,
+          "non_resi_vacant_hidden": true,
+          "res_type": "",
+          "nres_type": "",
+          "cil_build_type": "MXD",
           "residential_hidden": true,
-          "non_resi_hidden":true
+          "non_resi_hidden": true
 
         };
-       
+
         if (iSelectedIndex === 0) {
           oPayload.cil_build_type = "RES";
         } else if (iSelectedIndex === 1) {
@@ -622,25 +515,25 @@ sap.ui.define(
         }
 
         // Do the Update Call
-          const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
-         
-          
-          oModel.update(sCilCalPath, oPayload, {
-            success: function (oData, oResponse) {
-              oModel.refresh();
-            },
-            error: function (oError) {
-              let sErrorMsg = "";
-              if (oError.responseText) {
-                sErrorMsg = JSON.parse(oError.responseText).error
-                  .message.value;
-              } else {
-                sErrorMsg = this.oI18n.getText("msgErrorFail");
-              }
-              MessageBox.error(sErrorMsg);
-            }.bind(this)
-          });
-        
+        const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
+
+
+        oModel.update(sCilCalPath, oPayload, {
+          success: function (oData, oResponse) {
+            oModel.refresh();
+          },
+          error: function (oError) {
+            let sErrorMsg = "";
+            if (oError.responseText) {
+              sErrorMsg = JSON.parse(oError.responseText).error
+                .message.value;
+            } else {
+              sErrorMsg = this.oI18n.getText("msgErrorFail");
+            }
+            MessageBox.error(sErrorMsg);
+          }.bind(this)
+        });
+
       },
 
 
@@ -657,12 +550,12 @@ sap.ui.define(
         // oModel.setProperty(`${sPath}/to_cilcal/non_resi_vacant_hidden` , true);
         let oPayload = {
           "resi_low_hidden": true,
-          "resi_high_med_hidden":true,
-          "non_resi_existing_hidden":true,
-          "non_resi_vacant_hidden":true,
-          "res_type":"",
+          "resi_high_med_hidden": true,
+          "non_resi_existing_hidden": true,
+          "non_resi_vacant_hidden": true,
+          "res_type": "",
           "residential_hidden": false,
-          "non_resi_hidden":true
+          "non_resi_hidden": true
 
         };
 
@@ -710,20 +603,20 @@ sap.ui.define(
         const oModel = this.getView().getModel();
         let oPayload = {
           "resi_low_hidden": true,
-          "resi_high_med_hidden":true,
-          "non_resi_existing_hidden":true,
-          "non_resi_vacant_hidden":true,
-          "nres_type":"",
+          "resi_high_med_hidden": true,
+          "non_resi_existing_hidden": true,
+          "non_resi_vacant_hidden": true,
+          "nres_type": "",
           "residential_hidden": true,
-          "non_resi_hidden":false
+          "non_resi_hidden": false
 
         };
 
         if (iSelectedIndex === 0) {
-           //For Payload 
-           oPayload.nres_type = "VAC";
-           oPayload.non_resi_existing_hidden = true;
-           oPayload.non_resi_vacant_hidden = false;
+          //For Payload 
+          oPayload.nres_type = "VAC";
+          oPayload.non_resi_existing_hidden = true;
+          oPayload.non_resi_vacant_hidden = false;
         } else {
           //For Payload 
           oPayload.nres_type = "EXT";
@@ -731,23 +624,23 @@ sap.ui.define(
           oPayload.non_resi_vacant_hidden = true;
         }
 
-          // Do the Update Call
-          const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::lot_frontage::Field-input").getBindingContext().getPath();
-          oModel.update(sCilCalPath, oPayload, {
-            success: function (oData, oResponse) {
-              oModel.refresh();
-            },
-            error: function (oError) {
-              let sErrorMsg = "";
-              if (oError.responseText) {
-                sErrorMsg = JSON.parse(oError.responseText).error
-                  .message.value;
-              } else {
-                sErrorMsg = this.oI18n.getText("msgErrorFail");
-              }
-              MessageBox.error(sErrorMsg);
-            }.bind(this)
-          });
+        // Do the Update Call
+        const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::lot_frontage::Field-input").getBindingContext().getPath();
+        oModel.update(sCilCalPath, oPayload, {
+          success: function (oData, oResponse) {
+            oModel.refresh();
+          },
+          error: function (oError) {
+            let sErrorMsg = "";
+            if (oError.responseText) {
+              sErrorMsg = JSON.parse(oError.responseText).error
+                .message.value;
+            } else {
+              sErrorMsg = this.oI18n.getText("msgErrorFail");
+            }
+            MessageBox.error(sErrorMsg);
+          }.bind(this)
+        });
       },
 
       cilApplicableChanged: function (oEvent) {
@@ -871,12 +764,12 @@ sap.ui.define(
         //Date filter
         //If interest applicable, 
         let dateFilter = this.getView()
-        .getBindingContext()
-        .getObject().interest_applied_date;
-        if (!dateFilter){
-          dateFilter = this.getView()
           .getBindingContext()
-          .getObject().invoice_calculation_date;
+          .getObject().interest_applied_date;
+        if (!dateFilter) {
+          dateFilter = this.getView()
+            .getBindingContext()
+            .getObject().invoice_calculation_date;
         }
 
         const startDateFilter = new Filter(
@@ -916,8 +809,8 @@ sap.ui.define(
                   });
 
                   // Only two decimal places
-                  const dcRateTemplate = new Text({ 
-                    text: "{ path: 'dc_rate',type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" 
+                  const dcRateTemplate = new Text({
+                    text: "{ path: 'dc_rate',type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}"
                   });
                   const startDateTemplate = new Text({
                     text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
@@ -992,8 +885,8 @@ sap.ui.define(
                     }
                   });
 
-                  const documentNoTemplate = new Text({ 
-                    text: "{document_no}" 
+                  const documentNoTemplate = new Text({
+                    text: "{document_no}"
                   });
                   const ccTemplate = new Text({
                     text: "{company_code}"
@@ -1072,7 +965,7 @@ sap.ui.define(
               "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table-dc_type"
               || "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table-dc_type"
               || "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table-dc_type"
-              ) {
+            ) {
               aColumns[i]?.setWidth("300px");
             } else {
               oTpc.doAutoResizeColumn(i);
@@ -1081,6 +974,290 @@ sap.ui.define(
           //This line can be commented if you want the columns to be adjusted on every scroll
           //this._bColumnOptimizationDone = true;
         }
+      },
+
+      // **************************************STATUS CHANGES ****************************
+      /**
+       * Formatter to control state of CIL Processflow
+       * @public
+       * @param {string} sStatus value
+       * @returns {state} State
+       */
+      getStatusStateForCIL: function (sStatus) {
+        if (sStatus === "INP") {
+          return "Information";
+        } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND") {
+          return "Warning";
+        } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
+          return "Error";
+        } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "FIN_PND") {
+          return "Success";
+        } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
+          return "Success";
+        } else {
+          return "None";
+        }
+      },
+
+      /**
+       * Formatter to control state of CBC Processflow
+       * @public
+       * @param {string} sStatus value
+       * @returns {state} State
+       */
+      getStatusStateForCBC: function (sStatus) {
+        if (sStatus === "INP" || sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "CIL_APR") {
+          return "Information";
+        } else if (sStatus === "FIN_PND") {
+          return "Warning";
+        } else if (sStatus === "FIN_REJ") {
+          return "Error";
+        } else if (sStatus === "FIN_APR") {
+          return "Success";
+        } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
+          return "Success";
+        } else {
+          return "None";
+        }
+      },
+
+      /**
+       * Formatter to control state of DC Processflow
+       * @public
+       * @param {string} sStatus value
+       * @returns {state} State
+       */
+      getStatusStateForDC: function (sStatus) {
+        if (sStatus === "INP" || sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "CIL_APR") {
+          return "Information";
+        } else if (sStatus === "FIN_PND") {
+          return "Warning";
+        } else if (sStatus === "FIN_REJ") {
+          return "Error";
+        } else if (sStatus === "FIN_APR") {
+          return "Success";
+        } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
+          return "Success";
+        } else {
+          return "None";
+        }
+      },
+
+      /**
+       * Formatter to control state of Closed Processflow
+       * @public
+       * @param {string} sStatus value
+       * @returns {state} State
+       */
+      getStatusStateForClosed: function (sStatus) {
+        if (sStatus === "INP") {
+          return "Information";
+        } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") {
+          return "Warning";
+        } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
+          return "Error";
+        } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR") {
+          return "Success";
+        } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
+          return "Success";
+        } else {
+          return "None";
+        }
+      },
+
+      /**
+             * Formatter to control state of Closed Processflow
+             * @public
+             * @param {string} sStatus value
+             * @returns {state} State
+             */
+      showStatusPClosed: function (sStatus) {
+        if (sStatus === "PCLSD") {
+          return "None";
+        }
+        return "None";
+      },
+
+      /**
+       * Formatter to control state of Hold Processflow
+       * @public
+       * @param {string} sStatus value
+       * @returns {state} State
+       */
+      getStatusStateForHold: function (sStatus) {
+        if (sStatus === "HLD") { return "None"; }
+        return "None";
+      },
+
+      getStatusTableColumns: function (oTable) {
+        const aColumns = [
+          "Status",
+          "Changed By",
+          "Changed On",
+          "Comments"
+        ];
+
+        aColumns.forEach(
+          function (sColumn) {
+            const oColumn = new sap.m.Column({
+              header: new sap.m.Label({
+                text: sColumn
+              })
+            });
+            oTable.addColumn(oColumn);
+          }
+        );
+      },
+
+      getStatusTableRows: function () {
+        return [
+          "action",
+          "action_by_Text",
+          "action_on",
+          "comments"
+        ];
+      },
+
+      onCloseStatusDialog: function (oEvent) {
+        oEvent.getSource().getParent().close();
+      },
+
+      _getFilterCondition: function (aFilter, sStatus, sSelectedItem) {
+
+        let oActionFilter = "";
+
+        switch (sSelectedItem) {
+          case "CIL":
+            if (sStatus === "INP" || sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "CIL_APR") {
+              oActionFilter = new Filter(
+                "action",
+                "EQ",
+                sStatus
+              );
+              aFilter.push(oActionFilter);
+            } else {
+              oActionFilter = new Filter(
+                "action",
+                "EQ",
+                "CIL_APR");
+              aFilter.push(oActionFilter);
+            }
+            return aFilter;
+          case "DC":
+            if (sStatus === "INP" || sStatus === "FIN_PND" || sStatus === "FIN_REJ" || sStatus === "FIN_APR") {
+              oActionFilter = new Filter(
+                "action",
+                "EQ",
+                sStatus
+              );
+              aFilter.push(oActionFilter);
+            } else {
+              oActionFilter = new Filter(
+                "action",
+                "EQ",
+                "FIN_PND"
+              );
+              aFilter.push(oActionFilter);
+            }
+            return aFilter;
+          case "PCLSD":
+            if (sStatus === "PCLSD") {
+              oActionFilter = new Filter(
+                "action",
+                "EQ",
+                "PCLSD"
+              );
+              aFilter.push(oActionFilter);
+            }
+            return aFilter;
+          case "CLSD":
+            oActionFilter = new Filter(
+              "action",
+              "EQ",
+              "CLSD"
+            );
+            aFilter.push(oActionFilter);
+            return aFilter;
+          case "HLD":
+            oActionFilter = new Filter(
+              "action",
+              "EQ",
+              "HLD"
+            );
+            aFilter.push(oActionFilter);
+            return aFilter;
+
+          default:
+            oActionFilter = new Filter(
+              "action",
+              "EQ",
+              "CBC"
+            );
+            aFilter.push(oActionFilter);
+            return aFilter;
+        }
+      },
+
+      openMilestoneDialog: function (oEvent, sSelectedItem) {
+        this.status1 = oEvent.getSource();
+        const oSource = oEvent.getSource();
+        const oContext = oSource.getBindingContext();
+        const sStatus = oContext.getProperty("status");
+
+        const fragment = Fragment.load({
+          name: "com.gc.dashboard.ext.fragments.StatusMicroDialog",
+          controller: this
+        });
+        let aFilter = this._getFilterCondition([], sStatus, sSelectedItem);
+
+
+        fragment.then(
+          function (oDialog) {
+            this._oCRValueHelpDialog = oDialog;
+            const oTable = oDialog.getContent()[0];
+            this.getView().addDependent(oDialog);
+            const sPath = this.status1.getBindingContext().getPath() + "/to_reqhstry";
+            this.getStatusTableColumns(oTable);
+            const aRows = this.getStatusTableRows();
+            let aCells = [];
+            aRows.forEach(function (oRow) {
+              let oCell = "";
+              if (oRow === "action_on") {
+                oCell = new Text({
+                  text: {
+                    path: "action_on", formatter: function (dDate) {
+                      const oDateFormatWithUTC = DateFormat.getDateTimeInstance({
+                        pattern: "MMM d, yyyy",
+                        UTC: true
+                      });
+                      if (dDate !== null) {
+                        const dFormatDate = oDateFormatWithUTC.format(dDate);
+                        return dFormatDate;
+                      }
+                      return dDate;
+                    }
+                  }
+
+                });    
+              } else {
+                oCell = new Text({
+                  text: "{" + oRow + "}"
+                });
+              }
+
+              aCells.push(oCell);
+            });
+
+            const oColList = new ColumnListItem({
+              cells: aCells
+            });
+            oTable.bindItems({
+              path: sPath,
+              template: oColList,
+              filters: aFilter
+            });
+            oDialog.open();
+          }.bind(this));
       }
     });
   }
