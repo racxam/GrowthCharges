@@ -692,17 +692,13 @@
                         <PropertyValue Property="SourceProperties">
                             <Collection>
                                 <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
                             </Collection>
                         </PropertyValue>
-                        <PropertyValue Property="TargetProperties">
-                            <Collection>
-                                <PropertyPath>to_request/dc_valid_until</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                        <PropertyValue Property="TriggerAction" String="ZGC_C_REQUESTS_CDS.zgc_c_dc_calcltnsType/zgc_c_dc_calcltnsCalculate"/>
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
                     </Record>
-                </Annotation>
-                <!--Removed Amount_payable sideeffects as non editable field-->
+                </Annotation>                
                 <Annotation Term="Common.SideEffects" Qualifier="DCTableChanged">
                     <Record>
                         <PropertyValue Property="SourceProperties">
@@ -715,8 +711,6 @@
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>amount_payable</PropertyPath>
-                                <PropertyPath>dc_rate</PropertyPath>
-                                <PropertyPath>quantity</PropertyPath>
                                 <PropertyPath>interest_rate</PropertyPath>
                                 <PropertyPath>interest_amount</PropertyPath>
                                 <PropertyPath>dc_and_interest</PropertyPath>
@@ -732,10 +726,62 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
+            </Annotations>            
+            <Annotations Target="SAP.ZGC_C_DC_CAL_SPECType">
+                <Annotation Term="Common.SideEffects" Qualifier="DCSpecuTableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
+                    </Record>
+                </Annotation>                  
+                <Annotation Term="Common.SideEffects" Qualifier="DCSpecTableChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>amount_payable</PropertyPath>
+                                <PropertyPath>interest_rate</PropertyPath>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>dc_and_interest</PropertyPath>
+                                <PropertyPath>exm_amount</PropertyPath>
+                                <PropertyPath>applied_dm_credit</PropertyPath>
+                                <PropertyPath>prv_dm_credit</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
             <Annotations Target="SAP.zgc_c_dc_demosType">
-                <Annotation Term="Common.SideEffects" Qualifier="DCDemoCredTableChanged">
+                <Annotation Term="Common.SideEffects" Qualifier="DemoTableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
+                    </Record>
+                </Annotation>                 
+                <Annotation Term="Common.SideEffects" Qualifier="DCDemoCredTableChanged">                    
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
@@ -747,7 +793,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
                             <Collection>
-                                <!-- <NavigationPropertyPath>to_dcsscal</NavigationPropertyPath> -->
+                                <NavigationPropertyPath></NavigationPropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
