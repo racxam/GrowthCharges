@@ -784,12 +784,11 @@ sap.ui.define(
           if (date2 > date1) {
             dateFilter = invoiceCalculationDate;
           } 
+        }
+        if (interestAppliedDate && !dateFilter) {
+          dateFilter = interestAppliedDate;
         } else {
-          if (interestAppliedDate) {
-            dateFilter = interestAppliedDate;
-          } else {
-            dateFilter = invoiceCalculationDate;
-          }
+          dateFilter = invoiceCalculationDate;
         }
 
         const startDateFilter = new Filter(
