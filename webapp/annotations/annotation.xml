@@ -776,6 +776,7 @@
                                 <PropertyPath>dc_rate</PropertyPath>
                                 <PropertyPath>quantity</PropertyPath>
                                 <PropertyPath>dc_type</PropertyPath>
+                                
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
@@ -789,6 +790,7 @@
                                 <PropertyPath>quantity</PropertyPath>
                                 <PropertyPath>dc_type</PropertyPath>
                                 <PropertyPath>tot_demo_credit</PropertyPath>
+                                <PropertyPath>permit_number</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
