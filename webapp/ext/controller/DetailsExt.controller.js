@@ -382,6 +382,7 @@ sap.ui.define(
         var oBindingParams = oEvent.getParameter("bindingParams");
         oBindingParams.parameters = oBindingParams.parameters || {};
         oBindingParams.parameters.operationMode = "Client";
+        oBindingParams.parameters.select = oBindingParams.parameters.select + ",is_rate_edited";
 
       },
 

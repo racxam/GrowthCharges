@@ -2,10 +2,11 @@
     <table:Column hAlign="End">
         <Label text="DC Rate" />
         <table:template>
-            <VBox alignItems="End">
+            <HBox justifyContent="End">
+                <core:Icon src="sap-icon://SAP-icons-TNT/exceptions" visible="{is_rate_edited}"></core:Icon>
                 <Input width="100%" value="{dc_rate}" showValueHelp="true" valueHelpOnly="true" visible="{= ${ui>/editable} &amp;&amp; ${Update_mc}}" valueHelpRequest=".onValueHelpRequested" />
                 <Text width="100%" text="{dc_rate}" visible="{= !${ui>/editable} || !${Update_mc}}"/>
-            </VBox>
+            </HBox>
         </table:template>
         <table:customData>
             <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn1&quot;, &quot;leadingProperty&quot;: &quot;dc_rate&quot;, &quot;columnIndex&quot;: &quot;3&quot;}" />
