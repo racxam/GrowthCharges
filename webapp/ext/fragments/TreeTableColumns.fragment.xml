@@ -3,7 +3,7 @@
         <Label text="DC Rate" />
         <table:template>
             <HBox justifyContent="End">
-                <core:Icon src="sap-icon://SAP-icons-TNT/exceptions" visible="{is_rate_edited}"></core:Icon>
+                <core:Icon src="sap-icon://SAP-icons-TNT/exceptions" class="sapUiMediumMarginEnd" visible="{is_rate_edited}"/>
                 <Input width="100%" value="{dc_rate}" showValueHelp="true" valueHelpOnly="true" visible="{= ${ui>/editable} &amp;&amp; ${Update_mc}}" valueHelpRequest=".onValueHelpRequested" />
                 <Text width="100%" text="{dc_rate}" visible="{= !${ui>/editable} || !${Update_mc}}"/>
             </HBox>
