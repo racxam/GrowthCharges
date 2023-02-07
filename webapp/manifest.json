@@ -347,7 +347,7 @@
                                         "navigationProperty": "to_prvpermitcr",
                                         "entitySet": "ZGC_C_PRE_BLD_PERMIT_CRD",
                                         "createMode": "inline",
-                                        "tableType": "GridTable"
+                                        "tableType": "TreeTable"
                                     },
                                     "ApprHist-SS-ID": {
                                         "navigationProperty": "to_reqhstry",

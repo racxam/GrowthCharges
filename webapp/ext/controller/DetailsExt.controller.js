@@ -369,9 +369,9 @@ sap.ui.define(
         }
         if( oEvent.getSource().getId() ===
         "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table"){
-          var oBindingParams1 = oEvent.getParameter("bindingParams");
-          oBindingParams1.parameters = oBindingParams1.parameters || {};
-          oBindingParams1.parameters.operationMode = "Client";
+          var oBindingParams = oEvent.getParameter("bindingParams");
+          oBindingParams.parameters = oBindingParams1.parameters || {};
+          oBindingParams.parameters.operationMode = "Client";
         }
         //Binding parameter change is only for the DC Table, Speculative, Exemption, and Demolition table
         if (
