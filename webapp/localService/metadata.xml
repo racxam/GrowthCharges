@@ -320,7 +320,6 @@
                 <Property Name="unit" Type="Edm.String" MaxLength="3" sap:field-control="unit_fc" sap:text="unit_txt" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
                 <Property Name="dc_rate" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="DC Rate" sap:quickinfo="Rate"/>
                 <Property Name="is_rate_edited" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is rate edited by us" sap:quickinfo="Is rate edited by user?"/>
-                <Property Name="Criticality" Type="Edm.Byte" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_rate" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Interest Rate" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_and_interest" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="DC and Interest" sap:creatable="false" sap:updatable="false"/>
@@ -624,6 +623,7 @@
                 <Property Name="subservice_id" Type="Edm.String" MaxLength="10" sap:label="Sub-service ID"/>
                 <Property Name="dc_partner" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="DC Partner"/>
                 <Property Name="credit_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="Credit Amount"/>
+                <Property Name="consumed_credit" Type="Edm.Decimal" Precision="12" Scale="3" sap:label="Credit Amount"/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
                 <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
                 <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On"/>
