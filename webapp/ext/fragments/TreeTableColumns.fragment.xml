@@ -2,7 +2,7 @@
     <table:Column hAlign="End">
         <Label text="DC Rate" />
         <table:template>
-            <HBox justifyContent="End">
+            <HBox justifyContent="End" alignContent="Center" alignItems="Center">
                 <core:Icon src="sap-icon://alert" color="#E69A17" class="sapUiMediumMarginEnd" visible="{is_rate_edited}" tooltip="{i18n>rate_edited}" />
                 <Input width="100%" value="{dc_rate}" showValueHelp="true" valueHelpOnly="true" visible="{= ${ui>/editable} &amp;&amp; ${Update_mc}}" valueHelpRequest=".onValueHelpRequested" />
                 <Text width="100%" text="{dc_rate}" visible="{= !${ui>/editable} || !${Update_mc}}"/>
