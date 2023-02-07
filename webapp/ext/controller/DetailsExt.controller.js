@@ -433,6 +433,7 @@ sap.ui.define(
        * @returns
        */
       onPressNewPBPConfirm: function (oEvent) {
+        debugger;
         const oModel = this.getView().getModel();
 
         //Get rid of pendingchanges to ZGC_PERMIT_NO_VH entity
@@ -453,11 +454,13 @@ sap.ui.define(
           .getObject();
         const reqGuid = oRequestObject.req_uuid;
         const permitNo = oSelectedObject.build_permit_no;
+        const sDCType = oSelectedObject.dc_type;
         oModel.callFunction("/ZGC_C_PRE_BLD_PERMIT_CRDAdd_build_permit", {
           method: "POST",
           urlParameters: {
             PermitNo: permitNo,
-            req_uuid: reqGuid
+            req_uuid: reqGuid,
+            dc_type:sDCType
           },
           success: function () {
             sap.ui
