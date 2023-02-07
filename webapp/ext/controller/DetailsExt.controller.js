@@ -367,30 +367,27 @@ sap.ui.define(
           // Add property 'Gen_pay_receipt_ac' to $select
           oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",Gen_pay_receipt_ac";
         }
-
-        //Binding parameter change is only for the DC Table, Speculative, Exemption, and Demolition table
-        if (
-          oEvent.getSource().getId() !==
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table" &&
-          oEvent.getSource().getId() !==
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table" &&
-          oEvent.getSource().getId() !==
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table" &&
-          oEvent.getSource().getId() !==
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table"       
-        ) {
-          return;
-        }
-        var oBindingParams = oEvent.getParameter("bindingParams");
-        oBindingParams.parameters = oBindingParams.parameters || {};
-        oBindingParams.parameters.operationMode = "Client";
-        oBindingParams.parameters.select = oBindingParams.parameters.select + ",is_rate_edited";
-
         if( oEvent.getSource().getId() ===
         "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table"){
           var oBindingParams1 = oEvent.getParameter("bindingParams");
           oBindingParams1.parameters = oBindingParams1.parameters || {};
           oBindingParams1.parameters.operationMode = "Client";
+        }
+        //Binding parameter change is only for the DC Table, Speculative, Exemption, and Demolition table
+        if (
+          oEvent.getSource().getId() ===
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table" ||
+          oEvent.getSource().getId() ===
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table" ||
+          oEvent.getSource().getId() ===
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table" ||
+          oEvent.getSource().getId() ===
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table"       
+        ) {
+          var oBindingParams = oEvent.getParameter("bindingParams");
+          oBindingParams.parameters = oBindingParams.parameters || {};
+          oBindingParams.parameters.operationMode = "Client";
+          oBindingParams.parameters.select = oBindingParams.parameters.select + ",is_rate_edited";
         }
 
       },
