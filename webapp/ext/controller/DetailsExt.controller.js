@@ -377,7 +377,7 @@ sap.ui.define(
           oEvent.getSource().getId() !==
           "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table" &&
           oEvent.getSource().getId() !==
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table"
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table"       
         ) {
           return;
         }
@@ -385,6 +385,13 @@ sap.ui.define(
         oBindingParams.parameters = oBindingParams.parameters || {};
         oBindingParams.parameters.operationMode = "Client";
         oBindingParams.parameters.select = oBindingParams.parameters.select + ",is_rate_edited";
+
+        if( oEvent.getSource().getId() ===
+        "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table"){
+          var oBindingParams1 = oEvent.getParameter("bindingParams");
+          oBindingParams1.parameters = oBindingParams1.parameters || {};
+          oBindingParams1.parameters.operationMode = "Client";
+        }
 
       },
 
