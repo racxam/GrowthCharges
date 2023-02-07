@@ -452,6 +452,7 @@
                 <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On"/>
                 <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
                 <Property Name="updated_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Updated On"/>
+                <Property Name="is_rate_edited" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is rate edited by us" sap:quickinfo="Is rate edited by user?"/>
                 <Property Name="dc_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="unit_txt" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dm_cred_typ_txt" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values" sap:creatable="false" sap:updatable="false"/>
@@ -617,7 +618,7 @@
                 <Property Name="build_permit_no_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="pr_build_permit_uuid" Type="Edm.Guid" Nullable="false" sap:label="Growth Charges Key" sap:heading=""/>
                 <Property Name="req_uuid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading=""/>
-                <Property Name="build_permit_no" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:field-control="build_permit_no_fc" sap:text="build_permit_no_Text" sap:label="Building Permit No" sap:quickinfo="Building Permit Number" sap:value-list="standard"/>
+                <Property Name="build_permit_no" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:field-control="build_permit_no_fc" sap:text="build_permit_no_Text" sap:label="Primary Build Permit" sap:quickinfo="Primary Building Permit No." sap:value-list="standard"/>
                 <Property Name="build_permit_no_Text" Type="Edm.String" MaxLength="255" sap:label="Permit Description" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_type" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="DC Type"/>
                 <Property Name="subservice_id" Type="Edm.String" MaxLength="10" sap:label="Sub-service ID"/>
