@@ -317,10 +317,10 @@
                 <Property Name="expand_count" Type="Edm.Byte" sap:hierarchy-node-descendant-count-for="hier_uuid" sap:label="INT1" sap:quickinfo="1 Byte Unsigned Integer" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="unit_type" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Unit Type" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="quantity" Type="Edm.Decimal" Precision="15" Scale="4" sap:field-control="quantity_fc" sap:unit="unit" sap:label="Quantity" sap:quickinfo="Quantity - Either 'no of units' or area"/>
-                <Property Name="unit" Type="Edm.String" MaxLength="3" sap:field-control="unit_fc" sap:text="unit_Text" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
-                <Property Name="unit_Text" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="unit" Type="Edm.String" MaxLength="3" sap:field-control="unit_fc" sap:text="unit_txt" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
                 <Property Name="dc_rate" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="DC Rate" sap:quickinfo="Rate"/>
                 <Property Name="is_rate_edited" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is rate edited by us" sap:quickinfo="Is rate edited by user?"/>
+                <Property Name="Criticality" Type="Edm.Byte" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_rate" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Interest Rate" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_and_interest" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="DC and Interest" sap:creatable="false" sap:updatable="false"/>
@@ -379,8 +379,7 @@
                 <Property Name="expand_count" Type="Edm.Byte" sap:hierarchy-node-descendant-count-for="hier_uuid" sap:label="INT1" sap:quickinfo="1 Byte Unsigned Integer" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="unit_type" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Unit Type" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="quantity" Type="Edm.Decimal" Precision="15" Scale="4" sap:field-control="quantity_fc" sap:unit="unit" sap:label="Quantity" sap:quickinfo="Quantity - Either 'no of units' or area"/>
-                <Property Name="unit" Type="Edm.String" MaxLength="3" sap:field-control="unit_fc" sap:text="unit_Text" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
-                <Property Name="unit_Text" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="unit" Type="Edm.String" MaxLength="3" sap:field-control="unit_fc" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
                 <Property Name="dc_rate" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="DC Rate" sap:quickinfo="Rate"/>
                 <Property Name="is_rate_edited" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is rate edited by us" sap:quickinfo="Is rate edited by user?"/>
                 <Property Name="interest_rate" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Interest Rate" sap:creatable="false" sap:updatable="false"/>
@@ -441,8 +440,7 @@
                 <Property Name="dm_credit_type" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:field-control="dm_credit_type_fc" sap:text="dm_cred_typ_txt" sap:label="Dem Cr Type" sap:quickinfo="Demolition Credit Type" sap:value-list="fixed-values"/>
                 <Property Name="dc_rate" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="DC Rate" sap:quickinfo="Rate"/>
                 <Property Name="quantity" Type="Edm.Decimal" Precision="15" Scale="4" sap:field-control="quantity_fc" sap:unit="unit" sap:label="Quantity" sap:quickinfo="Quantity - Either 'no of units' or area"/>
-                <Property Name="unit" Type="Edm.String" MaxLength="3" sap:field-control="unit_fc" sap:text="unit_Text" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
-                <Property Name="unit_Text" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="unit" Type="Edm.String" MaxLength="3" sap:field-control="unit_fc" sap:text="unit_txt" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
                 <Property Name="demo_amount" Type="Edm.Decimal" Precision="13" Scale="4" sap:unit="currency" sap:label="Demo Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_rate" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Interest Rate" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
@@ -495,8 +493,7 @@
                 <Property Name="exemption_type" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:field-control="exemption_type_fc" sap:text="exm_txt" sap:label="Exemption Type" sap:value-list="standard"/>
                 <Property Name="dc_type" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:field-control="dc_type_fc" sap:text="dc_txt" sap:label="DC Type" sap:value-list="fixed-values"/>
                 <Property Name="quantity" Type="Edm.Decimal" Precision="15" Scale="4" sap:unit="uom" sap:label="Quantity" sap:quickinfo="Quantity - Either 'no of units' or area"/>
-                <Property Name="uom" Type="Edm.String" MaxLength="3" sap:field-control="uom_fc" sap:text="uom_Text" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
-                <Property Name="uom_Text" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="uom" Type="Edm.String" MaxLength="3" sap:field-control="uom_fc" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
                 <Property Name="dc_rate" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="Rate"/>
                 <Property Name="is_rate_edited" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is rate edited by us" sap:quickinfo="Is rate edited by user?"/>
                 <Property Name="exm_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total Exemtion Amoun" sap:quickinfo="Total Exemtion Amount"/>
@@ -624,6 +621,7 @@
                 <Property Name="build_permit_no" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:field-control="build_permit_no_fc" sap:text="build_permit_no_Text" sap:label="Building Permit No" sap:quickinfo="Building Permit Number" sap:value-list="standard"/>
                 <Property Name="build_permit_no_Text" Type="Edm.String" MaxLength="255" sap:label="Permit Description" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_type" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="DC Type"/>
+                <Property Name="subservice_id" Type="Edm.String" MaxLength="10" sap:label="Sub-service ID"/>
                 <Property Name="dc_partner" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="DC Partner"/>
                 <Property Name="credit_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="Credit Amount"/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
@@ -1875,6 +1873,7 @@
                     <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true" sap:label="SideEffectsQualifier"/>
                 </FunctionImport>
                 <FunctionImport Name="zgc_c_dc_demosAdd_misc_cred" ReturnType="Collection(ZGC_C_REQUESTS_CDS.DummyFunctionImportResult)" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType"/>
+                <FunctionImport Name="zgc_c_dc_demosCalculate" ReturnType="ZGC_C_REQUESTS_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType"/>
                 <FunctionImport Name="zgc_c_dc_demosPreparation" ReturnType="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType" EntitySet="zgc_c_dc_demos" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType" sap:applicable-path="Preparation_ac">
                     <Parameter Name="dem_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
@@ -1960,7 +1959,7 @@
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                 </FunctionImport>
                 <FunctionImport Name="zgc_c_requestsAdd_sec14_cred" ReturnType="Collection(ZGC_C_REQUESTS_CDS.zgc_c_requestsType)" EntitySet="zgc_c_requests" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_requestsType"/>
-                <FunctionImport Name="zgc_c_requestsAttach_draft_invoice" ReturnType="ZGC_C_REQUESTS_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" sap:applicable-path="Attach_draft_invoice_ac">
+                <FunctionImport Name="zgc_c_requestsAttach_draft_invoice" ReturnType="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" EntitySet="zgc_c_requests" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" sap:applicable-path="Attach_draft_invoice_ac">
                     <Parameter Name="req_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                 </FunctionImport>
