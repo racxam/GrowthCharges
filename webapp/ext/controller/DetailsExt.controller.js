@@ -433,7 +433,6 @@ sap.ui.define(
        * @returns
        */
       onPressNewPBPConfirm: function (oEvent) {
-        debugger;
         const oModel = this.getView().getModel();
 
         //Get rid of pendingchanges to ZGC_PERMIT_NO_VH entity
