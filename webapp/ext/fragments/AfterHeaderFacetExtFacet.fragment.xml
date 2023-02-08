@@ -27,7 +27,7 @@
                         <ObjectStatus id="_IDGenObjectStatus7" text="{i18n>titleCBC}" state="{ path: 'status', formatter: '.getStatusStateForCBC' }" inverted="true" visible="{cbc_applicable}" />
                     </commons:customControl>
                 </commons:MicroProcessFlowItem>
-                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItemPCLSD" state="{ path: 'status', formatter: '.showStatusPClosed' }" visible="{=${status} === 'PCLSD'}" press=".openMilestoneDialog($event,'PCLSD')">
+                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItemPCLSD" showSeparator="{=${status} === 'PCLSD'}" state="{ path: 'status', formatter: '.showStatusPClosed' }" visible="{=${status} === 'PCLSD'}" press=".openMilestoneDialog($event,'PCLSD')">
                     <commons:customControl>
                         <ObjectStatus id="_IDGenObjectStatusPCLSD" text="{i18n>titlePartialClosed}" state="{ path: 'status', formatter: '.showStatusPClosed' }" inverted="true"/>
                     </commons:customControl>
