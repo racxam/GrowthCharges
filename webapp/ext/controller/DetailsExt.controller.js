@@ -429,6 +429,7 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oNewPBPDialog);
         }
+        this._oNewPBPDialog.getBinding("items").refresh();
         this._oNewPBPDialog.open();
       },
       /**
