@@ -31,7 +31,7 @@
                     <Text text="Building Permit Description" />
                 </header>
             </Column>
-              <Column minScreenWidth="Desktop" demandPopin="true" hAlign="End">
+              <Column minScreenWidth="Desktop" demandPopin="true" >
                 <header>
                     <Text text="DC Type Description" />
                 </header>
@@ -41,7 +41,7 @@
                     <Text text="DC Partner" />
                 </header>
             </Column>
-            <Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+            <Column minScreenWidth="Desktop" demandPopin="true" hAlign="End">
                 <header>
                     <Text text="Available Credits" />
                 </header>
