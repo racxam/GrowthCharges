@@ -888,11 +888,6 @@ sap.ui.define(
         // 1. The view should have custom data indicating the side effect and fieldgroupid
         // 2. The custom control should have corresponding fieldgroupid
         const oInput = oEvent.getSource();
-        //Check if fieldgroupid is already present
-        const aFieldGroupIds =  oInput.getFieldGroupIds();
-        if (aFieldGroupIds.length > 0){
-          return; //Was handled earlier
-        }
 
         //THis column is used in multiple tables. FInd where is it coming from
         const sEntitySet = oInput.getBindingContext().getPath().split("(")[0].substring(1);
