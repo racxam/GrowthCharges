@@ -434,6 +434,7 @@ sap.ui.define(
           );
           this.getView().addDependent(this._oNewPBPDialog);
         }
+        this._oNewPBPDialog.getBinding("items").refresh();
         this._oNewPBPDialog.open();
       },
       /**
@@ -1207,94 +1208,13 @@ sap.ui.define(
         oEvent.getSource().getParent().close();
       },
 
-      _getFilterCondition: function (aFilter, sStatus, sSelectedItem) {
-
-        let oActionFilter = "";
-
-        switch (sSelectedItem) {
-          case "CIL":
-            if (sStatus === "INP" || sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "CIL_APR") {
-              oActionFilter = new Filter(
-                "action",
-                "EQ",
-                sStatus
-              );
-              aFilter.push(oActionFilter);
-            } else {
-              oActionFilter = new Filter(
-                "action",
-                "EQ",
-                "CIL_APR");
-              aFilter.push(oActionFilter);
-            }
-            return aFilter;
-          case "DC":
-            if (sStatus === "INP" || sStatus === "FIN_PND" || sStatus === "FIN_REJ" || sStatus === "FIN_APR") {
-              oActionFilter = new Filter(
-                "action",
-                "EQ",
-                sStatus
-              );
-              aFilter.push(oActionFilter);
-            } else {
-              oActionFilter = new Filter(
-                "action",
-                "EQ",
-                "FIN_PND"
-              );
-              aFilter.push(oActionFilter);
-            }
-            return aFilter;
-          case "PCLSD":
-            if (sStatus === "PCLSD") {
-              oActionFilter = new Filter(
-                "action",
-                "EQ",
-                "PCLSD"
-              );
-              aFilter.push(oActionFilter);
-            }
-            return aFilter;
-          case "CLSD":
-            oActionFilter = new Filter(
-              "action",
-              "EQ",
-              "CLSD"
-            );
-            aFilter.push(oActionFilter);
-            return aFilter;
-          case "HLD":
-            oActionFilter = new Filter(
-              "action",
-              "EQ",
-              "HLD"
-            );
-            aFilter.push(oActionFilter);
-            return aFilter;
-
-          default:
-            oActionFilter = new Filter(
-              "action",
-              "EQ",
-              "CBC"
-            );
-            aFilter.push(oActionFilter);
-            return aFilter;
-        }
-      },
-
       openMilestoneDialog: function (oEvent, sSelectedItem) {
         this.status1 = oEvent.getSource();
-        const oSource = oEvent.getSource();
-        const oContext = oSource.getBindingContext();
-        const sStatus = oContext.getProperty("status");
 
         const fragment = Fragment.load({
           name: "com.gc.dashboard.ext.fragments.StatusMicroDialog",
           controller: this
         });
-        let aFilter = this._getFilterCondition([], sStatus, sSelectedItem);
-
 
         fragment.then(
           function (oDialog) {
@@ -1312,7 +1232,7 @@ sap.ui.define(
                   text: {
                     path: "action_on", formatter: function (dDate) {
                       const oDateFormatWithUTC = DateFormat.getDateTimeInstance({
-                        pattern: "MMM d, yyyy",
+                        pattern: "dd.MM.yyyy",
                         UTC: true
                       });
                       if (dDate !== null) {
@@ -1338,8 +1258,7 @@ sap.ui.define(
             });
             oTable.bindItems({
               path: sPath,
-              template: oColList,
-              filters: aFilter
+              template: oColList
             });
             oDialog.open();
           }.bind(this));
