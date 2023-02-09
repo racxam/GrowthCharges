@@ -34,6 +34,11 @@ sap.ui.define(
         } catch (error) {
           //If opened not using FLP, there will be an error
         }
+        //Warning poup when DC clearance datee edited
+        const dcClearanceDate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo_FG-ID::dc_clearance_date::Field");
+        dcClearanceDate.attachChange(function (oEvent) {
+            MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
+        });
 
         const oRouter = this.getOwnerComponent().getRouter();
         const sHashKey = oRouter.getHashChanger().key;
