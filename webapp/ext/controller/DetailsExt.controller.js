@@ -59,6 +59,14 @@ sap.ui.define(
             .setVisible(false);
         }
         this.extensionAPI.attachPageDataLoaded(function (event) {
+          event.context.getModel().attachRequestCompleted(function (oEvent) {
+            //Check if the call is of request details
+            if (oEvent.getParameter("url").includes("zgc_c_requestsAttach_draft_invoice")) {
+              const attachmentComponent = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--attachmentReuseComponent::InPayRef::Attachments::ComponentContainer").getComponentInstance();
+              attachmentComponent.stRefresh();
+            }
+          });
+
           const oComponent = sap.ui
             .getCore()
             .byId(

@@ -317,7 +317,7 @@
                 <Property Name="expand_count" Type="Edm.Byte" sap:hierarchy-node-descendant-count-for="hier_uuid" sap:label="INT1" sap:quickinfo="1 Byte Unsigned Integer" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="unit_type" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Unit Type" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="quantity" Type="Edm.Decimal" Precision="15" Scale="4" sap:field-control="quantity_fc" sap:unit="unit" sap:label="Quantity" sap:quickinfo="Quantity - Either 'no of units' or area"/>
-                <Property Name="unit" Type="Edm.String" MaxLength="3" sap:field-control="unit_fc" sap:text="unit_txt" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
+                <Property Name="unit" Type="Edm.String" MaxLength="3" sap:field-control="unit_fc" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
                 <Property Name="dc_rate" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="DC Rate" sap:quickinfo="Rate"/>
                 <Property Name="is_rate_edited" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is rate edited by us" sap:quickinfo="Is rate edited by user?"/>
                 <Property Name="interest_rate" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Interest Rate" sap:creatable="false" sap:updatable="false"/>
@@ -420,7 +420,9 @@
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="dc_type_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="dm_credit_type_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="permit_number_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="quantity_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="tot_demo_credit_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="unit_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -440,12 +442,12 @@
                 <Property Name="dc_rate" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="DC Rate" sap:quickinfo="Rate"/>
                 <Property Name="quantity" Type="Edm.Decimal" Precision="15" Scale="4" sap:field-control="quantity_fc" sap:unit="unit" sap:label="Quantity" sap:quickinfo="Quantity - Either 'no of units' or area"/>
                 <Property Name="unit" Type="Edm.String" MaxLength="3" sap:field-control="unit_fc" sap:text="unit_txt" sap:label="Base Unit of Measure" sap:value-list="fixed-values" sap:semantics="unit-of-measure"/>
-                <Property Name="demo_amount" Type="Edm.Decimal" Precision="13" Scale="4" sap:unit="currency" sap:label="Demo Amount" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="demo_amount" Type="Edm.Decimal" Precision="13" Scale="2" sap:unit="currency" sap:label="Demo Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_rate" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Interest Rate" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="tot_demo_credit" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total Demo Credit" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="tot_demo_credit" Type="Edm.Decimal" Precision="14" Scale="3" sap:field-control="tot_demo_credit_fc" sap:unit="currency" sap:label="Total Demo Credit"/>
                 <Property Name="applied_credit" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Applied Credit" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="permit_number" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Primary Build Permit" sap:quickinfo="Primary Building Permit No." sap:creatable="false" sap:updatable="false"/>
+                <Property Name="permit_number" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:field-control="permit_number_fc" sap:label="Primary Build Permit" sap:quickinfo="Primary Building Permit No."/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
                 <Property Name="max_origin" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="MAX Origin" sap:quickinfo="From MAX"/>
                 <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
@@ -542,7 +544,7 @@
                 <Property Name="deferral_year" Type="Edm.String" MaxLength="15" sap:display-format="UpperCase" sap:label="Year" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="installment_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Installment Amount" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="previous_payment" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Previous Payment" sap:heading="" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="payment_due_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Payment Due Date"/>
+                <Property Name="payment_due_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Payment Due Date" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="payment_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Payment Date" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_days" Type="Edm.Int16" sap:label="Days of Interest" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
@@ -620,16 +622,25 @@
                 <Property Name="req_uuid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading=""/>
                 <Property Name="build_permit_no" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:field-control="build_permit_no_fc" sap:text="build_permit_no_Text" sap:label="Primary Build Permit" sap:quickinfo="Primary Building Permit No." sap:value-list="standard"/>
                 <Property Name="build_permit_no_Text" Type="Edm.String" MaxLength="255" sap:label="Permit Description" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="dc_type" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="DC Type"/>
-                <Property Name="subservice_id" Type="Edm.String" MaxLength="10" sap:label="Sub-service ID"/>
+                <Property Name="dc_type" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:text="dc_txt" sap:label="DC Type" sap:value-list="fixed-values"/>
+                <Property Name="subservice_id" Type="Edm.String" MaxLength="10" sap:text="subservice_id_Text" sap:label="Sub-service ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="subservice_id_Text" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_partner" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="DC Partner"/>
+                <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID"/>
+                <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
+                <Property Name="hier_uuid" Type="Edm.Guid" sap:hierarchy-node-for="hier_uuid" sap:label="Growth Charges Key" sap:heading=""/>
+                <Property Name="parent_uuid" Type="Edm.Guid" sap:hierarchy-parent-node-for="hier_uuid" sap:label="Growth Charges Key" sap:heading=""/>
+                <Property Name="hierarchy_level" Type="Edm.Byte" sap:hierarchy-level-for="hier_uuid" sap:label="INT1" sap:quickinfo="1 Byte Unsigned Integer"/>
+                <Property Name="drill_state" Type="Edm.String" MaxLength="10" sap:hierarchy-drill-state-for="hier_uuid" sap:label="Drillstate" sap:quickinfo="Drill state"/>
+                <Property Name="expand_count" Type="Edm.Byte" sap:hierarchy-node-descendant-count-for="hier_uuid" sap:label="INT1" sap:quickinfo="1 Byte Unsigned Integer"/>
                 <Property Name="credit_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="Credit Amount"/>
-                <Property Name="consumed_credit" Type="Edm.Decimal" Precision="12" Scale="3" sap:label="Credit Amount"/>
+                <Property Name="consumed_credit" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="Credit Amount"/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
                 <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
                 <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On"/>
                 <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
                 <Property Name="updated_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Updated On"/>
+                <Property Name="dc_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
                 <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On"/>
                 <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On"/>
@@ -638,6 +649,8 @@
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Is active" sap:sortable="false" sap:filterable="false"/>
                 <NavigationProperty Name="DraftAdministrativeData" Relationship="ZGC_C_REQUESTS_CDS.assoc_68B97FFD0C197DF6E809A539E132A37B" FromRole="FromRole_assoc_68B97FFD0C197DF6E809A539E132A37B" ToRole="ToRole_assoc_68B97FFD0C197DF6E809A539E132A37B"/>
                 <NavigationProperty Name="SiblingEntity" Relationship="ZGC_C_REQUESTS_CDS.assoc_FBAF2B9ACE713487545C2797300C865C" FromRole="FromRole_assoc_FBAF2B9ACE713487545C2797300C865C" ToRole="ToRole_assoc_FBAF2B9ACE713487545C2797300C865C"/>
+                <NavigationProperty Name="to_dcssvh" Relationship="ZGC_C_REQUESTS_CDS.assoc_1825F5B39C4A554C074160B9F6924061" FromRole="FromRole_assoc_1825F5B39C4A554C074160B9F6924061" ToRole="ToRole_assoc_1825F5B39C4A554C074160B9F6924061"/>
+                <NavigationProperty Name="to_dctypevh" Relationship="ZGC_C_REQUESTS_CDS.assoc_D0F80D3F86BFAA90FC592AFA1DDCE3F0" FromRole="FromRole_assoc_D0F80D3F86BFAA90FC592AFA1DDCE3F0" ToRole="ToRole_assoc_D0F80D3F86BFAA90FC592AFA1DDCE3F0"/>
                 <NavigationProperty Name="to_permit_vh" Relationship="ZGC_C_REQUESTS_CDS.assoc_9FB243B692123619C1F4E22ED60E189D" FromRole="FromRole_assoc_9FB243B692123619C1F4E22ED60E189D" ToRole="ToRole_assoc_9FB243B692123619C1F4E22ED60E189D"/>
                 <NavigationProperty Name="to_request" Relationship="ZGC_C_REQUESTS_CDS.assoc_C7321FB52CDA5B80182A3CA10FA96447" FromRole="ToRole_assoc_C7321FB52CDA5B80182A3CA10FA96447" ToRole="FromRole_assoc_C7321FB52CDA5B80182A3CA10FA96447"/>
             </EntityType>
@@ -771,7 +784,7 @@
                 <Property Name="tot_dc_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total DC Payable" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_paid_previously" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="DC Paid Previosuly" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="current_dc_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Current DC Payable" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="tot_dc_non_ind_spec" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total DC-NonInd Spec" sap:quickinfo="Total DC-Non Industrial Speculative" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="tot_dc_non_ind_spec" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total DC-NonInd Spec" sap:quickinfo="Total DC-Non Industrial (Speculative) excluding SWM" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_valid_until" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:field-control="dc_valid_until_fc" sap:label="Valid Until"/>
                 <Property Name="is_appeal_refund" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="is_appeal_refund_fc" sap:filter-restriction="single-value" sap:label="Appeal refund?"/>
                 <Property Name="appeal_calc_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:field-control="appeal_calc_date_fc" sap:label="Appeal Calc Date" sap:quickinfo="Appeal Calculation Date"/>
@@ -888,6 +901,7 @@
                 <Property Name="spec_ind_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Spec Ind Hidden" sap:quickinfo="Speculative Industry"/>
                 <Property Name="cbc_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="CBC Applicable"/>
                 <Property Name="refund_interest_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Truth Value" sap:quickinfo="Truth Value: True/False"/>
+                <Property Name="new_version_created_from" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="New Version Created" sap:quickinfo="New Version Created From" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_calc_pending" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="DC Calc Pending" sap:quickinfo="DC Calculation Pending(Flag)"/>
                 <Property Name="cbc_exist_gfa" Type="Edm.Decimal" Precision="10" Scale="2" sap:unit="gfa_uom" sap:label="CBC Existing GFA" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="cbc_prop_gfa" Type="Edm.Decimal" Precision="10" Scale="2" sap:unit="gfa_uom" sap:label="CBC Proposed GFA" sap:creatable="false" sap:updatable="false"/>
@@ -900,6 +914,8 @@
                 <Property Name="tdsp_associated_payment" Type="Edm.Decimal" Precision="14" Scale="3" sap:field-control="tdsp_associated_payment_fc" sap:unit="currency" sap:label="TDSP Ass payment" sap:quickinfo="TDSP Associated Payment"/>
                 <Property Name="dpcsb_associated_payment" Type="Edm.Decimal" Precision="14" Scale="3" sap:field-control="dpcsb_associated_payment_fc" sap:unit="currency" sap:label="DPCSB Ass Payment" sap:quickinfo="DPCSB Associated Payment"/>
                 <Property Name="cil_associated_payment" Type="Edm.Decimal" Precision="14" Scale="3" sap:field-control="cil_associated_payment_fc" sap:unit="currency" sap:label="CIL Ass Payment" sap:quickinfo="CIL Associated Payment"/>
+                <Property Name="attRefreshIndicator" Type="Edm.DateTimeOffset" Precision="0" sap:label="Time Stamp" sap:quickinfo="UTC Time Stamp in Short Form (YYYYMMDDhhmmss)"/>
+                <Property Name="inv_calc_date_temp" Type="Edm.DateTime" Precision="0" sap:display-format="Date"/>
                 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
                 <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On"/>
                 <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On"/>
@@ -1070,13 +1086,18 @@
             <EntityType Name="ZGC_PERMIT_NO_VHType" sap:label="Building Permit No Value Help" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="build_permit_no"/>
+                    <PropertyRef Name="dc_type"/>
                 </Key>
-                <Property Name="build_permit_no" Type="Edm.String" Nullable="false" MaxLength="30" sap:display-format="UpperCase" sap:text="text" sap:label="Primary Build Permit" sap:quickinfo="Primary Building Permit No."/>
-                <Property Name="text" Type="Edm.String" MaxLength="255" sap:label="Permit Description"/>
-                <Property Name="dc_type" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="DC Type"/>
-                <Property Name="credit_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Pending Credits"/>
-                <Property Name="currency" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase"/>
+                <Property Name="build_permit_no" Type="Edm.String" Nullable="false" MaxLength="30" sap:display-format="UpperCase" sap:text="permit_text" sap:label="Primary Build Permit" sap:quickinfo="Primary Building Permit No."/>
+                <Property Name="dc_type" Type="Edm.String" Nullable="false" MaxLength="30" sap:display-format="UpperCase" sap:text="dc_text" sap:label="DC Type"/>
+                <Property Name="permit_text" Type="Edm.String" MaxLength="255" sap:label="Permit Description"/>
+                <Property Name="dc_text" Type="Edm.String" MaxLength="100" sap:label="Name/Description"/>
                 <Property Name="dc_partner" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="DC Partner"/>
+                <Property Name="partner_name" Type="Edm.String" MaxLength="100" sap:label="Name/Description"/>
+                <Property Name="pending_credit" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Pending Credits"/>
+                <Property Name="consumed_credits" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Pending Credits"/>
+                <Property Name="available_credits" Type="Edm.Decimal" Precision="15" Scale="3" sap:unit="currency"/>
+                <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
             </EntityType>
             <EntityType Name="zgc_permit_vhType" sap:label="Value Help for Permit" sap:content-version="1">
                 <Key>
@@ -1291,6 +1312,14 @@
             <Association Name="assoc_FBAF2B9ACE713487545C2797300C865C" sap:content-version="1">
                 <End Type="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" Multiplicity="1" Role="FromRole_assoc_FBAF2B9ACE713487545C2797300C865C"/>
                 <End Type="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" Multiplicity="0..1" Role="ToRole_assoc_FBAF2B9ACE713487545C2797300C865C"/>
+            </Association>
+            <Association Name="assoc_1825F5B39C4A554C074160B9F6924061" sap:content-version="1">
+                <End Type="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" Multiplicity="1" Role="FromRole_assoc_1825F5B39C4A554C074160B9F6924061"/>
+                <End Type="ZGC_C_REQUESTS_CDS.ZGC_SUBSRV_VHType" Multiplicity="0..1" Role="ToRole_assoc_1825F5B39C4A554C074160B9F6924061"/>
+            </Association>
+            <Association Name="assoc_D0F80D3F86BFAA90FC592AFA1DDCE3F0" sap:content-version="1">
+                <End Type="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" Multiplicity="1" Role="FromRole_assoc_D0F80D3F86BFAA90FC592AFA1DDCE3F0"/>
+                <End Type="ZGC_C_REQUESTS_CDS.zgc_dctype_vhType" Multiplicity="0..1" Role="ToRole_assoc_D0F80D3F86BFAA90FC592AFA1DDCE3F0"/>
             </Association>
             <Association Name="assoc_9FB243B692123619C1F4E22ED60E189D" sap:content-version="1">
                 <End Type="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" Multiplicity="1" Role="FromRole_assoc_9FB243B692123619C1F4E22ED60E189D"/>
@@ -1570,6 +1599,10 @@
                     <End EntitySet="zgc_c_dc_exms" Role="FromRole_assoc_F8DA503A01B68A891345373287ECAC31"/>
                     <End EntitySet="zgc_c_dcpartner_vh" Role="ToRole_assoc_F8DA503A01B68A891345373287ECAC31"/>
                 </AssociationSet>
+                <AssociationSet Name="assoc_1825F5B39C4A554C074160B9F6924061" Association="ZGC_C_REQUESTS_CDS.assoc_1825F5B39C4A554C074160B9F6924061" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZGC_C_PRE_BLD_PERMIT_CRD" Role="FromRole_assoc_1825F5B39C4A554C074160B9F6924061"/>
+                    <End EntitySet="ZGC_SUBSRV_VH" Role="ToRole_assoc_1825F5B39C4A554C074160B9F6924061"/>
+                </AssociationSet>
                 <AssociationSet Name="assoc_4D8604B09B5400011B8AAD3CD269660A" Association="ZGC_C_REQUESTS_CDS.assoc_4D8604B09B5400011B8AAD3CD269660A" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="zgc_c_requests" Role="FromRole_assoc_4D8604B09B5400011B8AAD3CD269660A"/>
                     <End EntitySet="zgc_c_dc_calcltns" Role="ToRole_assoc_4D8604B09B5400011B8AAD3CD269660A"/>
@@ -1798,6 +1831,10 @@
                     <End EntitySet="zgc_c_requests" Role="FromRole_assoc_853EF960D196D913BEB1B771A3AB09D4"/>
                     <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_853EF960D196D913BEB1B771A3AB09D4"/>
                 </AssociationSet>
+                <AssociationSet Name="assoc_D0F80D3F86BFAA90FC592AFA1DDCE3F0" Association="ZGC_C_REQUESTS_CDS.assoc_D0F80D3F86BFAA90FC592AFA1DDCE3F0" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZGC_C_PRE_BLD_PERMIT_CRD" Role="FromRole_assoc_D0F80D3F86BFAA90FC592AFA1DDCE3F0"/>
+                    <End EntitySet="zgc_dctype_vh" Role="ToRole_assoc_D0F80D3F86BFAA90FC592AFA1DDCE3F0"/>
+                </AssociationSet>
                 <AssociationSet Name="assoc_B1C271AD4C874B411668074BA443C267" Association="ZGC_C_REQUESTS_CDS.assoc_B1C271AD4C874B411668074BA443C267" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
                     <End EntitySet="zgc_c_dc_exms" Role="FromRole_assoc_B1C271AD4C874B411668074BA443C267"/>
                     <End EntitySet="zgc_unit_of_measure_vh" Role="ToRole_assoc_B1C271AD4C874B411668074BA443C267"/>
@@ -1930,6 +1967,7 @@
                 <FunctionImport Name="ZGC_C_PRE_BLD_PERMIT_CRDAdd_build_permit" ReturnType="ZGC_C_REQUESTS_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType">
                     <Parameter Name="PermitNo" Type="Edm.String" Mode="In" MaxLength="30" sap:label="Primary Build Permit"/>
                     <Parameter Name="req_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
+                    <Parameter Name="dc_type" Type="Edm.String" Mode="In" MaxLength="30" sap:label="DC Type"/>
                 </FunctionImport>
                 <FunctionImport Name="ZGC_C_PRE_BLD_PERMIT_CRDPreparation" ReturnType="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" EntitySet="ZGC_C_PRE_BLD_PERMIT_CRD" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" sap:applicable-path="Preparation_ac">
                     <Parameter Name="pr_build_permit_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
@@ -2619,7 +2657,9 @@
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>dc_type_fc</PropertyPath>
                                 <PropertyPath>dm_credit_type_fc</PropertyPath>
+                                <PropertyPath>permit_number_fc</PropertyPath>
                                 <PropertyPath>quantity_fc</PropertyPath>
+                                <PropertyPath>tot_demo_credit_fc</PropertyPath>
                                 <PropertyPath>unit_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
@@ -2638,7 +2678,9 @@
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>dc_type_fc</PropertyPath>
                                 <PropertyPath>dm_credit_type_fc</PropertyPath>
+                                <PropertyPath>permit_number_fc</PropertyPath>
                                 <PropertyPath>quantity_fc</PropertyPath>
+                                <PropertyPath>tot_demo_credit_fc</PropertyPath>
                                 <PropertyPath>unit_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
@@ -3322,20 +3364,56 @@
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="build_permit_no"/>
                                     <PropertyValue Property="ValueListProperty" String="build_permit_no"/>
                                 </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="text"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="dc_type"/>
                                     <PropertyValue Property="ValueListProperty" String="dc_type"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="credit_amount"/>
+                                    <PropertyValue Property="ValueListProperty" String="permit_text"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="dc_text"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="dc_partner"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="partner_name"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="pending_credit"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="consumed_credits"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="available_credits"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="currency"/>
                                 </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType/dc_type" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Value Help for DC Types"/>
+                        <PropertyValue Property="CollectionPath" String="zgc_dctype_vh"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="dc_type"/>
+                                    <PropertyValue Property="ValueListProperty" String="dc_type"/>
+                                </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="dc_partner"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="dc_txt"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
