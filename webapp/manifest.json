@@ -200,6 +200,14 @@
                             "className": "sap.ui.core.Fragment",
                             "fragmentName": "com.gc.dashboard.ext.fragments.GridTablePaymentColumns",
                             "type": "XML"
+                        },
+                        "AfterSubSection|zgc_c_requests|PermitOverview": {
+                            "type": "XML",
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragment.PermitOverviewSection",
+                            "sap.ui.generic.app": {
+                                "title": "Comments"
+                            }
                         }
                     }
                 },
