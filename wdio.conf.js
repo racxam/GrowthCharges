@@ -8,7 +8,7 @@ exports.config = {
         screenshotsDisabled: false, // [optional] {boolean}, default: false; if set to true, screenshots won't be taken and not written to file system
         logLevel: "verbose", // [optional] error | verbose | silent, default: "error"
         skipInjectUI5OnStart: false, // [optional] {boolean}, default: false; true when UI5 is not on the start page, you need to later call <wdioUI5service>.injectUI5() manually
-        waitForUI5Timeout: 30000 // [optional] {number}, default: 15000; maximum waiting time in milliseconds while checking for UI5 availability
+        waitForUI5Timeout: 300000 // [optional] {number}, default: 15000; maximum waiting time in milliseconds while checking for UI5 availability
     },
     //
     // ====================
@@ -74,11 +74,13 @@ exports.config = {
                         ? ["window-size=1440,800", "--auto-open-devtools-for-tabs"]
                         : ["window-size=1440,800"]
             },
-            acceptInsecureCerts: true
-            // If outputDir is provided WebdriverIO can capture driver session logs
-            // it is possible to configure which logTypes to include/exclude.
-            // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
-            // excludeDriverLogs: ['bugreport', 'server'],
+            acceptInsecureCerts: true,
+            "wdi5:authentication": {
+                provider: "custom",
+                usernameSelector: "input[id='USERNAME_FIELD-inner']",
+                passwordSelector: "input[id='PASSWORD_FIELD-inner']",
+                submitSelector: "button[id='LOGIN_LINK']"
+            }
         }
     ],
     //
@@ -112,10 +114,11 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: "http://localhost:8080/test/flpSandbox.html?sap-ui-xx-viewCache=false#comgcdashboard-tile",
+    // baseUrl: "http://localhost:8080/test/flpSandbox.html?sap-ui-xx-viewCache=false#comgcdashboard-tile",
+    baseUrl: "https://s4devci91vml.civic.mississauga.ca/sap/bc/ui5_ui5/ui2/ushell/shells/abap/Fiorilaunchpad.html?saml2=disabled#ZGROWTH_CHARGES-maintain",
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 10000,
+    waitforTimeout: 300000,
     //
     // Default timeout in milliseconds for request
     // if browser driver or grid doesn't send response
