@@ -386,7 +386,15 @@ sap.ui.define(
           oBindingParams.parameters = oBindingParams.parameters || {};
           oBindingParams.parameters.operationMode = "Client";
         }
-        //Binding parameter change is only for the DC Table, Speculative, Exemption, and Demolition table
+
+        if ( oEvent.getSource().getId() ===
+        "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table" ){
+          var oBindingParams = oEvent.getParameter("bindingParams");
+          oBindingParams.parameters = oBindingParams.parameters || {};
+          oBindingParams.parameters.operationMode = "Client";
+        }
+
+        //Binding parameter change is only for the DC Table, Speculative, Exemption, Demolition table
         if (
           oEvent.getSource().getId() ===
           "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table" ||
@@ -395,7 +403,7 @@ sap.ui.define(
           oEvent.getSource().getId() ===
           "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table" ||
           oEvent.getSource().getId() ===
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table"
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table"     
         ) {
           var oBindingParams = oEvent.getParameter("bindingParams");
           oBindingParams.parameters = oBindingParams.parameters || {};
