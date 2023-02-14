@@ -37,7 +37,7 @@ sap.ui.define(
         //Warning poup when DC clearance datee edited
         const dcClearanceDate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo_FG-ID::dc_clearance_date::Field");
         dcClearanceDate.attachChange(function (oEvent) {
-            MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
+          MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
         });
 
         const oRouter = this.getOwnerComponent().getRouter();
@@ -372,8 +372,8 @@ sap.ui.define(
           // Add property 'Gen_pay_receipt_ac' to $select
           oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",Gen_pay_receipt_ac";
         }
-        if( oEvent.getSource().getId() ===
-        "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table"){
+        if (oEvent.getSource().getId() ===
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table") {
           var oBindingParams = oEvent.getParameter("bindingParams");
           oBindingParams.parameters = oBindingParams.parameters || {};
           oBindingParams.parameters.operationMode = "Client";
@@ -387,7 +387,7 @@ sap.ui.define(
           oEvent.getSource().getId() ===
           "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table" ||
           oEvent.getSource().getId() ===
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table"       
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table"
         ) {
           var oBindingParams = oEvent.getParameter("bindingParams");
           oBindingParams.parameters = oBindingParams.parameters || {};
@@ -469,7 +469,7 @@ sap.ui.define(
           urlParameters: {
             PermitNo: permitNo,
             req_uuid: reqGuid,
-            dc_type:sDCType
+            dc_type: sDCType
           },
           success: function () {
             sap.ui
@@ -781,7 +781,7 @@ sap.ui.define(
         //If site-plan approved date is more than 2 years old than the invoice calculation date,
         //use the invoice calculation date. If not, check if interest applied date is available. If yes, use that date.
         //If not, use the invoice calculation date.
-        
+
         const sitePlanApprovedDate = this.getView()
           .getBindingContext()
           .getObject().site_plan_approved_date;
@@ -798,7 +798,7 @@ sap.ui.define(
           const date2 = new Date(invoiceCalculationDate);
           if (date2 > date1) {
             dateFilter = invoiceCalculationDate;
-          } 
+          }
         }
         if (interestAppliedDate && !dateFilter) {
           dateFilter = interestAppliedDate;
@@ -912,7 +912,7 @@ sap.ui.define(
           originNamespace: "ZGC_C_REQUESTS_CDS",
           context: oEvent.getSource().getBindingContext().getPath()
         };
-  
+
         let sID = JSON.stringify(oID);
         oID.contextObject = oEvent.getSource().getBindingContext();
         sID = sID.substring(1, sID.length - 2);
@@ -1170,94 +1170,67 @@ sap.ui.define(
         return "None";
       },
 
-      getStatusTableColumns: function (oTable) {
-        const aColumns = [
-          "Status",
-          "Changed By",
-          "Changed On",
-          "Comments"
-        ];
 
-        aColumns.forEach(
-          function (sColumn) {
-            const oColumn = new sap.m.Column({
-              header: new sap.m.Label({
-                text: sColumn
-              })
-            });
-            oTable.addColumn(oColumn);
-          }
-        );
+      /**
+           * read OdataModel
+           * sURl - separate entity set for the tabs
+           * oTabProperty - count(*)Tab
+           * @public
+           */
+      _oModelRead: function (sURl,oLocalModel) {
+
+       
+
+
+        this.getView().getModel().read(sURl, {
+          urlParameters: {
+            $orderby: "action_on desc",
+            $top: 1
+          },
+          success: function (odata, response) {
+            oLocalModel.setProperty("/", odata.results[0]);
+          },
+          error: function (oError) {
+            var sErrorMsg = "";
+            oLocalModel.setProperty("/" + sTabProperty, "-");
+            if (oError.responseText) {
+              sErrorMsg = oError.statusCode + " - " + oError.statusText;
+            } else {
+              sErrorMsg = this.oI18n.getText("msgErrorFail");
+            }
+            MessageToast.show(sErrorMsg);
+          }.bind(this)
+        });
       },
 
-      getStatusTableRows: function () {
-        return [
-          "action",
-          "action_by_Text",
-          "action_on",
-          "comments"
-        ];
-      },
-
-      onCloseStatusDialog: function (oEvent) {
-        oEvent.getSource().getParent().close();
-      },
 
       openMilestoneDialog: function (oEvent, sSelectedItem) {
         this.status1 = oEvent.getSource();
-
         const fragment = Fragment.load({
           name: "com.gc.dashboard.ext.fragments.StatusMicroDialog",
           controller: this
         });
+        const oLocalModel = new JSONModel({
+        });
+        this.getView().setModel(oLocalModel, "StatusModel");
 
         fragment.then(
           function (oDialog) {
-            this._oCRValueHelpDialog = oDialog;
-            const oTable = oDialog.getContent()[0];
             this.getView().addDependent(oDialog);
             const sPath = this.status1.getBindingContext().getPath() + "/to_reqhstry";
-            this.getStatusTableColumns(oTable);
-            const aRows = this.getStatusTableRows();
-            let aCells = [];
-            aRows.forEach(function (oRow) {
-              let oCell = "";
-              if (oRow === "action_on") {
-                oCell = new Text({
-                  text: {
-                    path: "action_on", formatter: function (dDate) {
-                      const oDateFormatWithUTC = DateFormat.getDateTimeInstance({
-                        pattern: "dd.MM.yyyy",
-                        UTC: true
-                      });
-                      if (dDate !== null) {
-                        const dFormatDate = oDateFormatWithUTC.format(dDate);
-                        return dFormatDate;
-                      }
-                      return dDate;
-                    }
-                  }
-
-                });    
-              } else {
-                oCell = new Text({
-                  text: "{" + oRow + "}"
-                });
-              }
-
-              aCells.push(oCell);
-            });
-
-            const oColList = new ColumnListItem({
-              cells: aCells
-            });
-            oTable.bindItems({
-              path: sPath,
-              template: oColList
-            });
-            oDialog.open();
+            const sStatus = this.status1.getBindingContext().getProperty("status");
+            const sStatusTxt = this.status1.getBindingContext().getProperty("status_Text");
+            if(sStatus !== "INP"){
+              this._oModelRead(sPath,oLocalModel);
+            }else{
+              oLocalModel.setProperty("/", {"action":sStatusTxt});
+            }
+            
+            oDialog.openBy(this.status1);
           }.bind(this));
+
       }
+
     });
   }
 );

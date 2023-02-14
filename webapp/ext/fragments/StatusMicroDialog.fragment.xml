@@ -1,16 +1,19 @@
 <core:FragmentDefinition xmlns="sap.m"
 	xmlns:core="sap.ui.core"
 	xmlns:layout="sap.ui.layout">
-	<!-- <TableSelectDialog noDataText="No Status Change" contentHeight="200px" title="Status History" cancel=".handleClose">
-	</TableSelectDialog> -->
-
-	<Dialog title="Status History" class="sapUiSizeCompact">
-		<content>
-			<Table mode="None" noDataText="No Status History" />
-		</content>
-		 <endButton>
-            <Button press=".onCloseStatusDialog" text="Cancel"/>
-        </endButton>
-	</Dialog>
+	<Popover busy="{global>/busy}" contentMinWidth="250px" busyIndicatorDelay="0" showHeader="false" class="sapUiResponsiveContentPadding" placement="VerticalPreferredBottom" modal="false">
+		<HBox class="sapUiSmallTinyBottom">
+			<Label text="{i18n>labelCurrentStatus} :"/>
+			<Text text="{StatusModel>/action}" />
+		</HBox>
+		<HBox class="sapUiSmallTinyBottom">
+			<Label text="{i18n>labelActionDate} :"/>
+			<Text text="{ path:'StatusModel>/action_on',type:'sap.ui.model.type.DateTime', formatOptions: {pattern:'dd.MM.yyyy',UTC: true}}" />
+		</HBox>
+		<HBox class="sapUiSmallTinyBottom">
+			<Label text="{i18n>labelActionBy} :"/>
+			<Text text="{StatusModel>/action_by_Text}"/>
+		</HBox>
+	</Popover>
 
 </core:FragmentDefinition>
