@@ -4,15 +4,15 @@
 	<Popover busy="{StatusModel>/busy}" contentMinWidth="250px" busyIndicatorDelay="0" showHeader="false" class="sapUiResponsiveContentPadding" placement="VerticalPreferredBottom" modal="false">
 		<HBox class="sapUiSmallTinyBottom">
 			<Text text="{i18n>labelCurrentStatus} :" />
-			<Text text="{StatusModel>/action_txt}" class="sapUiSmallTinyBegin"/>
+			<Text text="{StatusModel>/action_txt}" />
 		</HBox>
 		<HBox class="sapUiSmallTinyBottom">
 			<Text text="{i18n>labelActionDate} :"/>
-			<Text class="sapUiSmallTinyBegin" text="{ path:'StatusModel>/action_on',type:'sap.ui.model.type.DateTime', formatOptions: {pattern:'dd.MM.yyyy',UTC: true}}" />
+			<Text text="{ path:'StatusModel>/action_on',type:'sap.ui.model.type.DateTime', formatOptions: {pattern:'dd.MM.yyyy',UTC: true}}" />
 		</HBox>
 		<HBox class="sapUiSmallTinyBottom">
 			<Text text="{i18n>labelActionBy} :"/>
-			<Text class="sapUiSmallTinyBegin" text="{StatusModel>/action_by_Text}"/>
+			<Text text="{StatusModel>/action_by_Text}"/>
 		</HBox>
 	</Popover>
 
