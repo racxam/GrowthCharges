@@ -1196,12 +1196,14 @@ sap.ui.define(
             $top: 1
           },
           success: function (odata, response) {
+            
             oLocalModel.setProperty("/", odata.results[0]);
             oLocalModel.setProperty("/action_txt",sStatusTxt);
+            oLocalModel.setProperty("/busy", false);
           },
           error: function (oError) {
             var sErrorMsg = "";
-            oLocalModel.setProperty("/" + sTabProperty, "-");
+            oLocalModel.setProperty("/busy", false);
             if (oError.responseText) {
               sErrorMsg = oError.statusCode + " - " + oError.statusText;
             } else {
@@ -1223,6 +1225,7 @@ sap.ui.define(
         });
         this.getView().setModel(oLocalModel, "StatusModel");
 
+        oLocalModel.setProperty("/busy", true);
         fragment.then(
           function (oDialog) {
             this.getView().addDependent(oDialog);
