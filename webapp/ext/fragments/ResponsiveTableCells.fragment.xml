@@ -15,35 +15,32 @@
     <Button id="_IDGenButton3" icon="sap-icon://comment" visible="{  path: 'cilComments' ,formatter: '.showCILComments' }" press=".onPressComments($event,'CIL')"/>
     <commons:MicroProcessFlow id="_IDGenMicroProcessFlow1">
         <commons:content>
-            <!-- visible="{cil_applicable' ,formatter: '.showCILStatusIcon' }" -->
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem1" state="{ path: 'status', formatter: '.getStatusStateForCIL' }" visible="{cil_applicable}">
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem1" showSeparator="{=${dc_applicable} || ${cbc_applicable}|| ${status} === 'CLSD' || ${status} === 'PCLSD' || ${status} === 'HLD'}" state="{ path: 'status', formatter: '.getStatusStateForCIL' }" visible="{cil_applicable}">
                 <commons:customControl>
                     <ObjectStatus id="_IDGenObjectStatus1" text="{i18n>titleCIL}" state="{ path: 'status', formatter: '.getStatusStateForCIL' }" inverted="true"/>
                 </commons:customControl>
             </commons:MicroProcessFlowItem>
-            <!-- visible="{  path: 'dc_applicable' ,formatter: '.showDCStatusIcon' }" -->
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem2" state="{ path: 'status', formatter: '.showStatusDC' }" visible="{dc_applicable}">
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem2" showSeparator="{=${cbc_applicable} || ${status} === 'CLSD' || ${status} === 'PCLSD' || ${status} === 'HLD'}" state="{ path: 'status', formatter: '.showStatusDC' }" visible="{dc_applicable}">
                 <commons:customControl>
                     <ObjectStatus id="_IDGenObjectStatus2" text="{i18n>titleDC}" state="{ path: 'status', formatter: '.showStatusDC' }" inverted="true"/>
                 </commons:customControl>
             </commons:MicroProcessFlowItem>
-            <!-- visible="{  path: 'cbc_applicable' ,formatter: '.showCBCStatusIcon' }" -->
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem3" state="{ path: 'status', formatter: '.showStatusCBC' }" visible="{cbc_applicable}">
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem3" showSeparator="{=${status} === 'CLSD' || ${status} === 'PCLSD' || ${status} === 'HLD'}" state="{ path: 'status', formatter: '.showStatusCBC' }" visible="{cbc_applicable}">
                 <commons:customControl>
                     <ObjectStatus id="_IDGenObjectStatus3" text="{i18n>titleCBC}" state="{ path: 'status', formatter: '.showStatusCBC' }" inverted="true"/>
                 </commons:customControl>
             </commons:MicroProcessFlowItem>
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItemPCLSD" state="{ path: 'status', formatter: '.showStatusPClosed' }" visible="{=${status} === 'PCLSD'}">
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItemPCLSD" showSeparator="{=${status} === 'CLSD' || ${status} === 'HLD'}" state="{ path: 'status', formatter: '.showStatusPClosed' }" visible="{=${status} === 'PCLSD'}">
                 <commons:customControl>
                     <ObjectStatus id="_IDGenObjectStatusPCLSD" text="{i18n>titlePartialClosed}" state="{ path: 'status', formatter: '.showStatusPClosed' }" inverted="true"/>
                 </commons:customControl>
             </commons:MicroProcessFlowItem>
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" state="{ path: 'status', formatter: '.showStatusClosed' }" visible="{=${status} === 'CLSD'}">
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" showSeparator="{=${status} === 'PCLSD' || ${status} === 'HLD'}" state="{ path: 'status', formatter: '.showStatusClosed' }" visible="{=${status} === 'CLSD'}">
                 <commons:customControl>
                     <ObjectStatus id="_IDGenObjectStatus4" text="{i18n>titleClosed}" state="{ path: 'status', formatter: '.showStatusClosed' }" inverted="true"/>
                 </commons:customControl>
             </commons:MicroProcessFlowItem>
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5" state="{ path: 'status', formatter: '.showStatusHold' }" visible="{=${status} === 'HLD'}">
+            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5" showSeparator="false" state="{ path: 'status', formatter: '.showStatusHold' }" visible="{=${status} === 'HLD'}">
                 <commons:customControl>
                     <ObjectStatus id="_IDGenObjectStatus5" text="{i18n>titleHold}" state="{ path: 'status', formatter: '.showStatusHold' }" inverted="true"/>
                 </commons:customControl>
