@@ -1185,7 +1185,7 @@ sap.ui.define(
            * oTabProperty - count(*)Tab
            * @public
            */
-      _oModelRead: function (sURl,oLocalModel) {
+      _oModelRead: function (sURl,oLocalModel,sStatusTxt) {
 
        
 
@@ -1197,6 +1197,7 @@ sap.ui.define(
           },
           success: function (odata, response) {
             oLocalModel.setProperty("/", odata.results[0]);
+            oLocalModel.setProperty("/action_txt",sStatusTxt);
           },
           error: function (oError) {
             var sErrorMsg = "";
@@ -1229,9 +1230,9 @@ sap.ui.define(
             const sStatus = this.status1.getBindingContext().getProperty("status");
             const sStatusTxt = this.status1.getBindingContext().getProperty("status_Text");
             if(sStatus !== "INP"){
-              this._oModelRead(sPath,oLocalModel);
+              this._oModelRead(sPath,oLocalModel,sStatusTxt);
             }else{
-              oLocalModel.setProperty("/", {"action":sStatusTxt});
+              oLocalModel.setProperty("/", {"action_txt":sStatusTxt});
             }
             
             oDialog.openBy(this.status1);

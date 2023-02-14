@@ -4,7 +4,7 @@
 	<Popover busy="{global>/busy}" contentMinWidth="250px" busyIndicatorDelay="0" showHeader="false" class="sapUiResponsiveContentPadding" placement="VerticalPreferredBottom" modal="false">
 		<HBox class="sapUiSmallTinyBottom">
 			<Label text="{i18n>labelCurrentStatus} :"/>
-			<Text text="{StatusModel>/action}" />
+			<Text text="{StatusModel>/action_txt}" />
 		</HBox>
 		<HBox class="sapUiSmallTinyBottom">
 			<Label text="{i18n>labelActionDate} :"/>

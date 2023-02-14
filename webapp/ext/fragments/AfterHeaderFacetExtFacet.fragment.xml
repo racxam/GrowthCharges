@@ -12,39 +12,36 @@
         </l:HorizontalLayout>
         <commons:MicroProcessFlow id="_IDGenMicroProcessFlow1">
             <commons:content>
-                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem1" showSeparator="{cil_applicable}" press=".openMilestoneDialog($event,'CIL')" visible="{cil_applicable}">
+                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem1" showSeparator="{=${dc_applicable} || ${cbc_applicable}|| ${status} === 'CLSD' || ${status} === 'PCLSD' || ${status} === 'HLD'}" press=".openMilestoneDialog($event,'CIL')" visible="{cil_applicable}">
                     <commons:customControl>
                         <ObjectStatus id="_IDGenObjectStatus5" text="{i18n>titleCIL}" state="{ path: 'status', formatter: '.getStatusStateForCIL' }" inverted="true" visible="{cil_applicable}" />
                     </commons:customControl>
                 </commons:MicroProcessFlowItem>
-                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem2" showSeparator="{dc_applicable}" press=".openMilestoneDialog($event,'DC')" visible="{dc_applicable}">
+                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem2" showSeparator="{=${cbc_applicable} || ${status} === 'CLSD' || ${status} === 'PCLSD' || ${status} === 'HLD'}" press=".openMilestoneDialog($event,'DC')" visible="{dc_applicable}">
                     <commons:customControl>
                         <ObjectStatus id="_IDGenObjectStatus6" text="{i18n>titleDC}" state="{ path: 'status', formatter: '.getStatusStateForDC' }" inverted="true" visible="{dc_applicable}"/>
                     </commons:customControl>
                 </commons:MicroProcessFlowItem>
-                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem3" showSeparator="{cbc_applicable}" press=".openMilestoneDialog($event,'CBC')" visible="{cbc_applicable}" >
+                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem3" showSeparator="{=${status} === 'CLSD' || ${status} === 'PCLSD' || ${status} === 'HLD'}" press=".openMilestoneDialog($event,'CBC')" visible="{cbc_applicable}" >
                     <commons:customControl>
                         <ObjectStatus id="_IDGenObjectStatus7" text="{i18n>titleCBC}" state="{ path: 'status', formatter: '.getStatusStateForCBC' }" inverted="true" visible="{cbc_applicable}" />
                     </commons:customControl>
                 </commons:MicroProcessFlowItem>
-                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItemPCLSD" showSeparator="{=${status} === 'PCLSD'}" state="{ path: 'status', formatter: '.showStatusPClosed' }" visible="{=${status} === 'PCLSD'}" press=".openMilestoneDialog($event,'PCLSD')">
+                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItemPCLSD" showSeparator="{=${status} === 'CLSD' || ${status} === 'HLD'}" state="{ path: 'status', formatter: '.showStatusPClosed' }" visible="{=${status} === 'PCLSD'}" press=".openMilestoneDialog($event,'PCLSD')">
                     <commons:customControl>
                         <ObjectStatus id="_IDGenObjectStatusPCLSD" text="{i18n>titlePartialClosed}" state="{ path: 'status', formatter: '.showStatusPClosed' }" inverted="true"/>
                     </commons:customControl>
                 </commons:MicroProcessFlowItem>
-
-                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" showSeparator="{=${status} === 'CLSD'}" press=".openMilestoneDialog($event,'CLSD')" visible="{=${status} === 'CLSD'}">
+                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" showSeparator="{=${status} === 'PCLSD' || ${status} === 'HLD'}" press=".openMilestoneDialog($event,'CLSD')" visible="{=${status} === 'CLSD'}">
                     <commons:customControl>
                         <ObjectStatus id="_IDGenObjectStatus8" text="{i18n>titleClosed}" state="{ path: 'status', formatter: '.getStatusStateForClosed' }" inverted="true" visible="{=${status} === 'CLSD'}"/>
                     </commons:customControl>
                 </commons:MicroProcessFlowItem>
-                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5" showSeparator="{=${status} === 'HLD'}" press=".openMilestoneDialog($event,'HLD')" visible="{=${status} === 'HLD'}">
+                <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5" showSeparator="false" press=".openMilestoneDialog($event,'HLD')" visible="{=${status} === 'HLD'}">
                     <commons:customControl>
                         <ObjectStatus id="_IDGenObjectStatus9" text="{i18n>titleHold}" state="{ path: 'status', formatter: '.getStatusStateForHold' }" inverted="true" visible="{=${status} === 'HLD'}"/>
                     </commons:customControl>
                 </commons:MicroProcessFlowItem>
-                <!-- <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" state="{ path: 'status', formatter: '.getStatusStateForClosed' }" icon="sap-icon://paid-leave"/>  
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5" state="{ path: 'status', formatter: '.getStatusStateForHold' }" icon="sap-icon://media-pause"/> -->
             </commons:content>
         </commons:MicroProcessFlow>
     </VBox>
