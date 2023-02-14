@@ -314,7 +314,7 @@
                                         "entitySet": "zgc_c_dc_sec14",
                                         "createMode": "inline",
                                         "tableType": "TreeTable"
-                                    },                                    
+                                    },
                                     "DCExemption-ID": {
                                         "navigationProperty": "to_exemptions",
                                         "entitySet": "zgc_c_dc_exms",

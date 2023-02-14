@@ -686,6 +686,20 @@
                     </Record>
                 </Annotation>
             </Annotations>
+            <Annotations Target="SAP.zgc_c_dc_sec14Type">
+                <Annotation Term="Common.SideEffects" Qualifier="Sec14TableRefresh">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>tot_demo_credit</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
+                    </Record>
+                </Annotation>   
+            </Annotations>
             <Annotations Target="SAP.zgc_c_dc_calcltnsType">
                 <Annotation Term="Common.SideEffects" Qualifier="DCRateChanged">
                     <Record Type="Common.SideEffectsType">
