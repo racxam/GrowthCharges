@@ -6,9 +6,9 @@ exports.config = {
     wdi5: {
         screenshotPath: "test/screenshots",
         screenshotsDisabled: false, // [optional] {boolean}, default: false; if set to true, screenshots won't be taken and not written to file system
-        logLevel: "verbose", // [optional] error | verbose | silent, default: "error"
+        logLevel: "error", // [optional] error | verbose | silent, default: "error"
         skipInjectUI5OnStart: false, // [optional] {boolean}, default: false; true when UI5 is not on the start page, you need to later call <wdioUI5service>.injectUI5() manually
-        waitForUI5Timeout: 300000 // [optional] {number}, default: 15000; maximum waiting time in milliseconds while checking for UI5 availability
+        waitForUI5Timeout: 30000 // [optional] {number}, default: 15000; maximum waiting time in milliseconds while checking for UI5 availability
     },
     //
     // ====================
@@ -118,7 +118,7 @@ exports.config = {
     // baseUrl: "https://s4devci91vml.civic.mississauga.ca/sap/bc/ui5_ui5/ui2/ushell/shells/abap/Fiorilaunchpad.html?saml2=disabled#ZGROWTH_CHARGES-maintain",
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 300000,
+    waitforTimeout: 30000,
     //
     // Default timeout in milliseconds for request
     // if browser driver or grid doesn't send response

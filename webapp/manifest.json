@@ -262,7 +262,7 @@
             "forceGlobalRefresh": false,
             "objectPageHeaderType": "Dynamic",
             "considerAnalyticalParameters": true,
-            "showDraftToggle": true,
+            "showDraftToggle": false,
             "useColumnLayoutForSmartForm": false,
             "flexibleColumnLayout": {
                 "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
