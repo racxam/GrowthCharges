@@ -414,8 +414,8 @@
                                 <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
                                 <NavigationPropertyPath>to_demos</NavigationPropertyPath>
                                 <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
-                                <!--Commented on 12.01 as nav. removed ></!-->
-                                <!-- <NavigationPropertyPath>to_dccal/to_dcsscal</NavigationPropertyPath> -->
+                                <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>

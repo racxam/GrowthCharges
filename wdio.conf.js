@@ -114,8 +114,8 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    // baseUrl: "http://localhost:8080/test/flpSandbox.html?sap-ui-xx-viewCache=false#comgcdashboard-tile",
-    baseUrl: "https://s4devci91vml.civic.mississauga.ca/sap/bc/ui5_ui5/ui2/ushell/shells/abap/Fiorilaunchpad.html?saml2=disabled#ZGROWTH_CHARGES-maintain",
+    baseUrl: "http://localhost:8080/test/flpSandbox.html?sap-ui-xx-viewCache=false#comgcdashboard-tile",
+    // baseUrl: "https://s4devci91vml.civic.mississauga.ca/sap/bc/ui5_ui5/ui2/ushell/shells/abap/Fiorilaunchpad.html?saml2=disabled#ZGROWTH_CHARGES-maintain",
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 300000,
