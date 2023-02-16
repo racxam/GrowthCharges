@@ -18,12 +18,12 @@ sap.ui.define(
         const dcTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
         dcTable.setUseVariantManagement(true);
         const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
-        oSec14Table.setUseVariantManagement(true);        
+        oSec14Table.setUseVariantManagement(true);
         const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table");
         demoTable.setUseVariantManagement(true);
         const totalNonIndDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table");
         totalNonIndDCTable.setUseVariantManagement(true);
-        
+
         //CBC Tables
         const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
         oCBCExemptTable.setUseVariantManagement(true);
@@ -355,8 +355,8 @@ sap.ui.define(
           oBindingParams.parameters.operationMode = "Client";
         }
 
-        if ( oEvent.getSource().getId() ===
-        "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table" ){
+        if (oEvent.getSource().getId() ===
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table") {
           var oBindingParams = oEvent.getParameter("bindingParams");
           oBindingParams.parameters = oBindingParams.parameters || {};
           oBindingParams.parameters.operationMode = "Client";
@@ -371,7 +371,7 @@ sap.ui.define(
           oEvent.getSource().getId() ===
           "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table" ||
           oEvent.getSource().getId() ===
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table"     
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table"
         ) {
           var oBindingParams = oEvent.getParameter("bindingParams");
           oBindingParams.parameters = oBindingParams.parameters || {};
@@ -465,6 +465,28 @@ sap.ui.define(
           },
           error: function (oError) { }
         });
+      },
+
+
+      /** search Demand Permit from Table Select dialog
+       * @public
+       * @param {sap.ui.base.Event} oEvent
+       */
+      handleSearchPermit: function (oEvent) {
+        const sValue = oEvent.getParameter("value");
+        const sSearchTerm = sValue;
+        const oSource = oEvent.getSource();
+        let oBindingInfo = oSource.getBindingInfo("items");
+        if (sSearchTerm) {
+          oBindingInfo.parameters = {
+            custom: {
+              search: sSearchTerm
+            }
+          };
+        } else {
+          oBindingInfo.parameters = {};
+        }
+        oSource.bindItems(oBindingInfo);
       },
 
 
@@ -1132,20 +1154,16 @@ sap.ui.define(
            * oTabProperty - count(*)Tab
            * @public
            */
-      _oModelRead: function (sURl,oLocalModel,sStatusTxt) {
-
-       
-
-
+      _oModelRead: function (sURl, oLocalModel, sStatusTxt) {
         this.getView().getModel().read(sURl, {
           urlParameters: {
             $orderby: "action_on desc",
             $top: 1
           },
           success: function (odata, response) {
-            
+
             oLocalModel.setProperty("/", odata.results[0]);
-            oLocalModel.setProperty("/action_txt",sStatusTxt);
+            oLocalModel.setProperty("/action_txt", sStatusTxt);
             oLocalModel.setProperty("/busy", false);
           },
           error: function (oError) {
@@ -1179,12 +1197,12 @@ sap.ui.define(
             const sPath = this.status1.getBindingContext().getPath() + "/to_reqhstry";
             const sStatus = this.status1.getBindingContext().getProperty("status");
             const sStatusTxt = this.status1.getBindingContext().getProperty("status_Text");
-            if(sStatus !== "INP"){
-              this._oModelRead(sPath,oLocalModel,sStatusTxt);
-            }else{
-              oLocalModel.setProperty("/", {"action_txt":sStatusTxt});
+            if (sStatus !== "INP") {
+              this._oModelRead(sPath, oLocalModel, sStatusTxt);
+            } else {
+              oLocalModel.setProperty("/", { "action_txt": sStatusTxt });
             }
-            
+
             oDialog.openBy(this.status1);
           }.bind(this));
 
