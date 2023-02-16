@@ -17,6 +17,7 @@ sap.ui.define(
         //DC Tables
         const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
         oDCTable.setUseVariantManagement(true);
+        oDCTable.setCurrentVariantId("Default");
         const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
         oSec14Table.setUseVariantManagement(true);
         const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table");
@@ -58,7 +59,7 @@ sap.ui.define(
           const oTable = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${mId}::pasteEntries`);
           oTable.setVisible(false);
         });
-        const aCBCTableIds = ["ExemptionCBC-ID","InKindContr-ID","IDDemoExm-ID"];
+        const aCBCTableIds = ["ExemptionCBC-ID","InKindContr-ID","DemoExm-ID"];
         aCBCTableIds.forEach(mId => {
           const oTable = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${mId}::pasteEntries`);
           oTable.setVisible(false);
