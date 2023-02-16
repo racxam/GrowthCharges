@@ -17,19 +17,25 @@ sap.ui.define(
         //DC Tables
         const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
         oDCTable.setUseVariantManagement(true);
-        oDCTable.setCurrentVariantId("Default");
+        oDCTable.setCurrentVariantId("id_1676542872462_327_table");
         const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
         oSec14Table.setUseVariantManagement(true);
+        oSec14Table.setCurrentVariantId("id_1676542938991_361_table");
         const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table");
         demoTable.setUseVariantManagement(true);
+        demoTable.setCurrentVariantId("id_1676543071117_394_table");
         const totalNonIndDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table");
         totalNonIndDCTable.setUseVariantManagement(true);
+        totalNonIndDCTable.setCurrentVariantId("id_1676562836642_289_table");
         const oExemptionDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table");
         oExemptionDCTable.setUseVariantManagement(true);
+        oExemptionDCTable.setCurrentVariantId("id_1676543390787_326_table");
         const oDeferralDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCDeferralTable-ID::Table");
         oDeferralDCTable.setUseVariantManagement(true);
+        oDeferralDCTable.setCurrentVariantId("id_1676544587107_1211_table");
         const oPrvBuidlingPermitDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
         oPrvBuidlingPermitDCTable.setUseVariantManagement(true);
+        oPrvBuidlingPermitDCTable.setCurrentVariantId("id_1676543461076_336_table");
         
         //CBC Tables
         const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
