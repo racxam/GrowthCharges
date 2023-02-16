@@ -46,17 +46,38 @@ sap.ui.define(
         const oDeferralPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DeferralInfo-ID::Table");
         oDeferralPaymentTable.setUseVariantManagement(true);
       },
-      onInit: function () {
 
+
+      /**
+       * Helper method to hide Paste Btn from Object Page Table
+       * @private
+       */
+      _toHidePasteButton : function(){
+        const aDCTableIds = ["TotalDC-ID","Section-14-ID","DemolitionCred-ID","TotalDC-ID-NonInd","DCExemption-ID","Previous-Building-Permit-Credit-ID"];
+        aDCTableIds.forEach(mId => {
+          const oTable = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${mId}::pasteEntries`);
+          oTable.setVisible(false);
+        });
+        const aCBCTableIds = ["ExemptionCBC-ID","InKindContr-ID","IDDemoExm-ID"];
+        aCBCTableIds.forEach(mId => {
+          const oTable = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${mId}::pasteEntries`);
+          oTable.setVisible(false);
+        });
+        const aPaymentTableIds = ["PaymentInfo-ID","RefundInfo-ID","DeferralInfo-ID"];
+        aPaymentTableIds.forEach(mId => {
+          const oTable = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${mId}::pasteEntries`);
+          oTable.setVisible(false);
+        });
+      },
+
+      onInit: function () {
         //Enable Variant management for various tables
         this._enableVariantManagement();
-
         //Warning poup when DC clearance datee edited
         const dcClearanceDate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo_FG-ID::dc_clearance_date::Field");
         dcClearanceDate.attachChange(function (oEvent) {
           MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
         });
-
         const oRouter = this.getOwnerComponent().getRouter();
         const sHashKey = oRouter.getHashChanger().key;
         if (sHashKey === "Child") {
@@ -75,7 +96,9 @@ sap.ui.define(
             .getParent()
             .setVisible(false);
         }
+        var that = this;
         this.extensionAPI.attachPageDataLoaded(function (event) {
+          that._toHidePasteButton();
           event.context.getModel().attachRequestCompleted(function (oEvent) {
             //Check if the call is of request details
             if (oEvent.getParameter("url").includes("zgc_c_requestsAttach_draft_invoice")) {
