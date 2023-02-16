@@ -474,10 +474,10 @@ sap.ui.define(
        */
       handleSearchPermit: function (oEvent) {
         const sValue = oEvent.getParameter("value");
-        const sSearchTerm = sValue;
         const oSource = oEvent.getSource();
         let oBindingInfo = oSource.getBindingInfo("items");
-        if (sSearchTerm) {
+        if (sValue) {
+          const  sSearchTerm = "*" + sValue + "*";
           oBindingInfo.parameters = {
             custom: {
               search: sSearchTerm
