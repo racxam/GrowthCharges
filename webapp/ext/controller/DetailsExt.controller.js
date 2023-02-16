@@ -15,15 +15,21 @@ sap.ui.define(
     return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
       _enableVariantManagement: function () {
         //DC Tables
-        const dcTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
-        dcTable.setUseVariantManagement(true);
+        const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
+        oDCTable.setUseVariantManagement(true);
         const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
         oSec14Table.setUseVariantManagement(true);
         const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table");
         demoTable.setUseVariantManagement(true);
         const totalNonIndDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table");
         totalNonIndDCTable.setUseVariantManagement(true);
-
+        const oExemptionDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table");
+        oExemptionDCTable.setUseVariantManagement(true);
+        const oDeferralDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCDeferralTable-ID::Table");
+        oDeferralDCTable.setUseVariantManagement(true);
+        const oPrvBuidlingPermitDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
+        oPrvBuidlingPermitDCTable.setUseVariantManagement(true);
+        
         //CBC Tables
         const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
         oCBCExemptTable.setUseVariantManagement(true);
@@ -31,6 +37,14 @@ sap.ui.define(
         oCBCInKindTable.setUseVariantManagement(true);
         const oCBCDemoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemoExm-ID::Table");
         oCBCDemoTable.setUseVariantManagement(true);
+
+        //Payment Table
+        const oPaymentInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table");
+        oPaymentInfoPaymentTable.setUseVariantManagement(true);
+        const oRefundInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--RefundInfo-ID::Table");
+        oRefundInfoPaymentTable.setUseVariantManagement(true);
+        const oDeferralPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DeferralInfo-ID::Table");
+        oDeferralPaymentTable.setUseVariantManagement(true);
       },
       onInit: function () {
 
