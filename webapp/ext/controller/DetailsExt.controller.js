@@ -13,27 +13,30 @@ sap.ui.define(
   function (JSONModel, Fragment, UIColumn, Filter, Text, MessageBox, ColumnListItem, DateFormat) {
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
+      _enableVariantManagement: function () {
+        //DC Tables
+        const dcTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
+        dcTable.setUseVariantManagement(true);
+        const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
+        oSec14Table.setUseVariantManagement(true);        
+        const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table");
+        demoTable.setUseVariantManagement(true);
+        const totalNonIndDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table");
+        totalNonIndDCTable.setUseVariantManagement(true);
+        
+        //CBC Tables
+        const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
+        oCBCExemptTable.setUseVariantManagement(true);
+        const oCBCInKindTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--InKindContr-ID::Table");
+        oCBCInKindTable.setUseVariantManagement(true);
+        const oCBCDemoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemoExm-ID::Table");
+        oCBCDemoTable.setUseVariantManagement(true);
+      },
       onInit: function () {
-        try {
-          const oVariantManagement = sap.ui
-            .getCore()
-            .byId(
-              "com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--template::PageVariant"
-            );
-          oVariantManagement
-            .getVariantItems()
-            .filter(function (oVariant) {
-              return (
-                oVariant.getAuthor() !==
-                sap.ushell.Container.getService("UserInfo").getId()
-              );
-            })
-            .forEach(function (oForeignVariant) {
-              oForeignVariant.setProperty("readOnly", true);
-            });
-        } catch (error) {
-          //If opened not using FLP, there will be an error
-        }
+
+        //Enable Variant management for various tables
+        this._enableVariantManagement();
+
         //Warning poup when DC clearance datee edited
         const dcClearanceDate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo_FG-ID::dc_clearance_date::Field");
         dcClearanceDate.attachChange(function (oEvent) {
@@ -337,41 +340,6 @@ sap.ui.define(
         if (dcDeferralSection) {
           dcDeferralSection.onAfterRendering = setBlocksRight;
         }
-
-        const demoTable = sap.ui
-          .getCore()
-          .byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table"
-          )
-          .getTable();
-        demoTable.attachBusyStateChanged(this._onBusyStateChanged);
-        const totalDCTable = sap.ui
-          .getCore()
-          .byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table"
-          )
-          .getTable();
-        totalDCTable.attachBusyStateChanged(this._onBusyStateChanged);
-
-        //Non-Ind/Speculative
-        const totalNonIndDCTable = sap.ui
-          .getCore()
-          .byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table"
-          )
-          .getTable();
-        totalNonIndDCTable.attachBusyStateChanged(this._onBusyStateChanged);
-
-
-        //CBC
-        //Exemption Table
-
-        const oCBCExemptTable = sap.ui.getCore().byId(
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table"
-        )
-          .getTable();
-        oCBCExemptTable.attachBusyStateChanged(this._onBusyStateChanged);
-
       },
       onBeforeRebindTableExtension: function (oEvent) {
         //Add $select for payment table
@@ -1044,35 +1012,6 @@ sap.ui.define(
       onValueHelpAfterClose: function (oEvt) {
         oEvt.getSource().destroy();
       },
-
-      _onBusyStateChanged: function (oEvent) {
-        var bBusy = oEvent.getParameter("busy");
-        if (!bBusy && !this._bColumnOptimizationDone) {
-          var oTable = oEvent.getSource();
-          var oTpc = null;
-          if (sap.ui.table.TablePointerExtension) {
-            oTpc = new sap.ui.table.TablePointerExtension(oTable);
-          } else {
-            oTpc = new sap.ui.table.extensions.Pointer(oTable);
-          }
-          var aColumns = oTable.getColumns();
-          for (var i = aColumns.length; i >= 0; i--) {
-            if (
-              aColumns[i]?.getId() ===
-              "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table-dc_type"
-              || "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table-dc_type"
-              || "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table-dc_type"
-            ) {
-              aColumns[i]?.setWidth("300px");
-            } else {
-              oTpc.doAutoResizeColumn(i);
-            }
-          }
-          //This line can be commented if you want the columns to be adjusted on every scroll
-          //this._bColumnOptimizationDone = true;
-        }
-      },
-
       // **************************************STATUS CHANGES ****************************
       /**
        * Formatter to control state of CIL Processflow
