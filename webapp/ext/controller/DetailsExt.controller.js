@@ -773,9 +773,15 @@ sap.ui.define(
       //UPDATE CALL
       onUpdateResGFA: function (oEvent) {
         const oModel = this.getView().getModel();
+        const oPendingChanges = oModel.getPendingChanges();
+        for (let key in oPendingChanges) {
+          if (key.indexOf("zgc_c_cil_cal") > -1) {
+            oModel.resetChanges([`/${key}`]);
+          }
+        }
         const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
         let oPayload = {
-          "res_gfa": parseInt(oEvent.getParameter("newValue"))
+          "res_gfa": parseInt(oEvent.getParameter("newValue").replaceAll(",",""))
         };
 
         oModel.update(sCilCalPath, oPayload, {
@@ -797,9 +803,15 @@ sap.ui.define(
 
       onUpdateNresGFA: function (oEvent) {
         const oModel = this.getView().getModel();
+        const oPendingChanges = oModel.getPendingChanges();
+        for (let key in oPendingChanges) {
+          if (key.indexOf("zgc_c_cil_cal") > -1) {
+            oModel.resetChanges([`/${key}`]);
+          }
+        }
         const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::lot_frontage::Field-input").getBindingContext().getPath();
         let oPayload = {
-          "nres_gfa": parseInt(oEvent.getParameter("newValue"))
+          "nres_gfa": parseInt(oEvent.getParameter("newValue").replaceAll(",",""))
         };
         oModel.update(sCilCalPath, oPayload, {
           success: function (oData, oResponse) {
