@@ -19,16 +19,22 @@ sap.ui.define(
         oDCTable.setUseVariantManagement(true);
         const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
         oSec14Table.setUseVariantManagement(true);
+        oSec14Table.setUseExportToExcel(true);
         const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table");
         demoTable.setUseVariantManagement(true);
+        demoTable.setUseExportToExcel(true);
         const totalNonIndDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table");
         totalNonIndDCTable.setUseVariantManagement(true);
+        totalNonIndDCTable.setUseExportToExcel(true);
         const oExemptionDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table");
         oExemptionDCTable.setUseVariantManagement(true);
+        oExemptionDCTable.setUseExportToExcel(true);
         const oDeferralDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCDeferralTable-ID::Table");
         oDeferralDCTable.setUseVariantManagement(true);
+        oDeferralDCTable.setUseExportToExcel(true);
         const oPrvBuidlingPermitDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
         oPrvBuidlingPermitDCTable.setUseVariantManagement(true);
+        oPrvBuidlingPermitDCTable.setUseExportToExcel(true);
 
         //CBC Tables
         const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
