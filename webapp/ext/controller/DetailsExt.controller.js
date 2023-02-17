@@ -17,25 +17,18 @@ sap.ui.define(
         //DC Tables
         const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
         oDCTable.setUseVariantManagement(true);
-        // oDCTable.setCurrentVariantId("id_1676542872462_327_table");
         const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
         oSec14Table.setUseVariantManagement(true);
-        // oSec14Table.setCurrentVariantId("id_1676542938991_361_table");
         const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table");
         demoTable.setUseVariantManagement(true);
-        // demoTable.setCurrentVariantId("id_1676543071117_394_table");
         const totalNonIndDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table");
         totalNonIndDCTable.setUseVariantManagement(true);
-        // totalNonIndDCTable.setCurrentVariantId("id_1676562836642_289_table");
         const oExemptionDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table");
         oExemptionDCTable.setUseVariantManagement(true);
-        // oExemptionDCTable.setCurrentVariantId("id_1676543390787_326_table");
         const oDeferralDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCDeferralTable-ID::Table");
         oDeferralDCTable.setUseVariantManagement(true);
-        // oDeferralDCTable.setCurrentVariantId("id_1676544587107_1211_table");
         const oPrvBuidlingPermitDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
         oPrvBuidlingPermitDCTable.setUseVariantManagement(true);
-        // oPrvBuidlingPermitDCTable.setCurrentVariantId("id_1676543461076_336_table");
 
         //CBC Tables
         const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
@@ -53,7 +46,6 @@ sap.ui.define(
         const oDeferralPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DeferralInfo-ID::Table");
         oDeferralPaymentTable.setUseVariantManagement(true);
       },
-
 
       /**
        * Helper method to hide Paste Btn from Object Page Table
@@ -110,7 +102,6 @@ sap.ui.define(
         if (!oPrvBuidlingPermitDCTable.getCurrentVariantId()) {
           oPrvBuidlingPermitDCTable.setCurrentVariantId("id_1676543461076_336_table");
         }
-
          //CBC Tables
          const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
          if (!oCBCExemptTable.getCurrentVariantId()) {
@@ -124,7 +115,6 @@ sap.ui.define(
          if (!oCBCDemoTable.getCurrentVariantId()) {
           oCBCDemoTable.setCurrentVariantId("id_1676544100387_407_table");
         }
- 
          //Payment Table
          const oPaymentInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table");
          if (!oPaymentInfoPaymentTable.getCurrentVariantId()) {
@@ -138,11 +128,7 @@ sap.ui.define(
          if (!oDeferralPaymentTable.getCurrentVariantId()) {
           oDeferralPaymentTable.setCurrentVariantId("id_1676543726160_259_table");
         }
-
-
       },
-
-
 
       onInit: function () {
         //Enable Variant management for various tables
@@ -180,7 +166,6 @@ sap.ui.define(
               attachmentComponent.stRefresh();
             }
           });
-
           const oComponent = sap.ui
             .getCore()
             .byId(
@@ -197,7 +182,6 @@ sap.ui.define(
               )
               .firePress();
           }
-
           //Calculate and Add Credit Button Visibility
           const oCalBtn = sap.ui
             .getCore()
@@ -217,7 +201,6 @@ sap.ui.define(
             oCalBtn.setVisible(false);
             oAddCreditBtn.setVisible(false);
           }
-
           //Invoice Section
           const view = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
           const invoice_tech_details = view.getBindingContext().getObject()?.inv_tech_details;
@@ -453,8 +436,8 @@ sap.ui.define(
           dcDeferralSection.onAfterRendering = setBlocksRight;
         }
       },
+      
       onBeforeRebindTableExtension: function (oEvent) {
-       
         //Add $select for payment table
         if (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table") {
           oEvent.getParameter("bindingParams").parameters = oEvent.getParameter("bindingParams").parameters || {};
@@ -467,14 +450,12 @@ sap.ui.define(
           oBindingParams.parameters = oBindingParams.parameters || {};
           oBindingParams.parameters.operationMode = "Client";
         }
-
         if (oEvent.getSource().getId() ===
           "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table") {
           var oBindingParams = oEvent.getParameter("bindingParams");
           oBindingParams.parameters = oBindingParams.parameters || {};
           oBindingParams.parameters.operationMode = "Client";
         }
-
         //Binding parameter change is only for the DC Table, Speculative, Exemption, Demolition table
         if (
           oEvent.getSource().getId() ===
@@ -491,7 +472,6 @@ sap.ui.define(
           oBindingParams.parameters.operationMode = "Client";
           oBindingParams.parameters.select = oBindingParams.parameters.select + ",is_rate_edited";
         }
-
       },
 
       onPressDCCalc: function (oEvent) {
@@ -580,7 +560,6 @@ sap.ui.define(
         });
       },
 
-
       /** search Demand Permit from Table Select dialog
        * @public
        * @param {sap.ui.base.Event} oEvent
@@ -601,8 +580,6 @@ sap.ui.define(
         }
         oSource.bindItems(oBindingInfo);
       },
-
-
 
       /**
        * Method to return Confirmation Message(Delete)
@@ -625,7 +602,6 @@ sap.ui.define(
         const sPath = oBindingContext.getPath();
         const iSelectedIndex = oEvent.getParameter("selectedIndex");
         const oModel = this.getView().getModel();
-
         let oPayload = {
           "resi_low_hidden": true,
           "resi_high_med_hidden": true,
@@ -636,9 +612,7 @@ sap.ui.define(
           "cil_build_type": "MXD",
           "residential_hidden": true,
           "non_resi_hidden": true
-
         };
-
         if (iSelectedIndex === 0) {
           oPayload.cil_build_type = "RES";
         } else if (iSelectedIndex === 1) {
@@ -646,11 +620,8 @@ sap.ui.define(
         } else {
           oPayload.cil_build_type = "MXD";
         }
-
         // Do the Update Call
         const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
-
-
         oModel.update(sCilCalPath, oPayload, {
           success: function (oData, oResponse) {
             oModel.refresh();
@@ -666,10 +637,7 @@ sap.ui.define(
             MessageBox.error(sErrorMsg);
           }.bind(this)
         });
-
       },
-
-
 
       onPressRBGrpResType: function (oEvent) {
         const oSource = oEvent.getSource();
@@ -677,7 +645,6 @@ sap.ui.define(
         const sPath = oBindingContext.getPath();
         const iSelectedIndex = oEvent.getParameter("selectedIndex");
         const oModel = this.getView().getModel();
-
         // Hide the Non - Res Section --> not required because of mixed
         // oModel.setProperty(`${sPath}/to_cilcal/non_resi_existing_hidden` , true);
         // oModel.setProperty(`${sPath}/to_cilcal/non_resi_vacant_hidden` , true);
@@ -689,9 +656,7 @@ sap.ui.define(
           "res_type": "",
           "residential_hidden": false,
           "non_resi_hidden": true
-
         };
-
         if (iSelectedIndex === 0) {
           //For Payload 
           oPayload.res_type = "HDE";
@@ -708,8 +673,6 @@ sap.ui.define(
           oPayload.resi_high_med_hidden = true;
           oPayload.resi_low_hidden = false;
         }
-
-
         // Do the Update Call
         const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
         oModel.update(sCilCalPath, oPayload, {
@@ -728,10 +691,8 @@ sap.ui.define(
           }.bind(this)
         });
       },
+
       onPressRBGrpNResType: function (oEvent) {
-        const oSource = oEvent.getSource();
-        const oBindingContext = oSource.getBindingContext();
-        const sPath = oBindingContext.getPath();
         const iSelectedIndex = oEvent.getParameter("selectedIndex");
         const oModel = this.getView().getModel();
         let oPayload = {
@@ -742,9 +703,7 @@ sap.ui.define(
           "nres_type": "",
           "residential_hidden": true,
           "non_resi_hidden": false
-
         };
-
         if (iSelectedIndex === 0) {
           //For Payload 
           oPayload.nres_type = "VAC";
@@ -756,7 +715,6 @@ sap.ui.define(
           oPayload.non_resi_existing_hidden = false;
           oPayload.non_resi_vacant_hidden = true;
         }
-
         // Do the Update Call
         const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::lot_frontage::Field-input").getBindingContext().getPath();
         oModel.update(sCilCalPath, oPayload, {
@@ -785,7 +743,6 @@ sap.ui.define(
         let oPayload = {
           "cil_applicable": bCilApplicable
         };
-
         oModel.update(sPath, oPayload, {
           success: function (oData, oResponse) {
             oModel.refresh();
@@ -805,10 +762,7 @@ sap.ui.define(
       //UPDATE CALL
       onUpdateResGFA: function (oEvent) {
         const oModel = this.getView().getModel();
-        const sGuid = oEvent.getSource().getBindingContext().getObject().req_uuid;
         const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
-
-
         let oPayload = {
           "res_gfa": parseInt(oEvent.getParameter("newValue"))
         };
@@ -832,12 +786,10 @@ sap.ui.define(
 
       onUpdateNresGFA: function (oEvent) {
         const oModel = this.getView().getModel();
-        const sGuid = oEvent.getSource().getBindingContext().getObject().req_uuid;
         const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::lot_frontage::Field-input").getBindingContext().getPath();
         let oPayload = {
           "nres_gfa": parseInt(oEvent.getParameter("newValue"))
         };
-
         oModel.update(sCilCalPath, oPayload, {
           success: function (oData, oResponse) {
             oModel.refresh();
@@ -881,7 +833,6 @@ sap.ui.define(
         const sPath = oBindingContext.getPath();
         const iSelectedIndex = oEvent.getParameter("selectedIndex");
         const oModel = this.getView().getModel();
-
         if (iSelectedIndex === 0) {
           oModel.setProperty(`${sPath}/to_cilcal/mgr_apr_reqd`, true);
         } else {
@@ -924,7 +875,6 @@ sap.ui.define(
         } else {
           dateFilter = invoiceCalculationDate;
         }
-
         const startDateFilter = new Filter(
           "start_date",
           "LE",
@@ -960,7 +910,6 @@ sap.ui.define(
                       }
                     }
                   });
-
                   // Only two decimal places
                   const dcRateTemplate = new Text({
                     text: "{ path: 'dc_rate',type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}"
@@ -1084,7 +1033,6 @@ sap.ui.define(
                       }
                     }
                   });
-
                   const documentNoTemplate = new Text({
                     text: "{document_no}"
                   });
@@ -1260,13 +1208,6 @@ sap.ui.define(
         return "None";
       },
 
-
-      /**
-           * read OdataModel
-           * sURl - separate entity set for the tabs
-           * oTabProperty - count(*)Tab
-           * @public
-           */
       _oModelRead: function (sURl, oLocalModel, sStatusTxt) {
         this.getView().getModel().read(sURl, {
           urlParameters: {
@@ -1287,11 +1228,10 @@ sap.ui.define(
             } else {
               sErrorMsg = this.oI18n.getText("msgErrorFail");
             }
-            MessageToast.show(sErrorMsg);
+            // MessageToast.show(sErrorMsg);
           }.bind(this)
         });
       },
-
 
       openMilestoneDialog: function (oEvent, sSelectedItem) {
         this.status1 = oEvent.getSource();
@@ -1302,7 +1242,6 @@ sap.ui.define(
         const oLocalModel = new JSONModel({
         });
         this.getView().setModel(oLocalModel, "StatusModel");
-
         oLocalModel.setProperty("/busy", true);
         fragment.then(
           function (oDialog) {
@@ -1315,12 +1254,9 @@ sap.ui.define(
             } else {
               oLocalModel.setProperty("/", { "action_txt": sStatusTxt });
             }
-
             oDialog.openBy(this.status1);
           }.bind(this));
-
       }
-
     });
   }
 );
