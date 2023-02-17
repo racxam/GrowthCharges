@@ -5,7 +5,8 @@ describe("Load the app", () => {
   it("SmartFilterbar has loaded", async () => {
     const filterBar = {
         selector: {
-            controlType: "sap.ui.comp.smartfilterbar.SmartFilterBar"
+            controlType: "sap.ui.comp.smartfilterbar.SmartFilterBar",
+            viewName: "com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests"
         }
     }
     const prop = await browser.asControl(filterBar).getProperty("visible");
