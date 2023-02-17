@@ -17,20 +17,26 @@ sap.ui.define(
         //DC Tables
         const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
         oDCTable.setUseVariantManagement(true);
-        oDCTable.setCurrentVariantId("Default");
+        // oDCTable.setCurrentVariantId("id_1676542872462_327_table");
         const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
         oSec14Table.setUseVariantManagement(true);
+        // oSec14Table.setCurrentVariantId("id_1676542938991_361_table");
         const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table");
         demoTable.setUseVariantManagement(true);
+        // demoTable.setCurrentVariantId("id_1676543071117_394_table");
         const totalNonIndDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table");
         totalNonIndDCTable.setUseVariantManagement(true);
+        // totalNonIndDCTable.setCurrentVariantId("id_1676562836642_289_table");
         const oExemptionDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table");
         oExemptionDCTable.setUseVariantManagement(true);
+        // oExemptionDCTable.setCurrentVariantId("id_1676543390787_326_table");
         const oDeferralDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCDeferralTable-ID::Table");
         oDeferralDCTable.setUseVariantManagement(true);
+        // oDeferralDCTable.setCurrentVariantId("id_1676544587107_1211_table");
         const oPrvBuidlingPermitDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
         oPrvBuidlingPermitDCTable.setUseVariantManagement(true);
-        
+        // oPrvBuidlingPermitDCTable.setCurrentVariantId("id_1676543461076_336_table");
+
         //CBC Tables
         const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
         oCBCExemptTable.setUseVariantManagement(true);
@@ -53,23 +59,90 @@ sap.ui.define(
        * Helper method to hide Paste Btn from Object Page Table
        * @private
        */
-      _toHidePasteButton : function(){
-        const aDCTableIds = ["TotalDC-ID","Section-14-ID","DemolitionCred-ID","TotalDC-ID-NonInd","DCExemption-ID","Previous-Building-Permit-Credit-ID"];
+      _toHidePasteButton: function () {
+        const aDCTableIds = ["TotalDC-ID", "Section-14-ID", "DemolitionCred-ID", "TotalDC-ID-NonInd", "DCExemption-ID", "Previous-Building-Permit-Credit-ID"];
         aDCTableIds.forEach(mId => {
           const oTable = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${mId}::pasteEntries`);
           oTable.setVisible(false);
         });
-        const aCBCTableIds = ["ExemptionCBC-ID","InKindContr-ID","DemoExm-ID"];
+        const aCBCTableIds = ["ExemptionCBC-ID", "InKindContr-ID", "DemoExm-ID"];
         aCBCTableIds.forEach(mId => {
           const oTable = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${mId}::pasteEntries`);
           oTable.setVisible(false);
         });
-        const aPaymentTableIds = ["PaymentInfo-ID","RefundInfo-ID","DeferralInfo-ID"];
+        const aPaymentTableIds = ["PaymentInfo-ID", "RefundInfo-ID", "DeferralInfo-ID"];
         aPaymentTableIds.forEach(mId => {
           const oTable = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${mId}::pasteEntries`);
           oTable.setVisible(false);
         });
       },
+
+      /**
+       * Helper method to hide Paste Btn from Object Page Table
+       * @private
+       */
+      _onApplyVariantTable: function () {
+        const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
+        if (!oDCTable.getCurrentVariantId()) {
+          oDCTable.setCurrentVariantId("id_1676542872462_327_table");
+        }
+        const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
+        if (!oSec14Table.getCurrentVariantId()) {
+          oSec14Table.setCurrentVariantId("id_1676542938991_361_table");
+        }
+        const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table");
+        if (!demoTable.getCurrentVariantId()) {
+          demoTable.setCurrentVariantId("id_1676543071117_394_table");
+        }
+        const totalNonIndDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table");
+        if (!totalNonIndDCTable.getCurrentVariantId()) {
+          totalNonIndDCTable.setCurrentVariantId("id_1676562836642_289_table");
+        }
+        const oExemptionDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table");
+        if (!oExemptionDCTable.getCurrentVariantId()) {
+          oExemptionDCTable.setCurrentVariantId("id_1676543390787_326_table");
+        }
+        const oDeferralDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCDeferralTable-ID::Table");
+        if (!oDeferralDCTable.getCurrentVariantId()) {
+          oDeferralDCTable.setCurrentVariantId("id_1676544587107_1211_table");
+        }
+        const oPrvBuidlingPermitDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
+        if (!oPrvBuidlingPermitDCTable.getCurrentVariantId()) {
+          oPrvBuidlingPermitDCTable.setCurrentVariantId("id_1676543461076_336_table");
+        }
+
+         //CBC Tables
+         const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
+         if (!oCBCExemptTable.getCurrentVariantId()) {
+          oCBCExemptTable.setCurrentVariantId("id_1676544024721_379_table");
+        }
+         const oCBCInKindTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--InKindContr-ID::Table");
+         if (!oCBCInKindTable.getCurrentVariantId()) {
+          oCBCInKindTable.setCurrentVariantId("id_1676544064673_397_table");
+        }
+         const oCBCDemoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemoExm-ID::Table");
+         if (!oCBCDemoTable.getCurrentVariantId()) {
+          oCBCDemoTable.setCurrentVariantId("id_1676544100387_407_table");
+        }
+ 
+         //Payment Table
+         const oPaymentInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table");
+         if (!oPaymentInfoPaymentTable.getCurrentVariantId()) {
+          oPaymentInfoPaymentTable.setCurrentVariantId("id_1676543851405_292_table");
+        }
+         const oRefundInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--RefundInfo-ID::Table");
+         if (!oRefundInfoPaymentTable.getCurrentVariantId()) {
+          oRefundInfoPaymentTable.setCurrentVariantId("id_1676543774458_268_table");
+        }
+         const oDeferralPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DeferralInfo-ID::Table");
+         if (!oDeferralPaymentTable.getCurrentVariantId()) {
+          oDeferralPaymentTable.setCurrentVariantId("id_1676543726160_259_table");
+        }
+
+
+      },
+
+
 
       onInit: function () {
         //Enable Variant management for various tables
@@ -159,7 +232,8 @@ sap.ui.define(
       },
 
       onAfterRendering: function () {
-
+        this._onApplyVariantTable();
+        // this._toHidePasteButton();
         //Value help for CIL capped rate and CIL rate
         this._cilUpdates = {
           "onAfterRendering": function () {
@@ -380,6 +454,7 @@ sap.ui.define(
         }
       },
       onBeforeRebindTableExtension: function (oEvent) {
+       
         //Add $select for payment table
         if (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table") {
           oEvent.getParameter("bindingParams").parameters = oEvent.getParameter("bindingParams").parameters || {};
@@ -515,7 +590,7 @@ sap.ui.define(
         const oSource = oEvent.getSource();
         let oBindingInfo = oSource.getBindingInfo("items");
         if (sValue) {
-          const  sSearchTerm = "*" + sValue + "*";
+          const sSearchTerm = "*" + sValue + "*";
           oBindingInfo.parameters = {
             custom: {
               search: sSearchTerm
