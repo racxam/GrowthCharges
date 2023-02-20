@@ -5,8 +5,7 @@ describe("Load the app", () => {
   it("SmartFilterbar has loaded", async () => {
     const filterBar = {
         selector: {
-            controlType: "sap.ui.comp.smartfilterbar.SmartFilterBar",
-            viewName: "com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests"
+            controlType: "sap.ui.comp.smartfilterbar.SmartFilterBar"
         }
     }
     const prop = await browser.asControl(filterBar).getProperty("visible");
@@ -18,25 +17,24 @@ describe("Load the app", () => {
   //   // Go button selector
   //   const goButton = browser.asControl({
   //       selector: {
-  //           id: "listReportFilter-btnGo",
-  //           viewName: "com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests",
-  //           interactable: true
+  //           id: "com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--listReportFilter-btnGo"
   //       }
   //   });
-  //   // Click on the Go button
-  //   console.log(goButton);
+
   //   await goButton.Press();
 
   //   // SmartTable selector
-  //   const smartTable = {
+  //   const tableSelector = {
   //       selector: {
-  //           controlType: "sap.ui.comp.smarttable.SmartTable",
-  //           interactable: true
+  //           id: "com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--responsiveTable"
   //       }
   //   }
   //   // Get the number of rows in the table
-  //   const rowCount = await browser.asControl(smartTable).getProperty("rowCount");
+  //   const table = await browser.asControl(tableSelector);
+  //   const rowCount = table.getItems().length;
   //   // Check if the table has atleast one row
+  //   console.log("ROW COUNT");
+  //   console.log(rowCount);
   //   expect(rowCount).toBeGreaterThan(0);
   // });
 });
