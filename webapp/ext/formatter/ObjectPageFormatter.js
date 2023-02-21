@@ -35,6 +35,15 @@ com.gc.dashboard.ext.formatter.ObjectPageFormatter = {
             sObjectKey = DraftGuid;
         }            
         return sObjectKey;
+    },
+    // eslint-disable-next-line camelcase
+    getAttachmentsEditable: function(editable, fc){
+        // eslint-disable-next-line camelcase
+        if(editable && fc === 3){
+            return "C";
+        }else{
+            return "D";
+        }
     }
     
 	};
