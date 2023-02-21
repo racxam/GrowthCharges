@@ -474,7 +474,7 @@
                                 "title": "{{Attachments}}",
                                 "leadingSectionIdOrPath": "InPayRef",
                                 "settings": {
-                                    "mode": "{= ${ui>/editable}?'C':'D'}",
+                                    "mode": "{parts:[{path: 'ui>/editable'}, {path:'dc_applicable_fc'}], formatter: 'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getAttachmentsEditable'}",
                                     "objectType": "ZGC_INV_OP",
                                     "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getPayObjectKey'}",
                                     "attributeHandling": {
