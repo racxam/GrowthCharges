@@ -13,6 +13,10 @@ sap.ui.define(
   function (JSONModel, Fragment, UIColumn, Filter, Text, MessageBox, ColumnListItem, DateFormat) {
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
+      /**
+       * Enable Variant Management for all the tables in the Object Page
+       * @private
+       */      
       _enableVariantManagement: function () {
         //DC Tables
         const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
@@ -57,7 +61,7 @@ sap.ui.define(
        * Helper method to hide Paste Btn from Object Page Table
        * @private
        */
-      _toHidePasteButton: function () {
+      _hidePasteButton: function () {
         const aDCTableIds = ["TotalDC-ID", "Section-14-ID", "DemolitionCred-ID", "TotalDC-ID-NonInd", "DCExemption-ID", "Previous-Building-Permit-Credit-ID"];
         aDCTableIds.forEach(mId => {
           const oTable = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${mId}::pasteEntries`);
@@ -147,24 +151,16 @@ sap.ui.define(
         const oRouter = this.getOwnerComponent().getRouter();
         const sHashKey = oRouter.getHashChanger().key;
         if (sHashKey === "Child") {
-          sap.ui
-            .getCore()
-            .byId(
+          sap.ui.getCore().byId(
               "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--action::ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities::zgc_c_requestsSubmit::Determining"
-            )
-            .getParent()
-            .setVisible(false);
-          sap.ui
-            .getCore()
-            .byId(
+            ).getParent().setVisible(false);
+          sap.ui.getCore().byId(
               "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--fullScreen"
-            )
-            .getParent()
-            .setVisible(false);
+            ).getParent().setVisible(false);
         }
         var that = this;
         this.extensionAPI.attachPageDataLoaded(function (event) {
-          that._toHidePasteButton();
+          that._hidePasteButton();
           event.context.getModel().attachRequestCompleted(function (oEvent) {
             //Check if the call is of request details
             if (oEvent.getParameter("url").includes("zgc_c_requestsAttach_draft_invoice")) {
@@ -172,31 +168,21 @@ sap.ui.define(
               attachmentComponent.stRefresh();
             }
           });
-          const oComponent = sap.ui
-            .getCore()
-            .byId(
+          const oComponent = sap.ui.getCore().byId(
               "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests"
-            )
-            .getParent();
+            ).getParent();
           const oRouterComp = oComponent.getRouter();
           const sHKey = oRouterComp.getHashChanger().key;
           if (sHKey === "Child") {
-            sap.ui
-              .getCore()
-              .byId(
+            sap.ui.getCore().byId(
                 "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--fullScreen"
-              )
-              .firePress();
+              ).firePress();
           }
           //Calculate and Add Credit Button Visibility
-          const oCalBtn = sap.ui
-            .getCore()
-            .byId(
+          const oCalBtn = sap.ui.getCore().byId(
               "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton"
             );
-          const oAddCreditBtn = sap.ui
-            .getCore()
-            .byId(
+          const oAddCreditBtn = sap.ui.getCore().byId(
               "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton"
             );
           const bEdit = oComponent.getModel("ui").getProperty("/editable");
@@ -222,7 +208,6 @@ sap.ui.define(
 
       onAfterRendering: function () {
         this._onApplyVariantTable();
-        // this._toHidePasteButton();
         //Value help for CIL capped rate and CIL rate
         this._cilUpdates = {
           "onAfterRendering": function () {
@@ -321,7 +306,7 @@ sap.ui.define(
         const id = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-ResLow-SS::SubSection";
         const smartFieldId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::cil_rate_res::Field";
         const cilResLowSS = sap.ui.getCore().byId(id);
-        if (cilResLowSS) {
+        if (cilResLowSS){
           const context = { "that": this, "id": smartFieldId, "rateId": "RES_LOW_DEN" };
           cilResLowSS.addEventDelegate(this._cilUpdates, context);
         }
@@ -330,7 +315,7 @@ sap.ui.define(
         const nonResExtSSId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-NonResVac-SS::SubSection";
         const nonResExtSS_smartFieldId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILNonResDensity-ID::cil_rate_nres::Field";
         const nonResExtSS = sap.ui.getCore().byId(nonResExtSSId);
-        if (nonResExtSS) {
+        if (nonResExtSS){
           const context = { "that": this, "id": nonResExtSS_smartFieldId };
           nonResExtSS.addEventDelegate(this._cilUpdates, context);
         }
@@ -339,12 +324,12 @@ sap.ui.define(
         const nonResVacSSId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-NonRes-SS::SubSection";
         const nonResVacSS_smartFieldId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILNonResDensityVac-ID::cil_rate_nres::Field";
         const nonResVacSS = sap.ui.getCore().byId(nonResVacSSId);
-        if (nonResVacSS) {
+        if (nonResVacSS){
           const context = { "that": this, "id": nonResVacSS_smartFieldId };
           nonResVacSS.addEventDelegate(this._cilUpdates, context);
         }
 
-        const setBlocksRight = function () {
+        const setBlocksRight = function (){
           var blocks = this.getBlocks();
           for (var i = 0; i < blocks.length; i++) {
             if (blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection" || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCHeader-GI::SubSection") {
@@ -364,54 +349,42 @@ sap.ui.define(
         }
 
         //Set the Grid Layout for the SubSection
-        const exmSubSection = sap.ui
-          .getCore()
-          .byId(
+        const exmSubSection = sap.ui.getCore().byId(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Exm-SS::SubSection"
           );
         if (exmSubSection) {
           exmSubSection.onAfterRendering = setBlocksRight;
         }
 
-        const kindSubSection = sap.ui
-          .getCore()
-          .byId(
+        const kindSubSection = sap.ui.getCore().byId(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-InK-SS::SubSection"
           );
         if (kindSubSection) {
           kindSubSection.onAfterRendering = setBlocksRight;
         }
 
-        const demSubSection = sap.ui
-          .getCore()
-          .byId(
+        const demSubSection = sap.ui.getCore().byId(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Dem-SS::SubSection"
           );
         if (demSubSection) {
           demSubSection.onAfterRendering = setBlocksRight;
         }
 
-        const paymentSection = sap.ui
-          .getCore()
-          .byId(
+        const paymentSection = sap.ui.getCore().byId(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Payment-SS::SubSection"
           );
         if (paymentSection) {
           paymentSection.onAfterRendering = setBlocksRight;
         }
 
-        const refundSection = sap.ui
-          .getCore()
-          .byId(
+        const refundSection = sap.ui.getCore().byId(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Refund-SS::SubSection"
           );
         if (refundSection) {
           refundSection.onAfterRendering = setBlocksRight;
         }
 
-        const deferralSection = sap.ui
-          .getCore()
-          .byId(
+        const deferralSection = sap.ui.getCore().byId(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Deferral-SS::SubSection"
           );
         if (deferralSection) {
@@ -424,18 +397,14 @@ sap.ui.define(
           dcGenSubSection.onAfterRendering = setBlocksRight;
         }
 
-        const dcExemptionSection = sap.ui
-          .getCore()
-          .byId(
+        const dcExemptionSection = sap.ui.getCore().byId(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Exemption-SS::SubSection"
           );
         if (dcExemptionSection) {
           dcExemptionSection.onAfterRendering = setBlocksRight;
         }
 
-        const dcDeferralSection = sap.ui
-          .getCore()
-          .byId(
+        const dcDeferralSection = sap.ui.getCore().byId(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Deferral-SS::SubSection"
           );
         if (dcDeferralSection) {
@@ -496,13 +465,9 @@ sap.ui.define(
             req_uuid: reqGuid
           },
           success: function (oData) {
-            sap.ui
-              .getCore()
-              .byId(
+            sap.ui.getCore().byId(
                 "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table"
-              )
-              .rebindTable();
-
+              ).rebindTable();
             oModel.refresh();
           },
           error: function (oError) { }
