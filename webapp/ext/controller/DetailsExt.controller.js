@@ -80,10 +80,10 @@ sap.ui.define(
       },
 
       /**
-       * Helper method to hide Paste Btn from Object Page Table
+       * Set the 'default' variant for the table
        * @private
        */
-      _onApplyVariantTable: function () {
+      _applyDefaultVariant: function () {
         const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
         if (!oDCTable.getCurrentVariantId()) {
           oDCTable.setCurrentVariantId("id_1676542872462_327_table");
@@ -207,7 +207,7 @@ sap.ui.define(
       },
 
       onAfterRendering: function () {
-        this._onApplyVariantTable();
+        this._applyDefaultVariant();
         //Value help for CIL capped rate and CIL rate
         this._cilUpdates = {
           "onAfterRendering": function () {
