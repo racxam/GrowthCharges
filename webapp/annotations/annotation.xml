@@ -198,6 +198,8 @@
                             <Collection>
                                 <PropertyPath>appeal_calc_date</PropertyPath>
                                 <PropertyPath>appeal_int_percent</PropertyPath>
+                                <PropertyPath>total_payable</PropertyPath>
+                                <PropertyPath>tot_dc_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -312,6 +314,20 @@
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>sec14_hidden</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="IsAppealCalcDateChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>appeal_int_percent</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>appeal_calc_date</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
