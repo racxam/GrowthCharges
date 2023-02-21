@@ -70,7 +70,7 @@
 
 						<forms:FormElement id="idCIL_DisplayFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" visible="{=${version} !== '01'}">
 							<forms:fields>
-								<m:Text id="idCIL_DisplayTextPrevAmntPaid" text="{to_cilcal/cil_paid_previously}" />
+								<m:Text id="idCIL_DisplayTextPrevAmntPaid" text="{cil_paid_previously}" />
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelNewCILTotal" label="{i18n>labelNewCILTotal}" visible="{=${version} !== '01'}">
