@@ -21,6 +21,7 @@ sap.ui.define(
         //DC Tables
         const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
         oDCTable.setUseVariantManagement(true);
+        oDCTable.setUseExportToExcel(true);
         const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
         oSec14Table.setUseVariantManagement(true);
         oSec14Table.setUseExportToExcel(true);
