@@ -324,20 +324,17 @@
                                     "ExemptionCBC-ID": {
                                         "navigationProperty": "to_cbcexm",
                                         "entitySet": "zgc_c_cbc_exm",
-                                        "createMode": "inline",
-                                        "tableType": "GridTable"
+                                        "createMode": "inline"
                                     },
                                     "InKindContr-ID": {
                                         "navigationProperty": "to_cbckind",
                                         "entitySet": "zgc_c_cbc_kind",
-                                        "createMode": "inline",
-                                        "tableType": "GridTable"
+                                        "createMode": "inline"
                                     },
                                     "DemoExm-ID": {
                                         "navigationProperty": "to_cbcdem",
                                         "entitySet": "zgc_c_cbc_dem",
-                                        "createMode": "inline",
-                                        "tableType": "GridTable"
+                                        "createMode": "inline"
                                     },
                                     "PaymentInfo-ID": {
                                         "navigationProperty": "to_payments",
