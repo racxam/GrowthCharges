@@ -348,8 +348,7 @@
                                     "RefundInfo-ID": {
                                         "navigationProperty": "to_refunds",
                                         "entitySet": "zgc_c_refunds",
-                                        "createMode": "inline",
-                                        "tableType": "GridTable"
+                                        "createMode": "inline"
                                     },
                                     "Previous-Building-Permit-Credit-ID": {
                                         "navigationProperty": "to_prvpermitcr",
