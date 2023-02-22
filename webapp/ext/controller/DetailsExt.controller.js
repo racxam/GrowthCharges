@@ -26,9 +26,11 @@ sap.ui.define(
         const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
         oSec14Table.setUseVariantManagement(true);
         oSec14Table.setUseExportToExcel(true);
+        oSec14Table.setShowFullScreenButton(true);
         const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table");
         demoTable.setUseVariantManagement(true);
         demoTable.setUseExportToExcel(true);
+        demoTable.setShowFullScreenButton(true);
         const totalNonIndDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table");
         totalNonIndDCTable.setUseVariantManagement(true);
         totalNonIndDCTable.setUseExportToExcel(true);
