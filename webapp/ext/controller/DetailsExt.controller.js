@@ -22,6 +22,7 @@ sap.ui.define(
         const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
         oDCTable.setUseVariantManagement(true);
         oDCTable.setUseExportToExcel(true);
+        oDCTable.setShowFullScreenButton(true);
         const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
         oSec14Table.setUseVariantManagement(true);
         oSec14Table.setUseExportToExcel(true);
@@ -76,7 +77,7 @@ sap.ui.define(
         const aPaymentTableIds = ["PaymentInfo-ID", "RefundInfo-ID", "DeferralInfo-ID"];
         aPaymentTableIds.forEach(mId => {
           const oTable = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${mId}::pasteEntries`);
-          oTable.setVisible(false);
+          oTable?.setVisible(false);
         });
       },
 
@@ -141,6 +142,13 @@ sap.ui.define(
         }
       },
 
+      _hideDCButtons: function(){
+        const aButtonSufixes = ["CalculateButton", "TotalDC-ID::addEntry", "TotalDC-ID::deleteEntry"];
+        const aButtonIds = aButtonSufixes.forEach(sButtonSufix => {
+          const button = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${sButtonSufix}`);
+          // button.setVisible(false);
+        });
+      },
       onInit: function () {
         //Enable Variant management for various tables
         this._enableVariantManagement();
@@ -162,6 +170,12 @@ sap.ui.define(
         var that = this;
         this.extensionAPI.attachPageDataLoaded(function (event) {
           that._hidePasteButton();
+
+          //Park Planner in Edit Mode. Disable DC buttons
+          const oRequest = event.context.getObject();
+          if (oRequest.dc_applicable_fc === 1) {
+            that._hideDCButtons();
+          }
           event.context.getModel().attachRequestCompleted(function (oEvent) {
             //Check if the call is of request details
             if (oEvent.getParameter("url").includes("zgc_c_requestsAttach_draft_invoice")) {
