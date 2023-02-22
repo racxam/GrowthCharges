@@ -148,7 +148,7 @@ sap.ui.define(
         const aButtonSufixes = ["CalculateButton", "TotalDC-ID::addEntry", "TotalDC-ID::deleteEntry"];
         const aButtonIds = aButtonSufixes.forEach(sButtonSufix => {
           const button = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${sButtonSufix}`);
-          // button.setVisible(false);
+          button.setVisible(false);
         });
       },
       onInit: function () {
