@@ -351,12 +351,6 @@
                                         "createMode": "inline",
                                         "tableType": "GridTable"
                                     },
-                                    "DeferralInfo-ID": {
-                                        "navigationProperty": "to_deferrals",
-                                        "entitySet": "zgc_c_deferrals",
-                                        "createMode": "inline",
-                                        "tableType": "GridTable"
-                                    },
                                     "Previous-Building-Permit-Credit-ID": {
                                         "navigationProperty": "to_prvpermitcr",
                                         "entitySet": "ZGC_C_PRE_BLD_PERMIT_CRD",
