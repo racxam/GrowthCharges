@@ -5,7 +5,7 @@
     <HBox id="_IDHBoxDCId">
         <core:Icon id="iconNewDC" class="sapUiSmallMarginBegin" useIconTooltip="true" tooltip="Details from Max have been updated.Requires review." src="sap-icon://alert" visible="{new_version}" color="#333333" /> 
     </HBox>
-    <HBox id="_IDHBoxAppCharges">
+    <HBox id="_IDHBoxAppCharges" justifyContent="SpaceBetween">
         <Text id="textApplCharges" text="{parts : [{path:'dc_applicable'},{path:'cil_applicable'},{path: 'cbc_applicable'}] ,formatter: '.showApplicationCharges'}" />
         <core:Icon id="iconValidUntil" class="sapUiSmallMarginBegin" useIconTooltip="true" tooltip="Valid Until Date is in the past" src="sap-icon://alert" visible="{parts : [{path:'invoice_valid_until'}] ,formatter: '.showInvoiceValidIcon'}" color="#E69A17" />
     </HBox>

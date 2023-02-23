@@ -367,6 +367,7 @@ sap.ui.define(
         }
 
         //Set the Grid Layout for the SubSection
+        
         const exmSubSection = sap.ui.getCore().byId(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Exm-SS::SubSection"
           );
