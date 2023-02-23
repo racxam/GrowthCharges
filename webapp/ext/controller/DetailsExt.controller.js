@@ -226,6 +226,10 @@ sap.ui.define(
 
       onAfterRendering: function () {
         this._applyDefaultVariant();
+
+      
+
+      
         //Value help for CIL capped rate and CIL rate
         this._cilUpdates = {
           "onAfterRendering": function () {
@@ -350,7 +354,9 @@ sap.ui.define(
         const setBlocksRight = function (){
           var blocks = this.getBlocks();
           for (var i = 0; i < blocks.length; i++) {
-            if (blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection" || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCHeader-GI::SubSection") {
+            //Temporary Comment
+            //|| blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCHeader-GI::SubSection"
+            if (blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection" ) {
               blocks[i].getContent()[0].getLayout().setColumnsM(1);
               blocks[i].getContent()[0].getLayout().setColumnsL(1);
               blocks[i].getContent()[0].getLayout().setColumnsXL(1);

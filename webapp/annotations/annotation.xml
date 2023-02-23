@@ -227,14 +227,18 @@
                         <PropertyValue Property="Data">
                             <Collection>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="cond_permit"/>
+                                    <PropertyValue Property="Label" String="{@i18n>labelCILAssociatedPermit}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="com_associated_payment"/>
                                     <PropertyValue Property="Label" String="{@i18n>comAssociatedPayment}"/>
                                     <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
                                 </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="rop_associated_payment"/>
-                                      <PropertyValue Property="Label" String="{@i18n>ropAssociatedPayment}"/>
-                                   <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
+                                    <PropertyValue Property="Label" String="{@i18n>ropAssociatedPayment}"/>
+                                    <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
                                 </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="tdsp_associated_payment"/>
@@ -243,8 +247,8 @@
                                 </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="dpcsb_associated_payment"/>
-                                      <PropertyValue Property="Label" String="{@i18n>dpcsbAssociatedPayment}"/>
-                                   <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
+                                    <PropertyValue Property="Label" String="{@i18n>dpcsbAssociatedPayment}"/>
+                                    <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -357,7 +361,7 @@
                                 <PropertyPath>_it/status</PropertyPath>
                                 <PropertyPath>_it/Submit_ac</PropertyPath>
                                 <PropertyPath>_it/Withdraw_approval_ac</PropertyPath>
-                                <PropertyPath>_it/Edit_ac</PropertyPath>                                    
+                                <PropertyPath>_it/Edit_ac</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -387,7 +391,7 @@
                                 <PropertyPath>_it/status</PropertyPath>
                                 <PropertyPath>_it/Submit_ac</PropertyPath>
                                 <PropertyPath>_it/Withdraw_approval_ac</PropertyPath>
-                                <PropertyPath>_it/Edit_ac</PropertyPath>                                    
+                                <PropertyPath>_it/Edit_ac</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -718,7 +722,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
                     </Record>
-                </Annotation>   
+                </Annotation>
             </Annotations>
             <Annotations Target="SAP.zgc_c_dc_calcltnsType">
                 <Annotation Term="Common.SideEffects" Qualifier="DCRateChanged">
@@ -732,7 +736,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
                     </Record>
-                </Annotation>                
+                </Annotation>
                 <Annotation Term="Common.SideEffects" Qualifier="DCTableChanged">
                     <Record>
                         <PropertyValue Property="SourceProperties">
@@ -760,7 +764,7 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-            </Annotations>            
+            </Annotations>
             <Annotations Target="SAP.ZGC_C_DC_CAL_SPECType">
                 <Annotation Term="Common.SideEffects" Qualifier="DCSpecuTableChanged">
                     <Record Type="Common.SideEffectsType">
@@ -773,7 +777,7 @@
                         </PropertyValue>
                         <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
                     </Record>
-                </Annotation>                  
+                </Annotation>
                 <Annotation Term="Common.SideEffects" Qualifier="DCSpecTableChanged">
                     <Record>
                         <PropertyValue Property="SourceProperties">
@@ -810,13 +814,13 @@
                                 <PropertyPath>dc_rate</PropertyPath>
                                 <PropertyPath>quantity</PropertyPath>
                                 <PropertyPath>dc_type</PropertyPath>
-                                
+
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
                     </Record>
-                </Annotation>                 
-                <Annotation Term="Common.SideEffects" Qualifier="DCDemoCredTableChanged">                    
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DCDemoCredTableChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
@@ -861,7 +865,7 @@
                                 <PropertyPath>exm_amount</PropertyPath>
                             </Collection>
                         </PropertyValue>
-                         <PropertyValue Property="TargetProperties">
+                        <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>to_request/total_dc_exmp_amt</PropertyPath>
                             </Collection>
