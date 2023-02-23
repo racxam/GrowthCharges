@@ -43,6 +43,7 @@ sap.ui.define(
         const oPrvBuidlingPermitDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
         oPrvBuidlingPermitDCTable.setUseVariantManagement(true);
         oPrvBuidlingPermitDCTable.setUseExportToExcel(true);
+        oPrvBuidlingPermitDCTable.setShowFullScreenButton(true);
 
         //CBC Tables
         const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");

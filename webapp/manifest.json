@@ -303,6 +303,12 @@
                                         "createMode": "inline",
                                         "tableType": "TreeTable"
                                     },
+                                    "TotalDC-ID-NonInd": {
+                                        "navigationProperty": "to_dc_spec",
+                                        "entitySet": "ZGC_C_DC_CAL_SPEC",
+                                        "createMode": "inline",
+                                        "tableType": "TreeTable"
+                                    },
                                     "DemolitionCred-ID": {
                                         "navigationProperty": "to_demos",
                                         "entitySet": "zgc_c_dc_demos",
@@ -321,20 +327,34 @@
                                         "createMode": "inline",
                                         "tableType": "GridTable"
                                     },
+                                    "DCDeferralTable-ID": {
+                                        "navigationProperty": "to_deferrals",
+                                        "entitySet": "ZGC_C_DEFERRALS",
+                                        "tableType": "GridTable"
+                                    },
+                                    "Previous-Building-Permit-Credit-ID": {
+                                        "navigationProperty": "to_prvpermitcr",
+                                        "entitySet": "ZGC_C_PRE_BLD_PERMIT_CRD",
+                                        "createMode": "inline",
+                                        "tableType": "TreeTable"
+                                    },                                    
                                     "ExemptionCBC-ID": {
                                         "navigationProperty": "to_cbcexm",
                                         "entitySet": "zgc_c_cbc_exm",
-                                        "createMode": "inline"
+                                        "createMode": "inline",
+                                        "tableType": "GridTable"
                                     },
                                     "InKindContr-ID": {
                                         "navigationProperty": "to_cbckind",
                                         "entitySet": "zgc_c_cbc_kind",
-                                        "createMode": "inline"
+                                        "createMode": "inline",
+                                        "tableType": "GridTable"
                                     },
                                     "DemoExm-ID": {
                                         "navigationProperty": "to_cbcdem",
                                         "entitySet": "zgc_c_cbc_dem",
-                                        "createMode": "inline"
+                                        "createMode": "inline",
+                                        "tableType": "GridTable"
                                     },
                                     "PaymentInfo-ID": {
                                         "navigationProperty": "to_payments",
@@ -345,24 +365,17 @@
                                     "RefundInfo-ID": {
                                         "navigationProperty": "to_refunds",
                                         "entitySet": "zgc_c_refunds",
-                                        "createMode": "inline"
-                                    },
-                                    "Previous-Building-Permit-Credit-ID": {
-                                        "navigationProperty": "to_prvpermitcr",
-                                        "entitySet": "ZGC_C_PRE_BLD_PERMIT_CRD",
                                         "createMode": "inline",
-                                        "tableType": "TreeTable"
+                                        "tableType": "GridTable"
+                                    },
+                                    "DeferralInfo-ID": {
+                                        "entitySet": "ZGC_C_DEFERRALS",
+                                        "tableType": "GridTable"                                        
                                     },
                                     "ApprHist-SS-ID": {
                                         "navigationProperty": "to_reqhstry",
                                         "entitySet": "zgc_c_req_history",
                                         "tableType": "GridTable"
-                                    },
-                                    "TotalDC-ID-NonInd": {
-                                        "navigationProperty": "to_dc_spec",
-                                        "entitySet": "ZGC_C_DC_CAL_SPEC",
-                                        "createMode": "inline",
-                                        "tableType": "TreeTable"
                                     }
                                 }
                             }
