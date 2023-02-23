@@ -141,16 +141,16 @@
 						<forms:FormElement id="idCIL_EditFormLabelBuildType" label="{i18n>labelSelectBuildingType}">
 							<forms:fields>
 								<m:RadioButtonGroup id="idCIL_EditRBGrpBuildType" select=".onPressBuildingType">
-									<m:RadioButton id="idCIL_EditRBBuildTypeRes" selected="{=${to_cilcal/cil_build_type} === 'RES'}" text="{i18n>labelResidential}" editable="{=${cil_applicable}}"/>
-									<m:RadioButton id="idCIL_EditRBBuildTypeNRes" selected="{=${to_cilcal/cil_build_type} === 'NRS'}" text="{i18n>labelNonResidential}" editable="{=${cil_applicable}}"/>
-									<m:RadioButton id="idCIL_EditRBBuildTypeMixd" selected="{=${to_cilcal/cil_build_type} === 'MXD'}" text="{i18n>labelMixed}" editable="{=${cil_applicable}}"/>
+									<m:RadioButton id="idCIL_EditRBBuildTypeRes" selected="{=${to_cilcal/cil_build_type} === 'RES'}" text="{i18n>labelResidential}" editable="{=${cil_requested}}"/>
+									<m:RadioButton id="idCIL_EditRBBuildTypeNRes" selected="{=${to_cilcal/cil_build_type} === 'NRS'}" text="{i18n>labelNonResidential}" editable="{=${cil_requested}}"/>
+									<m:RadioButton id="idCIL_EditRBBuildTypeMixd" selected="{=${to_cilcal/cil_build_type} === 'MXD'}" text="{i18n>labelMixed}" editable="{=${cil_requested}}"/>
 								</m:RadioButtonGroup>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelResGFA" label="{i18n>labelResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' }">
 							<forms:fields>
 								<m:HBox id="idCIL_EditHBoxResGFA" alignItems="Center">
-									<m:Input id="idCIL_EditInpResGFA" value="{path:'to_cilcal/res_gfa',type: 'sap.ui.model.type.Float',formatOptions:{maxFractionDigits: 3,groupingEnabled:false}}" editable="{=${cil_applicable}}" change=".onUpdateResGFA"/>
+									<m:Input id="idCIL_EditInpResGFA" value="{path:'to_cilcal/res_gfa',type: 'sap.ui.model.type.Float',formatOptions:{maxFractionDigits: 3,groupingEnabled:false}}" editable="{=${cil_requested}}" change=".onUpdateResGFA"/>
 									<m:Text class="sapUiSmallMarginBegin" id="idCIL_EditTextResGFAPer" text="{to_cilcal/res_gfa_prcnt} %"/>
 								</m:HBox>
 							</forms:fields>
@@ -158,7 +158,7 @@
 						<forms:FormElement id="idCIL_EditFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' }">
 							<forms:fields>
 								<m:HBox id="idCIL_EditHBoxNResGFA" alignItems="Center">
-									<m:Input id="idCIL_EditInpNResGFA" value="{path:'to_cilcal/nres_gfa',type: 'sap.ui.model.type.Float',formatOptions: {maxFractionDigits: 3,groupingEnabled:false} }" editable="{=${cil_applicable}}" change=".onUpdateNresGFA"/>
+									<m:Input id="idCIL_EditInpNResGFA" value="{path:'to_cilcal/nres_gfa',type: 'sap.ui.model.type.Float',formatOptions: {maxFractionDigits: 3,groupingEnabled:false} }" editable="{=${cil_requested}}" change=".onUpdateNresGFA"/>
 									<m:Text class="sapUiSmallMarginBegin" id="idCIL_EditTextNResGFAPer" text="{to_cilcal/nres_gfa_prcnt} %"/>
 								</m:HBox>
 							</forms:fields>
@@ -166,9 +166,9 @@
 						<forms:FormElement id="idCIL_EditFormLabelResType" label="{i18n>labelSelectResidentialType}" visible="{=${to_cilcal/cil_build_type} !== 'NRS'}">
 							<forms:fields>
 								<m:RadioButtonGroup id="idCIL_EditRBGrpResType" select=".onPressRBGrpResType">
-									<m:RadioButton id="idCIL_EditRBResTypeHi" selected="{=${to_cilcal/res_type} === 'HDE'}" text="{i18n>labelHighDensity}" editable="{=${cil_applicable}}"/>
-									<m:RadioButton id="idCIL_EditRBResTypeMed" selected="{=${to_cilcal/res_type} === 'MDE'}" text="{i18n>labelMediumDensity}" editable="{=${cil_applicable}}"/>
-									<m:RadioButton id="idCIL_EditRBResTypeLow" selected="{=${to_cilcal/res_type} === 'LDE'}" text="{i18n>labelLowDensity}" editable="{=${cil_applicable}}"/>
+									<m:RadioButton id="idCIL_EditRBResTypeHi" selected="{=${to_cilcal/res_type} === 'HDE'}" text="{i18n>labelHighDensity}" editable="{=${cil_requested}}"/>
+									<m:RadioButton id="idCIL_EditRBResTypeMed" selected="{=${to_cilcal/res_type} === 'MDE'}" text="{i18n>labelMediumDensity}" editable="{=${cil_requested}}"/>
+									<m:RadioButton id="idCIL_EditRBResTypeLow" selected="{=${to_cilcal/res_type} === 'LDE'}" text="{i18n>labelLowDensity}" editable="{=${cil_requested}}"/>
 								</m:RadioButtonGroup>
 							</forms:fields>
 						</forms:FormElement>
@@ -176,8 +176,8 @@
 							<forms:fields>
 								<!--If nonRes GFA is less than 20% then disable radio button-->
 								<m:RadioButtonGroup id="idCIL_EditRBGrpNResType" select=".onPressRBGrpNResType" enabled="{parts : [{path:'to_cilcal/cil_build_type'},{path:'to_cilcal/nres_gfa_prcnt'}] ,formatter: '.onShowNResType'}">
-									<m:RadioButton id="idCIL_EditRBNResTypeVac" selected="{=${to_cilcal/nres_type} === 'VAC'}" text="{i18n>labelVacant}" editable="{=${cil_applicable}}"/>
-									<m:RadioButton id="idCIL_EditRBNResTypeExist" selected="{=${to_cilcal/nres_type} === 'EXT'}" text="{i18n>labelExisting}" editable="{=${cil_applicable}}"/>
+									<m:RadioButton id="idCIL_EditRBNResTypeVac" selected="{=${to_cilcal/nres_type} === 'VAC'}" text="{i18n>labelVacant}" editable="{=${cil_requested}}"/>
+									<m:RadioButton id="idCIL_EditRBNResTypeExist" selected="{=${to_cilcal/nres_type} === 'EXT'}" text="{i18n>labelExisting}" editable="{=${cil_requested}}"/>
 								</m:RadioButtonGroup>
 							</forms:fields>
 						</forms:FormElement>
@@ -207,7 +207,7 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelCharArea" label="{i18n>labelCharacterArea}">
 							<forms:fields>
-								<m:ComboBox id="idCIL_EditDDCharArea" items="{/ZGC_CHAR_AREA_VH}" editable="{=${cil_applicable}}" selectedKey="{to_cilcal/char_area}">
+								<m:ComboBox id="idCIL_EditDDCharArea" items="{/ZGC_CHAR_AREA_VH}" editable="{=${cil_requested}}" selectedKey="{to_cilcal/char_area}">
 									<core:Item id="idCIL_DDItemCharArea" key="{char_area}" text="{char_area_text}" />
 								</m:ComboBox>
 							</forms:fields>
@@ -219,7 +219,7 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelExtComm" label="{i18n>labelExternalComments}">
 							<forms:fields>
-								<m:TextArea id="idCIL_EditTextExtComm" valueLiveUpdate="true" value="{to_cilcal/ext_comments}" editable="{=${cil_applicable}}"/>
+								<m:TextArea id="idCIL_EditTextExtComm" valueLiveUpdate="true" value="{to_cilcal/ext_comments}" editable="{=${cil_requested}}"/>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelIntComm" label="{i18n>labelInternalComments}">
