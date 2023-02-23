@@ -146,10 +146,10 @@ sap.ui.define(
       },
 
       _hideDCButtons: function(){
-        const aButtonSufixes = ["CalculateButton", "TotalDC-ID::addEntry", "TotalDC-ID::deleteEntry"];
+        const aButtonSufixes = ["CalculateButton", "TotalDC-ID::addEntry", "TotalDC-ID::deleteEntry", "DemolitionCred-ID::addEntry", "DCExemption-ID::addEntry"];
         const aButtonIds = aButtonSufixes.forEach(sButtonSufix => {
           const button = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${sButtonSufix}`);
-          button.setVisible(false);
+          button.setEnabled(false);
         });
       },
       onInit: function () {
@@ -367,7 +367,7 @@ sap.ui.define(
         }
 
         //Set the Grid Layout for the SubSection
-        
+
         const exmSubSection = sap.ui.getCore().byId(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Exm-SS::SubSection"
           );
