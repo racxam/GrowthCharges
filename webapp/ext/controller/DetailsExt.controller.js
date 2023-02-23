@@ -16,7 +16,7 @@ sap.ui.define(
       /**
        * Enable Variant Management for all the tables in the Object Page
        * @private
-       */      
+       */
       _enableVariantManagement: function () {
         //DC Tables
         const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
@@ -117,35 +117,35 @@ sap.ui.define(
         if (!oPrvBuidlingPermitDCTable.getCurrentVariantId()) {
           oPrvBuidlingPermitDCTable.setCurrentVariantId("id_1676543461076_336_table");
         }
-         //CBC Tables
-         const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
-         if (!oCBCExemptTable.getCurrentVariantId()) {
+        //CBC Tables
+        const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
+        if (!oCBCExemptTable.getCurrentVariantId()) {
           oCBCExemptTable.setCurrentVariantId("id_1676544024721_379_table");
         }
-         const oCBCInKindTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--InKindContr-ID::Table");
-         if (!oCBCInKindTable.getCurrentVariantId()) {
+        const oCBCInKindTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--InKindContr-ID::Table");
+        if (!oCBCInKindTable.getCurrentVariantId()) {
           oCBCInKindTable.setCurrentVariantId("id_1676544064673_397_table");
         }
-         const oCBCDemoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemoExm-ID::Table");
-         if (!oCBCDemoTable.getCurrentVariantId()) {
+        const oCBCDemoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemoExm-ID::Table");
+        if (!oCBCDemoTable.getCurrentVariantId()) {
           oCBCDemoTable.setCurrentVariantId("id_1676544100387_407_table");
         }
-         //Payment Table
-         const oPaymentInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table");
-         if (!oPaymentInfoPaymentTable.getCurrentVariantId()) {
+        //Payment Table
+        const oPaymentInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table");
+        if (!oPaymentInfoPaymentTable.getCurrentVariantId()) {
           oPaymentInfoPaymentTable.setCurrentVariantId("id_1676543851405_292_table");
         }
-         const oRefundInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--RefundInfo-ID::Table");
-         if (!oRefundInfoPaymentTable.getCurrentVariantId()) {
+        const oRefundInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--RefundInfo-ID::Table");
+        if (!oRefundInfoPaymentTable.getCurrentVariantId()) {
           oRefundInfoPaymentTable.setCurrentVariantId("id_1676543774458_268_table");
         }
-         const oDeferralPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DeferralInfo-ID::Table");
-         if (!oDeferralPaymentTable.getCurrentVariantId()) {
+        const oDeferralPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DeferralInfo-ID::Table");
+        if (!oDeferralPaymentTable.getCurrentVariantId()) {
           oDeferralPaymentTable.setCurrentVariantId("id_1676543726160_259_table");
         }
       },
 
-      _hideDCButtons: function(){
+      _hideDCButtons: function () {
         const aButtonSufixes = ["CalculateButton", "TotalDC-ID::addEntry", "TotalDC-ID::deleteEntry", "DemolitionCred-ID::addEntry", "DCExemption-ID::addEntry"];
         const aButtonIds = aButtonSufixes.forEach(sButtonSufix => {
           const button = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${sButtonSufix}`);
@@ -164,14 +164,21 @@ sap.ui.define(
         const sHashKey = oRouter.getHashChanger().key;
         if (sHashKey === "Child") {
           sap.ui.getCore().byId(
-              "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--action::ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities::zgc_c_requestsSubmit::Determining"
-            ).getParent().setVisible(false);
+            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--action::ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities::zgc_c_requestsSubmit::Determining"
+          ).getParent().setVisible(false);
           sap.ui.getCore().byId(
-              "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--fullScreen"
-            ).getParent().setVisible(false);
+            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--fullScreen"
+          ).getParent().setVisible(false);
         }
         var that = this;
         this.extensionAPI.attachPageDataLoaded(function (event) {
+
+          //CIL Selected Section
+          const sCILSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL::Section");
+          const sSelectedSection = sCILSection.getParent().getSelectedSection();
+          if (sSelectedSection === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL::Section") {
+            sCILSection.getParent().scrollToSection(sCILSection.getId());
+          }
           that._hidePasteButton();
 
           //Park Planner in Edit Mode. Disable DC buttons
@@ -187,22 +194,22 @@ sap.ui.define(
             }
           });
           const oComponent = sap.ui.getCore().byId(
-              "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests"
-            ).getParent();
+            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests"
+          ).getParent();
           const oRouterComp = oComponent.getRouter();
           const sHKey = oRouterComp.getHashChanger().key;
           if (sHKey === "Child") {
             sap.ui.getCore().byId(
-                "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--fullScreen"
-              ).firePress();
+              "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--fullScreen"
+            ).firePress();
           }
           //Calculate and Add Credit Button Visibility
           const oCalBtn = sap.ui.getCore().byId(
-              "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton"
-            );
+            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton"
+          );
           const oAddCreditBtn = sap.ui.getCore().byId(
-              "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton"
-            );
+            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton"
+          );
           const bEdit = oComponent.getModel("ui").getProperty("/editable");
           if (bEdit) {
             oCalBtn.setVisible(true);
@@ -227,9 +234,9 @@ sap.ui.define(
       onAfterRendering: function () {
         this._applyDefaultVariant();
 
-      
 
-      
+
+
         //Value help for CIL capped rate and CIL rate
         this._cilUpdates = {
           "onAfterRendering": function () {
@@ -328,7 +335,7 @@ sap.ui.define(
         const id = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-ResLow-SS::SubSection";
         const smartFieldId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::cil_rate_res::Field";
         const cilResLowSS = sap.ui.getCore().byId(id);
-        if (cilResLowSS){
+        if (cilResLowSS) {
           const context = { "that": this, "id": smartFieldId, "rateId": "RES_LOW_DEN" };
           cilResLowSS.addEventDelegate(this._cilUpdates, context);
         }
@@ -337,7 +344,7 @@ sap.ui.define(
         const nonResExtSSId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-NonResVac-SS::SubSection";
         const nonResExtSS_smartFieldId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILNonResDensity-ID::cil_rate_nres::Field";
         const nonResExtSS = sap.ui.getCore().byId(nonResExtSSId);
-        if (nonResExtSS){
+        if (nonResExtSS) {
           const context = { "that": this, "id": nonResExtSS_smartFieldId };
           nonResExtSS.addEventDelegate(this._cilUpdates, context);
         }
@@ -346,17 +353,17 @@ sap.ui.define(
         const nonResVacSSId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-NonRes-SS::SubSection";
         const nonResVacSS_smartFieldId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILNonResDensityVac-ID::cil_rate_nres::Field";
         const nonResVacSS = sap.ui.getCore().byId(nonResVacSSId);
-        if (nonResVacSS){
+        if (nonResVacSS) {
           const context = { "that": this, "id": nonResVacSS_smartFieldId };
           nonResVacSS.addEventDelegate(this._cilUpdates, context);
         }
 
-        const setBlocksRight = function (){
+        const setBlocksRight = function () {
           var blocks = this.getBlocks();
           for (var i = 0; i < blocks.length; i++) {
             //Temporary Comment
             //|| blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCHeader-GI::SubSection"
-            if (blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection" ) {
+            if (blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection") {
               blocks[i].getContent()[0].getLayout().setColumnsM(1);
               blocks[i].getContent()[0].getLayout().setColumnsL(1);
               blocks[i].getContent()[0].getLayout().setColumnsXL(1);
@@ -375,43 +382,43 @@ sap.ui.define(
         //Set the Grid Layout for the SubSection
 
         const exmSubSection = sap.ui.getCore().byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Exm-SS::SubSection"
-          );
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Exm-SS::SubSection"
+        );
         if (exmSubSection) {
           exmSubSection.onAfterRendering = setBlocksRight;
         }
 
         const kindSubSection = sap.ui.getCore().byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-InK-SS::SubSection"
-          );
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-InK-SS::SubSection"
+        );
         if (kindSubSection) {
           kindSubSection.onAfterRendering = setBlocksRight;
         }
 
         const demSubSection = sap.ui.getCore().byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Dem-SS::SubSection"
-          );
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC-Dem-SS::SubSection"
+        );
         if (demSubSection) {
           demSubSection.onAfterRendering = setBlocksRight;
         }
 
         const paymentSection = sap.ui.getCore().byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Payment-SS::SubSection"
-          );
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Payment-SS::SubSection"
+        );
         if (paymentSection) {
           paymentSection.onAfterRendering = setBlocksRight;
         }
 
         const refundSection = sap.ui.getCore().byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Refund-SS::SubSection"
-          );
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Refund-SS::SubSection"
+        );
         if (refundSection) {
           refundSection.onAfterRendering = setBlocksRight;
         }
 
         const deferralSection = sap.ui.getCore().byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Deferral-SS::SubSection"
-          );
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Deferral-SS::SubSection"
+        );
         if (deferralSection) {
           deferralSection.onAfterRendering = setBlocksRight;
         }
@@ -423,25 +430,25 @@ sap.ui.define(
         }
 
         const dcExemptionSection = sap.ui.getCore().byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Exemption-SS::SubSection"
-          );
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Exemption-SS::SubSection"
+        );
         if (dcExemptionSection) {
           dcExemptionSection.onAfterRendering = setBlocksRight;
         }
 
         const dcDeferralSection = sap.ui.getCore().byId(
-            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Deferral-SS::SubSection"
-          );
+          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Deferral-SS::SubSection"
+        );
         if (dcDeferralSection) {
           dcDeferralSection.onAfterRendering = setBlocksRight;
         }
 
-          const dcSection14SubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-SS::SubSection");
-          if (dcSection14SubSection) {
-            dcSection14SubSection.onAfterRendering = setBlocksRight;
-          }
+        const dcSection14SubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-SS::SubSection");
+        if (dcSection14SubSection) {
+          dcSection14SubSection.onAfterRendering = setBlocksRight;
+        }
       },
-      
+
       onBeforeRebindTableExtension: function (oEvent) {
         //Add $select for payment table
         if (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table") {
@@ -491,8 +498,8 @@ sap.ui.define(
           },
           success: function (oData) {
             sap.ui.getCore().byId(
-                "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table"
-              ).rebindTable();
+              "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table"
+            ).rebindTable();
             oModel.refresh();
           },
           error: function (oError) { }
@@ -771,7 +778,7 @@ sap.ui.define(
         }
         const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
         let oPayload = {
-          "res_gfa": parseInt(oEvent.getParameter("newValue").replaceAll(",",""))
+          "res_gfa": parseInt(oEvent.getParameter("newValue").replaceAll(",", ""))
         };
 
         oModel.update(sCilCalPath, oPayload, {
@@ -801,7 +808,7 @@ sap.ui.define(
         }
         const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::lot_frontage::Field-input").getBindingContext().getPath();
         let oPayload = {
-          "nres_gfa": parseInt(oEvent.getParameter("newValue").replaceAll(",",""))
+          "nres_gfa": parseInt(oEvent.getParameter("newValue").replaceAll(",", ""))
         };
         oModel.update(sCilCalPath, oPayload, {
           success: function (oData, oResponse) {
