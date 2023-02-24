@@ -146,10 +146,14 @@ sap.ui.define(
       },
 
       _hideDCButtons: function () {
-        const aButtonSufixes = ["CalculateButton", "TotalDC-ID::addEntry", "TotalDC-ID::deleteEntry", "DemolitionCred-ID::addEntry", "DCExemption-ID::addEntry"];
-        const aButtonIds = aButtonSufixes.forEach(sButtonSufix => {
-          const button = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${sButtonSufix}`);
-          button.setEnabled(false);
+        const aButtonSufixes = ["CalculateButton", "TotalDC-ID::addEntry", 
+        "TotalDC-ID::deleteEntry", "DemolitionCred-ID::addEntry", 
+        "Section-14-ID::addEntry", "DCExemption-ID::addEntry", "NewPBPButton"];
+
+        //Disable all buttons
+        aButtonSufixes.forEach(function (sButtonSufix) {
+          const oButton = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sButtonSufix);
+          oButton.setEnabled(false); 
         });
       },
 
@@ -191,7 +195,8 @@ sap.ui.define(
 
           //Park Planner in Edit Mode. Disable DC buttons
           const oRequest = event.context.getObject();
-          if (oRequest.dc_applicable_fc === 1) {
+          if (oRequest.dc_applicable_fc === 1 && oRequest.Activation_ac) {
+            //Without the below delay, action buttons like 'Calculate' and 'Add Credit' are not getting disabled
             that._hideDCButtons();
           }
           event.context.getModel().attachRequestCompleted(function (oEvent) {
