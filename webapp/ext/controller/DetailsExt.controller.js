@@ -371,7 +371,7 @@ sap.ui.define(
           for (var i = 0; i < blocks.length; i++) {
             //Temporary Comment
             //|| blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCHeader-GI::SubSection"
-            if (blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection") {
+            if (blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection" || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Gen_Info_Comments::SubSection") {
               blocks[i].getContent()[0].getLayout().setColumnsM(1);
               blocks[i].getContent()[0].getLayout().setColumnsL(1);
               blocks[i].getContent()[0].getLayout().setColumnsXL(1);
@@ -437,6 +437,11 @@ sap.ui.define(
           dcGenSubSection.onAfterRendering = setBlocksRight;
         }
 
+        const dcGen_Info_CommentsSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Gen_Info_Comments::SubSection");
+        if (dcGen_Info_CommentsSubSection) {
+          dcGen_Info_CommentsSubSection.onAfterRendering = setBlocksRight;
+        }
+
         const dcExemptionSection = sap.ui.getCore().byId(
           "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DC-Exemption-SS::SubSection"
         );
@@ -455,6 +460,8 @@ sap.ui.define(
         if (dcSection14SubSection) {
           dcSection14SubSection.onAfterRendering = setBlocksRight;
         }
+
+        
       },
 
       onBeforeRebindTableExtension: function (oEvent) {
