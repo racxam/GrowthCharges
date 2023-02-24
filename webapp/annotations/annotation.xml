@@ -65,6 +65,20 @@
                         </Record>
                     </Collection>
                 </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="FirstPaydateChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>def_first_payment_date</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_deferrals</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
                 <Annotation Term="Common.SideEffects" Qualifier="InvCalDateChange">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -110,7 +124,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="DCAppealRefChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
