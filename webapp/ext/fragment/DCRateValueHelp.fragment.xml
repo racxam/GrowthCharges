@@ -8,7 +8,9 @@
 		afterClose=".onValueHelpAfterClose"
 		supportMultiselect="false"		
 		key="dc_rate"
-		descriptionKey="dc_rate"				
+		descriptionKey="dc_rate"
+		busy="{LocalModel>/busy}"	
+		busyIndicatorDelay="0"		
 	>
 	</ValueHelpDialog>
 </core:FragmentDefinition>

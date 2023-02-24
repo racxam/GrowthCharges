@@ -152,7 +152,15 @@ sap.ui.define(
           button.setEnabled(false);
         });
       },
+
+      _defineLocalModel : function(){
+        const oLocalModel = new JSONModel({
+        });
+        this.getView().setModel(oLocalModel, "LocalModel");
+        oLocalModel.setProperty("/busy", true);
+      },
       onInit: function () {
+        this._defineLocalModel();
         //Enable Variant management for various tables
         this._enableVariantManagement();
         //Warning poup when DC clearance datee edited
@@ -925,9 +933,13 @@ sap.ui.define(
                     path: "/zgc_dcrates_vh",
                     filters: this.rateFilters,
                     events: {
+                      dataRequested: function () {
+                        this.getView().getModel("LocalModel").setProperty("/busy", true);
+                      }.bind(this),
                       dataReceived: function () {
+                        this.getView().getModel("LocalModel").setProperty("/busy", false);
                         oDialog.update();
-                      }
+                      }.bind(this)
                     }
                   });
                   // Only two decimal places
