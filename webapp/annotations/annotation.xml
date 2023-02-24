@@ -241,6 +241,11 @@
                                     <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
                                 </Record>
                                 <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="go_associated_payment"/>
+                                    <PropertyValue Property="Label" String="{@i18n>goAssociatedPayment}"/>
+                                    <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
+                                </Record>
+                                <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="tdsp_associated_payment"/>
                                     <PropertyValue Property="Label" String="{@i18n>tdspAssociatedPayment}"/>
                                     <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
