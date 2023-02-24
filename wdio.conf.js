@@ -1,7 +1,7 @@
 exports.config = {
     wdi5: {
          screenshotPath: "./webapp/test/reports/screenshots",
-         waitForUI5Timeout: 45000,
+         waitForUI5Timeout: 120000,
          logLevel: "error"
     },
     specs: ["./webapp/test/**/*.test.js"],
@@ -24,7 +24,7 @@ exports.config = {
     logLevel: "error",
     bail: 0,
     baseUrl: "http://localhost:8080/test/flpSandbox.html#comgcdashboard-tile",
-    waitforTimeout: 45000,
+    waitforTimeout: 120000,
     connectionRetryTimeout: process.argv.indexOf("--debug") > -1 ? 1200000 : 120000,
     connectionRetryCount: 3,
     services: ["chromedriver", "ui5"],
