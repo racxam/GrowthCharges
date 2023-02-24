@@ -290,7 +290,7 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                <Annotation Term="UI.FieldGroup" Qualifier="CBCHeaderV1-ID">
+                <Annotation Term="UI.FieldGroup" Qualifier="CBC_GenInfo_AP_Col2-ID">
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">
                             <Collection>
