@@ -242,9 +242,6 @@ sap.ui.define(
       onAfterRendering: function () {
         this._applyDefaultVariant();
 
-
-
-
         //Value help for CIL capped rate and CIL rate
         this._cilUpdates = {
           "onAfterRendering": function () {
@@ -371,7 +368,8 @@ sap.ui.define(
           for (var i = 0; i < blocks.length; i++) {
             //Temporary Comment
             //|| blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCHeader-GI::SubSection"
-            if (blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection" || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Gen_Info_Comments::SubSection"
+            if (blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection" 
+            || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Gen_Info_Comments::SubSection"
             || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDCComm-ID::SubSection" ) {
               blocks[i].getContent()[0].getLayout().setColumnsM(1);
               blocks[i].getContent()[0].getLayout().setColumnsL(1);
@@ -465,9 +463,7 @@ sap.ui.define(
         const dcSection14SubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-SS::SubSection");
         if (dcSection14SubSection) {
           dcSection14SubSection.onAfterRendering = setBlocksRight;
-        }
-
-        
+        }        
       },
 
       onBeforeRebindTableExtension: function (oEvent) {
