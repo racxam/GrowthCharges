@@ -166,6 +166,7 @@ sap.ui.define(
         oCalculateButton = new Button(
           { "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton",
             "text": "Calculate",
+            "type": "Emphasized",
             "press": this.onPressDCCalc.bind(this),
             "visible": "{ui>/editable}",
             "enabled": "{= ${ui>/editable} && ${dc_applicable_fc} !== 1}"
@@ -179,7 +180,8 @@ sap.ui.define(
         const oNewPBPButton = new Button(
           { "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton",
             "text": "Add Credit",
-            "press": this.onPressNewPBP.bind(this)
+            "press": this.onPressNewPBP.bind(this),
+            "enabled": "{= ${ui>/editable} && ${dc_applicable_fc} !== 1}"
           }
         );
         const oPBPTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
