@@ -200,9 +200,9 @@
                 <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="cil_uuid" Type="Edm.Guid" Nullable="false" sap:label="Growth Charges Key" sap:heading=""/>
                 <Property Name="cil_build_type" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:text="bldtyp_cil_t" sap:label="CIL Building Type" sap:value-list="fixed-values"/>
-                <Property Name="res_gfa" Type="Edm.Int16" sap:label="Residential GFA"/>
+                <Property Name="res_gfa" Type="Edm.Int32" sap:label="Residential GFA"/>
                 <Property Name="res_gfa_prcnt" Type="Edm.Decimal" Precision="5" Scale="2" sap:label="Residential GFA Perc" sap:quickinfo="Residential GFA Percentage"/>
-                <Property Name="nres_gfa" Type="Edm.Int16" sap:label="Non Residential GFA"/>
+                <Property Name="nres_gfa" Type="Edm.Int32" sap:label="Non Residential GFA"/>
                 <Property Name="nres_gfa_prcnt" Type="Edm.Decimal" Precision="5" Scale="2" sap:label="Non Residential GFA" sap:quickinfo="Non Residential GFA Percentage"/>
                 <Property Name="res_type" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:text="restyp_txt" sap:label="CIL Residential Type" sap:value-list="fixed-values"/>
                 <Property Name="nres_type" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:field-control="nres_type_fc" sap:text="nrestyp_txt" sap:label="CIL Non Residential" sap:quickinfo="CIL Non Residential Type" sap:value-list="fixed-values"/>
@@ -674,8 +674,7 @@
                 <Property Name="build_permit_no_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="pr_build_permit_uuid" Type="Edm.Guid" Nullable="false" sap:label="Growth Charges Key" sap:heading=""/>
                 <Property Name="req_uuid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading=""/>
-                <Property Name="build_permit_no" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:field-control="build_permit_no_fc" sap:text="build_permit_no_Text" sap:label="Primary Build Permit" sap:quickinfo="Primary Building Permit No." sap:value-list="standard"/>
-                <Property Name="build_permit_no_Text" Type="Edm.String" MaxLength="255" sap:label="Permit Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="build_permit_no" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:field-control="build_permit_no_fc" sap:label="Primary Build Permit" sap:quickinfo="Primary Building Permit No." sap:value-list="standard"/>
                 <Property Name="dc_type" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:text="dc_txt" sap:label="DC Type" sap:value-list="fixed-values"/>
                 <Property Name="subservice_id" Type="Edm.String" MaxLength="10" sap:text="subservice_id_Text" sap:label="Sub-service ID" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="subservice_id_Text" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
@@ -797,6 +796,7 @@
                 <Property Name="is_kind_cbc_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="is_non_residential_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="is_residential_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="is_sec14_applicable_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="is_spec_insdustrial_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="loc_date_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="pdsb_comments_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -841,8 +841,8 @@
                 <Property Name="tot_dc_non_ind_spec" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total DC-NonInd Spec" sap:quickinfo="Total DC-Non Industrial (Speculative) excluding SWM" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_valid_until" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:field-control="dc_valid_until_fc" sap:label="Valid Until"/>
                 <Property Name="is_appeal_refund" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="is_appeal_refund_fc" sap:filter-restriction="single-value" sap:label="Appeal refund?"/>
-                <Property Name="is_sec14_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Sec 14 Applicable?" sap:quickinfo="Is Sec 14 applicable?"/>
-                <Property Name="sec14_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Indicator" sap:quickinfo="General Flag" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="is_sec14_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="is_sec14_applicable_fc" sap:label="Sec 14 Applicable?" sap:quickinfo="Is Sec 14 applicable?"/>
+                <Property Name="sec14_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Sec14 Hidden?" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="appeal_calc_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:field-control="appeal_calc_date_fc" sap:label="Appeal Calc Date" sap:quickinfo="Appeal Calculation Date"/>
                 <Property Name="appeal_int_percent" Type="Edm.Decimal" Precision="5" Scale="2" sap:field-control="appeal_int_percent_fc" sap:label="Appeal Interest %"/>
                 <Property Name="total_cbc_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total CBC Payable" sap:creatable="false" sap:updatable="false"/>
@@ -934,7 +934,7 @@
                 <Property Name="cilComments" Type="Edm.String" sap:label="Internal Comments" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="name_org1" Type="Edm.String" MaxLength="40" sap:text="name_org1" sap:label="Name 1" sap:quickinfo="Name 1 of organization" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="inv_nme" Type="Edm.String" MaxLength="40" sap:text="inv_nme" sap:label="Name 1" sap:quickinfo="Name 1 of organization" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="deferraltype_txt" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="deferraltype_txt" Type="Edm.String" MaxLength="50" sap:label="Deferal Type Desc" sap:quickinfo="Deferal Type Description" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="pdsb_comments" Type="Edm.String" sap:field-control="pdsb_comments_fc" sap:label="PDSB Comments" sap:heading=""/>
                 <Property Name="dpcsb_comments" Type="Edm.String" sap:field-control="dpcsb_comments_fc" sap:label="DPCSB Comments" sap:heading=""/>
                 <Property Name="rop_comments" Type="Edm.String" sap:field-control="rop_comments_fc" sap:label="Region of Peel Comments" sap:heading=""/>
@@ -964,6 +964,7 @@
                 <Property Name="total_dc_exmp_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total DC Exemption A" sap:quickinfo="Total DC Exemption Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="old_dcid" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="Old DC ID"/>
                 <Property Name="new_version" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="DC ID New version created" sap:heading=""/>
+                <Property Name="cond_permit_type" Type="Edm.String" sap:label="Conditional Permit T" sap:quickinfo="Conditional Permit Type" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="rop_associated_payment" Type="Edm.Decimal" Precision="14" Scale="3" sap:field-control="rop_associated_payment_fc" sap:unit="currency" sap:label="ROP Ass Payment" sap:quickinfo="ROP Associated Payment"/>
                 <Property Name="com_associated_payment" Type="Edm.Decimal" Precision="14" Scale="3" sap:field-control="com_associated_payment_fc" sap:unit="currency" sap:label="COM Ass Payment" sap:quickinfo="Com Associated Payment"/>
                 <Property Name="go_associated_payment" Type="Edm.Decimal" Precision="14" Scale="3" sap:field-control="go_associated_payment_fc" sap:unit="currency" sap:label="GO Ass Papyment" sap:quickinfo="GO Associated Payment"/>
@@ -1072,8 +1073,8 @@
                 <Key>
                     <PropertyRef Name="deferral_type"/>
                 </Key>
-                <Property Name="deferral_type" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="deferraltype_txt" sap:label="Lower Value" sap:quickinfo="Values for Domains: Single Value / Upper Limit"/>
-                <Property Name="deferraltype_txt" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values"/>
+                <Property Name="deferral_type" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:text="deferraltype_txt" sap:label="Deferral Type"/>
+                <Property Name="deferraltype_txt" Type="Edm.String" MaxLength="50" sap:label="Deferal Type Desc" sap:quickinfo="Deferal Type Description"/>
             </EntityType>
             <EntityType Name="zgc_deferral_vhType" sap:label="Value Help for Deferral" sap:content-version="1">
                 <Key>
@@ -1209,7 +1210,9 @@
                     <PropertyRef Name="unit"/>
                 </Key>
                 <Property Name="unit" Type="Edm.String" Nullable="false" MaxLength="3" sap:text="unit_txt" sap:label="Internal UoM" sap:quickinfo="Unit of Measurement" sap:semantics="unit-of-measure"/>
+                <Property Name="unitE" Type="Edm.String" MaxLength="6" sap:label="Technical" sap:quickinfo="External Unit of Measurement in Technical Format (6-Char.)"/>
                 <Property Name="unit_txt" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)"/>
+                <Property Name="noOfDecimals" Type="Edm.Int16" sap:label="Decimal Places" sap:quickinfo="Number of decimal places for number display"/>
             </EntityType>
             <ComplexType Name="ValidationFunctionResult">
                 <Property Name="IsValid" Type="Edm.Boolean" sap:label="Is valid"/>
@@ -1585,7 +1588,7 @@
                 <EntitySet Name="zgc_c_dc_demos" EntityType="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
                 <EntitySet Name="zgc_c_dc_exms" EntityType="ZGC_C_REQUESTS_CDS.zgc_c_dc_exmsType" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
                 <EntitySet Name="zgc_c_dc_sec14" EntityType="ZGC_C_REQUESTS_CDS.zgc_c_dc_sec14Type" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
-                <EntitySet Name="ZGC_C_DEFERRALS" EntityType="ZGC_C_REQUESTS_CDS.ZGC_C_DEFERRALSType" sap:content-version="1" sap:updatable-path="Update_mc"/>
+                <EntitySet Name="ZGC_C_DEFERRALS" EntityType="ZGC_C_REQUESTS_CDS.ZGC_C_DEFERRALSType" sap:creatable="false" sap:deletable="false" sap:content-version="1" sap:updatable-path="Update_mc"/>
                 <EntitySet Name="zgc_c_payments" EntityType="ZGC_C_REQUESTS_CDS.zgc_c_paymentsType" sap:content-version="1" sap:deletable-path="Delete_mc" sap:updatable-path="Update_mc"/>
                 <EntitySet Name="ZGC_C_PRE_BLD_PERMIT_CRD" EntityType="ZGC_C_REQUESTS_CDS.ZGC_C_PRE_BLD_PERMIT_CRDType" sap:creatable="false" sap:updatable="false" sap:content-version="1"/>
                 <EntitySet Name="zgc_c_refunds" EntityType="ZGC_C_REQUESTS_CDS.zgc_c_refundsType" sap:content-version="1"/>
@@ -2224,6 +2227,7 @@
                                 <PropertyPath>is_kind_cbc_fc</PropertyPath>
                                 <PropertyPath>is_non_residential_fc</PropertyPath>
                                 <PropertyPath>is_residential_fc</PropertyPath>
+                                <PropertyPath>is_sec14_applicable_fc</PropertyPath>
                                 <PropertyPath>is_spec_insdustrial_fc</PropertyPath>
                                 <PropertyPath>loc_date_fc</PropertyPath>
                                 <PropertyPath>pdsb_comments_fc</PropertyPath>
@@ -2324,6 +2328,10 @@
                                     <PropertyValue Property="Property" PropertyPath="got_comments"/>
                                     <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
                                 </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="cond_permit_type"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -2380,6 +2388,7 @@
                                 <PropertyPath>is_kind_cbc_fc</PropertyPath>
                                 <PropertyPath>is_non_residential_fc</PropertyPath>
                                 <PropertyPath>is_residential_fc</PropertyPath>
+                                <PropertyPath>is_sec14_applicable_fc</PropertyPath>
                                 <PropertyPath>is_spec_insdustrial_fc</PropertyPath>
                                 <PropertyPath>loc_date_fc</PropertyPath>
                                 <PropertyPath>pdsb_comments_fc</PropertyPath>
@@ -2404,6 +2413,7 @@
                                 <PropertyPath>dpcsb_comments</PropertyPath>
                                 <PropertyPath>rop_comments</PropertyPath>
                                 <PropertyPath>got_comments</PropertyPath>
+                                <PropertyPath>cond_permit_type</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
                                 <PropertyPath>HasDraftEntity</PropertyPath>
                                 <PropertyPath>IsActiveEntity</PropertyPath>
@@ -3333,7 +3343,13 @@
                                     <PropertyValue Property="ValueListProperty" String="unit"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="unitE"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="unit_txt"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="noOfDecimals"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -3376,7 +3392,13 @@
                                     <PropertyValue Property="ValueListProperty" String="unit"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="unitE"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="unit_txt"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="noOfDecimals"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -3439,7 +3461,13 @@
                                     <PropertyValue Property="ValueListProperty" String="unit"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="unitE"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="unit_txt"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="noOfDecimals"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -3523,7 +3551,13 @@
                                     <PropertyValue Property="ValueListProperty" String="unit"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="unitE"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="unit_txt"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="noOfDecimals"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -3566,7 +3600,13 @@
                                     <PropertyValue Property="ValueListProperty" String="unit"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="unitE"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="unit_txt"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="noOfDecimals"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -3774,7 +3814,13 @@
                                     <PropertyValue Property="ValueListProperty" String="unit"/>
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="unitE"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="unit_txt"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="noOfDecimals"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>

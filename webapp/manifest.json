@@ -219,38 +219,6 @@
                                 "EntitySet": "zgc_c_requests"
                             }
                         }
-                    },
-                    "sap.suite.ui.generic.template.ObjectPage.view.Details": {
-                        "controllerName": "com.gc.dashboard.ext.controller.DetailsExt",
-                        "sap.ui.generic.app": {
-                            "zgc_c_requests": {
-                                "EntitySet": "zgc_c_requests",
-                                "Sections": {
-                                    "TotalDC-ID": {
-                                        "id": "TotalDC-ID",
-                                        "Actions": {
-                                            "abc": {
-                                                "id": "CalculateButton",
-                                                "text": "Calculate",
-                                                "press": "onPressDCCalc",
-                                                "requiresSelection": false
-                                            }
-                                        }
-                                    },
-                                    "Previous-Building-Permit-Credit-ID": {
-                                        "id": "Previous-Building-Permit-Credit-ID",
-                                        "Actions": {
-                                            "abc": {
-                                                "id": "NewPBPButton",
-                                                "text": "Add Credit",
-                                                "press": "onPressNewPBP",
-                                                "requiresSelection": false
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -337,7 +305,7 @@
                                         "entitySet": "ZGC_C_PRE_BLD_PERMIT_CRD",
                                         "createMode": "inline",
                                         "tableType": "TreeTable"
-                                    },                                    
+                                    },
                                     "ExemptionCBC-ID": {
                                         "navigationProperty": "to_cbcexm",
                                         "entitySet": "zgc_c_cbc_exm",
@@ -370,7 +338,7 @@
                                     },
                                     "DeferralInfo-ID": {
                                         "entitySet": "ZGC_C_DEFERRALS",
-                                        "tableType": "GridTable"                                        
+                                        "tableType": "GridTable"
                                     },
                                     "ApprHist-SS-ID": {
                                         "navigationProperty": "to_reqhstry",
