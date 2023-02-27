@@ -8,9 +8,10 @@ sap.ui.define(
     "sap/m/Text",
     "sap/m/MessageBox",
     "sap/m/ColumnListItem",
-    "sap/ui/core/format/DateFormat"
+    "sap/ui/core/format/DateFormat",
+    "sap/m/Button"
   ],
-  function (JSONModel, Fragment, UIColumn, Filter, Text, MessageBox, ColumnListItem, DateFormat) {
+  function (JSONModel, Fragment, UIColumn, Filter, Text, MessageBox, ColumnListItem, DateFormat, Button) {
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
       /**
@@ -146,9 +147,9 @@ sap.ui.define(
       },
 
       _hideDCButtons: function () {
-        const aButtonSufixes = ["CalculateButton", "TotalDC-ID::addEntry", 
+        const aButtonSufixes = ["TotalDC-ID::addEntry", 
         "TotalDC-ID::deleteEntry", "DemolitionCred-ID::addEntry", 
-        "Section-14-ID::addEntry", "DCExemption-ID::addEntry", "NewPBPButton"];
+        "Section-14-ID::addEntry", "DCExemption-ID::addEntry"];
 
         //Disable all buttons
         aButtonSufixes.forEach(function (sButtonSufix) {
@@ -156,7 +157,35 @@ sap.ui.define(
           oButton.setEnabled(false); 
         });
       },
+      _addCustomActions: function () {
+        let oCalculateButton  = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton");
+        if (oCalculateButton) {
+          return;
+        }
+        //Calculate Button
+        oCalculateButton = new Button(
+          { "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton",
+            "text": "Calculate",
+            "press": this.onPressDCCalc.bind(this),
+            "visible": "{ui>/editable}",
+            "enabled": "{= ${ui>/editable} && ${dc_applicable_fc} !== 1}"
+          }
+        );
+        const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
+        const oDCHeader = oDCTable.getToolbar();
+        oDCHeader.addContent(oCalculateButton);
 
+        //Add New PBP Button
+        const oNewPBPButton = new Button(
+          { "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton",
+            "text": "Add Credit",
+            "press": this.onPressNewPBP.bind(this)
+          }
+        );
+        const oPBPTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
+        const oPBPHeader = oPBPTable.getToolbar();
+        oPBPHeader.addContent(oNewPBPButton);
+      },
       _defineLocalModel : function(){
         const oLocalModel = new JSONModel({
         });
@@ -183,6 +212,8 @@ sap.ui.define(
           ).getParent().setVisible(false);
         }
         var that = this;
+        //Add custom action buttons in DC section
+        // this._addCustomActions(); 
         this.extensionAPI.attachPageDataLoaded(function (event) {
 
           //CIL Selected Section
