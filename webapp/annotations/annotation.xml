@@ -366,6 +366,25 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="dcPaymentChange">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>rop_comments</PropertyPath>
+                                <PropertyPath>com_associated_payment</PropertyPath>
+                                <PropertyPath>tdsp_associated_payment</PropertyPath>
+                                <PropertyPath>dpcsb_associated_payment</PropertyPath>
+                                <PropertyPath>got_comments</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>dc_paid_previously</PropertyPath>
+                                <PropertyPath>current_dc_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true"/>
