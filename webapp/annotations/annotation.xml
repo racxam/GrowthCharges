@@ -294,10 +294,22 @@
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">
                             <Collection>
+                              <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="cond_permit"/>
+                                    <PropertyValue Property="Label" String="{@i18n>labelCILAssociatedPermit}"/>
+                                </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="cbc_assoc_payment"/>
                                     <PropertyValue Property="Label" String="{@i18n>cbcAssociatePayment}"/>
                                     <Annotation Term="UI.Hidden" Path="cond_permit_hidden"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="cbc_paid_previously"/>
+                                    <PropertyValue Property="Label" String="{@i18n>labelPreviousAmountPaid}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="current_cbc_payable"/>
+                                    <PropertyValue Property="Label" String="{@i18n>newCbcTotal}"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
