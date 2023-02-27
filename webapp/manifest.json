@@ -219,7 +219,10 @@
                                 "EntitySet": "zgc_c_requests"
                             }
                         }
-                    }
+                    },
+                    "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+                        "controllerName": "com.gc.dashboard.ext.controller.DetailsExt"
+                    }          
                 }
             }
         }
