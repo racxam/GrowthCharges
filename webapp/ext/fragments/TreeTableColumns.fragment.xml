@@ -1,11 +1,18 @@
-<core:FragmentDefinition xmlns:smartfield="sap.ui.comp.smartfield" xmlns:core="sap.ui.core" xmlns:table="sap.ui.table" xmlns="sap.m">
+<core:FragmentDefinition xmlns:smartfield="sap.ui.comp.smartfield"
+    xmlns:core="sap.ui.core"
+    xmlns:table="sap.ui.table"
+    xmlns="sap.m">
     <table:Column hAlign="End">
         <Label text="DC Rate" />
         <table:template>
             <HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center" fitContainer="true">
-                <core:Icon src="sap-icon://alert" color="#E69A17" class="sapUiMediumMarginEnd" visible="{is_rate_edited}" tooltip="{i18n>rate_edited}" />
-                <Input width="100%" value="{dc_rate}" showValueHelp="true" valueHelpOnly="true" visible="{= ${ui>/editable} &amp;&amp; ${Update_mc}}" valueHelpRequest=".onValueHelpRequested" />
-                <Text width="100%" text="{dc_rate}" visible="{= !${ui>/editable} || !${Update_mc}}"/>
+                <HBox width="50px">
+                    <core:Icon src="sap-icon://alert" visible="{is_rate_edited}" color="#E69A17" class="sapUiTinyMarginEnd" tooltip="{i18n>rate_edited}" />
+                </HBox>
+                <HBox>
+                    <Input width="100%" value="{dc_rate}" showValueHelp="true" valueHelpOnly="true" visible="{= ${ui>/editable} &amp;&amp; ${Update_mc}}" valueHelpRequest=".onValueHelpRequested" />
+                    <Text width="100%" text="{dc_rate}" visible="{= !${ui>/editable} || !${Update_mc}}"/>
+                </HBox>
             </HBox>
         </table:template>
         <table:customData>
