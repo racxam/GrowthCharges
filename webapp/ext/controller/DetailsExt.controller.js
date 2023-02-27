@@ -213,7 +213,7 @@ sap.ui.define(
         }
         var that = this;
         //Add custom action buttons in DC section
-        // this._addCustomActions(); 
+        this._addCustomActions(); 
         this.extensionAPI.attachPageDataLoaded(function (event) {
 
           //CIL Selected Section
