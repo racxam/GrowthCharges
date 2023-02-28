@@ -75,7 +75,7 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelNewCILTotal" label="{i18n>labelNewCILTotal}" visible="{=${version} !== '01'}">
 							<forms:fields>
-								<m:Text id="idCIL_DisplayTextNewCILTotal" text="{to_cilcal/current_cil_payable}" />
+								<m:Text id="idCIL_DisplayTextNewCILTotal" text="{current_cil_payable}" />
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelCharArea" label="{i18n>labelCharacterArea}">
