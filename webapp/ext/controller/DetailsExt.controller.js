@@ -147,24 +147,25 @@ sap.ui.define(
       },
 
       _hideDCButtons: function () {
-        const aButtonSufixes = ["TotalDC-ID::addEntry", 
-        "TotalDC-ID::deleteEntry", "DemolitionCred-ID::addEntry", 
-        "Section-14-ID::addEntry", "DCExemption-ID::addEntry"];
+        const aButtonSufixes = ["TotalDC-ID::addEntry",
+          "TotalDC-ID::deleteEntry", "DemolitionCred-ID::addEntry",
+          "Section-14-ID::addEntry", "DCExemption-ID::addEntry"];
 
         //Disable all buttons
         aButtonSufixes.forEach(function (sButtonSufix) {
           const oButton = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sButtonSufix);
-          oButton.setEnabled(false); 
+          oButton.setEnabled(false);
         });
       },
       _addCustomActions: function () {
-        let oCalculateButton  = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton");
+        let oCalculateButton = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton");
         if (oCalculateButton) {
           return;
         }
         //Calculate Button
         oCalculateButton = new Button(
-          { "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton",
+          {
+            "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton",
             "text": "Calculate",
             "type": "Emphasized",
             "press": this.onPressDCCalc.bind(this),
@@ -178,7 +179,8 @@ sap.ui.define(
 
         //Add New PBP Button
         const oNewPBPButton = new Button(
-          { "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton",
+          {
+            "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton",
             "text": "Add Credit",
             "press": this.onPressNewPBP.bind(this),
             "enabled": "{= ${ui>/editable} && ${dc_applicable_fc} !== 1}"
@@ -188,7 +190,7 @@ sap.ui.define(
         const oPBPHeader = oPBPTable.getToolbar();
         oPBPHeader.addContent(oNewPBPButton);
       },
-      _defineLocalModel : function(){
+      _defineLocalModel: function () {
         const oLocalModel = new JSONModel({
         });
         this.getView().setModel(oLocalModel, "LocalModel");
@@ -215,7 +217,7 @@ sap.ui.define(
         }
         var that = this;
         //Add custom action buttons in DC section
-        this._addCustomActions(); 
+        this._addCustomActions();
         this.extensionAPI.attachPageDataLoaded(function (event) {
 
           //CIL Selected Section
@@ -407,10 +409,10 @@ sap.ui.define(
             //Temporary Comment
             //|| blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCHeader-GI::SubSection"
             //blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection"||
-            if ( 
-             blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC_Comments::SubSection"
-            || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Gen_Info_Comments::SubSection"
-            || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDCComm-ID::SubSection" ) {
+            if (
+              blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC_Comments::SubSection"
+              || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Gen_Info_Comments::SubSection"
+              || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDCComm-ID::SubSection") {
               blocks[i].getContent()[0].getLayout().setColumnsM(1);
               blocks[i].getContent()[0].getLayout().setColumnsL(1);
               blocks[i].getContent()[0].getLayout().setColumnsXL(1);
@@ -429,7 +431,7 @@ sap.ui.define(
         if (cbcCommSection) {
           cbcCommSection.onAfterRendering = setBlocksRight;
         }
-        
+
 
         //Set the Grid Layout for the SubSection
 
@@ -1062,6 +1064,11 @@ sap.ui.define(
           case "ZGC_C_DC_CAL_SPEC":
             originName = "ZGC_C_DC_CAL_SPECType";
             annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCSpecuTableChanged";
+            break;
+          case "zgc_c_payments":
+            originName = "zgc_c_paymentsType";
+            annotationName = "com.sap.vocabularies.Common.v1.SideEffects#PaymentNumberChanged";
+            break;
         }
         const oView = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
         const oID = {
@@ -1089,6 +1096,7 @@ sap.ui.define(
         oInput.setFieldGroupIds([sUUID]);
       },
       onDNValueHelpRequested: function (oEvent) {
+        this._prepareSideEffects(oEvent);
         this.VHInput = oEvent.getSource();
         const fragment = Fragment.load({
           name: "com.gc.dashboard.ext.fragment.DocumentNoValueHelp",
