@@ -508,7 +508,12 @@ sap.ui.define(
         const dcSection14SubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-SS::SubSection");
         if (dcSection14SubSection) {
           dcSection14SubSection.onAfterRendering = setBlocksRight;
-        }        
+        }  
+        
+        const prevPermitSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PrevBldPerCrd-SS::SubSection");
+        if (prevPermitSection) {
+          prevPermitSection.onAfterRendering = setBlocksRight;
+        }
       },
 
       onBeforeRebindTableExtension: function (oEvent) {
