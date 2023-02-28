@@ -791,6 +791,8 @@
                 <Property Name="inv_email4_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="inv_email5_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="is_appeal_refund_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="is_dc_exm_applicable_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="is_dc_prv_prmt_applicable_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="is_dem_cbc_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="is_exm_cbc_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="is_kind_cbc_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -843,6 +845,10 @@
                 <Property Name="is_appeal_refund" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="is_appeal_refund_fc" sap:filter-restriction="single-value" sap:label="Appeal refund?"/>
                 <Property Name="is_sec14_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="is_sec14_applicable_fc" sap:label="Sec 14 Applicable?" sap:quickinfo="Is Sec 14 applicable?"/>
                 <Property Name="sec14_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Sec14 Hidden?" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="is_dc_exm_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="is_dc_exm_applicable_fc" sap:label="DC Exm Applicable?" sap:quickinfo="DC Exemption Applicable?"/>
+                <Property Name="dc_exm_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="DC Exm. Hidden?" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="is_dc_prv_prmt_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="is_dc_prv_prmt_applicable_fc" sap:label="DC Prev Prmt ?"/>
+                <Property Name="dc_prv_prmt_hidden" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Prv Prmt Hidden?" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="appeal_calc_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:field-control="appeal_calc_date_fc" sap:label="Appeal Calc Date" sap:quickinfo="Appeal Calculation Date"/>
                 <Property Name="appeal_int_percent" Type="Edm.Decimal" Precision="5" Scale="2" sap:field-control="appeal_int_percent_fc" sap:label="Appeal Interest %"/>
                 <Property Name="total_cbc_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total CBC Payable" sap:creatable="false" sap:updatable="false"/>
@@ -2222,6 +2228,8 @@
                                 <PropertyPath>inv_email4_fc</PropertyPath>
                                 <PropertyPath>inv_email5_fc</PropertyPath>
                                 <PropertyPath>is_appeal_refund_fc</PropertyPath>
+                                <PropertyPath>is_dc_exm_applicable_fc</PropertyPath>
+                                <PropertyPath>is_dc_prv_prmt_applicable_fc</PropertyPath>
                                 <PropertyPath>is_dem_cbc_fc</PropertyPath>
                                 <PropertyPath>is_exm_cbc_fc</PropertyPath>
                                 <PropertyPath>is_kind_cbc_fc</PropertyPath>
@@ -2383,6 +2391,8 @@
                                 <PropertyPath>inv_email4_fc</PropertyPath>
                                 <PropertyPath>inv_email5_fc</PropertyPath>
                                 <PropertyPath>is_appeal_refund_fc</PropertyPath>
+                                <PropertyPath>is_dc_exm_applicable_fc</PropertyPath>
+                                <PropertyPath>is_dc_prv_prmt_applicable_fc</PropertyPath>
                                 <PropertyPath>is_dem_cbc_fc</PropertyPath>
                                 <PropertyPath>is_exm_cbc_fc</PropertyPath>
                                 <PropertyPath>is_kind_cbc_fc</PropertyPath>
