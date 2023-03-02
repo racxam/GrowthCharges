@@ -367,6 +367,7 @@
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>dc_exm_hidden</PropertyPath>
+                                <PropertyPath>is_dc_exemption</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
