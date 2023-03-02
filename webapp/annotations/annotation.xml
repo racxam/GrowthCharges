@@ -356,7 +356,7 @@
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
-                                <PropertyPath>is_dc_exemption</PropertyPath>
+                                <PropertyPath>is_dc_exm_applicable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
@@ -367,6 +367,7 @@
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>dc_exm_hidden</PropertyPath>
+                                <PropertyPath>is_dc_exemption</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
