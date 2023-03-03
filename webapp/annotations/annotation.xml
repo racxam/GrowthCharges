@@ -521,15 +521,8 @@
                                 <PropertyPath>invoice_calculation_date</PropertyPath>
                             </Collection>
                         </PropertyValue>
-                        <PropertyValue Property="TargetEntities">
-                            <Collection>
-                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
-                                <NavigationPropertyPath>to_demos</NavigationPropertyPath>
-                                <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
-                                <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
-                                <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>
-                            </Collection>
-                        </PropertyValue>
+                        <!--Calling the calculate function. This will refresh to_dccal,to_demos,to_exemptions,to_sec14,to_dc_spec -->
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate"/>
                     </Record>
                 </Annotation>
 
