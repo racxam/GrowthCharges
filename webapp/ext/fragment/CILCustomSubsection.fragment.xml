@@ -242,7 +242,9 @@
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelAsoPaymnt" label="{i18n>labelCILAssociatedPayment}" visible="{cond_permit}">
 							<forms:fields>
-								<m:Input id="idCIL_EditTextAsoPaymnt" value="{path:'cil_associated_payment',type: 'sap.ui.model.type.Float',formatOptions: {maxFractionDigits: 3,groupingEnabled:false} }" editable="{=${cond_permit}}" change=".onUpdateAssoPayment" />
+								<m:Input id="idCIL_EditTextAsoPaymnt" value="{cil_associated_payment}" editable="{=${cond_permit}}" change=".onUpdateAssoPayment" />
+								<!--Temporary comments , once FUT done to be removed-->
+								<!-- value="{path:'cil_associated_payment',type: 'sap.ui.model.type.Float',formatOptions: {maxFractionDigits: 3,groupingEnabled:false} }" -->
 							</forms:fields>
 						</forms:FormElement>
 					</forms:formElements>

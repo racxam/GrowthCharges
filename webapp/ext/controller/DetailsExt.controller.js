@@ -35,12 +35,15 @@ sap.ui.define(
         const totalNonIndDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table");
         totalNonIndDCTable.setUseVariantManagement(true);
         totalNonIndDCTable.setUseExportToExcel(true);
+        totalNonIndDCTable.setShowFullScreenButton(true);
         const oExemptionDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table");
         oExemptionDCTable.setUseVariantManagement(true);
         oExemptionDCTable.setUseExportToExcel(true);
+        oExemptionDCTable.setShowFullScreenButton(true);
         const oDeferralDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCDeferralTable-ID::Table");
         oDeferralDCTable.setUseVariantManagement(true);
         oDeferralDCTable.setUseExportToExcel(true);
+        oDeferralDCTable.setShowFullScreenButton(true);
         const oPrvBuidlingPermitDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
         oPrvBuidlingPermitDCTable.setUseVariantManagement(true);
         oPrvBuidlingPermitDCTable.setUseExportToExcel(true);
@@ -49,18 +52,26 @@ sap.ui.define(
         //CBC Tables
         const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
         oCBCExemptTable.setUseVariantManagement(true);
+        oCBCExemptTable.setShowFullScreenButton(true);
         const oCBCInKindTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--InKindContr-ID::Table");
         oCBCInKindTable.setUseVariantManagement(true);
+        oCBCInKindTable.setShowFullScreenButton(true);
         const oCBCDemoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemoExm-ID::Table");
         oCBCDemoTable.setUseVariantManagement(true);
+        oCBCDemoTable.setShowFullScreenButton(true);
 
         //Payment Table
         const oPaymentInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table");
         oPaymentInfoPaymentTable.setUseVariantManagement(true);
+        oPaymentInfoPaymentTable.setShowFullScreenButton(true);
         const oRefundInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--RefundInfo-ID::Table");
         oRefundInfoPaymentTable.setUseVariantManagement(true);
+        oRefundInfoPaymentTable.setShowFullScreenButton(true);
         const oDeferralPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DeferralInfo-ID::Table");
         oDeferralPaymentTable.setUseVariantManagement(true);
+        oDeferralPaymentTable.setShowFullScreenButton(true);
+
+
       },
 
       /**
@@ -928,6 +939,11 @@ sap.ui.define(
           oModel.setProperty(`${sPath}/to_cilcal/mgr_apr_reqd`, false);
         }
       },
+
+      onUpdateAssoPayment : function(oEvent){
+        this._prepareSideEffects(oEvent);
+      },
+
       onValueHelpRequested: function (oEvent) {
         //For the custom control, enable side effects
         this._prepareSideEffects(oEvent);
@@ -1069,6 +1085,9 @@ sap.ui.define(
             originName = "zgc_c_paymentsType";
             annotationName = "com.sap.vocabularies.Common.v1.SideEffects#PaymentNumberChanged";
             break;
+          case "zgc_c_requests":
+            originName = "zgc_c_requestsType";
+            annotationName = "com.sap.vocabularies.Common.v1.SideEffects#CILAssocaitedPaymentChanged";
         }
         const oView = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
         const oID = {
