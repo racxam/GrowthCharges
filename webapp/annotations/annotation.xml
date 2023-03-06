@@ -413,7 +413,7 @@
                                 <PropertyPath>com_associated_payment</PropertyPath>
                                 <PropertyPath>tdsp_associated_payment</PropertyPath>
                                 <PropertyPath>dpcsb_associated_payment</PropertyPath>
-                                <PropertyPath>got_comments</PropertyPath>
+                                <PropertyPath>go_associated_payment</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">

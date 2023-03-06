@@ -227,9 +227,9 @@
                 <Property Name="dev_area" Type="Edm.Decimal" Precision="15" Scale="4" sap:label="Development Area"/>
                 <Property Name="uom" Type="Edm.String" MaxLength="3" sap:label="Base Unit of Measure" sap:semantics="unit-of-measure"/>
                 <Property Name="site_cil_rate" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Site Specific CIL Ra" sap:quickinfo="Site Specific CIL Rate" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="site_cil_calc" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Site Spe CIL Calc" sap:quickinfo="Site Specific CIL Calculation"/>
+                <Property Name="site_cil_calc" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Site Spe CIL Calc" sap:quickinfo="Site Specific CIL Calculation" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="cil_site_val_perc" Type="Edm.Decimal" Precision="5" Scale="2" sap:label="CIL Site Value Cap %" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="cil_site_val_calc" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="CIL Site Value Cap" sap:quickinfo="CIL Site Value Cap Calculation"/>
+                <Property Name="cil_site_val_calc" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="CIL Site Value Cap" sap:quickinfo="CIL Site Value Cap Calculation" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="plan_act_rate" Type="Edm.Int16" sap:label="Planning Actual Rate" sap:value-list="fixed-values"/>
                 <Property Name="density_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Residential Payable" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="valid_to" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid Until"/>
@@ -715,10 +715,10 @@
                 <Property Name="Gen_ref_receipt_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="refund_uuid" Type="Edm.Guid" Nullable="false" sap:label="Growth Charges Key" sap:heading=""/>
-                <Property Name="req_uuid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading=""/>
-                <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID"/>
-                <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
+                <Property Name="refund_uuid" Type="Edm.Guid" Nullable="false" sap:label="Growth Charges Key" sap:heading="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="req_uuid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="refund_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Refund Date"/>
                 <Property Name="refund_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="Refund Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
@@ -729,10 +729,10 @@
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
                 <Property Name="generate_reciept" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Generate Reciept?"/>
                 <Property Name="refund_type" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Refund Type"/>
-                <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
-                <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On"/>
-                <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
-                <Property Name="updated_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Updated On"/>
+                <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="updated_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Updated On" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
                 <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On"/>
                 <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On"/>
@@ -834,6 +834,7 @@
                 <Property Name="site_plan_approved_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Site Plan App Date" sap:quickinfo="Site Plan Approved Date" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="dc_applicable_fc" sap:label="DC Applicable"/>
                 <Property Name="cbc_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="cbc_applicable_fc" sap:label="CBC Applicable"/>
+                <Property Name="dummy_criticality" Type="Edm.Byte" sap:label="INT1" sap:quickinfo="1 Byte Unsigned Integer" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="cil_guid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading=""/>
                 <Property Name="cil_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="cil_applicable_fc" sap:label="CIL Applicable"/>
                 <Property Name="cil_requested" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="CIL Requested?" sap:creatable="false" sap:updatable="false"/>
@@ -1173,12 +1174,10 @@
                     <PropertyRef Name="StartDate"/>
                     <PropertyRef Name="EndDate"/>
                     <PropertyRef Name="rate"/>
-                    <PropertyRef Name="CilSqRate"/>
                 </Key>
                 <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Start Date"/>
                 <Property Name="EndDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="End Date"/>
                 <Property Name="rate" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="2" sap:label="CIL Capped Rate Per" sap:quickinfo="CIL Capped Rate Per Unit"/>
-                <Property Name="CilSqRate" Type="Edm.Decimal" Nullable="false" Precision="12" Scale="3" sap:label="CIL Status Quo Rate" sap:quickinfo="CIL Status Quo Rate Per Unit"/>
             </EntityType>
             <EntityType Name="zgc_rates_cil_plan_vhType" sap:label="Value Help for Planning Rate" sap:value-list="true" sap:content-version="1">
                 <Key>
@@ -3282,9 +3281,6 @@
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="EndDate"/>
-                                </Record>
-                                <Record Type="Common.ValueListParameterDisplayOnly">
-                                    <PropertyValue Property="ValueListProperty" String="CilSqRate"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
