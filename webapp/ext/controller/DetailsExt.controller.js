@@ -12,7 +12,7 @@ sap.ui.define(
     "sap/m/Button",
     "sap/ui/core/Icon"
   ],
-  function (JSONModel, Fragment, UIColumn, Filter, Text, MessageBox, ColumnListItem, DateFormat, Button,Icon) {
+  function (JSONModel, Fragment, UIColumn, Filter, Text, MessageBox, ColumnListItem, DateFormat, Button, Icon) {
     "use strict";
     return sap.ui.controller("com.gc.dashboard.ext.controller.DetailsExt", {
       /**
@@ -75,29 +75,7 @@ sap.ui.define(
 
       },
 
-      _defineCILIconControl: function (sId) {
-        const oCILIcon = new Icon(
-          {
-            color:"#346187",
-            src: "sap-icon://incident",
-            width:"50px"
-          }
-        );
-
-      switch (sId) {
-        case "ExmUnits":
-          oCILIcon.setTooltip("As exemption under the parkland conveyance bylaw.");
-          break;
-          case "CRUnits":
-            oCILIcon.setTooltip("Parkland dedication agreement credits.");
-          break;
       
-        default:
-          oCILIcon.setTooltip("This is populated from lesser of the Site Specific CIL Calculation OR the CIL Site Value Cap Calculation OR the CIL Capped Rate Total");
-          break;
-      }
-        return oCILIcon;
-      },
 
       /**
        * Helper method to hide Paste Btn from Object Page Table
@@ -262,7 +240,7 @@ sap.ui.define(
           if (sSelectedSection === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL::Section") {
             sCILSection.getParent().scrollToSection(sCILSection.getId());
           }
-         
+
           that._hidePasteButton();
 
           //Park Planner in Edit Mode. Disable DC buttons
@@ -316,26 +294,38 @@ sap.ui.define(
         });
       },
 
+      _defineCILIconControl: function (sId) {
+        const oCILIcon = new Icon(
+          {
+            color: "#346187",
+            src: "sap-icon://incident",
+            width: "50px"
+          }
+        );
+        switch (sId) {
+          case "exm_units":
+            oCILIcon.setTooltip("As exemption under the parkland conveyance bylaw.");
+            break;
+          case "oth_cr_units":
+            oCILIcon.setTooltip("Parkland dedication agreement credits.");
+            break;
+          default:
+            oCILIcon.setTooltip("This is populated from lesser of the Site Specific CIL Calculation OR the CIL Site Value Cap Calculation OR the CIL Capped Rate Total");
+            break;
+        }
+        return oCILIcon;
+      },
+
+      _addCILIconControl : function(){
+        const aCILGroup = ["density_payable","exm_units","oth_cr_units"];
+        aCILGroup.forEach(mItem => {
+          let oControl = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::${mItem}::GroupElement`);
+            oControl.addElement(this._defineCILIconControl(mItem));
+        });
+      },
       onAfterRendering: function () {
         this._applyDefaultVariant();
-
- if (sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::FormGroup").getGroupElements()[8].getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::density_payable::GroupElement") {
-            const oIcon = this._defineCILIconControl("DensityPayable");
-            sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::FormGroup").getGroupElements()[8].addElement(oIcon);
-        
-          }
-          if (sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::FormGroup").getGroupElements()[5].getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exm_units::GroupElement") {
-            const oIcon = this._defineCILIconControl("ExmUnits");
-            sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::FormGroup").getGroupElements()[5].addElement(oIcon);
-        
-          }
-          if (sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::FormGroup").getGroupElements()[4].getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::oth_cr_units::GroupElement") {
-            const oIcon = this._defineCILIconControl("CRUnits");
-            sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::FormGroup").getGroupElements()[4].addElement(oIcon);
-        
-          }
-            
-          
+        this._addCILIconControl();
 
         //Value help for CIL capped rate and CIL rate
         this._cilUpdates = {
@@ -565,8 +555,8 @@ sap.ui.define(
         const dcSection14SubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-SS::SubSection");
         if (dcSection14SubSection) {
           dcSection14SubSection.onAfterRendering = setBlocksRight;
-        }  
-        
+        }
+
         const prevPermitSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PrevBldPerCrd-SS::SubSection");
         if (prevPermitSection) {
           prevPermitSection.onAfterRendering = setBlocksRight;
@@ -984,7 +974,7 @@ sap.ui.define(
         }
       },
 
-      onUpdateAssoPayment : function(oEvent){
+      onUpdateAssoPayment: function (oEvent) {
         this._prepareSideEffects(oEvent);
       },
 
