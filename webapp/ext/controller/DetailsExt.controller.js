@@ -299,7 +299,8 @@ sap.ui.define(
           {
             color: "#346187",
             src: "sap-icon://incident",
-            width: "50px"
+            width: "50px",
+            height: "30px"
           }
         );
         switch (sId) {
