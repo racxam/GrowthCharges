@@ -409,7 +409,7 @@
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
-                                <PropertyPath>rop_comments</PropertyPath>
+                                <PropertyPath>rop_associated_payment</PropertyPath>
                                 <PropertyPath>com_associated_payment</PropertyPath>
                                 <PropertyPath>tdsp_associated_payment</PropertyPath>
                                 <PropertyPath>dpcsb_associated_payment</PropertyPath>
