@@ -68,12 +68,12 @@
 							</forms:fields>
 						</forms:FormElement>
 
-						<forms:FormElement id="idCIL_DisplayFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" visible="{=${version} !== '01'}">
+						<forms:FormElement id="idCIL_DisplayFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" ><!--visible="{=${version} !== '01'}"-->
 							<forms:fields>
 								<m:Text id="idCIL_DisplayTextPrevAmntPaid" text="{cil_paid_previously}" />
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_DisplayFormLabelNewCILTotal" label="{i18n>labelNewCILTotal}" visible="{=${version} !== '01'}">
+						<forms:FormElement id="idCIL_DisplayFormLabelNewCILTotal" label="{i18n>labelNewCILTotal}" ><!--visible="{=${version} !== '01'}"-->
 							<forms:fields>
 								<m:Text id="idCIL_DisplayTextNewCILTotal" text="{current_cil_payable}" />
 							</forms:fields>
@@ -195,12 +195,12 @@
 								<m:Text id="idCIL_EditTextMaxID" text="{to_cilcal/maxid}" />
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" visible="{=${version} !== '01'}">
+						<forms:FormElement id="idCIL_EditFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" > <!--visible="{=${version} !== '01'}"-->
 							<forms:fields>
 								<m:Text id="idCIL_EditTextPrevAmntPaid" text="{cil_paid_previously}" />
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelNewCILTotal" label="{i18n>labelNewCILTotal}" visible="{=${version} !== '01'}">
+						<forms:FormElement id="idCIL_EditFormLabelNewCILTotal" label="{i18n>labelNewCILTotal}" > <!--visible="{=${version} !== '01'}"-->
 							<forms:fields>
 								<m:Text id="idCIL_EditTextNewCILTotal" text="{current_cil_payable}" />
 							</forms:fields>
