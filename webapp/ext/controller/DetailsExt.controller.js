@@ -232,6 +232,25 @@ sap.ui.define(
         var that = this;
         //Add custom action buttons in DC section
         this._addCustomActions();
+
+        this.getOwnerComponent().getModel().attachRequestCompleted(function (oEvent) {
+          //Check if the call was for attaching the draft invoice
+          if (oEvent.getParameter("url").includes("zgc_c_requestsAttach_draft_invoice")) {
+            const attachmentComponent = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--attachmentReuseComponent::InPayRef::Attachments::ComponentContainer").getComponentInstance();
+            //Refresh the attachment component
+            attachmentComponent.stRefresh();
+            //Refresh the invoice section
+            const pdfViewer = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PDFViewer");
+            const oLocalModel = pdfViewer.getModel("local");
+            const newInvTechDetails = JSON.parse(oEvent.getParameters().response.responseText).d.inv_tech_details;
+            const aInvoiceTechDetails = newInvTechDetails.split("-");
+            this._sValidPath =
+            `/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='${aInvoiceTechDetails[0]}',Documentpart='',Documentversion='',ApplicationId='${aInvoiceTechDetails[1]}',FileId='${aInvoiceTechDetails[2]}')/$value`;
+            oLocalModel.setProperty("/Source", this._sValidPath);
+            pdfViewer.invalidate();
+          }
+        });
+
         this.extensionAPI.attachPageDataLoaded(function (event) {
 
           //CIL Selected Section
@@ -249,13 +268,7 @@ sap.ui.define(
             //Without the below delay, action buttons like 'Calculate' and 'Add Credit' are not getting disabled
             that._hideDCButtons();
           }
-          event.context.getModel().attachRequestCompleted(function (oEvent) {
-            //Check if the call is of request details
-            if (oEvent.getParameter("url").includes("zgc_c_requestsAttach_draft_invoice")) {
-              const attachmentComponent = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--attachmentReuseComponent::InPayRef::Attachments::ComponentContainer").getComponentInstance();
-              attachmentComponent.stRefresh();
-            }
-          });
+
           const oComponent = sap.ui.getCore().byId(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests"
           ).getParent();
