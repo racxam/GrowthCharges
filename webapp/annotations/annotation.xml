@@ -435,6 +435,8 @@
                             <Collection>
                                 <PropertyPath>cbc_paid_previously</PropertyPath>
                                 <PropertyPath>current_cbc_payable</PropertyPath>
+
+                                <PropertyPath>total_cbc_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -450,6 +452,8 @@
                             <Collection>
                                 <PropertyPath>cil_paid_previously</PropertyPath>
                                  <PropertyPath>current_cil_payable</PropertyPath>
+
+                                 <PropertyPath>total_cil_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
