@@ -71,11 +71,7 @@ sap.ui.define(
         const oDeferralPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DeferralInfo-ID::Table");
         oDeferralPaymentTable.setUseVariantManagement(true);
         oDeferralPaymentTable.setShowFullScreenButton(true);
-
-
-      },
-
-      
+      },      
 
       /**
        * Helper method to hide Paste Btn from Object Page Table
@@ -611,6 +607,15 @@ sap.ui.define(
           oBindingParams.parameters = oBindingParams.parameters || {};
           oBindingParams.parameters.operationMode = "Client";
           oBindingParams.parameters.select = oBindingParams.parameters.select + ",is_rate_edited";
+        }
+
+        //Default sorting by sort_order, hierarchy_level, sub_service_id
+        if (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table") {
+          oEvent.getParameter("bindingParams").sorter = [
+            new sap.ui.model.Sorter("sort_order", false),
+            new sap.ui.model.Sorter("hierarchy_level", false),
+            new sap.ui.model.Sorter("sub_service_id", false)
+          ];
         }
       },
 
