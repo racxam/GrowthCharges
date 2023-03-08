@@ -609,14 +609,26 @@ sap.ui.define(
           oBindingParams.parameters.select = oBindingParams.parameters.select + ",is_rate_edited";
         }
 
-        //Default sorting by sort_order, hierarchy_level, sub_service_id
-        if (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table") {
+        //Default sorting by sort_order, dc_type, hierarchy_level, sub_service_id
+        if ((oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table")
+        || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table")
+        || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table")
+        || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table")
+        || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table")
+        ) {
           oEvent.getParameter("bindingParams").sorter = [
             new sap.ui.model.Sorter("sort_order", false),
+            new sap.ui.model.Sorter("dc_type", false),
             new sap.ui.model.Sorter("hierarchy_level", false),
             new sap.ui.model.Sorter("sub_service_id", false)
           ];
         }
+        if ((oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table")) {
+          oEvent.getParameter("bindingParams").sorter = [
+            new sap.ui.model.Sorter("sort_order", false),
+            new sap.ui.model.Sorter("dc_type", false)
+          ];
+        }        
       },
 
       onPressDCCalc: function (oEvent) {
