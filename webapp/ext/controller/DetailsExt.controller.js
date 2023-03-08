@@ -616,6 +616,9 @@ sap.ui.define(
         || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table")
         || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table")
         ) {
+          if ( oEvent.getParameter("bindingParams").parameters.select.indexOf("sort_order") === -1){
+            oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",sort_order";
+          }
           oEvent.getParameter("bindingParams").sorter = [
             new sap.ui.model.Sorter("sort_order", false),
             new sap.ui.model.Sorter("dc_type", false),
@@ -624,6 +627,9 @@ sap.ui.define(
           ];
         }
         if ((oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table")) {
+          if ( oEvent.getParameter("bindingParams").parameters.select.indexOf("sort_order") === -1){
+            oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",sort_order";
+          }
           oEvent.getParameter("bindingParams").sorter = [
             new sap.ui.model.Sorter("sort_order", false),
             new sap.ui.model.Sorter("dc_type", false)
