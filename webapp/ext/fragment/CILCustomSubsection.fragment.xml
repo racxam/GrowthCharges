@@ -31,7 +31,6 @@
 									<m:Text id="idCIL_DisplayTextResGFA" text="{to_cilcal/res_gfa}"/>
 									<m:Text id="idCIL_DisplayTextResGFAPer" text="{to_cilcal/res_gfa_prcnt}%" class="sapUiSmallMarginBegin"/>
 								</m:HBox>
-
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' }">							<!--|| ${to_cilcal/cil_build_type} === 'NRS'-->
@@ -58,24 +57,9 @@
 								<m:Text id="idCIL_DisplayTextWard" text="{to_cilcal/ward}"/>
 							</forms:fields>
 						</forms:FormElement>
-					</forms:formElements>
-				</forms:FormContainer>
-				<forms:FormContainer id="idCIL_DisplayFormContainer2">
-					<forms:formElements>
 						<forms:FormElement id="idCIL_DisplayFormLabelMaxID" label="{i18n>labelMaxID}">
 							<forms:fields>
 								<m:Text id="idCIL_DisplayTextMaxID" text="{to_cilcal/maxid}" />
-							</forms:fields>
-						</forms:FormElement>
-
-						<forms:FormElement id="idCIL_DisplayFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" ><!--visible="{=${version} !== '01'}"-->
-							<forms:fields>
-								<m:Text id="idCIL_DisplayTextPrevAmntPaid" text="{path:'cil_paid_previously', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
-							</forms:fields>
-						</forms:FormElement>
-						<forms:FormElement id="idCIL_DisplayFormLabelNewCILTotal" label="{i18n>labelNewCILTotal}" ><!--visible="{=${version} !== '01'}"-->
-							<forms:fields>
-								<m:Text id="idCIL_DisplayTextNewCILTotal" text="{path:'current_cil_payable', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelCharArea" label="{i18n>labelCharacterArea}">
@@ -83,9 +67,23 @@
 								<m:Text id="idCIL_DisplayTextCharArea" text="{to_cilcal/char_area_text}" />
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_DisplayFormLabelFinCILAmt" label="{i18n>labelFinalCILAmount}">
+					</forms:formElements>
+				</forms:FormContainer>
+				<forms:FormContainer id="idCIL_DisplayFormContainer2">
+					<forms:formElements>
+					<forms:FormElement id="idCIL_DisplayFormLabelFinCILAmt" label="{i18n>labelFinalCILAmount}">
 							<forms:fields>
 								<m:Text id="idCIL_DisplayTextFinCILAmt" text="{path:'total_cil_payable', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextPrevAmntPaid" text="{path:'cil_paid_previously', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelNewCILTotal" label="{i18n>labelNewCILTotal}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextNewCILTotal" text="{path:'current_cil_payable', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_DisplayFormLabelExtComm" label="{i18n>labelExternalComments}">
@@ -103,7 +101,6 @@
 								<m:Text id="idCIL_DisplayTextMngrAppReq" text="{=${to_cilcal/mgr_apr_reqd} ? 'Yes' : 'No' }" wrapping="true"/>
 							</forms:fields>
 						</forms:FormElement>
-
 						<forms:FormElement id="idCIL_DisplayFormLabelAsoPermit" label="{i18n>labelCILAssociatedPermit}">
 							<forms:fields>
 								<m:Text id="idCIL_DisplayTextAsoPermit" text="{=${cond_permit} ? 'Yes' : 'No' }" wrapping="true"/>
@@ -186,23 +183,9 @@
 								<m:Text id="idCIL_EditTextWard" text="{to_cilcal/ward}"/>
 							</forms:fields>
 						</forms:FormElement>
-					</forms:formElements>
-				</forms:FormContainer>
-				<forms:FormContainer id="idCIL_EditFormContainer2">
-					<forms:formElements>
 						<forms:FormElement id="idCIL_EditFormLabelMaxID" label="{i18n>labelMaxID}">
 							<forms:fields>
 								<m:Text id="idCIL_EditTextMaxID" text="{to_cilcal/maxid}" />
-							</forms:fields>
-						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" > <!--visible="{=${version} !== '01'}"-->
-							<forms:fields>
-								<m:Text id="idCIL_EditTextPrevAmntPaid" text="{path:'cil_paid_previously', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
-							</forms:fields>
-						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelNewCILTotal" label="{i18n>labelNewCILTotal}" > <!--visible="{=${version} !== '01'}"-->
-							<forms:fields>
-								<m:Text id="idCIL_EditTextNewCILTotal" text="{path:'current_cil_payable', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelCharArea" label="{i18n>labelCharacterArea}">
@@ -212,9 +195,23 @@
 								</m:ComboBox>
 							</forms:fields>
 						</forms:FormElement>
+					</forms:formElements>
+				</forms:FormContainer>
+				<forms:FormContainer id="idCIL_EditFormContainer2">
+					<forms:formElements>
 						<forms:FormElement id="idCIL_EditFormLabelFinCILAmt" label="{i18n>labelFinalCILAmount}">
 							<forms:fields>
 								<m:Text id="idCIL_EditTextFinCILAmt" text="{path:'total_cil_payable', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" >
+							<forms:fields>
+								<m:Text id="idCIL_EditTextPrevAmntPaid" text="{path:'cil_paid_previously', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelNewCILTotal" label="{i18n>labelNewCILTotal}" >
+							<forms:fields>
+								<m:Text id="idCIL_EditTextNewCILTotal" text="{path:'current_cil_payable', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
 							</forms:fields>
 						</forms:FormElement>
 						<forms:FormElement id="idCIL_EditFormLabelExtComm" label="{i18n>labelExternalComments}">
