@@ -65,11 +65,14 @@
                         </Record>
                     </Collection>
                 </Annotation>
-                <Annotation Term="Common.SideEffects" Qualifier="FirstPaydateChanged">
+                <Annotation Term="Common.SideEffects" Qualifier="DefTableUpdate">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
                                 <PropertyPath>def_first_payment_date</PropertyPath>
+                                <PropertyPath>is_appeal_refund</PropertyPath>
+                                <PropertyPath>appeal_calc_date</PropertyPath>
+                                <PropertyPath>appeal_int_percent</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
