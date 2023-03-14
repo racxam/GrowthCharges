@@ -1015,6 +1015,12 @@ sap.ui.define(
         this._prepareSideEffects(oEvent);
       },
 
+      /**
+			 * Handler for F4 Input fields
+			 * @public
+			 * @param {sap.ui.base.event} oEvent Event for the input field
+			 * @param {string} label of the associated field
+			 */
       onValueHelpRequested: function (oEvent) {
         //For the custom control, enable side effects
         this._prepareSideEffects(oEvent);
@@ -1185,6 +1191,13 @@ sap.ui.define(
         }
         oInput.setFieldGroupIds([sUUID]);
       },
+
+      /**
+			 * Handler for DN Value F4 Input fields
+			 * @public
+			 * @param {sap.ui.base.event} oEvent Event for the input field
+			 * @param {string} label of the associated field
+			 */
       onDNValueHelpRequested: function (oEvent) {
         this._prepareSideEffects(oEvent);
         this.VHInput = oEvent.getSource();
@@ -1193,13 +1206,13 @@ sap.ui.define(
           controller: this
         });
         //Date filter
-        const invoice_number = this.getView()
+        const sInvoiceNumber = this.getView()
           .getBindingContext()
           .getObject().invoice_number;
         const invoiceFilter = new Filter(
           "doc_ref",
           "EQ",
-          invoice_number
+          sInvoiceNumber
         );
 
         this.Filters = [invoiceFilter];

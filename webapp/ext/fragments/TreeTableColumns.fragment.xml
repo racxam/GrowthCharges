@@ -3,7 +3,7 @@
     xmlns:table="sap.ui.table"
     xmlns="sap.m">
     <table:Column hAlign="End">
-        <Label text="DC Rate" />
+        <Label text="{i18n>labelDCRate}" />
         <table:template>
             <HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center" fitContainer="true">
                 <HBox width="50px">

@@ -5,7 +5,7 @@
 		horizontal="true"
 		vertical="true">
 		<FlexBox direction="Column" renderType="Div"  height="600px">
-        <Text text="Invoice Section"></Text>
+        <Text text="{i18n>titleInvoiceSection}"/>
 			<PDFViewer id="PDFViewer" source="{local>/Source}" errorPlaceholderMessage="{i18n>noInvoice}">
 				<layoutData>
 					<FlexItemData growFactor="1" />
