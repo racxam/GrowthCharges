@@ -279,6 +279,10 @@
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">
                             <Collection>
+                            <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="is_appeal_refund"/>
+                                    <PropertyValue Property="Label" String="{@i18n>appealRefund}"/>
+                                </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="appeal_calc_date"/>
                                     <PropertyValue Property="Label" String="{@i18n>appealCalculationDate}"/>
