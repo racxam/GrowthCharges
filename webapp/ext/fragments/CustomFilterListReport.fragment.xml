@@ -4,9 +4,9 @@
     <smartfilterbar:ControlConfiguration index="45" id="controlConfigFilterBar" groupId="_BASIC" key="AppCharges" label="Application Charges" visibleInAdvancedArea="true">
         <smartfilterbar:customControl>
             <MultiComboBox id="AppChargesId">
-                <core:Item key="DC" text="DC"/>
-                <core:Item key="CBC" text="CBC"/>
-                <core:Item key="CIL" text="CIL"/>
+                <core:Item key="DC" text="{i18n>textDropdownDC}"/>
+                <core:Item key="CBC" text="{i18n>textDropdownCBC}"/>
+                <core:Item key="CIL" text="{i18n>textDropdownCIL}"/>
             </MultiComboBox>
         </smartfilterbar:customControl>
     </smartfilterbar:ControlConfiguration>
