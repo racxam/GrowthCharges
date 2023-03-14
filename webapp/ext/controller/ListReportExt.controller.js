@@ -10,24 +10,25 @@ sap.ui.define([
     function (Dialog, TextArea, Button, Filter, SmartFilterBar, MultiComboBox, FioriLibrary) {
         "use strict";
         return sap.ui.controller("com.gc.dashboard.ext.controller.ListReportExt", {
-            onInit: function () {
 
+            /**
+             * lifecycle, on init
+             * @public
+             */
+            onInit: function () {
                 const oClearButton = this.getView().byId("com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--listReportFilter-btnClear");
                 oClearButton.attachPress(this.onClearButtonPress, this);
-
                 //Disable popin in smarttable
                 const oSmartTable = this.getView().byId("com.gc.dashboard::sap.suite.ui.generic.template.ListReport.view.ListReport::zgc_c_requests--listReport");
                 oSmartTable.setDemandPopin(false);
-                
                 // Get Inbox HashKey
                 const oRouter = this.getOwnerComponent().getRouter();
                 const sHashKey = oRouter.getHashChanger().key;
-
                 if (sHashKey === "Child") {
-                      const oCoreModel = sap.ui.getCore().getModel("CoreModel");
-                      const sGuid = oCoreModel.getProperty("/guid");
+                    const oCoreModel = sap.ui.getCore().getModel("CoreModel");
+                    const sGuid = oCoreModel.getProperty("/guid");
                     oRouter.navTo("zgc_c_requests",
-                        { keys1:`req_uuid=guid'${sGuid}',IsActiveEntity=true`},
+                        { keys1: `req_uuid=guid'${sGuid}',IsActiveEntity=true` },
                         true
                     );
                 }
@@ -42,7 +43,7 @@ sap.ui.define([
                 this.byId("AppChargesId").setSelectedKeys([]);
                 this.byId("VersionId").setSelectedKeys([]);
             },
-
+            
             getCustomAppStateDataExtension: function (oCustomData) {
                 //the content of the custom field will be stored in the app state, so that it can be restored later, for example after a back navigation.
                 //The developer has to ensure that the content of the field is stored in the object that is passed to this method.
@@ -70,20 +71,25 @@ sap.ui.define([
                 }
             },
 
+            /**
+             * Event handler for smart table fired before binding is done.
+             * @private
+             * @param {sap.ui.base.Event} oEvent event handler for before binding event
+             */
             onBeforeRebindTableExtension: function (oEvent) {
                 var oBindingParams = oEvent.getParameter("bindingParams");
                 oBindingParams.parameters = oBindingParams.parameters || {};
                 const oSmartTable = oEvent.getSource();
                 const oSmartFilterBar = this.byId(oSmartTable.getSmartFilterId());
                 let aFilters = [];
-                const oTable  = oSmartTable.getTable();
+                const oTable = oSmartTable.getTable();
                 const aColumns = oTable.getColumns();
 
                 //Width Setting
                 for (let i = 0; i < aColumns.length; i++) {
-                    if(!aColumns[i].getWidth()){
+                    if (!aColumns[i].getWidth()) {
                         aColumns[i].setWidth("6rem");
-                    }                    
+                    }
                 }
 
                 if (oSmartFilterBar instanceof SmartFilterBar) {
@@ -127,6 +133,12 @@ sap.ui.define([
                 }
             },
 
+            /**
+             * Handler for Opening Comment Dialog
+             * @public
+             * @param {sap.ui.base.Event} oEvent press event handler
+             * @param {string} sKey ColumnKey
+             */
             onPressComments: function (oEvent, sKey) {
                 const oListCommentDialog = { "CIL": "", "CBC": "", "DC": "" };
                 let sFieldText = "";
@@ -178,20 +190,25 @@ sap.ui.define([
             getStatusStateForCIL: function (sStatus) {
                 if (sStatus === "INP") {
                     return "Information";
-                } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" ) {
+                } else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND") {
                     return "Warning";
                 } else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
                     return "Error";
                 } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "FIN_PND") {
                     return "Success";
-                }  else if (sStatus === "CLSD" || sStatus === "PCLSD") {
+                } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
                     return "Success";
-                }  else {
+                } else {
                     return "None";
                 }
             },
 
-            
+            /**
+             * Formatter to show CBC Status
+             * @public
+             * @param {string} sStatus value
+             * @returns {state} State
+             */
             showStatusCBC: function (sStatus) {
                 if (sStatus === "INP" || sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "CIL_APR") {
                     return "Information";
@@ -201,24 +218,31 @@ sap.ui.define([
                     return "Error";
                 } else if (sStatus === "FIN_APR") {
                     return "Success";
-                }  else if (sStatus === "CLSD"  || sStatus === "PCLSD") {
+                } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
                     return "Success";
-                }  else {
+                } else {
                     return "None";
                 }
             },
+
+             /**
+             * Formatter to show DC Status
+             * @public
+             * @param {string} sStatus value
+             * @returns {state} State
+             */
             showStatusDC: function (sStatus) {
                 if (sStatus === "INP" || sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "CIL_APR") {
                     return "Information";
                 } else if (sStatus === "FIN_PND") {
                     return "Warning";
-                } else if ( sStatus === "FIN_REJ") {
+                } else if (sStatus === "FIN_REJ") {
                     return "Error";
-                } else if ( sStatus === "FIN_APR") {
+                } else if (sStatus === "FIN_APR") {
                     return "Success";
-                }  else if (sStatus === "CLSD" || sStatus === "PCLSD") {
+                } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
                     return "Success";
-                }  else {
+                } else {
                     return "None";
                 }
             },
@@ -238,9 +262,9 @@ sap.ui.define([
                     return "Error";
                 } else if (sStatus === "CIL_APR" || sStatus === "FIN_APR") {
                     return "Success";
-                }  else if (sStatus === "CLSD" || sStatus === "PCLSD") {
+                } else if (sStatus === "CLSD" || sStatus === "PCLSD") {
                     return "Success";
-                }  else {
+                } else {
                     return "None";
                 }
             },
@@ -252,9 +276,9 @@ sap.ui.define([
              * @returns {state} State
              */
             showStatusPClosed: function (sStatus) {
-               if (sStatus === "PCLSD") {
+                if (sStatus === "PCLSD") {
                     return "None";
-                } 
+                }
                 return "None";
             },
 
@@ -265,12 +289,17 @@ sap.ui.define([
              * @returns {state} State
              */
             showStatusHold: function (sStatus) {
-                if (sStatus === "HLD") 
-                    {return "None";}
-                    return "None";
-                
+                if (sStatus === "HLD") { return "None"; }
+                return "None";
+
             },
 
+            /**
+             * Formatter to control visibility of DC Comments Icon
+             * @public
+             * @param {string} sComments value
+             * @returns {state} State
+             */
             showDCComments: function (sComments) {
                 if (sComments) {
                     return true;
@@ -278,6 +307,12 @@ sap.ui.define([
                 return false;
             },
 
+            /**
+             * Formatter to control visibility of CBC Comments Icon
+             * @public
+             * @param {string} sComments value
+             * @returns {state} State
+             */
             showCBCComments: function (sComments) {
                 if (sComments) {
                     return true;
@@ -285,12 +320,19 @@ sap.ui.define([
                 return false;
             },
 
+            /**
+             * Formatter to control visibility of CIL Comments Icon
+             * @public
+             * @param {string} sComments value
+             * @returns {state} State
+             */
             showCILComments: function (sComments) {
                 if (sComments) {
                     return true;
                 }
                 return false;
             },
+
             /**
              * Formatter to concantentate the Application Charges Column
              * @public
@@ -300,7 +342,6 @@ sap.ui.define([
              * @returns {string} sAppCharges
              */
             showApplicationCharges: function (bDC, bCIL, bCBC) {
-
                 let sAppCharges = "";
                 if (bDC) {
                     sAppCharges = sAppCharges + "DC" + ",";
