@@ -91,7 +91,7 @@ sap.ui.define(
         const aPaymentTableIds = ["PaymentInfo-ID", "RefundInfo-ID", "DeferralInfo-ID"];
         aPaymentTableIds.forEach(mId => {
           const oTable = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--${mId}::pasteEntries`);
-          oTable?.setVisible(false);
+          oTable.setVisible(false);
         });
       },
 
