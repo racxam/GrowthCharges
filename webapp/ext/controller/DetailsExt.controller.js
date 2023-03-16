@@ -467,7 +467,8 @@ sap.ui.define(
             if (
               blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC_Comments::SubSection"
               || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Gen_Info_Comments::SubSection"
-              || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDCComm-ID::SubSection") {
+              || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDCComm-ID::SubSection"
+              || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-Comm-SS::SubSection") {
               blocks[i].getContent()[0].getLayout().setColumnsM(1);
               blocks[i].getContent()[0].getLayout().setColumnsL(1);
               blocks[i].getContent()[0].getLayout().setColumnsXL(1);
@@ -570,6 +571,12 @@ sap.ui.define(
         const prevPermitSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PrevBldPerCrd-SS::SubSection");
         if (prevPermitSection) {
           prevPermitSection.onAfterRendering = setBlocksRight;
+        }
+
+        // CIL Comments
+        const cil_CommentsSubSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL-Comm-SS::SubSection");
+        if (cil_CommentsSubSection) {
+          cil_CommentsSubSection.onAfterRendering = setBlocksRight;
         }
       },
 

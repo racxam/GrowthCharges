@@ -159,7 +159,7 @@
                             "fragmentName": "com.gc.dashboard.ext.fragments.AfterHeaderFacetExtFacet",
                             "type": "XML"
                         },
-                        "BeforeSubSection|zgc_c_requests|CIL-Res-SS": {
+                        "BeforeSubSection|zgc_c_requests|CIL-Comm-SS": {
                             "type": "XML",
                             "className": "sap.ui.core.Fragment",
                             "fragmentName": "com.gc.dashboard.ext.fragment.CILCustomSubsection",

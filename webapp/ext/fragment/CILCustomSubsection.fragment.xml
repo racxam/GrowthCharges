@@ -86,16 +86,7 @@
 								<m:Text id="idCIL_DisplayTextNewCILTotal" text="{path:'current_cil_payable', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_DisplayFormLabelExtComm" label="{i18n>labelExternalComments}">
-							<forms:fields>
-								<m:Text id="idCIL_DisplayTextExtComm" text="{to_cilcal/ext_comments}" wrapping="true"/>
-							</forms:fields>
-						</forms:FormElement>
-						<forms:FormElement id="idCIL_DisplayFormLabelIntComm" label="{i18n>labelInternalComments}">
-							<forms:fields>
-								<m:Text id="idCIL_DisplayTextIntComm" text="{to_cilcal/int_comments}" wrapping="true"/>
-							</forms:fields>
-						</forms:FormElement>
+						
 						<forms:FormElement id="idCIL_DisplayFormLabelMngrAppr" label="{i18n>labelManagerApprovalReq}">
 							<forms:fields>
 								<m:Text id="idCIL_DisplayTextMngrAppReq" text="{=${to_cilcal/mgr_apr_reqd} ? 'Yes' : 'No' }" wrapping="true"/>
@@ -214,16 +205,7 @@
 								<m:Text id="idCIL_EditTextNewCILTotal" text="{path:'current_cil_payable', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
 							</forms:fields>
 						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelExtComm" label="{i18n>labelExternalComments}">
-							<forms:fields>
-								<m:TextArea id="idCIL_EditTextExtComm" valueLiveUpdate="true" value="{to_cilcal/ext_comments}" editable="{=${cil_requested}}"/>
-							</forms:fields>
-						</forms:FormElement>
-						<forms:FormElement id="idCIL_EditFormLabelIntComm" label="{i18n>labelInternalComments}">
-							<forms:fields>
-								<m:TextArea id="idCIL_EditTextIntComm" required="{=!${cil_applicable}}" valueLiveUpdate="true" value="{to_cilcal/int_comments}"/>
-							</forms:fields>
-						</forms:FormElement>
+						
 						<forms:FormElement id="idCIL_EditFormLabelMngrAppr" label="{i18n>labelManagerApprovalReq}">
 							<forms:fields>
 								<m:RadioButtonGroup id="idCIL_EditRBGrpMngrAppReq" columns="2" select=".onPressRBGrpMngrAppReq">
@@ -241,7 +223,7 @@
 							<forms:fields>
 								<m:HBox id="idCIL_EditHBoxAsoPaymnt" alignItems="Center">
 								<m:Input id="idCIL_EditTextAsoPaymnt" change=".onUpdateAssoPayment" editable="{=${cond_permit}}" value="{cil_associated_payment}"/>
-								<m:Text id="idCILCADCurr" text="CAD" class="sapUiSmallMarginBegin"/>
+								<m:Text id="idCILCADCurr" text="{i18n>labelCAD}" class="sapUiSmallMarginBegin"/>
 								</m:HBox>
 							</forms:fields>
 						</forms:FormElement>
