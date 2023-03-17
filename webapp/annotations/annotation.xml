@@ -779,20 +779,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                <Annotation Term="UI.FieldGroup" Qualifier="CIL_Comments">
-                    <Record Type="UI.FieldGroupType">
-                        <PropertyValue Property="Data">
-                            <Collection>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="ext_comments"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="int_comments"/>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
             </Annotations>
             <Annotations Target="SAP.zgc_c_cil_calType">
                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects">

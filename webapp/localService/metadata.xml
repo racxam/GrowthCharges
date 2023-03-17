@@ -44,10 +44,11 @@
             </EntityType>
             <EntityType Name="zgc_address_vhType" sap:label="Value Help for Address" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="req_uuid"/>
+                    <PropertyRef Name="street"/>
                 </Key>
-                <Property Name="req_uuid" Type="Edm.Guid" Nullable="false" sap:label="" sap:quickinfo="Growth Charges Key"/>
-                <Property Name="street" Type="Edm.String" MaxLength="46" sap:display-format="UpperCase"/>
+                <Property Name="street" Type="Edm.String" Nullable="false" MaxLength="46" sap:display-format="UpperCase" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="street_no" Type="Edm.String" MaxLength="15" sap:label="Street #"/>
+                <Property Name="street_name" Type="Edm.String" MaxLength="30" sap:label="Street Name"/>
             </EntityType>
             <EntityType Name="zgc_applicant_textType" sap:label="Applicant Name" sap:content-version="1">
                 <Key>
@@ -236,7 +237,7 @@
                 <Property Name="cil_rate_res" Type="Edm.Int16" sap:label="CIL Rate Res" sap:quickinfo="CIL Rate (Residential)"/>
                 <Property Name="cil_rate_nres" Type="Edm.Int16" sap:label="CIL Rate NRes" sap:quickinfo="CIL Rate (Non-Residential)"/>
                 <Property Name="int_comments" Type="Edm.String" sap:label="Internal Comments"/>
-                <Property Name="ext_comments" Type="Edm.String" sap:label="Exernal Comments"/>
+                <Property Name="ext_comments" Type="Edm.String" sap:label="External Comments"/>
                 <Property Name="lot_frontage" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Lot Frontage"/>
                 <Property Name="nr_vacant_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Non Residential Vaca" sap:quickinfo="Non Residential Vacant Payable" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="prop_gfa" Type="Edm.Decimal" Precision="10" Scale="2" sap:label="Proposed GFA"/>
@@ -335,6 +336,8 @@
                 <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
                 <Property Name="updated_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Updated On"/>
                 <Property Name="dc_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="dc_partner" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="DC Partner" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sort_order" Type="Edm.Byte" sap:label="Sort Order" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="unit_txt" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_rate_base_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Int. Applied Date"/>
                 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
@@ -396,6 +399,7 @@
                 <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
                 <Property Name="updated_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Updated On"/>
                 <Property Name="dc_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sort_order" Type="Edm.Byte" sap:label="Sort Order" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="unit_txt" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_rate_base_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Int. Applied Date"/>
                 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
@@ -459,6 +463,7 @@
                 <Property Name="updated_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Updated On"/>
                 <Property Name="is_rate_edited" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Is rate edited by us" sap:quickinfo="Is rate edited by user?"/>
                 <Property Name="dc_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sort_order" Type="Edm.Byte" sap:label="Sort Order" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="unit_txt" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dm_cred_typ_txt" Type="Edm.String" MaxLength="60" sap:label="Short Descript." sap:quickinfo="Short Text for Fixed Values" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
@@ -515,6 +520,7 @@
                 <Property Name="unit_txt" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="partner_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sort_order" Type="Edm.Byte" sap:label="Sort Order" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="exm_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="invoice_calculation_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Invoice Calculation" sap:quickinfo="Invoice Calculation Date" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
@@ -568,6 +574,7 @@
                 <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
                 <Property Name="updated_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Updated On"/>
                 <Property Name="dc_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sort_order" Type="Edm.Byte" sap:label="Sort Order" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="unit_txt" Type="Edm.String" MaxLength="30" sap:label="Measurement Unit Txt" sap:quickinfo="Unit of Measurement Text (Maximum 30 Characters)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
                 <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On"/>
@@ -602,8 +609,8 @@
                 <Property Name="payment_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Payment Date" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_days" Type="Edm.Int16" sap:label="Days of Interest" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="refund_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="Refund Amount" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="refund_interest" Type="Edm.Decimal" Precision="10" Scale="4" sap:unit="currency" sap:label="Refund with Interest" sap:heading="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="refund_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Refund Amount" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="refund_interest" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Refund with Interest" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="generate_invoice" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Generate Invoice" sap:heading=""/>
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
                 <Property Name="city_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="City" sap:creatable="false" sap:updatable="false"/>
@@ -630,7 +637,6 @@
                     <PropertyRef Name="IsActiveEntity"/>
                 </Key>
                 <Property Name="Gen_pay_receipt_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="Payment_table_action_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -676,8 +682,8 @@
                 <Property Name="req_uuid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading=""/>
                 <Property Name="build_permit_no" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:field-control="build_permit_no_fc" sap:label="Primary Build Permit" sap:quickinfo="Primary Building Permit No." sap:value-list="standard"/>
                 <Property Name="dc_type" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:text="dc_txt" sap:label="DC Type" sap:value-list="fixed-values"/>
-                <Property Name="subservice_id" Type="Edm.String" MaxLength="10" sap:text="subservice_id_Text" sap:label="Sub-service ID" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="subservice_id_Text" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sub_service_id" Type="Edm.String" MaxLength="10" sap:text="sub_service_id_Text" sap:label="Sub-service ID" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sub_service_id_Text" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_partner" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="DC Partner"/>
                 <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID"/>
                 <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
@@ -694,6 +700,7 @@
                 <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
                 <Property Name="updated_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Updated On"/>
                 <Property Name="dc_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sort_order" Type="Edm.Byte" sap:label="Sort Order" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key"/>
                 <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Created On"/>
                 <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Draft Last Changed On"/>
@@ -720,9 +727,9 @@
                 <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="refund_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Refund Date"/>
-                <Property Name="refund_amount" Type="Edm.Decimal" Precision="12" Scale="3" sap:unit="currency" sap:label="Refund Amount" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="refund_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Refund Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="refund_interest" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Refund with Interest" sap:heading="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="refund_interest" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Refund with Interest" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="amount_refunded" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Amount Refunded" sap:heading=""/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
                 <Property Name="recp_name" Type="Edm.String" MaxLength="100" sap:label="Reciepient Name"/>
@@ -811,7 +818,6 @@
                 <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="req_uuid" Type="Edm.Guid" Nullable="false" sap:label="Growth Charges Key" sap:heading=""/>
                 <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID" sap:value-list="standard"/>
-                <Property Name="street" Type="Edm.String" MaxLength="46" sap:display-format="UpperCase" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
                 <Property Name="isVersionOne" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Indicator" sap:quickinfo="General Flag" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="status" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:text="status_Text" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:value-list="fixed-values"/>
@@ -829,7 +835,7 @@
                 <Property Name="street_no" Type="Edm.String" MaxLength="15" sap:label="Street #"/>
                 <Property Name="street_name" Type="Edm.String" MaxLength="30" sap:label="Street Name"/>
                 <Property Name="permit_address" Type="Edm.String" MaxLength="46" sap:display-format="UpperCase"/>
-                <Property Name="address" Type="Edm.String" MaxLength="46" sap:display-format="UpperCase" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="address" Type="Edm.String" MaxLength="46" sap:display-format="UpperCase" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
                 <Property Name="site_plan_applied_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Site Plan App Date" sap:quickinfo="Site Plan Applied Date" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="site_plan_approved_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Site Plan App Date" sap:quickinfo="Site Plan Approved Date" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dc_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="dc_applicable_fc" sap:label="DC Applicable"/>
@@ -919,7 +925,7 @@
                 <Property Name="is_dem_cbc" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="is_dem_cbc_fc" sap:label="CBC Dem Credit Appli" sap:quickinfo="CBC Dem Credit Applicable?"/>
                 <Property Name="dem_cbc_charge" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total Demolition CBC" sap:quickinfo="Total Demolition CBC Charge" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="cbccomments" Type="Edm.String" sap:field-control="cbccomments_fc" sap:label="Internal Comments"/>
-                <Property Name="cbc_ext_comments" Type="Edm.String" sap:field-control="cbc_ext_comments_fc" sap:label="Exernal Comments"/>
+                <Property Name="cbc_ext_comments" Type="Edm.String" sap:field-control="cbc_ext_comments_fc" sap:label="External Comments"/>
                 <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="created_by_Text" sap:label="Created By" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="created_by_Text" Type="Edm.String" MaxLength="80" sap:label="Full Name" sap:quickinfo="Full Name of Person" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On" sap:creatable="false" sap:updatable="false"/>
@@ -1075,6 +1081,7 @@
                 <Property Name="dc_partner" Type="Edm.String" Nullable="false" MaxLength="20" sap:display-format="UpperCase" sap:label="DC Partner"/>
                 <Property Name="dc_type" Type="Edm.String" Nullable="false" MaxLength="30" sap:display-format="UpperCase" sap:text="dc_txt" sap:label="DC Type"/>
                 <Property Name="dc_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description"/>
+                <Property Name="sort_order" Type="Edm.Byte" sap:label="Sort Order"/>
             </EntityType>
             <EntityType Name="zgc_deferraltype_vhType" sap:label="Deferral Type Value Help" sap:content-version="1">
                 <Key>
@@ -2031,8 +2038,6 @@
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                     <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true" sap:label="SideEffectsQualifier"/>
                 </FunctionImport>
-                <FunctionImport Name="zgc_c_dc_demosAdd_misc_cred" ReturnType="Collection(ZGC_C_REQUESTS_CDS.DummyFunctionImportResult)" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType"/>
-                <FunctionImport Name="zgc_c_dc_demosCalculate" ReturnType="ZGC_C_REQUESTS_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType"/>
                 <FunctionImport Name="zgc_c_dc_demosPreparation" ReturnType="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType" EntitySet="zgc_c_dc_demos" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_dc_demosType" sap:applicable-path="Preparation_ac">
                     <Parameter Name="dem_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
@@ -2081,10 +2086,6 @@
                     <Parameter Name="payment_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                 </FunctionImport>
-                <FunctionImport Name="zgc_c_paymentsPayment_table_action" ReturnType="ZGC_C_REQUESTS_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_paymentsType" sap:applicable-path="Payment_table_action_ac">
-                    <Parameter Name="payment_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
-                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
-                </FunctionImport>
                 <FunctionImport Name="zgc_c_paymentsPreparation" ReturnType="ZGC_C_REQUESTS_CDS.zgc_c_paymentsType" EntitySet="zgc_c_payments" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_paymentsType" sap:applicable-path="Preparation_ac">
                     <Parameter Name="payment_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
@@ -2128,7 +2129,6 @@
                     <Parameter Name="req_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                 </FunctionImport>
-                <FunctionImport Name="zgc_c_requestsAdd_sec14_cred" ReturnType="Collection(ZGC_C_REQUESTS_CDS.zgc_c_requestsType)" EntitySet="zgc_c_requests" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_requestsType"/>
                 <FunctionImport Name="zgc_c_requestsAttach_draft_invoice" ReturnType="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" EntitySet="zgc_c_requests" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_requestsType" sap:applicable-path="Attach_draft_invoice_ac">
                     <Parameter Name="req_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
@@ -2915,7 +2915,6 @@
                         <PropertyValue Property="NonFilterableProperties">
                             <Collection>
                                 <PropertyPath>Gen_pay_receipt_ac</PropertyPath>
-                                <PropertyPath>Payment_table_action_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
@@ -2940,7 +2939,6 @@
                         <PropertyValue Property="NonSortableProperties">
                             <Collection>
                                 <PropertyPath>Gen_pay_receipt_ac</PropertyPath>
-                                <PropertyPath>Payment_table_action_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
@@ -3331,6 +3329,9 @@
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="dc_txt"/>
                                 </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="sort_order"/>
+                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -3380,6 +3381,9 @@
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="dc_txt"/>
                                 </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="sort_order"/>
+                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -3428,6 +3432,9 @@
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="dc_txt"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="sort_order"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -3539,6 +3546,9 @@
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="dc_txt"/>
                                 </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="sort_order"/>
+                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -3587,6 +3597,9 @@
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="dc_txt"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="sort_order"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -3681,6 +3694,9 @@
                                 </Record>
                                 <Record Type="Common.ValueListParameterDisplayOnly">
                                     <PropertyValue Property="ValueListProperty" String="dc_txt"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="sort_order"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -3781,6 +3797,29 @@
                                 <Record Type="Common.ValueListParameterInOut">
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="permit"/>
                                     <PropertyValue Property="ValueListProperty" String="permit"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/address" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Value Help for Address"/>
+                        <PropertyValue Property="CollectionPath" String="zgc_address_vh"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="address"/>
+                                    <PropertyValue Property="ValueListProperty" String="street"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="street_no"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="street_name"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
