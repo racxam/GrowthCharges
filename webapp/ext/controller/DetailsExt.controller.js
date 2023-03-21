@@ -230,6 +230,12 @@ sap.ui.define(
         this._addCustomActions();
 
         this.getOwnerComponent().getModel().attachRequestCompleted(function (oEvent) {
+          //Check if the call was for action Generate Receipt
+          if (oEvent.getParameter("url").includes("zgc_c_paymentsGen_pay_receipt")) {
+            const attachmentComponent = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--attachmentReuseComponent::InPayRef::Attachments::ComponentContainer").getComponentInstance();
+            //Refresh the attachment component
+            attachmentComponent.stRefresh();
+          }
           //Check if the call was for attaching the draft invoice
           if (oEvent.getParameter("url").includes("zgc_c_requestsAttach_draft_invoice")) {
             const attachmentComponent = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--attachmentReuseComponent::InPayRef::Attachments::ComponentContainer").getComponentInstance();
