@@ -1158,6 +1158,12 @@
                             <PropertyValue Property="Label" String="{@i18n>comments}"/>
                             <PropertyValue Property="Value" Path="comments"/>
                         </Record>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="{@i18n>generateReceipt}"/>
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_refundsGen_ref_receipt"/>
+                            <PropertyValue Property="Inline" Bool="true"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>                        
                     </Collection>
                 </Annotation>
             </Annotations>
