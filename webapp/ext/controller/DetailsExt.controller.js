@@ -298,14 +298,34 @@ sap.ui.define(
           }
           //Invoice Section
           const view = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
-          const invoice_tech_details = view.getBindingContext().getObject()?.inv_tech_details;
-          const aInvoiceTechDetails = invoice_tech_details.split("-");
-          this._sValidPath =
-            `/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='${aInvoiceTechDetails[0]}',Documentpart='',Documentversion='',ApplicationId='${aInvoiceTechDetails[1]}',FileId='${aInvoiceTechDetails[2]}')/$value`;
+          const draftInvoiceAvailable = view.getBindingContext().getObject()?.Attach_draft_invoice_ac;
+          if (draftInvoiceAvailable){
+            const request_id = view.getBindingContext().getObject()?.request_id;
+            const dc_version = view.getBindingContext().getObject()?.version;
+            this._sValidPath = `/sap/opu/odata/sap/ZGC_GROWTH_CHARGES_SRV/DraftInvoiceSet(dcId='${request_id}',version='${dc_version}')/$value`;
+          }else {
+            const invoice_tech_details = view.getBindingContext().getObject()?.inv_tech_details;
+            const aInvoiceTechDetails = invoice_tech_details.split("-");
+            this._sValidPath =
+              `/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='${aInvoiceTechDetails[0]}',Documentpart='',Documentversion='',ApplicationId='${aInvoiceTechDetails[1]}',FileId='${aInvoiceTechDetails[2]}')/$value`;
+          }          
           this._oModel = new JSONModel({
             Source: this._sValidPath
           });
           view.byId("PDFViewer").setModel(this._oModel, "local");
+        });
+
+        //On clicking Invoice tab, refresh the PDF Viewer
+        const oObjectPage = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--objectPage");
+        oObjectPage.attachNavigate(function (oEvent) {
+          if (oEvent.getParameter("section").getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--AfterFacet::zgc_c_requests::InPayRef::Section") {
+            const pdfViewer = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PDFViewer");
+            const oPath = pdfViewer.getModel("local").getProperty("/Source");
+            //If the path is pointing to custom service, it means that it is a draft invoice. So refresh the content
+            if (oPath.includes("ZGC_GROWTH_CHARGES_SRV")) {
+              pdfViewer.invalidate();
+            }
+          }
         });
       },
 
