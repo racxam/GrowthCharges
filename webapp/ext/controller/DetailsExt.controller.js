@@ -231,7 +231,7 @@ sap.ui.define(
 
         this.getOwnerComponent().getModel().attachRequestCompleted(function (oEvent) {
           //Check if the call was for action Generate Receipt
-          if (oEvent.getParameter("url").includes("zgc_c_paymentsGen_pay_receipt")) {
+          if (oEvent.getParameter("url").includes("zgc_c_paymentsGen_pay_receipt") || oEvent.getParameter("url").includes("ZGC_C_DEFERRALSGen_def_invoice")) {
             const attachmentComponent = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--attachmentReuseComponent::InPayRef::Attachments::ComponentContainer").getComponentInstance();
             //Refresh the attachment component
             attachmentComponent.stRefresh();
