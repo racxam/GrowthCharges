@@ -71,7 +71,7 @@ sap.ui.define(
         const oDeferralPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DeferralInfo-ID::Table");
         oDeferralPaymentTable.setUseVariantManagement(true);
         oDeferralPaymentTable.setShowFullScreenButton(true);
-      },      
+      },
 
       /**
        * Helper method to hide Paste Btn from Object Page Table
@@ -247,7 +247,7 @@ sap.ui.define(
             const newInvTechDetails = JSON.parse(oEvent.getParameters().response.responseText).d.inv_tech_details;
             const aInvoiceTechDetails = newInvTechDetails.split("-");
             this._sValidPath =
-            `/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='${aInvoiceTechDetails[0]}',Documentpart='',Documentversion='',ApplicationId='${aInvoiceTechDetails[1]}',FileId='${aInvoiceTechDetails[2]}')/$value`;
+              `/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='${aInvoiceTechDetails[0]}',Documentpart='',Documentversion='',ApplicationId='${aInvoiceTechDetails[1]}',FileId='${aInvoiceTechDetails[2]}')/$value`;
             oLocalModel.setProperty("/Source", this._sValidPath);
             pdfViewer.invalidate();
           }
@@ -299,16 +299,16 @@ sap.ui.define(
           //Invoice Section
           const view = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
           const draftInvoiceAvailable = view.getBindingContext().getObject()?.Attach_draft_invoice_ac;
-          if (draftInvoiceAvailable){
+          if (draftInvoiceAvailable) {
             const request_id = view.getBindingContext().getObject()?.request_id;
             const dc_version = view.getBindingContext().getObject()?.version;
             this._sValidPath = `/sap/opu/odata/sap/ZGC_GROWTH_CHARGES_SRV/DraftInvoiceSet(dcId='${request_id}',version='${dc_version}')/$value`;
-          }else {
+          } else {
             const invoice_tech_details = view.getBindingContext().getObject()?.inv_tech_details;
             const aInvoiceTechDetails = invoice_tech_details.split("-");
             this._sValidPath =
               `/sap/opu/odata/sap/CV_ATTACHMENT_SRV/OriginalContentSet(Documenttype='GOS',Documentnumber='${aInvoiceTechDetails[0]}',Documentpart='',Documentversion='',ApplicationId='${aInvoiceTechDetails[1]}',FileId='${aInvoiceTechDetails[2]}')/$value`;
-          }          
+          }
           this._oModel = new JSONModel({
             Source: this._sValidPath
           });
@@ -352,11 +352,11 @@ sap.ui.define(
         return oCILIcon;
       },
 
-      _addCILIconControl : function(){
-        const aCILGroup = ["density_payable","exm_units","oth_cr_units"];
+      _addCILIconControl: function () {
+        const aCILGroup = ["density_payable", "exm_units", "oth_cr_units"];
         aCILGroup.forEach(mItem => {
           let oControl = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::${mItem}::GroupElement`);
-            oControl.addElement(this._defineCILIconControl(mItem));
+          oControl.addElement(this._defineCILIconControl(mItem));
         });
       },
       onAfterRendering: function () {
@@ -644,12 +644,12 @@ sap.ui.define(
 
         //Default sorting by sort_order, dc_type, hierarchy_level, sub_service_id
         if ((oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table")
-        || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table")
-        || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table")
-        || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table")
-        || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table")
+          || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table")
+          || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table")
+          || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table")
+          || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table")
         ) {
-          if ( oEvent.getParameter("bindingParams").parameters.select.indexOf("sort_order") === -1){
+          if (oEvent.getParameter("bindingParams").parameters.select.indexOf("sort_order") === -1) {
             oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",sort_order";
           }
           oEvent.getParameter("bindingParams").sorter = [
@@ -660,14 +660,14 @@ sap.ui.define(
           ];
         }
         if ((oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table")) {
-          if ( oEvent.getParameter("bindingParams").parameters.select.indexOf("sort_order") === -1){
+          if (oEvent.getParameter("bindingParams").parameters.select.indexOf("sort_order") === -1) {
             oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",sort_order";
           }
           oEvent.getParameter("bindingParams").sorter = [
             new sap.ui.model.Sorter("sort_order", false),
             new sap.ui.model.Sorter("dc_type", false)
           ];
-        }        
+        }
       },
 
       onPressDCCalc: function (oEvent) {
@@ -789,11 +789,9 @@ sap.ui.define(
       },
 
       onPressBuildingType: function (oEvent) {
-        const oSource = oEvent.getSource();
-        const oBindingContext = oSource.getBindingContext();
-        const sPath = oBindingContext.getPath();
+        
         const iSelectedIndex = oEvent.getParameter("selectedIndex");
-        const oModel = this.getView().getModel();
+
         let oPayload = {
           "resi_low_hidden": true,
           "resi_high_med_hidden": true,
@@ -812,34 +810,11 @@ sap.ui.define(
         } else {
           oPayload.cil_build_type = "MXD";
         }
-        // Do the Update Call
-        const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
-        oModel.update(sCilCalPath, oPayload, {
-          success: function (oData, oResponse) {
-            oModel.refresh();
-          },
-          error: function (oError) {
-            let sErrorMsg = "";
-            if (oError.responseText) {
-              sErrorMsg = JSON.parse(oError.responseText).error
-                .message.value;
-            } else {
-              sErrorMsg = this.oI18n.getText("msgErrorFail");
-            }
-            MessageBox.error(sErrorMsg);
-          }.bind(this)
-        });
+        this._doUpdateCILSection(oEvent, oPayload);
       },
 
       onPressRBGrpResType: function (oEvent) {
-        const oSource = oEvent.getSource();
-        const oBindingContext = oSource.getBindingContext();
-        const sPath = oBindingContext.getPath();
         const iSelectedIndex = oEvent.getParameter("selectedIndex");
-        const oModel = this.getView().getModel();
-        // Hide the Non - Res Section --> not required because of mixed
-        // oModel.setProperty(`${sPath}/to_cilcal/non_resi_existing_hidden` , true);
-        // oModel.setProperty(`${sPath}/to_cilcal/non_resi_vacant_hidden` , true);
         let oPayload = {
           "resi_low_hidden": true,
           "resi_high_med_hidden": true,
@@ -866,27 +841,11 @@ sap.ui.define(
           oPayload.resi_low_hidden = false;
         }
         // Do the Update Call
-        const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
-        oModel.update(sCilCalPath, oPayload, {
-          success: function (oData, oResponse) {
-            oModel.refresh();
-          },
-          error: function (oError) {
-            let sErrorMsg = "";
-            if (oError.responseText) {
-              sErrorMsg = JSON.parse(oError.responseText).error
-                .message.value;
-            } else {
-              sErrorMsg = this.oI18n.getText("msgErrorFail");
-            }
-            MessageBox.error(sErrorMsg);
-          }.bind(this)
-        });
+        this._doUpdateCILSection(oEvent, oPayload);
       },
 
       onPressRBGrpNResType: function (oEvent) {
         const iSelectedIndex = oEvent.getParameter("selectedIndex");
-        const oModel = this.getView().getModel();
         let oPayload = {
           "resi_low_hidden": true,
           "resi_high_med_hidden": true,
@@ -907,23 +866,7 @@ sap.ui.define(
           oPayload.non_resi_existing_hidden = false;
           oPayload.non_resi_vacant_hidden = true;
         }
-        // Do the Update Call
-        const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::lot_frontage::Field-input").getBindingContext().getPath();
-        oModel.update(sCilCalPath, oPayload, {
-          success: function (oData, oResponse) {
-            oModel.refresh();
-          },
-          error: function (oError) {
-            let sErrorMsg = "";
-            if (oError.responseText) {
-              sErrorMsg = JSON.parse(oError.responseText).error
-                .message.value;
-            } else {
-              sErrorMsg = this.oI18n.getText("msgErrorFail");
-            }
-            MessageBox.error(sErrorMsg);
-          }.bind(this)
-        });
+        this._doUpdateCILSection(oEvent, oPayload);
       },
 
       cilApplicableChanged: function (oEvent) {
@@ -935,6 +878,7 @@ sap.ui.define(
         let oPayload = {
           "cil_applicable": bCilApplicable
         };
+        this._removePendingChanges(oModel);
         oModel.update(sPath, oPayload, {
           success: function (oData, oResponse) {
             oModel.refresh();
@@ -953,62 +897,17 @@ sap.ui.define(
       },
       //UPDATE CALL
       onUpdateResGFA: function (oEvent) {
-        const oModel = this.getView().getModel();
-        const oPendingChanges = oModel.getPendingChanges();
-        for (let key in oPendingChanges) {
-          if (key.indexOf("zgc_c_cil_cal") > -1) {
-            oModel.resetChanges([`/${key}`]);
-          }
-        }
-        const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::exst_units::Field-input").getBindingContext().getPath();
         let oPayload = {
           "res_gfa": parseInt(oEvent.getParameter("newValue").replaceAll(",", ""))
         };
-
-        oModel.update(sCilCalPath, oPayload, {
-          success: function (oData, oResponse) {
-            oModel.refresh();
-          },
-          error: function (oError) {
-            let sErrorMsg = "";
-            if (oError.responseText) {
-              sErrorMsg = JSON.parse(oError.responseText).error
-                .message.value;
-            } else {
-              sErrorMsg = this.oI18n.getText("msgErrorFail");
-            }
-            MessageBox.error(sErrorMsg);
-          }.bind(this)
-        });
+        this._doUpdateCILSection(oEvent, oPayload);
       },
 
       onUpdateNresGFA: function (oEvent) {
-        const oModel = this.getView().getModel();
-        const oPendingChanges = oModel.getPendingChanges();
-        for (let key in oPendingChanges) {
-          if (key.indexOf("zgc_c_cil_cal") > -1) {
-            oModel.resetChanges([`/${key}`]);
-          }
-        }
-        const sCilCalPath = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::lot_frontage::Field-input").getBindingContext().getPath();
         let oPayload = {
           "nres_gfa": parseInt(oEvent.getParameter("newValue").replaceAll(",", ""))
         };
-        oModel.update(sCilCalPath, oPayload, {
-          success: function (oData, oResponse) {
-            oModel.refresh();
-          },
-          error: function (oError) {
-            let sErrorMsg = "";
-            if (oError.responseText) {
-              sErrorMsg = JSON.parse(oError.responseText).error
-                .message.value;
-            } else {
-              sErrorMsg = this.oI18n.getText("msgErrorFail");
-            }
-            MessageBox.error(sErrorMsg);
-          }.bind(this)
-        });
+        this._doUpdateCILSection(oEvent, oPayload);
       },
 
       /**
@@ -1031,17 +930,66 @@ sap.ui.define(
         }
       },
 
-      onPressRBGrpMngrAppReq: function (oEvent) {
+      _removePendingChanges: function (oModel) {
+        //Remove Pending Changes
+        const oPendingChanges = oModel.getPendingChanges();
+        for (let key in oPendingChanges) {
+          if (key.indexOf("zgc_c_cil_cal") > -1) {
+            oModel.resetChanges([`/${key}`]);
+          }
+        }
+      },
+
+      _doUpdateCILSection: function (oEvent, oPayload) {
+        const oView = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
+        oView.setBusy(true);
+        oView.setBusyIndicatorDelay(0);
         const oSource = oEvent.getSource();
         const oBindingContext = oSource.getBindingContext();
         const sPath = oBindingContext.getPath();
-        const iSelectedIndex = oEvent.getParameter("selectedIndex");
+        const bIsActiveEntity = oBindingContext.getProperty("IsActiveEntity");
         const oModel = this.getView().getModel();
+        this._removePendingChanges(oModel);
+
+        const sCilCalPath = `/${oModel.createKey(
+          "zgc_c_cil_cal",
+          {
+            cil_uuid:
+              sPath.substr(30, 36),
+            IsActiveEntity: bIsActiveEntity
+          }
+        )}`;
+        oModel.update(sCilCalPath, oPayload, {
+          success: function (oData, oResponse) {
+            oModel.refresh();
+            oView.setBusy(false);
+          },
+          error: function (oError) {
+            oView.setBusy(false);
+            let sErrorMsg = "";
+            if (oError.responseText) {
+              sErrorMsg = JSON.parse(oError.responseText).error
+                .message.value;
+            } else {
+              sErrorMsg = this.oI18n.getText("msgErrorFail");
+            }
+            MessageBox.error(sErrorMsg);
+          }.bind(this)
+        });
+
+      },
+
+      onPressRBGrpMngrAppReq: function (oEvent) {
+        let oPayload = {
+          "mgr_apr_reqd": false
+        };
+        const iSelectedIndex = oEvent.getParameter("selectedIndex");
         if (iSelectedIndex === 0) {
-          oModel.setProperty(`${sPath}/to_cilcal/mgr_apr_reqd`, true);
+          oPayload.mgr_apr_reqd = true;
         } else {
-          oModel.setProperty(`${sPath}/to_cilcal/mgr_apr_reqd`, false);
+          oPayload.mgr_apr_reqd = false;
         }
+        this._doUpdateCILSection(oEvent, oPayload);
       },
 
       onUpdateAssoPayment: function (oEvent) {
@@ -1049,11 +997,11 @@ sap.ui.define(
       },
 
       /**
-			 * Handler for F4 Input fields
-			 * @public
-			 * @param {sap.ui.base.event} oEvent Event for the input field
-			 * @param {string} label of the associated field
-			 */
+       * Handler for F4 Input fields
+       * @public
+       * @param {sap.ui.base.event} oEvent Event for the input field
+       * @param {string} label of the associated field
+       */
       onValueHelpRequested: function (oEvent) {
         //For the custom control, enable side effects
         this._prepareSideEffects(oEvent);
@@ -1226,11 +1174,11 @@ sap.ui.define(
       },
 
       /**
-			 * Handler for DN Value F4 Input fields
-			 * @public
-			 * @param {sap.ui.base.event} oEvent Event for the input field
-			 * @param {string} label of the associated field
-			 */
+       * Handler for DN Value F4 Input fields
+       * @public
+       * @param {sap.ui.base.event} oEvent Event for the input field
+       * @param {string} label of the associated field
+       */
       onDNValueHelpRequested: function (oEvent) {
         this._prepareSideEffects(oEvent);
         this.VHInput = oEvent.getSource();
