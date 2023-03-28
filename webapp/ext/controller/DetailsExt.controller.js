@@ -659,15 +659,16 @@ sap.ui.define(
             new sap.ui.model.Sorter("sub_service_id", false)
           ];
         }
-        if ((oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table")) {
-          if (oEvent.getParameter("bindingParams").parameters.select.indexOf("sort_order") === -1) {
-            oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",sort_order";
-          }
-          oEvent.getParameter("bindingParams").sorter = [
-            new sap.ui.model.Sorter("sort_order", false),
-            new sap.ui.model.Sorter("dc_type", false)
-          ];
-        }
+        // Temporary Comments for Exemption Side effects issues
+        // if ((oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table")) {
+        //   if (oEvent.getParameter("bindingParams").parameters.select.indexOf("sort_order") === -1) {
+        //     oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",sort_order";
+        //   }
+        //   oEvent.getParameter("bindingParams").sorter = [
+        //     new sap.ui.model.Sorter("sort_order", false),
+        //     new sap.ui.model.Sorter("dc_type", false)
+        //   ];
+        // }
       },
 
       onPressDCCalc: function (oEvent) {
