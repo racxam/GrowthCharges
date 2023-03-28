@@ -973,27 +973,57 @@
                 </Annotation>
             </Annotations>
             <Annotations Target="SAP.zgc_c_dc_exmsType">
-                <Annotation Term="Common.SideEffects" Qualifier="DCExemptTableChanged">
+                <Annotation Term="Common.SideEffects" Qualifier="DCTableExemptionDCRateUpdated">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
-                                <PropertyPath>exemption_type</PropertyPath>
                                 <PropertyPath>quantity</PropertyPath>
-                                <PropertyPath>dc_type</PropertyPath>
                                 <PropertyPath>dc_rate</PropertyPath>
-                                <PropertyPath>dc_partner</PropertyPath>
-                                <PropertyPath>dc_partner_Text</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>exm_amount</PropertyPath>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>total_exm_amount</PropertyPath>
+                                <PropertyPath>to_request/total_dc_exmp_amt</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DCTableExemptDCTypeUpdated">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>exm_amount</PropertyPath>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>total_exm_amount</PropertyPath>
+                                <PropertyPath>interest_rate</PropertyPath>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>uom</PropertyPath>
+                                <PropertyPath>to_request/total_dc_exmp_amt</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DCTableExemptAmtUpdated">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
                                 <PropertyPath>exm_amount</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetProperties">
                             <Collection>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>total_exm_amount</PropertyPath>
+                                <PropertyPath>interest_rate</PropertyPath>
                                 <PropertyPath>to_request/total_dc_exmp_amt</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                        <PropertyValue Property="TargetEntities">
-                            <Collection>
-                                <NavigationPropertyPath></NavigationPropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>

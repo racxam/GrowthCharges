@@ -1131,6 +1131,10 @@ sap.ui.define(
             var originName = "zgc_c_dc_calcltnsType";
             var annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCRateChanged";
             break;
+            case "zgc_c_dc_exms":
+            originName = "zgc_c_dc_exmsType";
+            annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCTableExemptionDCRateUpdated";
+            break;
           case "zgc_c_dc_demos":
             originName = "zgc_c_dc_demosType";
             annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DemoTableChanged";
