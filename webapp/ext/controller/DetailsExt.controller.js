@@ -299,7 +299,7 @@ sap.ui.define(
           //Invoice Section
           const view = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
           const draftInvoiceAvailable = view.getBindingContext().getObject()?.Attach_draft_invoice_ac;
-          if (draftInvoiceAvailable) {
+          if (draftInvoiceAvailable || document.URL.includes("Workflow")) { //If the request is not yet final approved or if it is getting opened in My Inbox 
             const request_id = view.getBindingContext().getObject()?.request_id;
             const dc_version = view.getBindingContext().getObject()?.version;
             this._sValidPath = `/sap/opu/odata/sap/ZGC_GROWTH_CHARGES_SRV/DraftInvoiceSet(dcId='${request_id}',version='${dc_version}')/$value`;
