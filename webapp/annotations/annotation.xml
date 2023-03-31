@@ -279,7 +279,7 @@
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">
                             <Collection>
-                            <Record Type="UI.DataField">
+                                <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="is_appeal_refund"/>
                                     <PropertyValue Property="Label" String="{@i18n>appealRefund}"/>
                                 </Record>
@@ -301,7 +301,7 @@
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">
                             <Collection>
-                              <Record Type="UI.DataField">
+                                <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="cond_permit"/>
                                     <PropertyValue Property="Label" String="{@i18n>labelCILAssociatedPermit}"/>
                                 </Record>
@@ -397,7 +397,7 @@
                             </Collection>
                         </PropertyValue>
                     </Record>
-                </Annotation>                                
+                </Annotation>
                 <Annotation Term="Common.SideEffects" Qualifier="IsAppealCalcDateChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="TargetProperties">
@@ -458,9 +458,9 @@
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>cil_paid_previously</PropertyPath>
-                                 <PropertyPath>current_cil_payable</PropertyPath>
+                                <PropertyPath>current_cil_payable</PropertyPath>
 
-                                 <PropertyPath>total_cil_payable</PropertyPath>
+                                <PropertyPath>total_cil_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -693,6 +693,7 @@
                                 <PropertyPath>density_payable</PropertyPath>
                                 <PropertyPath>nr_vacant_payable</PropertyPath>
                                 <PropertyPath>nr_ext_payable</PropertyPath>
+                                <PropertyPath>appr_value_rate_nres</PropertyPath>
 
                                 <!-- <PropertyPath>resi_high_med_hidden</PropertyPath>
                                   <PropertyPath>resi_low_hidden</PropertyPath> -->
@@ -775,6 +776,71 @@
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>nres_gfa_prcnt</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="NRES_VACChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>appr_value_rate_nres</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath></NavigationPropertyPath>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>nr_vacant_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <Annotation Term="Common.SideEffects" Qualifier="NR_EXT_PAYABLEChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>new_total_gfa</PropertyPath>
+                                <PropertyPath>ext_gfa</PropertyPath>
+                                <PropertyPath>appr_value_rate_nres</PropertyPath>
+                                <PropertyPath>cil_rate_nres</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath></NavigationPropertyPath>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>nr_ext_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                 <Annotation Term="Common.SideEffects" Qualifier="nr_vacant_payableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>appr_value_rate_nres</PropertyPath>
+                                 <PropertyPath>cil_rate_nres</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath></NavigationPropertyPath>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>nr_vacant_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -1188,12 +1254,6 @@
                             <PropertyValue Property="Label" String="{@i18n>comments}"/>
                             <PropertyValue Property="Value" Path="comments"/>
                         </Record>
-                        <Record Type="UI.DataFieldForAction">
-                            <PropertyValue Property="Label" String="{@i18n>generateReceipt}"/>
-                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_refundsGen_ref_receipt"/>
-                            <PropertyValue Property="Inline" Bool="true"/>
-                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
-                        </Record>                        
                     </Collection>
                 </Annotation>
             </Annotations>

@@ -96,8 +96,10 @@
             <EntityType Name="zgc_common_textType" sap:label="Common CDS for getting text" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="request_id"/>
+                    <PropertyRef Name="version"/>
                 </Key>
                 <Property Name="request_id" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID"/>
+                <Property Name="version" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
                 <Property Name="bname" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="User" sap:quickinfo="User Name in User Master Record"/>
                 <Property Name="name_text" Type="Edm.String" MaxLength="80" sap:text="name_text" sap:label="Full Name" sap:quickinfo="Full Name of Person"/>
             </EntityType>
@@ -222,10 +224,13 @@
                 <Property Name="cil_capped_total" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="CIL Capped Rate Tot" sap:quickinfo="CIL Capped Rate Total" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="dev_area_appr" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Dev Area Appr Val" sap:quickinfo="Development Area Appraisal Value"/>
                 <Property Name="appr_value_rate" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Appraisal Value /HA" sap:quickinfo="If the appraisal value is $0 or blank the capped rate will apply"/>
+                <Property Name="appr_value_rate_nres" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Appraisal Value /HA" sap:quickinfo="If the appraisal value is $0 or blank the capped rate will apply"/>
                 <Property Name="appr_date_res" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Appraisal Date - Res" sap:quickinfo="Appraisal Date - CIL Residential"/>
                 <Property Name="appr_date_nres" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Appraisal Date-NRes" sap:quickinfo="Appraisal Date - CIL Non-Residential"/>
                 <Property Name="appr_value_to_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Appraisal Validity D" sap:quickinfo="Appraisal Validity Date"/>
+                <Property Name="appr_value_to_date_nres" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Appraisal Validity D" sap:quickinfo="Appraisal Validity Date"/>
                 <Property Name="dev_area" Type="Edm.Decimal" Precision="15" Scale="4" sap:label="Development Area"/>
+                <Property Name="dev_area_nres" Type="Edm.Decimal" Precision="15" Scale="4" sap:label="Development Area"/>
                 <Property Name="uom" Type="Edm.String" MaxLength="3" sap:label="Base Unit of Measure" sap:semantics="unit-of-measure"/>
                 <Property Name="site_cil_rate" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Site Specific CIL Ra" sap:quickinfo="Site Specific CIL Rate" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="site_cil_calc" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Site Spe CIL Calc" sap:quickinfo="Site Specific CIL Calculation" sap:creatable="false" sap:updatable="false"/>
@@ -234,6 +239,7 @@
                 <Property Name="plan_act_rate" Type="Edm.Int16" sap:label="Planning Actual Rate" sap:value-list="fixed-values"/>
                 <Property Name="density_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Residential Payable" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="valid_to" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid Until"/>
+                <Property Name="valid_to_nres" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid Until"/>
                 <Property Name="cil_rate_res" Type="Edm.Int16" sap:label="CIL Rate Res" sap:quickinfo="CIL Rate (Residential)"/>
                 <Property Name="cil_rate_nres" Type="Edm.Int16" sap:label="CIL Rate NRes" sap:quickinfo="CIL Rate (Non-Residential)"/>
                 <Property Name="int_comments" Type="Edm.String" sap:label="Internal Comments"/>
@@ -510,6 +516,7 @@
                 <Property Name="interest_rate" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Interest Rate" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="total_exm_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total Exemtion Amoun" sap:quickinfo="Total Exemtion Amount" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="applied_exm_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Applied Exempt Amt" sap:quickinfo="Applied Exemption Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
                 <Property Name="comments" Type="Edm.String" sap:field-control="comments_fc" sap:label="Comments"/>
                 <Property Name="max_origin" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="MAX Origin" sap:quickinfo="From MAX"/>
@@ -613,9 +620,9 @@
                 <Property Name="refund_interest" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Refund with Interest" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="generate_invoice" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Generate Invoice" sap:heading=""/>
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
-                <Property Name="city_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="City" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="region_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Region" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="go_transit_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Go Transit" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="city_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="City" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="region_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Region" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="go_transit_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Go Transit" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
                 <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
                 <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On"/>
@@ -729,8 +736,8 @@
                 <Property Name="refund_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Refund Date"/>
                 <Property Name="refund_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Refund Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="refund_interest" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Refund with Interest" sap:heading="" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="amount_refunded" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Amount Refunded" sap:heading=""/>
+                <Property Name="refund_interest" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Refund with Interest" sap:heading="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="amount_refunded" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Amount Refunded" sap:heading=""/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
                 <Property Name="recp_name" Type="Edm.String" MaxLength="100" sap:label="Reciepient Name"/>
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
@@ -3872,16 +3879,13 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_cil_calType/int_comments" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
-            </Annotations>
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_cil_calType/valid_to" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
-            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_dc_exmsType/invoice_calculation_date" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_cil_calType/valid_to_nres" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
-            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/cilComments" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_dc_exmsType/invoice_calculation_date" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
             </Annotations>
             <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DEFERRALSType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
