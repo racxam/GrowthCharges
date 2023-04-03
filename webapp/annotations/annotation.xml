@@ -1216,6 +1216,12 @@
                                 <PropertyPath>comments</PropertyPath>
                             </Collection>
                         </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_request/to_payments</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_request/to_deferrals</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
                     </Record>
                 </Annotation>
             </Annotations>
