@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns:m="sap.m"
+	xmlns="sap.ui.layout"
+	xmlns:forms="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+	<m:HBox width="100%" class="sapUiNoContentPadding">
+		<m:Label text="{i18n>labelInternalComments}:" />
+		<m:Text text="{dc_int_comments_max}" wrapping="true" class="sapUiSmallMarginBegin"/>
+	</m:HBox>
+</core:FragmentDefinition>

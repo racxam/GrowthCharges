@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <TableSelectDialog
+        noDataText="No Permits Found"
+        title="Select a Permit"
+        search=".handleSearchPermit"
+        confirm=".onPressNewPBPConfirm"
+        cancel=".handlePPValueHelpClose"
+        showClearButton="true"
+        items="{
+			path : '/ZGC_PERMIT_NO_VH',
+            mode: 'sap.ui.model.BindingMode.OneWay'
+		}"
+    >
+        <ColumnListItem selected="{selected}">
+            <cells>
+                <ObjectIdentifier title="{build_permit_no}" />
+                <Text text="{permit_text}" />
+                <Text text="{dc_text}" />
+                <Text text="{partner_name}" />
+                <ObjectNumber number="{available_credits}" unit="{currency}" />
+            </cells>
+        </ColumnListItem>
+        <columns>
+            <Column width="12em">
+                <header>
+                    <Text text="Building Permit Number" />
+                </header>
+            </Column>
+            <Column minScreenWidth="Desktop" demandPopin="true">
+                <header>
+                    <Text text="Building Permit Description" />
+                </header>
+            </Column>
+              <Column minScreenWidth="Desktop" demandPopin="true" >
+                <header>
+                    <Text text="DC Type Description" />
+                </header>
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <header>
+                    <Text text="DC Partner" />
+                </header>
+            </Column>
+            <Column minScreenWidth="Desktop" demandPopin="true" hAlign="End">
+                <header>
+                    <Text text="Available Credits" />
+                </header>
+            </Column>
+        </columns>
+    </TableSelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+	xmlns="sap.ui.comp.valuehelpdialog"
+	xmlns:core="sap.ui.core">
+	<ValueHelpDialog
+		title="DC Rate"
+		ok=".onValueHelpOkPress"
+		cancel=".onValueHelpCancelPress"
+		afterClose=".onValueHelpAfterClose"
+		supportMultiselect="false"		
+		key="dc_rate"
+		descriptionKey="dc_rate"
+		busy="{LocalModel>/busy}"	
+		busyIndicatorDelay="0"		
+	>
+	</ValueHelpDialog>
+</core:FragmentDefinition>

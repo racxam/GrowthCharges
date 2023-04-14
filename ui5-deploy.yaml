@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "2.5"
+metadata:
+  name: com.gc.dashboard
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          url: http://s4devci91vml.civic.mississauga.ca:8000
+          client: "200"
+        credentials:
+          username: env:PROXY_USERNAME
+          password: env:PROXY_PASSWORD
+        app:
+          name: ZGC_DASHBOARD
+          description: Fiori App
+          package: zgrowth_charges
+          transport: ECDK933329

@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartfilterbar="sap.ui.comp.smartfilterbar"
+    xmlns:core="sap.ui.core">
+    <smartfilterbar:ControlConfiguration index="45" id="controlConfigFilterBar" groupId="_BASIC" key="AppCharges" label="Application Charges" visibleInAdvancedArea="true">
+        <smartfilterbar:customControl>
+            <MultiComboBox id="AppChargesId">
+                <core:Item key="DC" text="{i18n>textDropdownDC}"/>
+                <core:Item key="CBC" text="{i18n>textDropdownCBC}"/>
+                <core:Item key="CIL" text="{i18n>textDropdownCIL}"/>
+            </MultiComboBox>
+        </smartfilterbar:customControl>
+    </smartfilterbar:ControlConfiguration>
+
+    <smartfilterbar:ControlConfiguration index="30" id="ctlConfigVersionFilterBar" groupId="_BASIC" key="Version" label="Version" visibleInAdvancedArea="true">
+        <smartfilterbar:customControl>
+            <MultiComboBox id="VersionId">
+                <core:Item key="01" text="01"/>
+                <core:Item key="02" text="02"/>
+                <core:Item key="03" text="03"/>
+                <core:Item key="04" text="04"/>
+                <core:Item key="05" text="05"/>
+                <core:Item key="06" text="06"/>
+                <core:Item key="07" text="07"/>
+                <core:Item key="08" text="08"/>
+                <core:Item key="09" text="09"/>
+                <core:Item key="10" text="10"/>
+            </MultiComboBox>
+        </smartfilterbar:customControl>
+    </smartfilterbar:ControlConfiguration>
+</core:FragmentDefinition>

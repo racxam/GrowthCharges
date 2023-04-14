@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+<Column id="colDCId" width="2rem" minScreenWidth="Desktop">
+        <Text id="_IDTextDCId" text=""/>
+        <customData>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn0&quot;, &quot;leadingProperty&quot;: &quot;request_id,new_version&quot;, &quot;columnIndex&quot;: &quot;1&quot;}"/>
+        </customData>
+    </Column>
+    <Column id="colAppCharges" width="6rem" minScreenWidth="Desktop">
+        <Text id="_IDTextAppCharges" text="{i18n>listColumnTextAppCharges}"/>
+        <customData>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn1&quot;, &quot;leadingProperty&quot;: &quot;dc_applicable,cil_applicable,cbc_applicable,invoice_valid_until&quot;, &quot;columnIndex&quot;: &quot;6&quot;}"/>
+        </customData>
+    </Column>
+    <Column id="colDC_Comments" width="3rem" demandPopin="false" minScreenWidth="Desktop">
+        <Text id="_IDTextDC_Comments" text="{i18n>listColumnTextDC_Comments}"/>
+        <customData>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn2&quot;, &quot;leadingProperty&quot;: &quot;dc_int_comments_sap&quot;, &quot;columnIndex&quot;: &quot;7&quot;}"/>
+        </customData>
+    </Column>
+    <Column id="colCBC_Comments" width="3rem" demandPopin="false" minScreenWidth="Desktop">
+        <Text id="_IDTextCBC_Comments" text="{i18n>listColumnTextCBC_Comments}"/>
+        <customData>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn3&quot;, &quot;leadingProperty&quot;: &quot;cbccomments&quot;, &quot;columnIndex&quot;: &quot;8&quot;}"/>
+        </customData>
+    </Column>
+    <Column id="colCIL_Comments" width="3rem" demandPopin="false" minScreenWidth="Desktop">
+        <Text id="_IDTextCIL_Comments" text="{i18n>listColumnTextCIL_Comments}"/>
+        <customData>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn4&quot;, &quot;leadingProperty&quot;: &quot;swm_comments&quot;, &quot;columnIndex&quot;: &quot;9&quot;}"/>
+        </customData>
+    </Column>
+    <Column id="colStatus" width="8rem" demandPopin="false" minScreenWidth="Desktop">
+        <Text id="_IDTextStatus" text="{i18n>listColumnTextStatus}"/>
+        <customData>
+            <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn5&quot;, &quot;leadingProperty&quot;: &quot;status&quot;, &quot;columnIndex&quot;: &quot;10&quot;}"/>
+        </customData>
+    </Column>
+</core:FragmentDefinition>
