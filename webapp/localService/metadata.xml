@@ -655,6 +655,7 @@
                 <Property Name="invoice_no" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Invoice Document No." sap:quickinfo="Document Number of an Invoice Document" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="invoice_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Invoice Amount" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="document_no" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Document Number" sap:quickinfo="Document Number of an Accounting Document"/>
+                <Property Name="document_year" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Fiscal Year" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="payment_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Payment Date" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="payment_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Payment Amount" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="balance_due" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Balance Due" sap:heading="" sap:creatable="false" sap:updatable="false"/>
@@ -662,6 +663,8 @@
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
                 <Property Name="generate_reciept" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Generate Reciept?"/>
+                <Property Name="deferral_adjust" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Deferral Adjust Flag" sap:quickinfo="Deferral Adjustments Flag" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="credit_memo" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Credit Memo Flag" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
                 <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On"/>
                 <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
@@ -729,15 +732,17 @@
                 <Property Name="Gen_ref_receipt_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="amount_refunded_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="refund_date_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="refund_uuid" Type="Edm.Guid" Nullable="false" sap:label="Growth Charges Key" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="req_uuid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading="" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="refund_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Refund Date"/>
+                <Property Name="refund_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:field-control="refund_date_fc" sap:label="Refund Date"/>
                 <Property Name="refund_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Refund Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="interest_amount" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Interest Amount" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="refund_interest" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Refund with Interest" sap:heading="" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="amount_refunded" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Amount Refunded" sap:heading=""/>
+                <Property Name="amount_refunded" Type="Edm.Decimal" Precision="14" Scale="3" sap:field-control="amount_refunded_fc" sap:unit="currency" sap:label="Amount Refunded" sap:heading=""/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
                 <Property Name="recp_name" Type="Edm.String" MaxLength="100" sap:label="Reciepient Name"/>
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
@@ -3019,6 +3024,8 @@
                                 <PropertyPath>Gen_ref_receipt_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>amount_refunded_fc</PropertyPath>
+                                <PropertyPath>refund_date_fc</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
                                 <PropertyPath>HasDraftEntity</PropertyPath>
                                 <PropertyPath>IsActiveEntity</PropertyPath>
@@ -3041,6 +3048,8 @@
                                 <PropertyPath>Gen_ref_receipt_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>amount_refunded_fc</PropertyPath>
+                                <PropertyPath>refund_date_fc</PropertyPath>
                                 <PropertyPath>comments</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
                                 <PropertyPath>HasDraftEntity</PropertyPath>
