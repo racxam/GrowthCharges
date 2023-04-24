@@ -613,8 +613,8 @@ sap.ui.define(
           // Add property 'Gen_pay_receipt_ac' to $select
           oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",Gen_pay_receipt_ac,deferral_adjust";
           oEvent.getParameter("bindingParams").sorter = [
-            new sap.ui.model.Sorter("payment_date", false),
-            new sap.ui.model.Sorter("document_no", false)
+            new sap.ui.model.Sorter("sort_date", false),
+            new sap.ui.model.Sorter("sort_document", false)
           ];
         }
         if (oEvent.getSource().getId() ===
