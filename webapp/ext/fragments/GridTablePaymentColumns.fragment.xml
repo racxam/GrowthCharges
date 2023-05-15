@@ -3,8 +3,12 @@
         <Label text="Payment Document #" />
         <table:template>
             <VBox>
-                <Input width="100%" value="{document_no}" showValueHelp="true" valueHelpOnly="false" visible="{=${ui>/editable} &amp;&amp; !${deferral_adjust} }" valueHelpRequest=".onDNValueHelpRequested" />
-                <Text width="100%" text="{document_no}" visible="{= !${ui>/editable} || ${deferral_adjust}}"/>
+                 <!-- <Input width="100%" value="{document_no}" showValueHelp="true" valueHelpOnly="false" visible="{=${ui>/editable} &amp;&amp; !${deferral_adjust} &amp;&amp; !${auto_gen_invoice_flag} &amp;&amp; ${LocalModel>/HistData}!== 'H'}" valueHelpRequest=".onDNValueHelpRequested" />
+                <Text width="100%" text="{document_no}" visible="{= !${ui>/editable} || ${deferral_adjust} || ${auto_gen_invoice_flag} || ${LocalModel>/HistData}=== 'H'}"/> 
+            -->
+           <Input width="100%" value="{document_no}" showValueHelp="true" valueHelpOnly="false" visible="{parts : [{path:'ui>/editable'},{path:'deferral_adjust'},{path:'auto_gen_invoice_flag'},{path:'LocalModel>/HistData'}] ,formatter: '.showInvDocNoInput'}" valueHelpRequest=".onDNValueHelpRequested" />
+                <Text width="100%" text="{document_no}" visible="{parts : [{path:'ui>/editable'},{path:'deferral_adjust'},{path:'auto_gen_invoice_flag'},{path:'LocalModel>/HistData'}] ,formatter: '.showInvDocNoText'}"/>
+           
             </VBox>
         </table:template>
         <table:customData>

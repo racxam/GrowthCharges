@@ -299,6 +299,8 @@ sap.ui.define(
           //Invoice Section
           const view = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
           const draftInvoiceAvailable = view.getBindingContext().getObject()?.Attach_draft_invoice_ac;
+          const sHistInvoiceversion = view.getBindingContext().getObject()?.new_version_created_from;
+          view.getModel("LocalModel").setProperty("/HistData", sHistInvoiceversion);
           if (draftInvoiceAvailable || document.URL.includes("Workflow")) { //If the request is not yet final approved or if it is getting opened in My Inbox 
             const request_id = view.getBindingContext().getObject()?.request_id;
             const dc_version = view.getBindingContext().getObject()?.version;
@@ -611,7 +613,7 @@ sap.ui.define(
         if (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table") {
           oEvent.getParameter("bindingParams").parameters = oEvent.getParameter("bindingParams").parameters || {};
           // Add property 'Gen_pay_receipt_ac' to $select
-          oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",Gen_pay_receipt_ac,deferral_adjust";
+          oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",Gen_pay_receipt_ac,deferral_adjust,auto_gen_invoice_flag";
           oEvent.getParameter("bindingParams").sorter = [
             new sap.ui.model.Sorter("sort_date", false),
             new sap.ui.model.Sorter("sort_time", false),
@@ -795,7 +797,7 @@ sap.ui.define(
       },
 
       onPressBuildingType: function (oEvent) {
-        
+
         const iSelectedIndex = oEvent.getParameter("selectedIndex");
 
         let oPayload = {
@@ -1137,7 +1139,7 @@ sap.ui.define(
             var originName = "zgc_c_dc_calcltnsType";
             var annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCRateChanged";
             break;
-            case "zgc_c_dc_exms":
+          case "zgc_c_dc_exms":
             originName = "zgc_c_dc_exmsType";
             annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCTableExemptionDCRateUpdated";
             break;
@@ -1400,6 +1402,48 @@ sap.ui.define(
         if (sStatus === "HLD") { return "None"; }
         return "None";
       },
+
+      /**
+       * Formatter to control visibility of Text Field
+       * @public
+       * @param {string} sStatus value
+       * @returns {state} State
+       */
+      showInvDocNoText: function (bEdit, bDeferral_adjust, bAuto_gen_invoice_flag, sHistData) {
+        let bFlag = false;
+        if (sHistData === "H") {
+          if(!bEdit){
+              bFlag = true;
+          }
+          
+        } else {
+          if (!bEdit || bDeferral_adjust) {
+            bFlag = true;
+          } 
+        }
+        return bFlag;
+      },
+
+      /**
+     * Formatter to control visibility of Inv Input Field
+     * @public
+     * @param {string} sStatus value
+     * @returns {state} State
+     */
+      showInvDocNoInput: function (bEdit, bDeferral_adjust, bAuto_gen_invoice_flag, sHistData) {
+        let bFlag = false;
+        if (sHistData === "H") {
+          if (bEdit && !bAuto_gen_invoice_flag) {
+            bFlag = true;
+          } 
+        } else {
+          if (bEdit && !bDeferral_adjust) {
+            bFlag = true;
+          } 
+        }
+        return bFlag;
+      },
+
 
       _oModelRead: function (sURl, oLocalModel, sStatusTxt) {
         this.getView().getModel().read(sURl, {

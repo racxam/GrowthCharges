@@ -646,6 +646,7 @@
                 <Property Name="Gen_pay_receipt_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="document_no_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="payment_uuid" Type="Edm.Guid" Nullable="false" sap:label="Growth Charges Key" sap:heading=""/>
@@ -654,7 +655,7 @@
                 <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
                 <Property Name="invoice_no" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Invoice Document No." sap:quickinfo="Document Number of an Invoice Document" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="invoice_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Invoice Amount" sap:heading="" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="document_no" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Document Number" sap:quickinfo="Document Number of an Accounting Document"/>
+                <Property Name="document_no" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:field-control="document_no_fc" sap:label="Document Number" sap:quickinfo="Document Number of an Accounting Document"/>
                 <Property Name="document_year" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Fiscal Year" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="payment_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Payment Date" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="payment_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Payment Amount" sap:heading="" sap:creatable="false" sap:updatable="false"/>
@@ -662,9 +663,13 @@
                 <Property Name="payee_details" Type="Edm.String" MaxLength="255" sap:label="Payee Name and Addre" sap:quickinfo="Payee Name and Address"/>
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+                <Property Name="auto_gen_invoice_flag" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Flag for the Invoice" sap:quickinfo="Flag for the Invoice Generated"/>
                 <Property Name="generate_reciept" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Generate Reciept?"/>
                 <Property Name="deferral_adjust" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Deferral Adjust Flag" sap:quickinfo="Deferral Adjustments Flag" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="credit_memo" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Credit Memo Flag" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sort_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Date Payment Sorting" sap:quickinfo="Date for Payment Sorting" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sort_time" Type="Edm.Time" Precision="0" sap:label="Time for Paym Sortng" sap:quickinfo="Time for Payment Sorting" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sort_document" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Document No. for Sor" sap:quickinfo="Document No. for Sort" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
                 <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On"/>
                 <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
@@ -2929,6 +2934,7 @@
                                 <PropertyPath>Gen_pay_receipt_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>document_no_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
@@ -2953,6 +2959,7 @@
                                 <PropertyPath>Gen_pay_receipt_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>document_no_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
                                 <PropertyPath>comments</PropertyPath>
