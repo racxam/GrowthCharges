@@ -299,6 +299,8 @@ sap.ui.define(
           //Invoice Section
           const view = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests");
           const draftInvoiceAvailable = view.getBindingContext().getObject()?.Attach_draft_invoice_ac;
+          const sHistInvoiceversion = view.getBindingContext().getObject()?.new_version_created_from;
+          view.getModel("LocalModel").setProperty("/HistData", sHistInvoiceversion);
           if (draftInvoiceAvailable || document.URL.includes("Workflow")) { //If the request is not yet final approved or if it is getting opened in My Inbox 
             const request_id = view.getBindingContext().getObject()?.request_id;
             const dc_version = view.getBindingContext().getObject()?.version;
@@ -329,7 +331,7 @@ sap.ui.define(
         });
       },
 
-      _defineCILIconControl: function (sId) {
+      _defineCILIconControl: function (sId,sSec) {
         const oCILIcon = new Icon(
           {
             color: "#346187",
@@ -345,6 +347,23 @@ sap.ui.define(
           case "oth_cr_units":
             oCILIcon.setTooltip("Parkland dedication agreement credits.");
             break;
+
+            case "other_credits_res":
+              if(sSec === "ResHigh"){
+                oCILIcon.setTooltip("Dollar value of parkland dedication agreement credits to be applied against the High/Medium Density Payable Amount.");
+              }else{
+                oCILIcon.setTooltip("Dollar value of parkland dedication agreement credits to be applied against the Low Density Payable Amount.");
+              }
+              
+              break;
+
+              case "other_credits_nres":
+                if(sSec === "NResExt"){
+                oCILIcon.setTooltip("Dollar value of parkland dedication agreement credits to be applied against the Non-Residential Existing Payable Amount.");
+              }else{
+                oCILIcon.setTooltip("Dollar value of parkland dedication agreement credits to be applied against the Non-Residential Vacant Payable Amount.");
+              }
+                break;
           default:
             oCILIcon.setTooltip("This is populated from lesser of the Site Specific CIL Calculation OR the CIL Site Value Cap Calculation OR the CIL Capped Rate Total");
             break;
@@ -353,11 +372,48 @@ sap.ui.define(
       },
 
       _addCILIconControl: function () {
-        const aCILGroup = ["density_payable", "exm_units", "oth_cr_units"];
+        
+        // density_payable
+        const aCILGroup = ["density_pay_subt1", "exm_units", "oth_cr_units","other_credits_res","other_credits_nres"];
         aCILGroup.forEach(mItem => {
           let oControl = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::${mItem}::GroupElement`);
-          oControl.addElement(this._defineCILIconControl(mItem));
+          if (oControl){
+            oControl.addElement(this._defineCILIconControl(mItem,"ResHigh"));
+          }
+          
         });
+
+        const aCILGroupResLow = ["other_credits_res"];
+        aCILGroupResLow.forEach(mItem => {
+          let oControl = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::${mItem}::GroupElement`);
+          if (oControl){
+            oControl.addElement(this._defineCILIconControl(mItem,"ResLow"));
+          }
+          
+        });
+
+        
+
+        const aCILGroupNRes = ["other_credits_nres"];
+        aCILGroupNRes.forEach(mItem => {
+          let oControl = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILNonResDensity-ID::${mItem}::GroupElement`);
+          if (oControl){
+            oControl.addElement(this._defineCILIconControl(mItem,"NResExt"));
+          }
+          
+        });
+
+        const aCILGroupVac = ["other_credits_nres"];
+        aCILGroupVac.forEach(mItem => {
+          let oControl = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILNonResDensityVac-ID::${mItem}::GroupElement`);
+          if (oControl){
+            oControl.addElement(this._defineCILIconControl(mItem,"NResVac"));
+          }
+          
+        });
+
+
+        
       },
       onAfterRendering: function () {
         this._applyDefaultVariant();
@@ -426,10 +482,10 @@ sap.ui.define(
                               text: "{ path: 'rate',type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}"
                             });
                             const startDateTemplate = new Text({
-                              text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
+                              text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy',UTC: true}}"
                             });
                             const endDateTemplate = new Text({
-                              text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
+                              text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy',UTC: true}}"
                             });
 
                             oTable.addColumn(
@@ -611,9 +667,10 @@ sap.ui.define(
         if (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table") {
           oEvent.getParameter("bindingParams").parameters = oEvent.getParameter("bindingParams").parameters || {};
           // Add property 'Gen_pay_receipt_ac' to $select
-          oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",Gen_pay_receipt_ac,deferral_adjust";
+          oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",Gen_pay_receipt_ac,deferral_adjust,auto_gen_invoice_flag";
           oEvent.getParameter("bindingParams").sorter = [
             new sap.ui.model.Sorter("sort_date", false),
+            new sap.ui.model.Sorter("sort_time", false),
             new sap.ui.model.Sorter("sort_document", false)
           ];
         }
@@ -794,7 +851,7 @@ sap.ui.define(
       },
 
       onPressBuildingType: function (oEvent) {
-        
+
         const iSelectedIndex = oEvent.getParameter("selectedIndex");
 
         let oPayload = {
@@ -1087,10 +1144,10 @@ sap.ui.define(
                     text: "{ path: 'dc_rate',type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}"
                   });
                   const startDateTemplate = new Text({
-                    text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
+                    text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy',UTC: true}}"
                   });
                   const endDateTemplate = new Text({
-                    text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
+                    text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy',UTC: true}}"
                   });
                   const rateComments = new Text({ text: "{rate_note}" });
                   oTable.addColumn(
@@ -1136,7 +1193,7 @@ sap.ui.define(
             var originName = "zgc_c_dc_calcltnsType";
             var annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCRateChanged";
             break;
-            case "zgc_c_dc_exms":
+          case "zgc_c_dc_exms":
             originName = "zgc_c_dc_exmsType";
             annotationName = "com.sap.vocabularies.Common.v1.SideEffects#DCTableExemptionDCRateUpdated";
             break;
@@ -1399,6 +1456,48 @@ sap.ui.define(
         if (sStatus === "HLD") { return "None"; }
         return "None";
       },
+
+      /**
+       * Formatter to control visibility of Text Field
+       * @public
+       * @param {string} sStatus value
+       * @returns {state} State
+       */
+      showInvDocNoText: function (bEdit, bDeferral_adjust, bAuto_gen_invoice_flag, sHistData) {
+        let bFlag = false;
+        if (sHistData === "H") {
+          if(!bEdit){
+              bFlag = true;
+          }
+          
+        } else {
+          if (!bEdit || bDeferral_adjust) {
+            bFlag = true;
+          } 
+        }
+        return bFlag;
+      },
+
+      /**
+     * Formatter to control visibility of Inv Input Field
+     * @public
+     * @param {string} sStatus value
+     * @returns {state} State
+     */
+      showInvDocNoInput: function (bEdit, bDeferral_adjust, bAuto_gen_invoice_flag, sHistData) {
+        let bFlag = false;
+        if (sHistData === "H") {
+          if (bEdit && !bAuto_gen_invoice_flag) {
+            bFlag = true;
+          } 
+        } else {
+          if (bEdit && !bDeferral_adjust) {
+            bFlag = true;
+          } 
+        }
+        return bFlag;
+      },
+
 
       _oModelRead: function (sURl, oLocalModel, sStatusTxt) {
         this.getView().getModel().read(sURl, {

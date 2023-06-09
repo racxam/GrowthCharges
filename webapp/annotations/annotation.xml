@@ -694,6 +694,9 @@
                                 <PropertyPath>nr_vacant_payable</PropertyPath>
                                 <PropertyPath>nr_ext_payable</PropertyPath>
                                 <PropertyPath>appr_value_rate_nres</PropertyPath>
+                                <PropertyPath>other_credits_res</PropertyPath>
+                                <PropertyPath>other_credits_nres</PropertyPath>
+                                
 
                                 <!-- <PropertyPath>resi_high_med_hidden</PropertyPath>
                                   <PropertyPath>resi_low_hidden</PropertyPath> -->
@@ -707,6 +710,42 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+
+
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="density_pay_subt1Changed">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>cil_build_type</PropertyPath>
+                                <PropertyPath>res_type</PropertyPath>
+                                <PropertyPath>nres_type</PropertyPath>
+                                <PropertyPath>appr_value_rate</PropertyPath>
+                                <PropertyPath>plan_act_rate</PropertyPath>
+                                <PropertyPath>site_cil_rate</PropertyPath>
+                                <PropertyPath>cil_capped_rate</PropertyPath>
+                                <PropertyPath>total_units</PropertyPath>
+                                <PropertyPath>cil_rate_res</PropertyPath>
+                                <PropertyPath>cil_rate_nres</PropertyPath>
+                                <PropertyPath>ext_gfa</PropertyPath>
+                                <PropertyPath>prop_gfa</PropertyPath>
+                                <PropertyPath>demo_gfa</PropertyPath>
+                                <PropertyPath>exm_gfa</PropertyPath>
+                                <PropertyPath>density_payable</PropertyPath>
+                                <PropertyPath>nr_vacant_payable</PropertyPath>
+                                <PropertyPath>nr_ext_payable</PropertyPath>
+                                <PropertyPath>appr_value_rate_nres</PropertyPath>
+                                <PropertyPath>other_credits_res</PropertyPath>
+                                <PropertyPath>other_credits_nres</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>density_pay_subt1</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
                 <Annotation Term="Common.SideEffects" Qualifier="SiteCILChange">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -785,6 +824,7 @@
                         <PropertyValue Property="SourceProperties">
                             <Collection>
                                 <PropertyPath>appr_value_rate_nres</PropertyPath>
+                                <PropertyPath>other_credits_nres</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
@@ -809,6 +849,7 @@
                                 <PropertyPath>ext_gfa</PropertyPath>
                                 <PropertyPath>appr_value_rate_nres</PropertyPath>
                                 <PropertyPath>cil_rate_nres</PropertyPath>
+                                <PropertyPath>other_credits_nres</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
@@ -830,6 +871,7 @@
                             <Collection>
                                 <PropertyPath>appr_value_rate_nres</PropertyPath>
                                  <PropertyPath>cil_rate_nres</PropertyPath>
+                                 <PropertyPath>other_credits_nres</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">

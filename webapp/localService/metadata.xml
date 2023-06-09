@@ -197,6 +197,7 @@
                     <PropertyRef Name="cil_uuid"/>
                     <PropertyRef Name="IsActiveEntity"/>
                 </Key>
+                <Property Name="Cil_recalculate_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="nres_type_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -237,6 +238,8 @@
                 <Property Name="cil_site_val_perc" Type="Edm.Decimal" Precision="5" Scale="2" sap:label="CIL Site Value Cap %" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="cil_site_val_calc" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="CIL Site Value Cap" sap:quickinfo="CIL Site Value Cap Calculation" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="plan_act_rate" Type="Edm.Int16" sap:label="Planning Actual Rate" sap:value-list="fixed-values"/>
+                <Property Name="other_credits_res" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Other Credits - Res" sap:quickinfo="Other Credits - Residential"/>
+                <Property Name="density_pay_subt1" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Density Payable-Subt" sap:quickinfo="Density Payable-Subtotal1" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="density_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Residential Payable" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="valid_to" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid Until"/>
                 <Property Name="valid_to_nres" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Valid Until"/>
@@ -245,6 +248,7 @@
                 <Property Name="int_comments" Type="Edm.String" sap:label="Internal Comments"/>
                 <Property Name="ext_comments" Type="Edm.String" sap:label="External Comments"/>
                 <Property Name="lot_frontage" Type="Edm.Decimal" Precision="10" Scale="4" sap:label="Lot Frontage"/>
+                <Property Name="other_credits_nres" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Other Credits - NRes" sap:quickinfo="Other Credits - Non-Residential"/>
                 <Property Name="nr_vacant_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Non Residential Vaca" sap:quickinfo="Non Residential Vacant Payable" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="prop_gfa" Type="Edm.Decimal" Precision="10" Scale="2" sap:label="Proposed GFA"/>
                 <Property Name="ext_gfa" Type="Edm.Decimal" Precision="10" Scale="2" sap:label="Existing GFA"/>
@@ -646,6 +650,7 @@
                 <Property Name="Gen_pay_receipt_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Action Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="document_no_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Update_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="payment_uuid" Type="Edm.Guid" Nullable="false" sap:label="Growth Charges Key" sap:heading=""/>
@@ -654,7 +659,7 @@
                 <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
                 <Property Name="invoice_no" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Invoice Document No." sap:quickinfo="Document Number of an Invoice Document" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="invoice_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Invoice Amount" sap:heading="" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="document_no" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Document Number" sap:quickinfo="Document Number of an Accounting Document"/>
+                <Property Name="document_no" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:field-control="document_no_fc" sap:label="Document Number" sap:quickinfo="Document Number of an Accounting Document"/>
                 <Property Name="document_year" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Fiscal Year" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="payment_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Payment Date" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="payment_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Payment Amount" sap:heading="" sap:creatable="false" sap:updatable="false"/>
@@ -662,9 +667,13 @@
                 <Property Name="payee_details" Type="Edm.String" MaxLength="255" sap:label="Payee Name and Addre" sap:quickinfo="Payee Name and Address"/>
                 <Property Name="comments" Type="Edm.String" sap:label="Comments"/>
                 <Property Name="currency" Type="Edm.String" MaxLength="5" sap:label="Currency" sap:quickinfo="Currency Key" sap:creatable="false" sap:updatable="false" sap:semantics="currency-code"/>
+                <Property Name="auto_gen_invoice_flag" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Flag for the Invoice" sap:quickinfo="Flag for the Invoice Generated"/>
                 <Property Name="generate_reciept" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Generate Reciept?"/>
                 <Property Name="deferral_adjust" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Deferral Adjust Flag" sap:quickinfo="Deferral Adjustments Flag" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="credit_memo" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Credit Memo Flag" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sort_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Date Payment Sorting" sap:quickinfo="Date for Payment Sorting" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sort_time" Type="Edm.Time" Precision="0" sap:label="Time for Paym Sortng" sap:quickinfo="Time for Payment Sorting" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="sort_document" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Document No. for Sor" sap:quickinfo="Document No. for Sort" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
                 <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On"/>
                 <Property Name="updated_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Updated By"/>
@@ -824,6 +833,7 @@
                 <Property Name="permit_description_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="rop_associated_payment_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="rop_comments_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="site_plan_approved_date_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="swm_comments_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="tdsp_associated_payment_fc" Type="Edm.Byte" sap:label="Dyn. Field Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="Delete_mc" Type="Edm.Boolean" sap:label="Dyn. Method Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
@@ -849,7 +859,7 @@
                 <Property Name="permit_address" Type="Edm.String" MaxLength="46" sap:display-format="UpperCase"/>
                 <Property Name="address" Type="Edm.String" MaxLength="46" sap:display-format="UpperCase" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
                 <Property Name="site_plan_applied_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Site Plan App Date" sap:quickinfo="Site Plan Applied Date" sap:creatable="false" sap:updatable="false"/>
-                <Property Name="site_plan_approved_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Site Plan App Date" sap:quickinfo="Site Plan Approved Date" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="site_plan_approved_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:field-control="site_plan_approved_date_fc" sap:label="Site Plan App Date" sap:quickinfo="Site Plan Approved Date"/>
                 <Property Name="dc_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="dc_applicable_fc" sap:label="DC Applicable"/>
                 <Property Name="cbc_applicable" Type="Edm.Boolean" sap:display-format="UpperCase" sap:field-control="cbc_applicable_fc" sap:label="CBC Applicable"/>
                 <Property Name="dummy_criticality" Type="Edm.Byte" sap:label="INT1" sap:quickinfo="1 Byte Unsigned Integer" sap:creatable="false" sap:updatable="false"/>
@@ -2017,6 +2027,10 @@
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
                     <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true" sap:label="SideEffectsQualifier"/>
                 </FunctionImport>
+                <FunctionImport Name="zgc_c_cil_calCil_recalculate" ReturnType="ZGC_C_REQUESTS_CDS.DummyFunctionImportResult" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_cil_calType" sap:applicable-path="Cil_recalculate_ac">
+                    <Parameter Name="cil_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
+                </FunctionImport>
                 <FunctionImport Name="zgc_c_cil_calPreparation" ReturnType="ZGC_C_REQUESTS_CDS.zgc_c_cil_calType" EntitySet="zgc_c_cil_cal" m:HttpMethod="POST" sap:action-for="ZGC_C_REQUESTS_CDS.zgc_c_cil_calType" sap:applicable-path="Preparation_ac">
                     <Parameter Name="cil_uuid" Type="Edm.Guid" Mode="In" sap:label="Growth Charges Key"/>
                     <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In" sap:label="Is active"/>
@@ -2253,6 +2267,7 @@
                                 <PropertyPath>permit_description_fc</PropertyPath>
                                 <PropertyPath>rop_associated_payment_fc</PropertyPath>
                                 <PropertyPath>rop_comments_fc</PropertyPath>
+                                <PropertyPath>site_plan_approved_date_fc</PropertyPath>
                                 <PropertyPath>swm_comments_fc</PropertyPath>
                                 <PropertyPath>tdsp_associated_payment_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
@@ -2416,6 +2431,7 @@
                                 <PropertyPath>permit_description_fc</PropertyPath>
                                 <PropertyPath>rop_associated_payment_fc</PropertyPath>
                                 <PropertyPath>rop_comments_fc</PropertyPath>
+                                <PropertyPath>site_plan_approved_date_fc</PropertyPath>
                                 <PropertyPath>swm_comments_fc</PropertyPath>
                                 <PropertyPath>tdsp_associated_payment_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
@@ -2600,6 +2616,7 @@
                     <Record>
                         <PropertyValue Property="NonFilterableProperties">
                             <Collection>
+                                <PropertyPath>Cil_recalculate_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>nres_type_fc</PropertyPath>
@@ -2627,6 +2644,7 @@
                     <Record>
                         <PropertyValue Property="NonSortableProperties">
                             <Collection>
+                                <PropertyPath>Cil_recalculate_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
                                 <PropertyPath>nres_type_fc</PropertyPath>
@@ -2929,6 +2947,7 @@
                                 <PropertyPath>Gen_pay_receipt_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>document_no_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
                                 <PropertyPath>HasActiveEntity</PropertyPath>
@@ -2953,6 +2972,7 @@
                                 <PropertyPath>Gen_pay_receipt_ac</PropertyPath>
                                 <PropertyPath>Preparation_ac</PropertyPath>
                                 <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>document_no_fc</PropertyPath>
                                 <PropertyPath>Delete_mc</PropertyPath>
                                 <PropertyPath>Update_mc</PropertyPath>
                                 <PropertyPath>comments</PropertyPath>
