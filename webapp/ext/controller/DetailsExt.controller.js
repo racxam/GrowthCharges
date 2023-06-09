@@ -331,7 +331,7 @@ sap.ui.define(
         });
       },
 
-      _defineCILIconControl: function (sId) {
+      _defineCILIconControl: function (sId,sSec) {
         const oCILIcon = new Icon(
           {
             color: "#346187",
@@ -347,6 +347,23 @@ sap.ui.define(
           case "oth_cr_units":
             oCILIcon.setTooltip("Parkland dedication agreement credits.");
             break;
+
+            case "other_credits_res":
+              if(sSec === "ResHigh"){
+                oCILIcon.setTooltip("Dollar value of parkland dedication agreement credits to be applied against the High/Medium Density Payable Amount.");
+              }else{
+                oCILIcon.setTooltip("Dollar value of parkland dedication agreement credits to be applied against the Low Density Payable Amount.");
+              }
+              
+              break;
+
+              case "other_credits_nres":
+                if(sSec === "NResExt"){
+                oCILIcon.setTooltip("Dollar value of parkland dedication agreement credits to be applied against the Non-Residential Existing Payable Amount.");
+              }else{
+                oCILIcon.setTooltip("Dollar value of parkland dedication agreement credits to be applied against the Non-Residential Vacant Payable Amount.");
+              }
+                break;
           default:
             oCILIcon.setTooltip("This is populated from lesser of the Site Specific CIL Calculation OR the CIL Site Value Cap Calculation OR the CIL Capped Rate Total");
             break;
@@ -355,11 +372,48 @@ sap.ui.define(
       },
 
       _addCILIconControl: function () {
-        const aCILGroup = ["density_payable", "exm_units", "oth_cr_units"];
+        
+        // density_payable
+        const aCILGroup = ["density_pay_subt1", "exm_units", "oth_cr_units","other_credits_res","other_credits_nres"];
         aCILGroup.forEach(mItem => {
           let oControl = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::${mItem}::GroupElement`);
-          oControl.addElement(this._defineCILIconControl(mItem));
+          if (oControl){
+            oControl.addElement(this._defineCILIconControl(mItem,"ResHigh"));
+          }
+          
         });
+
+        const aCILGroupResLow = ["other_credits_res"];
+        aCILGroupResLow.forEach(mItem => {
+          let oControl = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensityLow-ID::${mItem}::GroupElement`);
+          if (oControl){
+            oControl.addElement(this._defineCILIconControl(mItem,"ResLow"));
+          }
+          
+        });
+
+        
+
+        const aCILGroupNRes = ["other_credits_nres"];
+        aCILGroupNRes.forEach(mItem => {
+          let oControl = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILNonResDensity-ID::${mItem}::GroupElement`);
+          if (oControl){
+            oControl.addElement(this._defineCILIconControl(mItem,"NResExt"));
+          }
+          
+        });
+
+        const aCILGroupVac = ["other_credits_nres"];
+        aCILGroupVac.forEach(mItem => {
+          let oControl = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILNonResDensityVac-ID::${mItem}::GroupElement`);
+          if (oControl){
+            oControl.addElement(this._defineCILIconControl(mItem,"NResVac"));
+          }
+          
+        });
+
+
+        
       },
       onAfterRendering: function () {
         this._applyDefaultVariant();
