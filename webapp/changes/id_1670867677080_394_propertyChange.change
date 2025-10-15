@@ -1,0 +1,43 @@
+{
+	"fileName": "id_1670867677080_394_propertyChange",
+	"fileType": "change",
+	"changeType": "propertyChange",
+	"moduleName": "",
+	"reference": "com.gc.dashboard.Component",
+	"packageName": "ZGROWTH_CHARGES",
+	"content": {
+		"property": "showHeaderContent",
+		"newValue": true
+	},
+	"selector": {
+		"id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--objectPage",
+		"type": "sap.uxap.ObjectPageLayout",
+		"idIsLocal": false
+	},
+	"layer": "CUSTOMER_BASE",
+	"texts": {},
+	"namespace": "apps/com.gc.dashboard/changes/",
+	"projectId": "com.gc.dashboard",
+	"creation": "2022-12-12T17:56:27.639Z",
+	"originalLanguage": "EN",
+	"conditions": {},
+	"context": "",
+	"support": {
+		"generator": "Change.createInitialFileContent",
+		"service": "",
+		"user": "",
+		"sapui5Version": "1.71.36",
+		"sourceChangeFileName": "",
+		"compositeCommand": ""
+	},
+	"oDataInformation": {},
+	"dependentSelector": {},
+	"validAppVersions": {
+		"creation": "0.0.1",
+		"from": "0.0.1",
+		"to": "0.0.1"
+	},
+	"jsOnly": false,
+	"variantReference": "",
+	"appDescriptorChange": false
+}

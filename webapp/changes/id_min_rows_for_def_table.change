@@ -1,0 +1,38 @@
+{
+	"fileName": "id_min_rows_for_def_table",
+	"fileType": "change",
+	"changeType": "propertyChange",
+	"moduleName": "",
+	"reference": "com.gc.dashboard.Component",
+	"packageName": "ZGROWTH_CHARGES",
+	"content": {
+		"property": "minAutoRowCount",
+		"newValue": 7
+	},
+	"selector": {
+		"id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCDeferralTable-ID::gridTable",
+		"type": "sap.ui.table.Table",
+		"idIsLocal": false
+	},
+	"layer": "CUSTOMER_BASE",
+	"texts": {},
+	"namespace": "apps/com.gc.dashboard/changes/",
+	"projectId": "com.gc.dashboard",
+	"creation": "2022-12-22T11:07:08.375Z",
+	"originalLanguage": "EN",
+	"conditions": {},
+	"context": "",
+	"support": {
+		"generator": "Change.createInitialFileContent",
+		"service": "",
+		"user": "",
+		"sapui5Version": "1.71.43",
+		"sourceChangeFileName": "",
+		"compositeCommand": ""
+	},
+	"oDataInformation": {},
+	"dependentSelector": {},
+	"jsOnly": false,
+	"variantReference": "",
+	"appDescriptorChange": false
+}
