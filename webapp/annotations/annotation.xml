@@ -1,0 +1,1388 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common" />
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/sap/ZGC_C_REQUESTS_CDS/?saml2=disabled/$metadata">
+        <edmx:Include Namespace="ZGC_C_REQUESTS_CDS" Alias="SAP" />
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+            <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requests">
+                <Annotation Term="Org.OData.Capabilities.V1.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false" />
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="{@i18n>submit}" />
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsSubmit" />
+                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated" />
+                            <PropertyValue Property="Determining" Bool="true" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="{@i18n>attachDraftInvoice}" />
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsAttach_draft_invoice" />
+                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated" />
+                            <PropertyValue Property="Determining" Bool="true" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="{@i18n>createNewVersion}" />
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsCreate_new_version" />
+                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated" />
+                            <PropertyValue Property="Determining" Bool="true" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="{@i18n>withdrawApproval}" />
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval" />
+                            <PropertyValue Property="InvocationGrouping" EnumMember="UI.OperationGroupingType/Isolated" />
+                            <PropertyValue Property="Determining" Bool="true" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="request_id" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="permit" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="street" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="is_deferral" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DefTableUpdate">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>def_first_payment_date</PropertyPath>
+                                <PropertyPath>is_appeal_refund</PropertyPath>
+                                <PropertyPath>appeal_calc_date</PropertyPath>
+                                <PropertyPath>appeal_int_percent</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_deferrals</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="InvCalDateChange">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>invoice_calculation_date</PropertyPath>
+                                <PropertyPath>interest_applied_date</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>days_of_interest</PropertyPath>
+                                <PropertyPath>dc_valid_until</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="CBCApplicableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>cbc_applicable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>cbc_hidden</PropertyPath>
+                                <PropertyPath>cbc_v2_hidden</PropertyPath>
+                                  <!--added for defect 230 for dynamicfield open in editable mode on CBCApplicableChanged 08/09/2025 added-->
+                                <PropertyPath>cbc_appraisal_date_fc</PropertyPath>
+                                <PropertyPath>cbc_valid_until_fc</PropertyPath>
+                                <PropertyPath>cbc_ext_comments_fc</PropertyPath>
+                                <PropertyPath>cbccomments_fc</PropertyPath>
+                                <PropertyPath>cbc_dev_area_fc</PropertyPath>
+                                <PropertyPath>cbc_dev_area_unit1_fc</PropertyPath>
+                                <PropertyPath>cbc_land_ass_area_fc</PropertyPath>
+                                <PropertyPath>cbc_land_val_amt_fc</PropertyPath>
+                                <PropertyPath>cbc_percentage_fc</PropertyPath>
+                                <PropertyPath>is_exm_cbc_fc</PropertyPath>
+                                <PropertyPath>is_kind_cbc_fc</PropertyPath>
+                                <PropertyPath>is_dem_cbc_fc</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DCAppliChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_applicable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <!--added for defect 97 for dynamicfield auto appear on is DCAppliChanged 14th july added-->
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>tot_dc_payable</String>
+                                <String>invoice_calculation_date_fc</String>
+                                <String>dc_valid_until_fc</String>
+                                <String>dc_int_comments_sap_fc</String>
+                                <String>dc_ext_comments_fc</String>
+                                <String>rop_comments_fc</String>
+                                <String>got_comments_fc</String>
+                                <String>pdsb_comments_fc</String>
+                                <String>dpcsb_comments_fc</String>
+                                <String>swm_comments_fc</String>
+                                <String>is_dc_exm_applicable_fc</String>
+                            </Collection>
+                        </PropertyValue>     
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DCAppealRefChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>tot_dc_payable</PropertyPath>
+                                <PropertyPath>dc_paid_previously</PropertyPath>
+                                <PropertyPath>is_appeal_refund</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>current_dc_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="IsExmCBCChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>is_exm_cbc</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_cbcexm</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>exm_cbc_charge</PropertyPath>
+                                <PropertyPath>cbc_exm_hidden</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="IsKndCBCChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>is_kind_cbc</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_cbckind</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>kind_cbc_charge</PropertyPath>
+                                <PropertyPath>cbc_knd_hidden</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="IsDemCBCChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>is_dem_cbc</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_cbcdem</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>dem_cbc_charge</PropertyPath>
+                                <PropertyPath>cbc_dem_hidden</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="IsAppealRefundChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>is_appeal_refund</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <!--added for defect 97 for dynamicfield auto appear on is apeal refund checkbox, added 14th july-->
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>appeal_calc_date</String>
+                                <String>appeal_int_percent</String>
+                                <String>total_payable</String>
+                                <String>tot_dc_payable</String>
+                                <!--added for defect 97 for dynamicfield auto appear on is apeal refund checkbox-->
+                                <String>appeal_calc_date_fc</String>
+                                <String>appeal_int_percent_fc</String>
+                                <String>appeal_refund_hidden</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="CBCDEVINC-ID">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="cbc_exist_gfa" />
+                                    <PropertyValue Property="Label" String="{@i18n>existingGfam2}" />
+                                    <Annotation Term="UI.Hidden" Path="cbc_incremt_hidden" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="cbc_prop_gfa" />
+                                    <PropertyValue Property="Label" String="{@i18n>proposedGfam2}" />
+                                    <Annotation Term="UI.Hidden" Path="cbc_incremt_hidden" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="DCHeader3">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="cond_permit" />
+                                    <PropertyValue Property="Label" String="{@i18n>labelCILAssociatedPermit}" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="com_associated_payment" />
+                                    <PropertyValue Property="Label" String="{@i18n>comAssociatedPayment}" />
+                                    <Annotation Term="UI.Hidden" Path="cond_permit_hidden" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="rop_associated_payment" />
+                                    <PropertyValue Property="Label" String="{@i18n>ropAssociatedPayment}" />
+                                    <Annotation Term="UI.Hidden" Path="cond_permit_hidden" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="go_associated_payment" />
+                                    <PropertyValue Property="Label" String="{@i18n>goAssociatedPayment}" />
+                                    <Annotation Term="UI.Hidden" Path="cond_permit_hidden" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="tdsp_associated_payment" />
+                                    <PropertyValue Property="Label" String="{@i18n>tdspAssociatedPayment}" />
+                                    <Annotation Term="UI.Hidden" Path="cond_permit_hidden" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="dpcsb_associated_payment" />
+                                    <PropertyValue Property="Label" String="{@i18n>dpcsbAssociatedPayment}" />
+                                    <Annotation Term="UI.Hidden" Path="cond_permit_hidden" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="DCHeader4">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="is_appeal_refund" />
+                                    <PropertyValue Property="Label" String="{@i18n>appealRefund}" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="appeal_calc_date" />
+                                    <PropertyValue Property="Label" String="{@i18n>appealCalculationDate}" />
+                                    <Annotation Term="UI.Hidden" Path="appeal_refund_hidden" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="appeal_int_percent" />
+                                    <PropertyValue Property="Label" String="{@i18n>appealInterest}" />
+                                    <Annotation Term="UI.Hidden" Path="appeal_refund_hidden" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="CBC_GenInfo_AP_Col2-ID">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="cond_permit" />
+                                    <PropertyValue Property="Label" String="{@i18n>labelCILAssociatedPermit}" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="cbc_assoc_payment" />
+                                    <PropertyValue Property="Label" String="{@i18n>cbcAssociatePayment}" />
+                                    <Annotation Term="UI.Hidden" Path="cond_permit_hidden" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="cbc_paid_previously" />
+                                    <PropertyValue Property="Label" String="{@i18n>labelPreviousAmountPaid}" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="current_cbc_payable" />
+                                    <PropertyValue Property="Label" String="{@i18n>newCbcTotal}" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="PaymentInfo_FG2">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="loc_date" />
+                                    <PropertyValue Property="Label" String="{@i18n>letterOfCreditDate}" />
+                                    <Annotation Term="UI.Hidden" Path="spec_ind_hidden" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="loc_amount" />
+                                    <PropertyValue Property="Label" String="{@i18n>letterOfCreditAmount}" />
+                                    <Annotation Term="UI.Hidden" Path="spec_ind_hidden" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="isSec14Changed">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>is_sec14_applicable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>sec14_hidden</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="isDCExmApplicable">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>is_dc_exm_applicable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>dc_exm_hidden</PropertyPath>
+                                <PropertyPath>is_dc_exemption</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="isPrvPrmtApplicable">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>is_dc_prv_prmt_applicable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_prvpermitcr</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>dc_prv_prmt_hidden</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="IsAppealCalcDateChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>appeal_int_percent</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>appeal_calc_date</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="dcPaymentChange">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>rop_associated_payment</PropertyPath>
+                                <PropertyPath>com_associated_payment</PropertyPath>
+                                <PropertyPath>tdsp_associated_payment</PropertyPath>
+                                <PropertyPath>dpcsb_associated_payment</PropertyPath>
+                                <PropertyPath>go_associated_payment</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>dc_paid_previously</PropertyPath>
+                                <PropertyPath>current_dc_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="CBCAssocaitedPaymentChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>cbc_assoc_payment</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>cbc_paid_previously</PropertyPath>
+                                <PropertyPath>current_cbc_payable</PropertyPath>
+
+                                <PropertyPath>total_cbc_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="CILAssocaitedPaymentChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>cil_associated_payment</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>cil_paid_previously</PropertyPath>
+                                <PropertyPath>current_cil_payable</PropertyPath>
+
+                                <PropertyPath>total_cil_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
+                <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true" />
+                <Annotation Term="Common.SideEffects">
+                    <Record>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>_it/to_dccal</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_reqhstry</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbcdem</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbcexm</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbckind</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cilcal</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_deferrals</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_exemptions</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_payments</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_refunds</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>_it/status</PropertyPath>
+                                <PropertyPath>_it/Submit_ac</PropertyPath>
+                                <PropertyPath>_it/Withdraw_approval_ac</PropertyPath>
+                                <PropertyPath>_it/Edit_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsSubmit">
+                <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true" />
+                <Annotation Term="Common.SideEffects">
+                    <Record>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>_it/to_dccal</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_reqhstry</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbcdem</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbcexm</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbckind</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cilcal</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_deferrals</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_exemptions</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_payments</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_refunds</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>_it/status</PropertyPath>
+                                <PropertyPath>_it/Submit_ac</PropertyPath>
+                                <PropertyPath>_it/Withdraw_approval_ac</PropertyPath>
+                                <PropertyPath>_it/Edit_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsCreate_new_version">
+                <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true" />
+                <Annotation Term="Common.SideEffects">
+                    <Record>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>_it/to_dccal</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_reqhstry</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbcdem</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbcexm</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cbckind</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_cilcal</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_deferrals</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_exemptions</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_payments</NavigationPropertyPath>
+                                <NavigationPropertyPath>_it/to_refunds</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>_it/status</PropertyPath>
+                                <PropertyPath>_it/Submit_ac</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_requestsType">
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="InvCalcDateChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>invoice_calculation_date</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <!--Calling the calculate function. This will refresh to_dccal,to_demos,to_exemptions,to_sec14,to_dc_spec -->
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
+                        <!-- Defect 115 added below anotation 23/07/2025 -->
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>  
+                                <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CILPayableChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>total_cil_payable</PropertyPath>
+                                <PropertyPath>cil_paid_previously</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>current_cil_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="onChangeCustomerApplicant">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>applicant_bp_id</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>applicant_addr</PropertyPath>
+                                <PropertyPath>tel_number</PropertyPath>
+                                <PropertyPath>applicant_email_id</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <Annotation Term="Common.SideEffects" Qualifier="onChangeCustomerInvoice">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>invoice_bp_id</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>inv_addr</PropertyPath>
+                                <PropertyPath>inv_email1</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="CBCLandAmtChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>cbc_land_val_amt</PropertyPath>
+                                <PropertyPath>cbc_percentage</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>subtotal_cbc_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="CBCSubtotalChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>subtotal_cbc_payable</PropertyPath>
+                                <PropertyPath>exm_cbc_charge</PropertyPath>
+                                <PropertyPath>kind_cbc_charge</PropertyPath>
+                                <PropertyPath>dem_cbc_charge</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="SourceEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_cbcexm</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_cbckind</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_cbcdem</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>total_cbc_payable</PropertyPath>
+                                <PropertyPath>kind_cbc_charge</PropertyPath>
+                                <PropertyPath>dem_cbc_charge</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="CBCTotalCBCChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>total_cbc_payable</PropertyPath>
+                                <PropertyPath>cbc_paid_previously</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>current_cbc_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_cil_calType">
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="BuildingTypeChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>cil_build_type</PropertyPath>
+                                <PropertyPath>res_type</PropertyPath>
+                                <PropertyPath>nres_type</PropertyPath>
+                                <PropertyPath>appr_value_rate</PropertyPath>
+                                <PropertyPath>plan_act_rate</PropertyPath>
+                                <PropertyPath>site_cil_rate</PropertyPath>
+                                <PropertyPath>cil_capped_rate</PropertyPath>
+                                <PropertyPath>total_units</PropertyPath>
+                                <PropertyPath>cil_rate_res</PropertyPath>
+                                <PropertyPath>cil_rate_nres</PropertyPath>
+                                <PropertyPath>ext_gfa</PropertyPath>
+                                <PropertyPath>prop_gfa</PropertyPath>
+                                <PropertyPath>demo_gfa</PropertyPath>
+                                <PropertyPath>exm_gfa</PropertyPath>
+                                <PropertyPath>density_payable</PropertyPath>
+                                <PropertyPath>nr_vacant_payable</PropertyPath>
+                                <PropertyPath>nr_ext_payable</PropertyPath>
+                                <PropertyPath>appr_value_rate_nres</PropertyPath>
+
+                                <!-- <PropertyPath>resi_high_med_hidden</PropertyPath>
+                                  <PropertyPath>resi_low_hidden</PropertyPath> -->
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath />
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="SiteCILChange">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>site_cil_rate</PropertyPath>
+                                <PropertyPath>total_units</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>site_cil_calc</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="SiteCILValChange">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>cil_site_val_perc</PropertyPath>
+                                <PropertyPath>dev_area_appr</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>cil_site_val_calc</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DevAreaChange">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dev_area</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>cil_site_val_perc</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="ResGFAChange">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>res_gfa</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>res_gfa_prcnt</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="NResGFAChange">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>nres_gfa</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>nres_gfa_prcnt</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="NRES_VACChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>appr_value_rate_nres</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath />
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>nr_vacant_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <Annotation Term="Common.SideEffects" Qualifier="NR_EXT_PAYABLEChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>new_total_gfa</PropertyPath>
+                                <PropertyPath>ext_gfa</PropertyPath>
+                                <PropertyPath>appr_value_rate_nres</PropertyPath>
+                                <PropertyPath>cil_rate_nres</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath />
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>nr_ext_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="nr_vacant_payableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>appr_value_rate_nres</PropertyPath>
+                                <PropertyPath>cil_rate_nres</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath />
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>nr_vacant_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_cil_calType">
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>cil_build_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>res_type</PropertyPath>
+                                <PropertyPath>nres_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CILCappedRateChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>cil_capped_rate</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>cil_capped_to_date</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_cil_calType">
+                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="UnitsChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>new_units</PropertyPath>
+                                <PropertyPath>exst_units</PropertyPath>
+                                <PropertyPath>demo_units</PropertyPath>
+                                <PropertyPath>oth_cr_units</PropertyPath>
+                                <PropertyPath>exm_units</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>total_units</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_dc_sec14Type">
+                <Annotation Term="Common.SideEffects" Qualifier="Sec14TableRefresh">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>tot_demo_credit</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_dc_calcltnsType">
+                <Annotation Term="Common.SideEffects" Qualifier="DCRateChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DCTableChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>amount_payable</PropertyPath>
+                                <PropertyPath>interest_rate</PropertyPath>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>dc_and_interest</PropertyPath>
+                                <PropertyPath>exm_amount</PropertyPath>
+                                <PropertyPath>applied_dm_credit</PropertyPath>
+                                <PropertyPath>prv_dm_credit</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.ZGC_C_DC_CAL_SPECType">
+                <Annotation Term="Common.SideEffects" Qualifier="DCSpecuTableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DCSpecTableChanged">
+                    <Record>
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>amount_payable</PropertyPath>
+                                <PropertyPath>interest_rate</PropertyPath>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>dc_and_interest</PropertyPath>
+                                <PropertyPath>exm_amount</PropertyPath>
+                                <PropertyPath>applied_dm_credit</PropertyPath>
+                                <PropertyPath>prv_dm_credit</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_dc_demosType">
+                <Annotation Term="Common.SideEffects" Qualifier="DemoTableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DCDemoCredTableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                                <PropertyPath>tot_demo_credit</PropertyPath>
+                                <PropertyPath>permit_number</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath />
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>interest_rate</PropertyPath>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>demo_amount</PropertyPath>
+                                <PropertyPath>tot_demo_credit</PropertyPath>
+                                <PropertyPath>applied_credit</PropertyPath>
+                                <PropertyPath>permit_number</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_dc_exmsType">
+                <Annotation Term="Common.SideEffects" Qualifier="DCTableExemptionDCRateUpdated">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_rate</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>exm_amount</PropertyPath>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>total_exm_amount</PropertyPath>
+                                <PropertyPath>to_request/total_dc_exmp_amt</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DCTableExemptDCTypeUpdated">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>exm_amount</PropertyPath>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>total_exm_amount</PropertyPath>
+                                <PropertyPath>interest_rate</PropertyPath>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>uom</PropertyPath>
+                                <PropertyPath>to_request/total_dc_exmp_amt</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="DCTableExemptAmtUpdated">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>exm_amount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>total_exm_amount</PropertyPath>
+                                <PropertyPath>interest_rate</PropertyPath>
+                                <PropertyPath>to_request/total_dc_exmp_amt</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_cbc_exmType">
+                <Annotation Term="Common.SideEffects" Qualifier="SubtotalCbcChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>subtotal_cbc_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>to_request/exm_cbc_charge</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_cbc_kindType">
+                <Annotation Term="Common.SideEffects" Qualifier="InKindAmtCBCChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>in_kind_amount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>to_request/kind_cbc_charge</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_cbc_demType">
+                <Annotation Term="Common.SideEffects" Qualifier="DemCBCChargeChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dem_cbc_charge</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>to_request/dem_cbc_charge</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="SAP.zgc_c_paymentsType">
+                <Annotation Term="UI.LineItem" Qualifier="PaymentInfo">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>invoice}" />
+                            <PropertyValue Property="Value" Path="invoice_no" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>invoiceAmount}" />
+                            <PropertyValue Property="Value" Path="invoice_amt" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>paymentDate}" />
+                            <PropertyValue Property="Value" Path="payment_date" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>paymentAmount}" />
+                            <PropertyValue Property="Value" Path="payment_amt" />
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>balanceDueForPayment}" />
+                            <PropertyValue Property="Value" Path="balance_due" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>payeeDetails}" />
+                            <PropertyValue Property="Value" Path="payee_details" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>comments}" />
+                            <PropertyValue Property="Value" Path="comments" />
+                        </Record>
+
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="{@i18n>generateReceipt}" />
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_paymentsGen_pay_receipt" />
+                            <PropertyValue Property="Inline" Bool="true" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="PaymentNumberChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>document_no</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>payment_date</PropertyPath>
+                                <PropertyPath>payment_amt</PropertyPath>
+                                <PropertyPath>balance_due</PropertyPath>
+                                <PropertyPath>payee_details</PropertyPath>
+                                <PropertyPath>comments</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_request/to_payments</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_request/to_deferrals</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.zgc_c_refundsType">
+                <Annotation Term="UI.LineItem" Qualifier="RefundInfo">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>refundDate}" />
+                            <PropertyValue Property="Value" Path="refund_date" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>refundAmount}" />
+                            <PropertyValue Property="Value" Path="refund_amount" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>interestAmount}" />
+                            <PropertyValue Property="Value" Path="interest_amount" />
+                            <Annotation Term="UI.Hidden" Path="to_request/refund_interest_hidden" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>refundWithInterest}" />
+                            <PropertyValue Property="Value" Path="refund_interest" />
+                            <Annotation Term="UI.Hidden" Path="to_request/refund_interest_hidden" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>amountRefunded}" />
+                            <PropertyValue Property="Value" Path="amount_refunded" />
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>recipientName}" />
+                            <PropertyValue Property="Value" Path="recp_name" />
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>comments}" />
+                            <PropertyValue Property="Value" Path="comments" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.ZGC_C_DEFERRALSType">
+                <Annotation Term="UI.LineItem" Qualifier="DeferralInfo">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>year}" />
+                            <PropertyValue Property="Value" Path="deferral_year" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>installmentAmount}" />
+                            <PropertyValue Property="Value" Path="installment_amt" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>previouslyPaid}" />
+                            <PropertyValue Property="Value" Path="previous_payment" />
+                            <Annotation Term="UI.Hidden" Path="to_request/isVersionOne" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>paymentDate}" />
+                            <PropertyValue Property="Value" Path="payment_date" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>daysOfInterest}" />
+                            <PropertyValue Property="Value" Path="interest_days" />
+                            <Annotation Term="UI.Hidden" Path="to_request/isVersionOne" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>interestAmount}" />
+                            <PropertyValue Property="Value" Path="interest_amount" />
+                            <Annotation Term="UI.Hidden" Path="to_request/isVersionOne" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>refundAmount}" />
+                            <PropertyValue Property="Value" Path="refund_amount" />
+                            <Annotation Term="UI.Hidden" Path="to_request/isVersionOne" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>refundWithInterest}" />
+                            <PropertyValue Property="Value" Path="refund_interest" />
+                        </Record>
+                        <!-- <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>generateDeferralInvoice}"/>
+                            <PropertyValue Property="Value" Path="generate_invoice"/>
+                        </Record> -->
+                        <Record Type="UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="{@i18n>generateInvoice}" />
+                            <PropertyValue Property="Action" String="ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/ZGC_C_DEFERRALSGen_def_invoice" />
+                            <PropertyValue Property="Inline" Bool="true" />
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP.ZGC_C_DC_CAL_SPECType">
+                <Annotation Term="Common.SideEffects" Qualifier="SpecTableChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>dc_type</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>amount_payable</PropertyPath>
+                                <PropertyPath>dc_rate</PropertyPath>
+                                <PropertyPath>quantity</PropertyPath>
+                                <PropertyPath>interest_rate</PropertyPath>
+                                <PropertyPath>interest_amount</PropertyPath>
+                                <PropertyPath>dc_and_interest</PropertyPath>
+                                <PropertyPath>exm_amount</PropertyPath>
+                                <PropertyPath>applied_dm_credit</PropertyPath>
+                                <PropertyPath>prv_dm_credit</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_request</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

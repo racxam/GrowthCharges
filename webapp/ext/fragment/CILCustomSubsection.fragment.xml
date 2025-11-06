@@ -1,0 +1,235 @@
+<core:FragmentDefinition xmlns:m="sap.m"
+	xmlns="sap.ui.layout"
+	xmlns:forms="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+	<m:VBox id="idCIL_DisplayVBox" visible="{= !${ui>/editable} || ${cil_applicable_fc} === 1}">
+		<forms:Form id="idCIL_DisplayForm" width="100%">
+			<forms:layout>
+				<forms:ResponsiveGridLayout id="idCIL_DisplayResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+			</forms:layout>
+			<forms:formContainers>
+				<forms:FormContainer id="idCIL_DisplayFormContainer1">
+					<forms:formElements>
+						<forms:FormElement id="idCIL_DisplayFormLabelCILReq" label="{i18n>labelCILRequested}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextCILReq" text="{=${cil_requested} ? 'Yes' : 'No' }"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelCILAppl" label="{i18n>labelCILApplicable}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextCILAppl" text="{=${cil_applicable} ? 'Yes' : 'No' }"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelBuildType" label="{i18n>labelBuildingType}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextBuildType" text="{to_cilcal/bldtyp_cil_t}"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelResGFA" label="{i18n>labelResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' }">							<!--|| ${to_cilcal/cil_build_type} === 'RES'-->
+							<forms:fields>
+								<m:HBox id="idCIL_DispHBoxResGFA" alignItems="Center">
+									<m:Text id="idCIL_DisplayTextResGFA" text="{to_cilcal/res_gfa}"/>
+									<m:Text id="idCIL_DisplayTextResGFAPer" text="{to_cilcal/res_gfa_prcnt}%" class="sapUiSmallMarginBegin"/>
+								</m:HBox>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' }">							<!--|| ${to_cilcal/cil_build_type} === 'NRS'-->
+							<forms:fields>
+								<m:HBox id="idCIL_DispHBoxNResGFA" alignItems="Center">
+									<m:Text id="idCIL_DisplayTextNResGFA" text="{to_cilcal/nres_gfa}"/>
+									<m:Text class="sapUiSmallMarginBegin" id="idCIL_DisplayTextNResGFAPer" text="{to_cilcal/nres_gfa_prcnt}%"/>
+								</m:HBox>
+
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelResType" label="{i18n>labelResidentialType}" visible="{=${to_cilcal/cil_build_type} !== 'NRS'}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextResType" text="{to_cilcal/restyp_txt}"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelNResType" label="{i18n>labelNonResidentialType}" visible="{=${to_cilcal/cil_build_type} !== 'RES'}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextNResType" text="{to_cilcal/nrestyp_txt}"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelWard" label="{i18n>labelWard}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextWard" text="{to_cilcal/ward}"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelMaxID" label="{i18n>labelMaxID}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextMaxID" text="{to_cilcal/maxid}" />
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelCharArea" label="{i18n>labelCharacterArea}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextCharArea" text="{to_cilcal/char_area_text}" />
+							</forms:fields>
+						</forms:FormElement>
+					</forms:formElements>
+				</forms:FormContainer>
+				<forms:FormContainer id="idCIL_DisplayFormContainer2">
+					<forms:formElements>
+					<forms:FormElement id="idCIL_DisplayFormLabelFinCILAmt" label="{i18n>labelFinalCILAmount}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextFinCILAmt" text="{path:'total_cil_payable', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextPrevAmntPaid" text="{path:'cil_paid_previously', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelNewCILTotal" label="{i18n>labelNewCILTotal}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextNewCILTotal" text="{path:'current_cil_payable', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
+							</forms:fields>
+						</forms:FormElement>
+						
+						<forms:FormElement id="idCIL_DisplayFormLabelMngrAppr" label="{i18n>labelManagerApprovalReq}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextMngrAppReq" text="{=${to_cilcal/mgr_apr_reqd} ? 'Yes' : 'No' }" wrapping="true"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelAsoPermit" label="{i18n>labelCILAssociatedPermit}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextAsoPermit" text="{=${cond_permit} ? 'Yes' : 'No' }" wrapping="true"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_DisplayFormLabelAsoPaymnt" label="{i18n>labelCILAssociatedPayment}" visible="{cond_permit}">
+							<forms:fields>
+								<m:Text id="idCIL_DisplayTextAsoPaymnt" text="{path:'cil_associated_payment', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
+							</forms:fields>
+						</forms:FormElement>
+					</forms:formElements>
+				</forms:FormContainer>
+			</forms:formContainers>
+		</forms:Form>
+	</m:VBox>
+	<!-- *****************************EDIT SCENARIO *********************************************-->
+	<m:VBox id="idCIL_EditVBox" visible="{=${ui>/editable} &amp;&amp; ${cil_applicable_fc} !== 1}">
+		<forms:Form id="idCIL_EditForm" width="100%">
+			<forms:layout>
+				<forms:ResponsiveGridLayout id="idCIL_EditResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false" />
+			</forms:layout>
+			<forms:formContainers>
+				<forms:FormContainer id="idCIL_EditFormContainer1">
+					<forms:formElements>
+						<forms:FormElement id="idCIL_EditFormLabelCILReq" label="{i18n>labelCILRequested}">
+							<forms:fields>
+								<m:Text id="idCIL_EditTextCILReq" text="{=${cil_requested} ? 'Yes' : 'No' }"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelCILAppl" label="{i18n>labelIsCILApplicable}">
+							<forms:fields>
+								<m:CheckBox id="idCIL_EditRBGrpCILAppl" selected="{= ${cil_applicable}}" select=".cilApplicableChanged"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelBuildType" label="{i18n>labelSelectBuildingType}">
+							<forms:fields>
+								<m:RadioButtonGroup id="idCIL_EditRBGrpBuildType" select=".onPressBuildingType">
+									<m:RadioButton id="idCIL_EditRBBuildTypeRes" selected="{=${to_cilcal/cil_build_type} === 'RES'}" text="{i18n>labelResidential}" editable="{=${cil_requested}}"/>
+									<m:RadioButton id="idCIL_EditRBBuildTypeNRes" selected="{=${to_cilcal/cil_build_type} === 'NRS'}" text="{i18n>labelNonResidential}" editable="{=${cil_requested}}"/>
+									<m:RadioButton id="idCIL_EditRBBuildTypeMixd" selected="{=${to_cilcal/cil_build_type} === 'MXD'}" text="{i18n>labelMixed}" editable="{=${cil_requested}}"/>
+								</m:RadioButtonGroup>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelResGFA" label="{i18n>labelResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' }">
+							<forms:fields>
+								<m:HBox id="idCIL_EditHBoxResGFA" alignItems="Center">
+									<m:Input id="idCIL_EditInpResGFA" value="{path:'to_cilcal/res_gfa',type: 'sap.ui.model.type.Float',formatOptions:{maxFractionDigits: 3,groupingEnabled:false}}" editable="{=${cil_requested}}" change=".onUpdateResGFA"/>
+									<m:Text class="sapUiSmallMarginBegin" id="idCIL_EditTextResGFAPer" text="{to_cilcal/res_gfa_prcnt} %"/>
+								</m:HBox>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelNResGFA" label="{i18n>labelNonResidentialGFA}" visible="{=${to_cilcal/cil_build_type} === 'MXD' }">
+							<forms:fields>
+								<m:HBox id="idCIL_EditHBoxNResGFA" alignItems="Center">
+									<m:Input id="idCIL_EditInpNResGFA" value="{path:'to_cilcal/nres_gfa',type: 'sap.ui.model.type.Float',formatOptions: {maxFractionDigits: 3,groupingEnabled:false} }" editable="{=${cil_requested}}" change=".onUpdateNresGFA"/>
+									<m:Text class="sapUiSmallMarginBegin" id="idCIL_EditTextNResGFAPer" text="{to_cilcal/nres_gfa_prcnt} %"/>
+								</m:HBox>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelResType" label="{i18n>labelSelectResidentialType}" visible="{=${to_cilcal/cil_build_type} !== 'NRS'}">
+							<forms:fields>
+								<m:RadioButtonGroup id="idCIL_EditRBGrpResType" select=".onPressRBGrpResType">
+									<m:RadioButton id="idCIL_EditRBResTypeHi" selected="{=${to_cilcal/res_type} === 'HDE'}" text="{i18n>labelHighDensity}" editable="{=${cil_requested}}"/>
+									<m:RadioButton id="idCIL_EditRBResTypeMed" selected="{=${to_cilcal/res_type} === 'MDE'}" text="{i18n>labelMediumDensity}" editable="{=${cil_requested}}"/>
+									<m:RadioButton id="idCIL_EditRBResTypeLow" selected="{=${to_cilcal/res_type} === 'LDE'}" text="{i18n>labelLowDensity}" editable="{=${cil_requested}}"/>
+								</m:RadioButtonGroup>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelNResType" label="{i18n>labelNonResidentialType}" visible="{=${to_cilcal/cil_build_type} !== 'RES'}">
+							<forms:fields>
+								<!--If nonRes GFA is less than 20% then disable radio button-->
+								<m:RadioButtonGroup id="idCIL_EditRBGrpNResType" select=".onPressRBGrpNResType" enabled="{parts : [{path:'to_cilcal/cil_build_type'},{path:'to_cilcal/nres_gfa_prcnt'}] ,formatter: '.onShowNResType'}">
+									<m:RadioButton id="idCIL_EditRBNResTypeVac" selected="{=${to_cilcal/nres_type} === 'VAC'}" text="{i18n>labelVacant}" editable="{=${cil_requested}}"/>
+									<m:RadioButton id="idCIL_EditRBNResTypeExist" selected="{=${to_cilcal/nres_type} === 'EXT'}" text="{i18n>labelExisting}" editable="{=${cil_requested}}"/>
+								</m:RadioButtonGroup>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelWard" label="{i18n>labelWard}">
+							<forms:fields>
+								<m:Text id="idCIL_EditTextWard" text="{to_cilcal/ward}"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelMaxID" label="{i18n>labelMaxID}">
+							<forms:fields>
+								<m:Text id="idCIL_EditTextMaxID" text="{to_cilcal/maxid}" />
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelCharArea" label="{i18n>labelCharacterArea}">
+							<forms:fields>
+								<m:ComboBox id="idCIL_EditDDCharArea" items="{/ZGC_CHAR_AREA_VH}" editable="{=${cil_requested}}" selectedKey="{to_cilcal/char_area}">
+									<core:Item id="idCIL_DDItemCharArea" key="{char_area}" text="{char_area_text}" />
+								</m:ComboBox>
+							</forms:fields>
+						</forms:FormElement>
+					</forms:formElements>
+				</forms:FormContainer>
+				<forms:FormContainer id="idCIL_EditFormContainer2">
+					<forms:formElements>
+						<forms:FormElement id="idCIL_EditFormLabelFinCILAmt" label="{i18n>labelFinalCILAmount}">
+							<forms:fields>
+								<m:Text id="idCIL_EditTextFinCILAmt" text="{path:'total_cil_payable', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelPrevAmntPaid" label="{i18n>labelPreviousAmountPaid}" >
+							<forms:fields>
+								<m:Text id="idCIL_EditTextPrevAmntPaid" text="{path:'cil_paid_previously', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelNewCILTotal" label="{i18n>labelNewCILTotal}" >
+							<forms:fields>
+								<m:Text id="idCIL_EditTextNewCILTotal" text="{path:'current_cil_payable', type:'sap.ui.model.type.Float', formatOptions: { source: { type: 'sap.ui.model.type.String' }, minFractionDigits: 2, maxFractionDigits: 3}} CAD"/>
+							</forms:fields>
+						</forms:FormElement>
+						
+						<forms:FormElement id="idCIL_EditFormLabelMngrAppr" label="{i18n>labelManagerApprovalReq}">
+							<forms:fields>
+								<m:RadioButtonGroup id="idCIL_EditRBGrpMngrAppReq" columns="2" select=".onPressRBGrpMngrAppReq">
+									<m:RadioButton id="idCIL_EditRBMngrAppYes" selected="{=${to_cilcal/mgr_apr_reqd}}" text="{i18n>labelYes}"/>
+									<m:RadioButton id="idCIL_EditRBMngrAppNo" selected="{=!${to_cilcal/mgr_apr_reqd}}" text="{i18n>labelNo}" />
+								</m:RadioButtonGroup>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelAsoPermit" label="{i18n>labelCILAssociatedPermit}">
+							<forms:fields>
+								<m:Text id="idCIL_EditAsoPermit" text="{=${cond_permit} ? 'Yes' : 'No' }" wrapping="true"/>
+							</forms:fields>
+						</forms:FormElement>
+						<forms:FormElement id="idCIL_EditFormLabelAsoPaymnt" label="{i18n>labelCILAssociatedPayment}" visible="{cond_permit}">
+							<forms:fields>
+								<m:HBox id="idCIL_EditHBoxAsoPaymnt" alignItems="Center">
+								<m:Input id="idCIL_EditTextAsoPaymnt" change=".onUpdateAssoPayment" editable="{=${cond_permit}}" value="{cil_associated_payment}"/>
+								<m:Text id="idCILCADCurr" text="{i18n>labelCAD}" class="sapUiSmallMarginBegin"/>
+								</m:HBox>
+							</forms:fields>
+						</forms:FormElement>
+					</forms:formElements>
+				</forms:FormContainer>
+			</forms:formContainers>
+		</forms:Form>
+	</m:VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,485 @@
+{
+    "_version": "1.17.0",
+    "sap.app": {
+        "id": "com.gc.dashboard",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:lrop",
+            "version": "1.7.5",
+            "toolsId": "d13c7abf-c9dc-4fdd-8218-0d6ea2181267"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/ZGC_C_REQUESTS_CDS",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "ZGC_C_REQUESTS_CDS_VAN",
+                        "annotation"
+                    ],
+                    "localUri": "localService/mainService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "ZGC_C_REQUESTS_CDS_VAN": {
+                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZGC_C_REQUESTS_CDS_VAN',Version='0001')/$value/",
+                "type": "ODataAnnotation",
+                "settings": {
+                    "localUri": "localService/mainService/ZGC_C_REQUESTS_CDS_VAN.xml"
+                }
+            },
+            "annotation": {
+                "type": "ODataAnnotation",
+                "uri": "annotations/annotation.xml",
+                "settings": {
+                    "localUri": "annotations/annotation.xml"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-gc-dashboard-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "zgrowth_charges",
+                    "action": "manage",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": ""
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.120.31",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.f": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.suite.ui.generic.template": {}
+            },
+            "components": {
+                "sap.se.mi.plm.lib.attachmentservice.attachment.components.stcomponent": {
+                    "lazy": true
+                }
+            }
+        },
+        "componentUsages": {
+            "attachmentReuseComponent": {
+                "name": "sap.se.mi.plm.lib.attachmentservice.attachment.components.stcomponent",
+                "settings": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.gc.dashboard.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "config": {},
+            "routes": [],
+            "targets": {}
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.viewExtensions": {
+                    "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+                        "SmartFilterBarControlConfigurationExtension|zgc_c_requests": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.CustomFilterListReport",
+                            "type": "XML"
+                        },
+                        "ResponsiveTableColumnsExtension|zgc_c_requests": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.ResponsiveTableColumns",
+                            "type": "XML"
+                        },
+                        "ResponsiveTableCellsExtension|zgc_c_requests": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.ResponsiveTableCells",
+                            "type": "XML"
+                        }
+                    },
+                    "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+                        "ReplaceHeaderExtensionFacet|zgc_c_requests": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.AfterHeaderFacetExtFacet",
+                            "type": "XML"
+                        },
+                        "BeforeSubSection|zgc_c_requests|CIL-Comm-SS": {
+                            "type": "XML",
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragment.CILCustomSubsection",
+                            "sap.ui.generic.app": {
+                                "title": "CIL Header Information",
+                                "enableLazyLoading": false
+                            }
+                        },
+                        "AfterFacet|zgc_c_requests|InPayRef": {
+                            "type": "XML",
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragment.InvoiceSection",
+                            "sap.ui.generic.app": {
+                                "title": "Invoice"
+                            }
+                        },
+                        "TreeTableColumnsExtension|zgc_c_dc_calcltns|TotalDC-ID": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.TreeTableColumns",
+                            "type": "XML"
+                        },
+                        "TreeTableColumnsExtension|ZGC_C_DC_CAL_SPEC|TotalDC-ID-NonInd": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.TreeTableColumns",
+                            "type": "XML"
+                        },
+                        "TreeTableColumnsExtension|zgc_c_dc_demos|DemolitionCred-ID": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.TreeTableColumns",
+                            "type": "XML"
+                        },
+                        "GridTableColumnsExtension|zgc_c_dc_exms|DCExemption-ID": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.TreeTableColumns",
+                            "type": "XML"
+                        },
+                        "GridTableColumnsExtension|zgc_c_payments|PaymentInfo-ID": {
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragments.GridTablePaymentColumns",
+                            "type": "XML"
+                        },
+                        "AfterSubSection|zgc_c_requests|PermitOverview": {
+                            "type": "XML",
+                            "className": "sap.ui.core.Fragment",
+                            "fragmentName": "com.gc.dashboard.ext.fragment.PermitOverviewSection",
+                            "sap.ui.generic.app": {
+                                "title": "Comments"
+                            }
+                        }
+                    }
+                },
+                "sap.ui.controllerExtensions": {
+                    "sap.suite.ui.generic.template.ListReport.view.ListReport": {
+                        "controllerName": "com.gc.dashboard.ext.controller.ListReportExt",
+                        "sap.ui.generic.app": {
+                            "zgc_c_requests": {
+                                "EntitySet": "zgc_c_requests"
+                            }
+                        }
+                    },
+                    "sap.suite.ui.generic.template.ObjectPage.view.Details": {
+                        "controllerName": "com.gc.dashboard.ext.controller.DetailsExt"
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui.generic.app": {
+        "_version": "1.3.0",
+        "settings": {
+            "forceGlobalRefresh": false,
+            "objectPageHeaderType": "Dynamic",
+            "considerAnalyticalParameters": true,
+            "showDraftToggle": false,
+            "useColumnLayoutForSmartForm": false,
+            "flexibleColumnLayout": {
+                "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+                "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+            }
+        },
+        "pages": {
+            "ListReport|zgc_c_requests": {
+                "entitySet": "zgc_c_requests",
+                "component": {
+                    "name": "sap.suite.ui.generic.template.ListReport",
+                    "list": true,
+                    "settings": {
+                        "condensedTableLayout": true,
+                        "smartVariantManagement": true,
+                        "enableTableFilterInPageVariant": false,
+                        "filterSettings": {
+                            "showClearButton": true,
+                            "dateSettings": {
+                                "useDateRange": true
+                            }
+                        }
+                    }
+                },
+                "pages": {
+                    "ObjectPage|zgc_c_requests": {
+                        "entitySet": "zgc_c_requests",
+                        "defaultLayoutType": "TwoColumnsMidExpanded",
+                        "defaultLayoutTypeIfExternalNavigation": "MidColumnFullScreen",
+                        "component": {
+                            "name": "sap.suite.ui.generic.template.ObjectPage",
+                            "settings": {
+                                "allowDeepLinking": true,
+                                "sections": {
+                                    "TotalDC-ID": {
+                                        "navigationProperty": "to_dccal",
+                                        "entitySet": "zgc_c_dc_calcltns",
+                                        "createMode": "inline",
+                                        "tableType": "TreeTable"
+                                    },
+                                    "TotalDC-ID-NonInd": {
+                                        "navigationProperty": "to_dc_spec",
+                                        "entitySet": "ZGC_C_DC_CAL_SPEC",
+                                        "createMode": "inline",
+                                        "tableType": "TreeTable"
+                                    },
+                                    "DemolitionCred-ID": {
+                                        "navigationProperty": "to_demos",
+                                        "entitySet": "zgc_c_dc_demos",
+                                        "createMode": "inline",
+                                        "tableType": "TreeTable"
+                                    },
+                                    "Section-14-ID": {
+                                        "navigationProperty": "to_sec14",
+                                        "entitySet": "zgc_c_dc_sec14",
+                                        "createMode": "inline",
+                                        "tableType": "TreeTable"
+                                    },
+                                    "DCExemption-ID": {
+                                        "navigationProperty": "to_exemptions",
+                                        "entitySet": "zgc_c_dc_exms",
+                                        "createMode": "inline",
+                                        "tableType": "GridTable"
+                                    },
+                                    "DCDeferralTable-ID": {
+                                        "navigationProperty": "to_deferrals",
+                                        "entitySet": "ZGC_C_DEFERRALS",
+                                        "tableType": "GridTable"
+                                    },
+                                    "Previous-Building-Permit-Credit-ID": {
+                                        "navigationProperty": "to_prvpermitcr",
+                                        "entitySet": "ZGC_C_PRE_BLD_PERMIT_CRD",
+                                        "createMode": "inline",
+                                        "tableType": "TreeTable"
+                                    },
+                                    "ExemptionCBC-ID": {
+                                        "navigationProperty": "to_cbcexm",
+                                        "entitySet": "zgc_c_cbc_exm",
+                                        "createMode": "inline",
+                                        "tableType": "GridTable"
+                                    },
+                                    "InKindContr-ID": {
+                                        "navigationProperty": "to_cbckind",
+                                        "entitySet": "zgc_c_cbc_kind",
+                                        "createMode": "inline",
+                                        "tableType": "GridTable"
+                                    },
+                                    "DemoExm-ID": {
+                                        "navigationProperty": "to_cbcdem",
+                                        "entitySet": "zgc_c_cbc_dem",
+                                        "createMode": "inline",
+                                        "tableType": "GridTable"
+                                    },
+                                    "PaymentInfo-ID": {
+                                        "navigationProperty": "to_payments",
+                                        "entitySet": "zgc_c_payments",
+                                        "createMode": "inline",
+                                        "tableType": "GridTable"
+                                    },
+                                    "RefundInfo-ID": {
+                                        "navigationProperty": "to_refunds",
+                                        "entitySet": "zgc_c_refunds",
+                                        "createMode": "inline",
+                                        "tableType": "GridTable"
+                                    },
+                                    "DeferralInfo-ID": {
+                                        "entitySet": "ZGC_C_DEFERRALS",
+                                        "tableType": "GridTable"
+                                    },
+                                    "ApprHist-SS-ID": {
+                                        "navigationProperty": "to_reqhstry",
+                                        "entitySet": "zgc_c_req_history",
+                                        "tableType": "GridTable"
+                                    }
+                                }
+                            }
+                        },
+                        "embeddedComponents": {
+                            "CBC::Attachments": {
+                                "id": "CBC::Attachments",
+                                "componentUsage": "attachmentReuseComponent",
+                                "title": "{{Attachments}}",
+                                "leadingSectionIdOrPath": "CBC",
+                                "settings": {
+                                    "mode": "{parts:[{path: 'ui>/editable'}, {path:'dc_applicable_fc'}], formatter: 'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getAttachmentsEditable'}",
+                                    "objectType": "ZGC_INV_OP",
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter: 'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getCBCObjectKey'}",
+                                    "attributeHandling": {
+                                        "_VisibleAttributes": {
+                                            "UPLOADEDBY": true,
+                                            "UPLOADEDON": true,
+                                            "FILESIZE": true,
+                                            "ENABLELINK": true,
+                                            "ATTACHMENTSTATUS": true,
+                                            "ATTACHMENTTITLE": true,
+                                            "SOURCE": false,
+                                            "DIRDETAILS": false
+                                        },
+                                        "_VisibleActions": {
+                                            "RENAME": true,
+                                            "DELETE": true,
+                                            "ADD": true,
+                                            "ADDURL": false,
+                                            "DOWNLOAD": true
+                                        }
+                                    }
+                                }
+                            },
+                            "DevelopmentCharges::Attachments": {
+                                "id": "DevelopmentCharges::Attachments",
+                                "componentUsage": "attachmentReuseComponent",
+                                "title": "{{Attachments}}",
+                                "leadingSectionIdOrPath": "DevelopmentCharges",
+                                "settings": {
+                                    "mode": "{parts:[{path: 'ui>/editable'}, {path:'dc_applicable_fc'}], formatter: 'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getAttachmentsEditable'}",
+                                    "objectType": "ZGC_INV_OP",
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getDCObjectKey'}",
+                                    "attributeHandling": {
+                                        "_VisibleAttributes": {
+                                            "UPLOADEDBY": true,
+                                            "UPLOADEDON": true,
+                                            "FILESIZE": true,
+                                            "ENABLELINK": true,
+                                            "ATTACHMENTSTATUS": false,
+                                            "ATTACHMENTTITLE": true,
+                                            "SOURCE": false,
+                                            "DIRDETAILS": false
+                                        },
+                                        "_VisibleActions": {
+                                            "RENAME": true,
+                                            "DELETE": true,
+                                            "ADD": true,
+                                            "ADDURL": false,
+                                            "DOWNLOAD": true
+                                        }
+                                    }
+                                }
+                            },
+                            "CIL::Attachments": {
+                                "id": "CIL::Attachments",
+                                "componentUsage": "attachmentReuseComponent",
+                                "title": "{{Attachments}}",
+                                "leadingSectionIdOrPath": "CIL",
+                                "settings": {
+                                    "mode": "{parts:[{path: 'ui>/editable'}, {path:'cil_applicable_fc'}], formatter: 'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getAttachmentsEditable'}",
+                                    "objectType": "ZGC_INV_OP",
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getCILObjectKey'}",
+                                    "attributeHandling": {
+                                        "_VisibleAttributes": {
+                                            "UPLOADEDBY": true,
+                                            "UPLOADEDON": true,
+                                            "FILESIZE": true,
+                                            "ENABLELINK": true,
+                                            "ATTACHMENTSTATUS": false,
+                                            "ATTACHMENTTITLE": true,
+                                            "SOURCE": false,
+                                            "DIRDETAILS": false
+                                        },
+                                        "_VisibleActions": {
+                                            "RENAME": true,
+                                            "DELETE": true,
+                                            "ADD": true,
+                                            "ADDURL": false,
+                                            "DOWNLOAD": true
+                                        }
+                                    }
+                                }
+                            },
+                            "InPayRef::Attachments": {
+                                "id": "InPayRef::Attachments",
+                                "componentUsage": "attachmentReuseComponent",
+                                "title": "{{Attachments}}",
+                                "leadingSectionIdOrPath": "InPayRef",
+                                "settings": {
+                                    "mode": "{parts:[{path: 'ui>/editable'}, {path:'dc_applicable_fc'}], formatter: 'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getAttachmentsEditable'}",
+                                    "objectType": "ZGC_INV_OP",
+                                    "objectKey": "{parts:[{path:'request_id'},{path:'version'},{path:'DraftUUID'}],formatter:'com.gc.dashboard.ext.formatter.ObjectPageFormatter.getPayObjectKey'}",
+                                    "attributeHandling": {
+                                        "_VisibleAttributes": {
+                                            "UPLOADEDBY": true,
+                                            "UPLOADEDON": true,
+                                            "FILESIZE": true,
+                                            "ENABLELINK": true,
+                                            "ATTACHMENTSTATUS": false,
+                                            "ATTACHMENTTITLE": true,
+                                            "SOURCE": false,
+                                            "DIRDETAILS": false
+                                        },
+                                        "_VisibleActions": {
+                                            "RENAME": true,
+                                            "DELETE": true,
+                                            "ADD": true,
+                                            "ADDURL": false,
+                                            "DOWNLOAD": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}
