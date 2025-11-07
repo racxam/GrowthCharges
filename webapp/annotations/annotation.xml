@@ -147,6 +147,9 @@
                                 <String>dpcsb_comments_fc</String>
                                 <String>swm_comments_fc</String>
                                 <String>is_dc_exm_applicable_fc</String>
+                                <String>occupancy_valid_until_fc</String>
+                                <String>occupancy_date_fc</String>
+
                             </Collection>
                         </PropertyValue>     
                     </Record>

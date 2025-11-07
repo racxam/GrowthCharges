@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
-<Column id="colDCId" width="2rem" minScreenWidth="Desktop">
-        <Text id="_IDTextDCId" text=""/>
+    <Column id="colDCId" width="2rem" minScreenWidth="Desktop">
+        <Text id="_IDTextDCId"/>
         <customData>
             <core:CustomData key="p13nData" value="\{&quot;columnKey&quot;: &quot;CustomColumn0&quot;, &quot;leadingProperty&quot;: &quot;request_id,new_version&quot;, &quot;columnIndex&quot;: &quot;1&quot;}"/>
         </customData>
