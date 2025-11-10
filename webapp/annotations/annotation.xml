@@ -109,7 +109,7 @@
                             <Collection>
                                 <PropertyPath>cbc_hidden</PropertyPath>
                                 <PropertyPath>cbc_v2_hidden</PropertyPath>
-                                  <!--added for defect 230 for dynamicfield open in editable mode on CBCApplicableChanged 08/09/2025 added-->
+                                <!--added for defect 230 for dynamicfield open in editable mode on CBCApplicableChanged 08/09/2025 added-->
                                 <PropertyPath>cbc_appraisal_date_fc</PropertyPath>
                                 <PropertyPath>cbc_valid_until_fc</PropertyPath>
                                 <PropertyPath>cbc_ext_comments_fc</PropertyPath>
@@ -149,9 +149,8 @@
                                 <String>is_dc_exm_applicable_fc</String>
                                 <String>occupancy_valid_until_fc</String>
                                 <String>occupancy_date_fc</String>
-
                             </Collection>
-                        </PropertyValue>     
+                        </PropertyValue>
                     </Record>
                 </Annotation>
                 <Annotation Term="Common.SideEffects" Qualifier="DCAppealRefChanged">
@@ -497,6 +496,26 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+                <Annotation Term="Common.SideEffects" Qualifier="Bill17PartnerChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_defpartner</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>non_def_dc_payable</String>
+                                <String>def_dc_payable</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true" />
@@ -599,7 +618,7 @@
                         <!-- Defect 115 added below anotation 23/07/2025 -->
                         <PropertyValue Property="TargetEntities">
                             <Collection>
-                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>  
+                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
                                 <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>
                                 <NavigationPropertyPath>to_demos</NavigationPropertyPath>
                                 <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
@@ -1385,7 +1404,7 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-            </Annotations>
+            </Annotations>       
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>

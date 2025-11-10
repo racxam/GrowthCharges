@@ -1,0 +1,362 @@
+[
+    {
+        "unit": "sTE",
+        "unitE": "unitE1",
+        "unit_txt": "unit_txt1",
+        "noOfDecimals": 20759
+    },
+    {
+        "unit": "MpH",
+        "unitE": "unitE2",
+        "unit_txt": "unit_txt2",
+        "noOfDecimals": 31781
+    },
+    {
+        "unit": "oBG",
+        "unitE": "unitE3",
+        "unit_txt": "unit_txt3",
+        "noOfDecimals": 1758
+    },
+    {
+        "unit": "NIt",
+        "unitE": "unitE4",
+        "unit_txt": "unit_txt4",
+        "noOfDecimals": 28452
+    },
+    {
+        "unit": "pqG",
+        "unitE": "unitE5",
+        "unit_txt": "unit_txt5",
+        "noOfDecimals": 22413
+    },
+    {
+        "unit": "aoO",
+        "unitE": "unitE6",
+        "unit_txt": "unit_txt6",
+        "noOfDecimals": 15417
+    },
+    {
+        "unit": "PPa",
+        "unitE": "unitE7",
+        "unit_txt": "unit_txt7",
+        "noOfDecimals": 18415
+    },
+    {
+        "unit": "CSp",
+        "unitE": "unitE8",
+        "unit_txt": "unit_txt8",
+        "noOfDecimals": 32107
+    },
+    {
+        "unit": "cZO",
+        "unitE": "unitE9",
+        "unit_txt": "unit_txt9",
+        "noOfDecimals": 13543
+    },
+    {
+        "unit": "FNP",
+        "unitE": "unit10",
+        "unit_txt": "unit_txt10",
+        "noOfDecimals": 13118
+    },
+    {
+        "unit": "bmM",
+        "unitE": "unit11",
+        "unit_txt": "unit_txt11",
+        "noOfDecimals": 3259
+    },
+    {
+        "unit": "yIn",
+        "unitE": "unit12",
+        "unit_txt": "unit_txt12",
+        "noOfDecimals": 10581
+    },
+    {
+        "unit": "rAv",
+        "unitE": "unit13",
+        "unit_txt": "unit_txt13",
+        "noOfDecimals": 5448
+    },
+    {
+        "unit": "UHV",
+        "unitE": "unit14",
+        "unit_txt": "unit_txt14",
+        "noOfDecimals": 3958
+    },
+    {
+        "unit": "bfe",
+        "unitE": "unit15",
+        "unit_txt": "unit_txt15",
+        "noOfDecimals": 19384
+    },
+    {
+        "unit": "RYU",
+        "unitE": "unit16",
+        "unit_txt": "unit_txt16",
+        "noOfDecimals": 28253
+    },
+    {
+        "unit": "Tms",
+        "unitE": "unit17",
+        "unit_txt": "unit_txt17",
+        "noOfDecimals": 15323
+    },
+    {
+        "unit": "vMM",
+        "unitE": "unit18",
+        "unit_txt": "unit_txt18",
+        "noOfDecimals": 1824
+    },
+    {
+        "unit": "rUW",
+        "unitE": "unit19",
+        "unit_txt": "unit_txt19",
+        "noOfDecimals": 32160
+    },
+    {
+        "unit": "UnJ",
+        "unitE": "unit20",
+        "unit_txt": "unit_txt20",
+        "noOfDecimals": 19704
+    },
+    {
+        "unit": "kUx",
+        "unitE": "unit21",
+        "unit_txt": "unit_txt21",
+        "noOfDecimals": 27529
+    },
+    {
+        "unit": "rqA",
+        "unitE": "unit22",
+        "unit_txt": "unit_txt22",
+        "noOfDecimals": 2117
+    },
+    {
+        "unit": "Vln",
+        "unitE": "unit23",
+        "unit_txt": "unit_txt23",
+        "noOfDecimals": 27190
+    },
+    {
+        "unit": "zQG",
+        "unitE": "unit24",
+        "unit_txt": "unit_txt24",
+        "noOfDecimals": 20656
+    },
+    {
+        "unit": "bcC",
+        "unitE": "unit25",
+        "unit_txt": "unit_txt25",
+        "noOfDecimals": 10894
+    },
+    {
+        "unit": "ONH",
+        "unitE": "unit26",
+        "unit_txt": "unit_txt26",
+        "noOfDecimals": 8131
+    },
+    {
+        "unit": "jtp",
+        "unitE": "unit27",
+        "unit_txt": "unit_txt27",
+        "noOfDecimals": 26267
+    },
+    {
+        "unit": "Afq",
+        "unitE": "unit28",
+        "unit_txt": "unit_txt28",
+        "noOfDecimals": 25628
+    },
+    {
+        "unit": "PdT",
+        "unitE": "unit29",
+        "unit_txt": "unit_txt29",
+        "noOfDecimals": 4261
+    },
+    {
+        "unit": "mKl",
+        "unitE": "unit30",
+        "unit_txt": "unit_txt30",
+        "noOfDecimals": 12495
+    },
+    {
+        "unit": "vzA",
+        "unitE": "unit31",
+        "unit_txt": "unit_txt31",
+        "noOfDecimals": 6679
+    },
+    {
+        "unit": "ALn",
+        "unitE": "unit32",
+        "unit_txt": "unit_txt32",
+        "noOfDecimals": 28400
+    },
+    {
+        "unit": "Vsp",
+        "unitE": "unit33",
+        "unit_txt": "unit_txt33",
+        "noOfDecimals": 2302
+    },
+    {
+        "unit": "Gzf",
+        "unitE": "unit34",
+        "unit_txt": "unit_txt34",
+        "noOfDecimals": 16971
+    },
+    {
+        "unit": "Rmj",
+        "unitE": "unit35",
+        "unit_txt": "unit_txt35",
+        "noOfDecimals": 10748
+    },
+    {
+        "unit": "zWX",
+        "unitE": "unit36",
+        "unit_txt": "unit_txt36",
+        "noOfDecimals": 10913
+    },
+    {
+        "unit": "FDQ",
+        "unitE": "unit37",
+        "unit_txt": "unit_txt37",
+        "noOfDecimals": 7081
+    },
+    {
+        "unit": "Woo",
+        "unitE": "unit38",
+        "unit_txt": "unit_txt38",
+        "noOfDecimals": 513
+    },
+    {
+        "unit": "pFL",
+        "unitE": "unit39",
+        "unit_txt": "unit_txt39",
+        "noOfDecimals": 30484
+    },
+    {
+        "unit": "JWx",
+        "unitE": "unit40",
+        "unit_txt": "unit_txt40",
+        "noOfDecimals": 11667
+    },
+    {
+        "unit": "TUM",
+        "unitE": "unit41",
+        "unit_txt": "unit_txt41",
+        "noOfDecimals": 20545
+    },
+    {
+        "unit": "zTT",
+        "unitE": "unit42",
+        "unit_txt": "unit_txt42",
+        "noOfDecimals": 12284
+    },
+    {
+        "unit": "oNI",
+        "unitE": "unit43",
+        "unit_txt": "unit_txt43",
+        "noOfDecimals": 2338
+    },
+    {
+        "unit": "TGq",
+        "unitE": "unit44",
+        "unit_txt": "unit_txt44",
+        "noOfDecimals": 1740
+    },
+    {
+        "unit": "zDt",
+        "unitE": "unit45",
+        "unit_txt": "unit_txt45",
+        "noOfDecimals": 27117
+    },
+    {
+        "unit": "puP",
+        "unitE": "unit46",
+        "unit_txt": "unit_txt46",
+        "noOfDecimals": 15225
+    },
+    {
+        "unit": "AJj",
+        "unitE": "unit47",
+        "unit_txt": "unit_txt47",
+        "noOfDecimals": 18902
+    },
+    {
+        "unit": "nms",
+        "unitE": "unit48",
+        "unit_txt": "unit_txt48",
+        "noOfDecimals": 26483
+    },
+    {
+        "unit": "xTl",
+        "unitE": "unit49",
+        "unit_txt": "unit_txt49",
+        "noOfDecimals": 29490
+    },
+    {
+        "unit": "CFF",
+        "unitE": "unit50",
+        "unit_txt": "unit_txt50",
+        "noOfDecimals": 28249
+    },
+    {
+        "unit": "Dem",
+        "unitE": "unit51",
+        "unit_txt": "unit_txt51",
+        "noOfDecimals": 31183
+    },
+    {
+        "unit": "IDZ",
+        "unitE": "unit52",
+        "unit_txt": "unit_txt52",
+        "noOfDecimals": 30626
+    },
+    {
+        "unit": "EUX",
+        "unitE": "unit53",
+        "unit_txt": "unit_txt53",
+        "noOfDecimals": 1475
+    },
+    {
+        "unit": "DAi",
+        "unitE": "unit54",
+        "unit_txt": "unit_txt54",
+        "noOfDecimals": 8854
+    },
+    {
+        "unit": "TgO",
+        "unitE": "unit55",
+        "unit_txt": "unit_txt55",
+        "noOfDecimals": 7964
+    },
+    {
+        "unit": "vbq",
+        "unitE": "unit56",
+        "unit_txt": "unit_txt56",
+        "noOfDecimals": 9829
+    },
+    {
+        "unit": "rWK",
+        "unitE": "unit57",
+        "unit_txt": "unit_txt57",
+        "noOfDecimals": 17131
+    },
+    {
+        "unit": "Gvf",
+        "unitE": "unit58",
+        "unit_txt": "unit_txt58",
+        "noOfDecimals": 14316
+    },
+    {
+        "unit": "yUY",
+        "unitE": "unit59",
+        "unit_txt": "unit_txt59",
+        "noOfDecimals": 151
+    },
+    {
+        "unit": "ULP",
+        "unitE": "unit60",
+        "unit_txt": "unit_txt60",
+        "noOfDecimals": 31203
+    }
+]

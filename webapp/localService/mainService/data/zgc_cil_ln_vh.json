@@ -1,0 +1,362 @@
+[
+    {
+        "rate_id": "CxmHDsETJuWHoBkPTjzorSuHeSatmF",
+        "start_date": "/Date(1183513984000)/",
+        "end_date": "/Date(1341884182000)/",
+        "rate": 1511753201
+    },
+    {
+        "rate_id": "dtzdDZVZBDqNRWxOKPNUbfWvbtDXBx",
+        "start_date": "/Date(1232604048000)/",
+        "end_date": "/Date(1123930641000)/",
+        "rate": 1094471699
+    },
+    {
+        "rate_id": "XUicMbNlIzBTYSHqjElaQchGxZEavX",
+        "start_date": "/Date(1261647143000)/",
+        "end_date": "/Date(308515194000)/",
+        "rate": 1371752392
+    },
+    {
+        "rate_id": "PAmyvMPqGMyrjMXOxhGvjphOrcPpyu",
+        "start_date": "/Date(1270525971000)/",
+        "end_date": "/Date(778804236000)/",
+        "rate": 460719754
+    },
+    {
+        "rate_id": "dDbYDrqKKSxfmVrqKBeGmRRLCfIdFg",
+        "start_date": "/Date(1300935434000)/",
+        "end_date": "/Date(120140870000)/",
+        "rate": 608549030
+    },
+    {
+        "rate_id": "dhMCTZpdRAJgMiTdJEMTyRVqwmUJQI",
+        "start_date": "/Date(444539974000)/",
+        "end_date": "/Date(356050789000)/",
+        "rate": 1818235918
+    },
+    {
+        "rate_id": "rtgmkklihwxEWCjwQtQlPvkZrlDgkQ",
+        "start_date": "/Date(1193807596000)/",
+        "end_date": "/Date(380738121000)/",
+        "rate": 585133673
+    },
+    {
+        "rate_id": "XmeyORTNveYvTqOGKoUggYJNWmiPge",
+        "start_date": "/Date(265710903000)/",
+        "end_date": "/Date(54490837000)/",
+        "rate": 389922216
+    },
+    {
+        "rate_id": "XcYfKZfjNpmZyFxfCjBtUDQpNMyvgk",
+        "start_date": "/Date(1295326059000)/",
+        "end_date": "/Date(1158624939000)/",
+        "rate": 1019983504
+    },
+    {
+        "rate_id": "oBNsuOacJGOKeJJBpzyfAbwdNOitJn",
+        "start_date": "/Date(111042474000)/",
+        "end_date": "/Date(88923138000)/",
+        "rate": 1888131294
+    },
+    {
+        "rate_id": "KWmiKhnbeMOPyUynNMTQBQNayssrWR",
+        "start_date": "/Date(1422468381000)/",
+        "end_date": "/Date(20920726000)/",
+        "rate": 1951962563
+    },
+    {
+        "rate_id": "DMygFxllhLePtAjLOKcnwusMCrtPBS",
+        "start_date": "/Date(971974079000)/",
+        "end_date": "/Date(802669441000)/",
+        "rate": 1140621051
+    },
+    {
+        "rate_id": "lmjVyCLbfFUapEQPAdMULGqfgaQXXI",
+        "start_date": "/Date(1182832784000)/",
+        "end_date": "/Date(270918991000)/",
+        "rate": 1933288916
+    },
+    {
+        "rate_id": "jvbgYCeQzThGPpYaWxRuclIBMszfkC",
+        "start_date": "/Date(984209870000)/",
+        "end_date": "/Date(1392897636000)/",
+        "rate": 604796219
+    },
+    {
+        "rate_id": "cZQYzxQkpFgVrkxwEFWFhIqvenAflg",
+        "start_date": "/Date(1391525771000)/",
+        "end_date": "/Date(172337631000)/",
+        "rate": 466022125
+    },
+    {
+        "rate_id": "FnxbJmyOSRIpxbgxEEszdqeutRVXzH",
+        "start_date": "/Date(613179681000)/",
+        "end_date": "/Date(296845816000)/",
+        "rate": 637921505
+    },
+    {
+        "rate_id": "UtRdULmwUHlRcfHZXPrejDJBSlJAQs",
+        "start_date": "/Date(1247116874000)/",
+        "end_date": "/Date(454203492000)/",
+        "rate": 576637896
+    },
+    {
+        "rate_id": "NWjnsaZZMmiLTJWTsJdxEkrbhLOWFO",
+        "start_date": "/Date(586971472000)/",
+        "end_date": "/Date(1150951336000)/",
+        "rate": 1685707772
+    },
+    {
+        "rate_id": "EaovPPhhiwsYjtsHNmkWRiehbnQZXE",
+        "start_date": "/Date(215773623000)/",
+        "end_date": "/Date(96470844000)/",
+        "rate": 1685720723
+    },
+    {
+        "rate_id": "sjurkhTUWKhOfiPvDdthoJIndnIavJ",
+        "start_date": "/Date(618462131000)/",
+        "end_date": "/Date(483726814000)/",
+        "rate": 1996342441
+    },
+    {
+        "rate_id": "vKSaVYojAqhPDnNLPDwsNQWqcXymxx",
+        "start_date": "/Date(292553287000)/",
+        "end_date": "/Date(541562228000)/",
+        "rate": 1794014425
+    },
+    {
+        "rate_id": "hbXEOrXekOvfXApCWulQkQOMxbODgy",
+        "start_date": "/Date(1331181221000)/",
+        "end_date": "/Date(1117588269000)/",
+        "rate": 1134588921
+    },
+    {
+        "rate_id": "VlTACOHmwkVrXELoVnDtfvoWOYubDb",
+        "start_date": "/Date(45816575000)/",
+        "end_date": "/Date(278151183000)/",
+        "rate": 1028928381
+    },
+    {
+        "rate_id": "OtvPdhKTtfAUnufORgmIylHbSwLwaI",
+        "start_date": "/Date(142292783000)/",
+        "end_date": "/Date(180630353000)/",
+        "rate": 206406148
+    },
+    {
+        "rate_id": "EFxkGFrNNcapUmRgWVAOXJhicxEaWA",
+        "start_date": "/Date(879620852000)/",
+        "end_date": "/Date(328802224000)/",
+        "rate": 379675856
+    },
+    {
+        "rate_id": "gSdJFcFImGRKqQGcNsvAdOypbqUGdZ",
+        "start_date": "/Date(1239622640000)/",
+        "end_date": "/Date(962445333000)/",
+        "rate": 1863904048
+    },
+    {
+        "rate_id": "lhOxQfGzQiHZWNLjAYtknVLlfcVEoJ",
+        "start_date": "/Date(66490715000)/",
+        "end_date": "/Date(1207094934000)/",
+        "rate": 937040048
+    },
+    {
+        "rate_id": "vYytnKfMEJgNMDmAUDMNqBgVdHROtH",
+        "start_date": "/Date(1010831486000)/",
+        "end_date": "/Date(1323279416000)/",
+        "rate": 2132953782
+    },
+    {
+        "rate_id": "sQydrApJBVqgjUKrAhzbUEqovzSJVu",
+        "start_date": "/Date(53678139000)/",
+        "end_date": "/Date(1012497450000)/",
+        "rate": 812190635
+    },
+    {
+        "rate_id": "FpCwxvwkRvSILiFkjHiSwfqgnIUSUn",
+        "start_date": "/Date(916865756000)/",
+        "end_date": "/Date(1030711916000)/",
+        "rate": 1918812917
+    },
+    {
+        "rate_id": "GVBpuECcyoqayGmqEXnXsCStTRkNfy",
+        "start_date": "/Date(644910435000)/",
+        "end_date": "/Date(126906212000)/",
+        "rate": 1372896754
+    },
+    {
+        "rate_id": "DWbSdhbanoPccMuAXuQimIdULmsMbJ",
+        "start_date": "/Date(155673903000)/",
+        "end_date": "/Date(1095197365000)/",
+        "rate": 1063980298
+    },
+    {
+        "rate_id": "dbcWWCJgKsmsXmuSzryQygrAzpXHtF",
+        "start_date": "/Date(1362329266000)/",
+        "end_date": "/Date(565971046000)/",
+        "rate": 316113619
+    },
+    {
+        "rate_id": "rpcIpmfjHqtTfWdhWHoSaiRangJYSC",
+        "start_date": "/Date(720520789000)/",
+        "end_date": "/Date(469582783000)/",
+        "rate": 1482223849
+    },
+    {
+        "rate_id": "NFPZuEiZJFKEGqloWyKJirutFQjwVm",
+        "start_date": "/Date(920373147000)/",
+        "end_date": "/Date(1050009297000)/",
+        "rate": 881918065
+    },
+    {
+        "rate_id": "xXMfrMDtEsDYDSnCTzHvarRftQBFEy",
+        "start_date": "/Date(167499709000)/",
+        "end_date": "/Date(292701064000)/",
+        "rate": 164064009
+    },
+    {
+        "rate_id": "kwovtxpKGDZPbjVqybmMlOuFTeTyKo",
+        "start_date": "/Date(14909648000)/",
+        "end_date": "/Date(58099930000)/",
+        "rate": 1406303208
+    },
+    {
+        "rate_id": "WtsOwXYDcFwMDdOYuqIyTOZfHlWdkQ",
+        "start_date": "/Date(558964781000)/",
+        "end_date": "/Date(1211210309000)/",
+        "rate": 1314315591
+    },
+    {
+        "rate_id": "JnfsSfwjewTUFFzLptAyZTndpKglJc",
+        "start_date": "/Date(1110715748000)/",
+        "end_date": "/Date(1093839407000)/",
+        "rate": 2133657991
+    },
+    {
+        "rate_id": "TAYvcEstuYztbayWsGyCXlwODsdKDX",
+        "start_date": "/Date(247103540000)/",
+        "end_date": "/Date(631722782000)/",
+        "rate": 999897569
+    },
+    {
+        "rate_id": "sCHQKPdRbDxFsQYaNWJtGsjkAGOMKM",
+        "start_date": "/Date(763675651000)/",
+        "end_date": "/Date(1251872777000)/",
+        "rate": 327579788
+    },
+    {
+        "rate_id": "gHqMtJJtUiaqTMYmqptPeDBOYkZbSl",
+        "start_date": "/Date(166510715000)/",
+        "end_date": "/Date(335191187000)/",
+        "rate": 629591879
+    },
+    {
+        "rate_id": "zaVmOlVuDKYxbesfcVrbYvYvmHwuqN",
+        "start_date": "/Date(954740206000)/",
+        "end_date": "/Date(662499833000)/",
+        "rate": 1826191290
+    },
+    {
+        "rate_id": "cgwfYhdLNrwBQWnOtoOfOayrkJgzbU",
+        "start_date": "/Date(767931467000)/",
+        "end_date": "/Date(513813654000)/",
+        "rate": 672170964
+    },
+    {
+        "rate_id": "EyFgQOiqDBcfOgwtCRurlCdhUvNUew",
+        "start_date": "/Date(83495162000)/",
+        "end_date": "/Date(1396184579000)/",
+        "rate": 169103614
+    },
+    {
+        "rate_id": "JKGeaNwgfTIiPXUSSWxLHGmbqnpHKp",
+        "start_date": "/Date(970825613000)/",
+        "end_date": "/Date(378518368000)/",
+        "rate": 902408727
+    },
+    {
+        "rate_id": "yVEmhFFWwanTxSMHITgAefcXIkFinW",
+        "start_date": "/Date(311296729000)/",
+        "end_date": "/Date(813231903000)/",
+        "rate": 1279876611
+    },
+    {
+        "rate_id": "FAwAjYFWxWCwmmHKIfkMBctvuZlACP",
+        "start_date": "/Date(1419252479000)/",
+        "end_date": "/Date(1079668135000)/",
+        "rate": 1958735440
+    },
+    {
+        "rate_id": "tsqwHmKevpsCmYYhgmQVzlXqJitEdV",
+        "start_date": "/Date(675904437000)/",
+        "end_date": "/Date(809138497000)/",
+        "rate": 487331219
+    },
+    {
+        "rate_id": "bqhtGjwDYffZvqfQHslWLSoBifQwnk",
+        "start_date": "/Date(72137285000)/",
+        "end_date": "/Date(741458923000)/",
+        "rate": 794956977
+    },
+    {
+        "rate_id": "XukfNtEaKRFTanAQyDkLnxEBiRgzWp",
+        "start_date": "/Date(718721470000)/",
+        "end_date": "/Date(996234231000)/",
+        "rate": 534784986
+    },
+    {
+        "rate_id": "dolaBObcjBSIuWqeAOdFycWsghvzzl",
+        "start_date": "/Date(1382516064000)/",
+        "end_date": "/Date(32100077000)/",
+        "rate": 294848409
+    },
+    {
+        "rate_id": "cMVYQLMgbvHDipKUjjvGifNeNwqGiG",
+        "start_date": "/Date(620886619000)/",
+        "end_date": "/Date(168718711000)/",
+        "rate": 1226975796
+    },
+    {
+        "rate_id": "LFwABPBIXnxKdNKGgahmMaOApkpjBq",
+        "start_date": "/Date(1446904342000)/",
+        "end_date": "/Date(31906131000)/",
+        "rate": 716556669
+    },
+    {
+        "rate_id": "JBASYOsHCMaqYBYbXYpKqWfTixssdk",
+        "start_date": "/Date(30927363000)/",
+        "end_date": "/Date(396311247000)/",
+        "rate": 1378050370
+    },
+    {
+        "rate_id": "QKtfoXFYCsbEkGzwNTsgkIjWtWnseR",
+        "start_date": "/Date(60721102000)/",
+        "end_date": "/Date(7330413000)/",
+        "rate": 1186979045
+    },
+    {
+        "rate_id": "ZmfoiTQobNPqjTqZMxJIUgeCTnTvcZ",
+        "start_date": "/Date(1120410583000)/",
+        "end_date": "/Date(473643862000)/",
+        "rate": 1149535460
+    },
+    {
+        "rate_id": "orwgmilKCGvapxOphtXSELebXtyjfB",
+        "start_date": "/Date(716794935000)/",
+        "end_date": "/Date(1325625455000)/",
+        "rate": 498083315
+    },
+    {
+        "rate_id": "lVoSCDOGbqMwWgKJqjsbzZyZxyKVMx",
+        "start_date": "/Date(317339469000)/",
+        "end_date": "/Date(1408916159000)/",
+        "rate": 1055646527
+    },
+    {
+        "rate_id": "grxedEIiHpTdpcCipGSIpeZzgnvRiM",
+        "start_date": "/Date(1025189494000)/",
+        "end_date": "/Date(11086867000)/",
+        "rate": 1968184173
+    }
+]
