@@ -507,11 +507,16 @@
                             <Collection>
                               <String>non_def_dc_payable</String>
                               <String>total_non_def_dc_pay</String>
+                              <String>total_def_dc_payable</String>
+                              <String>def_dc_payable</String>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
