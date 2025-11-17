@@ -46,4 +46,4 @@ server:
       afterMiddleware: fiori-tools-appreload
       configuration:
         component: com.gc.dashboard
-        ui5Theme: sap_fiori_3
+        ui5Theme: sap_fiori_3_dark

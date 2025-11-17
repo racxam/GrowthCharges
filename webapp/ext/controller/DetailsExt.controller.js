@@ -341,7 +341,7 @@ sap.ui.define(
           }
         });
       },
-//commented this to match the code with ECD (1809) system code 29/08/2025  for defect 216
+      //commented this to match the code with ECD (1809) system code 29/08/2025  for defect 216
 
       // _defineCILIconControl: function (sId) {
       //   const oCILIcon = new Icon(
@@ -405,7 +405,7 @@ sap.ui.define(
         }
         return oCILIcon;
       },
-//commented this to match the code with ECD (1809) system code 29/08/2025  for defect 216
+      //commented this to match the code with ECD (1809) system code 29/08/2025  for defect 216
       // _addCILIconControl: function () {
       //   const aCILGroup = ["density_payable", "exm_units", "oth_cr_units"];
       //   aCILGroup.forEach(mItem => {
@@ -460,12 +460,26 @@ sap.ui.define(
         });
       },
       //added below code to match the code with ECD (1809) system code 29/08/2025  for defect 216
-       _applyCustomSpanToInput : function(oControl){
-        oControl.setLayoutData(new sap.ui.layout.GridData({span:"L10 M10 S12"}));
+      _applyCustomSpanToInput: function (oControl) {
+        oControl.setLayoutData(new sap.ui.layout.GridData({ span: "L10 M10 S12" }));
       },
       onAfterRendering: function () {
         this._applyDefaultVariant();
         this._addCILIconControl();
+        // --- START OF NEW CODE ---
+        // 1. Find the "Total DC" SmartTable
+        var oDcSmartTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
+
+        if (oDcSmartTable) {
+          // 2. Get the *inner* TreeTable from the SmartTable
+          var oTreeTable = oDcSmartTable.getTable();
+
+          // 3. Attach your new function to the *inner table's* "rowsUpdated" event
+          // This event fires after data is bound and rows are rendered.
+          oTreeTable.detachEvent("rowsUpdated", this._onDcTableDataReceived, this);
+          oTreeTable.attachEvent("rowsUpdated", this._onDcTableDataReceived, this);
+        }
+        // --- END OF NEW CODE ---
         //Value help for CIL capped rate and CIL rate
         this._cilUpdates = {
           "onAfterRendering": function () {
@@ -1560,7 +1574,35 @@ sap.ui.define(
             }
             oDialog.openBy(this.status1);
           }.bind(this));
+      },
+      _onDcTableDataReceived: function (oEvent) {
+        // 1. The source is now the TreeTable itself!
+        var oTable = oEvent.getSource();
+        var aRows = oTable.getRows();
+
+        // The rest of the logic is the same!
+        aRows.forEach(function (oRow) {
+          var oContext = oRow.getBindingContext();
+
+          if (oContext) {
+            // Get the data for this row
+            var oRowData = oContext.getObject();
+
+            // Check the "Bill 17 Deferral" flag from the backend
+            // (This property name 'is_bill17_appl' comes from your network logs)
+            if (oRowData && oRowData.is_bill17_appl === true) {
+              // If 'Yes', add our custom CSS class
+              oRow.addStyleClass("greyedOutRow");
+            } else {
+              // If 'No', remove our custom CSS class
+              oRow.removeStyleClass("greyedOutRow");
+            }
+          }
+        });
       }
+
+
+
     });
   }
 );

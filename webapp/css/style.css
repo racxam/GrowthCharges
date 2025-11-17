@@ -1,0 +1,10 @@
+/* Custom style for Bill 17 deferred rows */
+.greyedOutRow {
+    background-color: var(--sapUiListHeaderBackground) !important; 
+    color: var(--sapUiDisabledText) !important;
+}
+
+/* This makes sure text inside the row also gets the correct color */
+.greyedOutRow .sapMText {
+    color: var(--sapUiDisabledText) !important;
+}

@@ -509,6 +509,7 @@
                               <String>total_non_def_dc_pay</String>
                               <String>total_def_dc_payable</String>
                               <String>def_dc_payable</String>
+                              <String>total_def_non_dc_payable</String>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="TargetEntities">

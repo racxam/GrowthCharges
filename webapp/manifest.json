@@ -21,8 +21,8 @@
                 "type": "OData",
                 "settings": {
                     "annotations": [
-                        "ZGC_C_REQUESTS_CDS_VAN",
-                        "annotation"
+                        "annotation",
+                        "ZGC_C_REQUESTS_CDS_VAN"
                     ],
                     "localUri": "localService/mainService/metadata.xml",
                     "odataVersion": "2.0"
@@ -126,7 +126,11 @@
             }
         },
         "resources": {
-            "css": []
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
         },
         "routing": {
             "config": {},
