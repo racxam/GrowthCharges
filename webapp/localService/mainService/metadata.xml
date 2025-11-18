@@ -1082,6 +1082,8 @@
 <Property Name="occupancy_clearance_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Occupancy Clearance" sap:quickinfo="Occupancy Clearance Date"/>
 <Property Name="total_def_non_dc_payable" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total Non Deffered +" sap:quickinfo="Total Non Deffered + Deffered" sap:creatable="false" sap:updatable="false"/>
 <Property Name="is_bill17_appl" Type="Edm.Boolean" sap:label="Bill 17 Deferral"/>
+<Property Name="occupancy_valid_until_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Occupancy Date Valid" sap:quickinfo="Occupancy Date Valid Until" sap:creatable="false" sap:updatable="false"/>
+<Property Name="bill17_hidden" Type="Edm.Boolean" sap:label="Bill 17 fields Hidde" sap:quickinfo="Bill 17 fields Hidden"/>
 <Property Name="cil_approved" Type="Edm.Boolean" sap:label="CIL Approved?" sap:creatable="false" sap:updatable="false"/>
 <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:label="Has Draft" sap:creatable="false" sap:updatable="false"/>
 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key" sap:creatable="false" sap:updatable="false"/>

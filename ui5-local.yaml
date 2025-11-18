@@ -27,11 +27,16 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
-        ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        ignoreCertError: false
         backend:
           - path: /sap
             url: http://vhcfmecdci.sap.mississauga.ca:44300/
             destination: RISE_ECD
+          - url: http://vhcfmecdci.sap.mississauga.ca:44300/
+            client: '200'
+            authenticationType: BasicAuthentication
+            destination: RISE_ECD
+            path: /sap/opu/odata/sap/ZGC_C_REQUESTS_CDS/
     - name: sap-fe-mockserver
       beforeMiddleware: csp
       configuration:
@@ -41,7 +46,9 @@ server:
             metadataPath: ./webapp/localService/mainService/metadata.xml
             mockdataPath: ./webapp/localService/mainService/data
             generateMockData: true
-        annotations: []
+        annotations:
+          - localPath: ./webapp/localService/mainService/ZGC_C_REQUESTS_CDS_VAN.xml
+            urlPath: /sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZGC_C_REQUESTS_CDS_VAN',Version='0001')/$value/
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:

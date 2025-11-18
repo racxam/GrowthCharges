@@ -496,6 +496,8 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+                // Bill 17 changes
+
                 <Annotation Term="Common.SideEffects" Qualifier="Bill17PartnerChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceEntities">
@@ -503,15 +505,19 @@
                                 <NavigationPropertyPath>to_defpartner</NavigationPropertyPath>
                             </Collection>
                         </PropertyValue>
+
                         <PropertyValue Property="TargetProperties">
                             <Collection>
-                              <String>non_def_dc_payable</String>
-                              <String>total_non_def_dc_pay</String>
-                              <String>total_def_dc_payable</String>
-                              <String>def_dc_payable</String>
-                              <String>total_def_non_dc_payable</String>
+                                <String>non_def_dc_payable</String>
+                                <String>total_non_def_dc_pay</String>
+                                <String>def_dc_payable</String>
+                                <String>total_def_dc_payable</String>
+                                <String>total_def_non_dc_payable</String>
+
+                                <String>bill17_hidden</String>
                             </Collection>
                         </PropertyValue>
+
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
@@ -1410,7 +1416,35 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-            </Annotations>       
+            </Annotations>
+            // Bill17 changes
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/non_def_dc_payable">
+                <Annotation Term="UI.Hidden" Path="bill17_hidden" />
+            </Annotations>
+
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/total_non_def_dc_pay">
+                <Annotation Term="UI.Hidden" Path="bill17_hidden" />
+            </Annotations>
+
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/def_dc_payable">
+                <Annotation Term="UI.Hidden" Path="bill17_hidden" />
+            </Annotations>
+
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/total_def_dc_payable">
+                <Annotation Term="UI.Hidden" Path="bill17_hidden" />
+            </Annotations>
+
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/total_def_non_dc_payable">
+                <Annotation Term="UI.Hidden" Path="bill17_hidden" />
+            </Annotations>
+
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/occupancy_date">
+                <Annotation Term="UI.Hidden" Path="bill17_hidden" />
+            </Annotations>
+
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/occupancy_valid_until">
+                <Annotation Term="UI.Hidden" Path="bill17_hidden" />
+            </Annotations>
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>
