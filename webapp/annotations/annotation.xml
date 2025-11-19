@@ -513,7 +513,8 @@
                                 <String>def_dc_payable</String>
                                 <String>total_def_dc_payable</String>
                                 <String>total_def_non_dc_payable</String>
-
+                                <String>def_paid_previously</String>
+                                <String>non_def_paid_previously</String>
                                 <String>bill17_hidden</String>
                             </Collection>
                         </PropertyValue>
@@ -1443,6 +1444,12 @@
             </Annotations>
 
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/occupancy_valid_until">
+                <Annotation Term="UI.Hidden" Path="bill17_hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/def_paid_previously">
+                <Annotation Term="UI.Hidden" Path="bill17_hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/non_def_paid_previously">
                 <Annotation Term="UI.Hidden" Path="bill17_hidden" />
             </Annotations>
         </Schema>

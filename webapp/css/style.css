@@ -1,10 +1,34 @@
-/* Custom style for Bill 17 deferred rows */
-.greyedOutRow {
-    background-color: var(--sapUiListHeaderBackground) !important; 
-    color: var(--sapUiDisabledText) !important;
+/* * Force the background color on the ROW and the CELLS.
+ * We use 'html body' to increase specificity over standard Fiori themes.
+ */
+
+html body .sapUiTableRow.greyedOutRow,
+html body .sapUiTableRow.greyedOutRow > td,
+html body .sapUiTableRow.greyedOutRow > td > .sapUiTableCell,
+html body .sapUiTableRow.greyedOutRow > td > .sapUiTableCell > .sapUiTableCellInner {
+    background-color: var(--sapUiFieldReadOnlyBackground) !important; /* Standard Fiori read-only background (greyish in light themes) */
 }
 
-/* This makes sure text inside the row also gets the correct color */
-.greyedOutRow .sapMText {
-    color: var(--sapUiDisabledText) !important;
+/*
+ * Ensure the text color looks disabled/read-only.
+ */
+html body .sapUiTableRow.greyedOutRow .sapMText,
+html body .sapUiTableRow.greyedOutRow .sapMInputBaseInner {
+    color: var(--sapUiContentDisabledTextColor) !important; /* Standard Fiori disabled text color */
+}
+
+/*
+ * Handle the "Hover" state so it doesn't turn white again when you mouse over.
+ */
+html body .sapUiTableRow.greyedOutRow:hover,
+html body .sapUiTableRow.greyedOutRow:hover > td {
+    background-color: var(--sapUiListHoverBackground) !important; /* Standard Fiori list hover effect */
+}
+
+/*
+ * Handle the "Selected" state.
+ */
+html body .sapUiTableRow.greyedOutRow.sapUiTableRowSel,
+html body .sapUiTableRow.greyedOutRow.sapUiTableRowSel > td {
+    background-color: var(--sapUiListSelectionBackgroundColor) !important; /* Standard Fiori list selection color */
 }
