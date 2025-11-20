@@ -1084,6 +1084,7 @@
 <Property Name="is_bill17_appl" Type="Edm.Boolean" sap:label="Bill 17 Deferral"/>
 <Property Name="occupancy_valid_until_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Occupancy Date Valid" sap:quickinfo="Occupancy Date Valid Until" sap:creatable="false" sap:updatable="false"/>
 <Property Name="bill17_hidden" Type="Edm.Boolean" sap:label="Bill 17 fields Hidde" sap:quickinfo="Bill 17 fields Hidden"/>
+<Property Name="is_bill17_hidden" Type="Edm.String" MaxLength="1" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
 <Property Name="cil_approved" Type="Edm.Boolean" sap:label="CIL Approved?" sap:creatable="false" sap:updatable="false"/>
 <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:label="Has Draft" sap:creatable="false" sap:updatable="false"/>
 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key" sap:creatable="false" sap:updatable="false"/>
@@ -2551,6 +2552,7 @@
 <PropertyPath>isVersionOne</PropertyPath>
 <PropertyPath>speculative_hidden</PropertyPath>
 <PropertyPath>building_type</PropertyPath>
+<PropertyPath>is_bill17_hidden</PropertyPath>
 </Collection>
 </PropertyValue>
 <PropertyValue Property="FilterExpressionRestrictions">
@@ -2974,6 +2976,7 @@
 <PropertyPath>rop_comments</PropertyPath>
 <PropertyPath>got_comments</PropertyPath>
 <PropertyPath>cond_permit_type</PropertyPath>
+<PropertyPath>is_bill17_hidden</PropertyPath>
 </Collection>
 </PropertyValue>
 </Record>
