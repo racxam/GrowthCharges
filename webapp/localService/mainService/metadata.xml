@@ -467,7 +467,7 @@
 <Property Name="req_uuid" Type="Edm.Guid" sap:label="Growth Charges Key" sap:heading=""/>
 <Property Name="request_id" Type="Edm.String" MaxLength="10" sap:display-format="NonNegative" sap:label="DC ID"/>
 <Property Name="version" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Version"/>
-<Property Name="id" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:text="dc_txt" sap:label="DC Partner" sap:value-list="fixed-values"/>
+<Property Name="id" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="DC Partner" sap:value-list="fixed-values"/>
 <Property Name="name" Type="Edm.String" MaxLength="100" sap:label="Name/Description"/>
 <Property Name="created_by" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Created By"/>
 <Property Name="created_on" Type="Edm.DateTimeOffset" Precision="0" sap:label="Created On"/>
@@ -1085,6 +1085,8 @@
 <Property Name="occupancy_valid_until_date" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Occupancy Date Valid" sap:quickinfo="Occupancy Date Valid Until" sap:creatable="false" sap:updatable="false"/>
 <Property Name="bill17_hidden" Type="Edm.Boolean" sap:label="Bill 17 fields Hidde" sap:quickinfo="Bill 17 fields Hidden"/>
 <Property Name="is_bill17_hidden" Type="Edm.String" MaxLength="1" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+<Property Name="total_non_def_invoice_amt" Type="Edm.Decimal" Precision="14" Scale="3" sap:unit="currency" sap:label="Total Non – Deferred" sap:quickinfo="Total Non – Deferred Invoice Amount" sap:creatable="false" sap:updatable="false"/>
+<Property Name="permit_issued" Type="Edm.Boolean" sap:label="Permit Issued"/>
 <Property Name="cil_approved" Type="Edm.Boolean" sap:label="CIL Approved?" sap:creatable="false" sap:updatable="false"/>
 <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:label="Has Draft" sap:creatable="false" sap:updatable="false"/>
 <Property Name="ActiveUUID" Type="Edm.Guid" sap:label="Key" sap:creatable="false" sap:updatable="false"/>
@@ -1189,7 +1191,7 @@
 <Key>
 <PropertyRef Name="id"/>
 </Key>
-<Property Name="id" Type="Edm.String" Nullable="false" MaxLength="20" sap:display-format="UpperCase" sap:text="dc_txt" sap:label="DC Partner"/>
+<Property Name="id" Type="Edm.String" Nullable="false" MaxLength="20" sap:display-format="UpperCase" sap:label="DC Partner"/>
 <Property Name="dc_txt" Type="Edm.String" MaxLength="100" sap:label="Name/Description"/>
 </EntityType>
 <EntityType Name="zgc_deferraltype_vhType" sap:label="Deferral Type Value Help" sap:content-version="1">
