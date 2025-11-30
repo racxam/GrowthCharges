@@ -210,10 +210,19 @@ sap.ui.define(
         //Enable Variant management for various tables
         this._enableVariantManagement();
         //Warning poup when DC clearance datee edited
-        const dcClearanceDate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo_FG-ID::dc_clearance_date::Field");
-        dcClearanceDate.attachChange(function (oEvent) {
-          MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
-        });
+        // FIX 1: Get Model from Component safely and use correct event 'attachPropertyChange'
+        var oComponent = this.getOwnerComponent();
+        if (oComponent) {
+          var oModel = oComponent.getModel();
+          if (oModel) {
+            oModel.attachPropertyChange(this._onPropertyChange, this);
+          }
+        }
+
+        // const dcClearanceDate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo_FG-ID::dc_clearance_date::Field");
+        // dcClearanceDate.attachChange(function (oEvent) {
+        //   MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
+        // });
         const oRouter = this.getOwnerComponent().getRouter();
         const sHashKey = oRouter.getHashChanger().key;
         if (sHashKey === "Child") {
@@ -288,6 +297,14 @@ sap.ui.define(
           //that._hidePasteButton();
           //Park Planner in Edit Mode. Disable DC buttons
           const oRequest = event.context.getObject();
+          // Check initial state and disable field if needed
+          //  Check Initial State for Partner Field
+          //  Change: Removed 'if' check so it updates (enables/disables) regardless of value
+          this._updatePartnerFieldState(!!oRequest.permit_issued);
+
+          // Apply state to the Permit Issued checkbox itself
+          this._disablePermitIssuedField(!!oRequest.permit_issued);
+
           if (oRequest.dc_applicable_fc === 1 && oRequest.Activation_ac) {
             //Without the below delay, action buttons like 'Calculate' and 'Add Credit' are not getting disabled
             that._hideDCButtons();
@@ -326,7 +343,7 @@ sap.ui.define(
           });
           view.byId("PDFViewer").setModel(this._oModel, "local");
 
-        });
+        }.bind(this));
 
         //On clicking Invoice tab, refresh the PDF Viewer
         const oObjectPage = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--objectPage");
@@ -466,19 +483,32 @@ sap.ui.define(
       onAfterRendering: function () {
         this._applyDefaultVariant();
         this._addCILIconControl();
-        // --- START OF NEW CODE ---
-        // 1. Find the "Total DC" SmartTable
-        var oDcSmartTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
 
-        if (oDcSmartTable) {
-          // 2. Get the *inner* TreeTable from the SmartTable
-          var oTreeTable = oDcSmartTable.getTable();
+        //  START OF NEW CODE 
+        // List of all tables that need the "Grey Row" logic
+        var aTableIds = [
+          "TotalDC-ID",
+          "Section-14-ID",
+          "DemolitionCred-ID",
+          "DCExemption-ID"
+        ];
 
-          // 3. Attach your new function to the *inner table's* "rowsUpdated" event
-          // This event fires after data is bound and rows are rendered.
-          oTreeTable.detachEvent("rowsUpdated", this._onDcTableDataReceived, this);
-          oTreeTable.attachEvent("rowsUpdated", this._onDcTableDataReceived, this);
-        }
+        aTableIds.forEach(function (sId) {
+          var oSmartTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sId + "::Table");
+
+          if (oSmartTable) {
+            var oInnerTable = oSmartTable.getTable();
+
+            // 1. Detach/Attach Listener (For future updates)
+            oInnerTable.detachEvent("rowsUpdated", this._onDcTableDataReceived, this);
+            oInnerTable.attachEvent("rowsUpdated", this._onDcTableDataReceived, this);
+
+            // 2. FIX: CALL IMMEDIATELY (For data already loaded)
+            // Pass the table directly to the function
+            this._onDcTableDataReceived(oInnerTable);
+          }
+        }.bind(this));
+        // --- END OF NEW CODE ---
         // --- END OF NEW CODE ---
         //Value help for CIL capped rate and CIL rate
         this._cilUpdates = {
@@ -722,6 +752,30 @@ sap.ui.define(
           cil_CommentsSubSection.onAfterRendering = setBlocksRight;
         }
 
+        // FIX 1 (Backup): Ensure Field State is applied after rendering
+        // This catches cases where onInit was too early
+        var oContext = this.getView().getBindingContext();
+        if (oContext) {
+          var bPermitIssued = oContext.getProperty("permit_issued");
+
+          // 1. Disable/Grey out Deferral Partners
+          if (this._updatePartnerFieldState) {
+            this._updatePartnerFieldState(!!bPermitIssued);
+          }
+
+          // 2. [NEW] Disable "Permit Issued" checkbox itself
+          // ##$ Change: Removed 'if (bPermitIssued)' check so it can re-enable if false
+          if (this._disablePermitIssuedField) {
+            this._disablePermitIssuedField(!!bPermitIssued);
+          }
+        }
+
+        // [NEW] Force the list to show ALL items by default
+        // We wrap it in a small timeout to ensure the control is fully drawn by Fiori first
+        setTimeout(function () {
+          this._forceFullTokenDisplay();
+        }.bind(this), 500);
+
 
       },
 
@@ -762,7 +816,7 @@ sap.ui.define(
           var oBindingParams = oEvent.getParameter("bindingParams");
           oBindingParams.parameters = oBindingParams.parameters || {};
           oBindingParams.parameters.operationMode = "Client";
-          oBindingParams.parameters.select = oBindingParams.parameters.select + ",is_rate_edited";
+          oBindingParams.parameters.select = oBindingParams.parameters.select + ",is_rate_edited,is_bill17_appl";
         }
 
         //Default sorting by sort_order, dc_type, hierarchy_level, sub_service_id
@@ -1575,32 +1629,263 @@ sap.ui.define(
             oDialog.openBy(this.status1);
           }.bind(this));
       },
-      _onDcTableDataReceived: function (oEvent) {
-        // 1. The source is now the TreeTable itself!
-        var oTable = oEvent.getSource();
+      _onDcTableDataReceived: function (oEventOrTable) {
+        // FIX: Support both Event (from listener) and Control (manual call)
+        var oTable;
+        if (oEventOrTable.getSource) {
+          oTable = oEventOrTable.getSource(); // It is an Event
+        } else {
+          oTable = oEventOrTable; // It is the Table control itself
+        }
+
         var aRows = oTable.getRows();
 
-        // The rest of the logic is the same!
         aRows.forEach(function (oRow) {
           var oContext = oRow.getBindingContext();
-
           if (oContext) {
-            // Get the data for this row
             var oRowData = oContext.getObject();
 
-            // Check the "Bill 17 Deferral" flag from the backend
-            // (This property name 'is_bill17_appl' comes from your network logs)
+            // Logic to grey out based on flag
             if (oRowData && oRowData.is_bill17_appl === true) {
-              // If 'Yes', add our custom CSS class
               oRow.addStyleClass("greyedOutRow");
             } else {
-              // If 'No', remove our custom CSS class
               oRow.removeStyleClass("greyedOutRow");
             }
           }
         });
-      }
+      },
 
+      _onPropertyChange: function (oEvent) {
+        var sPath = oEvent.getParameter("path");
+        var oValue = oEvent.getParameter("value");
+        var oContext = oEvent.getParameter("context");
+
+        // --- Logic 1: Permit Issued ---
+        if (sPath === "permit_issued") {
+
+          // A. Immediately grey out the Partner field (your existing requirement)
+          if (this._updatePartnerFieldState) {
+            this._updatePartnerFieldState(oValue);
+          }
+
+          // B. If Checked (True), show Warning + Lock Logic
+          if (oValue === true) {
+            var that = this;
+            MessageBox.warning(
+              // [UPDATED TEXT]
+              "Once Permit Issued is selected, it cannot be unchecked.\n\nAs permit issued is selected you can't change or delete the Deferral Partners.",
+              {
+                title: "Warning",
+                actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+                onClose: function (sAction) {
+                  if (sAction === MessageBox.Action.CANCEL) {
+                    // --- CANCEL CASE: Revert everything ---
+                    var sFullPath = oContext.getPath() + "/permit_issued";
+
+                    // 1. Revert value to false
+                    that.getView().getModel().setProperty(sFullPath, false);
+                    that.getView().getModel().resetChanges([sFullPath]);
+
+                    // 2. Re-enable the Partner field
+                    if (that._updatePartnerFieldState) {
+                      that._updatePartnerFieldState(false);
+                    }
+                  } else {
+                    // --- OK CASE: Lock the Permit Issued Field ---
+                    // This prevents them from unchecking it later
+                    that._disablePermitIssuedField(true);
+                  }
+                }
+              }
+            );
+          }
+        }
+
+        // --- Logic 2: DC Clearance Date ---
+        if (sPath === "dc_clearance_date") {
+          MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
+        }
+      },
+
+      _updatePartnerFieldState: function (bPermitIssued) {
+        var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
+        var oSmartField = this.getView().byId(sRelativeId);
+
+        if (oSmartField) {
+          // 1. Force SmartField to be Editable (to show tokens)
+          oSmartField.setEditable(true);
+
+          var fnFix = function () {
+            var aInner = oSmartField.getInnerControls();
+            if (aInner && aInner.length > 0) {
+              var oCtrl = aInner[0];
+
+              // 2. Disable the Input (Grey Out)
+              if (oCtrl.setEnabled) {
+                oCtrl.setEnabled(!bPermitIssued);
+              }
+
+              // 3. PERMANENT FIX FOR "1 More"
+              if (oCtrl.getAggregation) {
+                var oTokenizer = oCtrl.getAggregation("tokenizer");
+                if (oTokenizer) {
+
+                  // A. Set it immediately
+                  if (oTokenizer.setRenderMode) {
+                    oTokenizer.setRenderMode("Loose");
+                  }
+
+                  // B. Add a Delegate to re-apply it every time Fiori tries to reset it
+                  oTokenizer.addEventDelegate({
+                    onAfterRendering: function () {
+                      if (this.getRenderMode() !== "Loose") {
+                        this.setRenderMode("Loose");
+                      }
+                    }
+                  }, oTokenizer);
+                }
+              }
+            }
+          };
+
+          // Run immediately
+          fnFix();
+
+          // Run again when controls are created (lazy loading)
+          oSmartField.attachEvent("innerControlsCreated", fnFix);
+        }
+      },
+
+      _forceFullTokenDisplay: function () {
+        var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
+        var oSmartField = this.getView().byId(sRelativeId);
+
+        if (oSmartField) {
+          // Define the fix logic
+          var fnApplyLooseMode = function () {
+            var aInner = oSmartField.getInnerControls();
+            if (aInner && aInner.length > 0) {
+              var oMultiInput = aInner[0];
+
+              // Access the internal Tokenizer of the MultiInput
+              if (oMultiInput.getAggregation) {
+                var oTokenizer = oMultiInput.getAggregation("tokenizer");
+                if (oTokenizer) {
+
+                  // 1. Apply "Loose" mode immediately (Forces wrapping)
+                  if (oTokenizer.setRenderMode && oTokenizer.getRenderMode() !== "Loose") {
+                    oTokenizer.setRenderMode("Loose");
+                  }
+
+                  // 2. Add a "Watchdog" (Delegate) to keep it Loose forever
+                  // Fiori loves to reset this on re-render, so we force it back every time.
+                  if (!oTokenizer._bLooseDelegateAdded) {
+                    oTokenizer.addEventDelegate({
+                      onAfterRendering: function () {
+                        if (this.getRenderMode() !== "Loose") {
+                          this.setRenderMode("Loose");
+                        }
+                      }
+                    }, oTokenizer);
+                    oTokenizer._bLooseDelegateAdded = true;
+                  }
+                }
+              }
+            }
+          };
+
+          // Run immediately
+          fnApplyLooseMode();
+
+          // Also attach to the SmartField's creation event to catch it if it redraws later
+          oSmartField.detachEvent("innerControlsCreated", fnApplyLooseMode);
+          oSmartField.attachEvent("innerControlsCreated", fnApplyLooseMode);
+        }
+      },
+      // Helper to disable the Permit Issued field itself
+      _disablePermitIssuedField: function (bDisable) {
+        // 1. Try to find the field using the binding path "permit_issued"
+        // This is safer than guessing the ID (e.g. PaymentInfo_FG vs PayHeader)
+        var aControls = this.getView().findAggregatedObjects(true, function (oControl) {
+          return oControl.getBindingPath && oControl.getBindingPath("value") === "permit_issued";
+        });
+
+        // 2. If found, set Enabled/Editable to false
+        if (aControls.length > 0) {
+          var oControl = aControls[0];
+          if (oControl.setEnabled) {
+            oControl.setEnabled(!bDisable);
+          } else if (oControl.setEditable) {
+            oControl.setEditable(!bDisable);
+          }
+        }
+      },
+
+
+    // 2. Logic bill17 pill on obj page
+    // --- BILL 17 STATUS FORMATTERS (Required for Object Page Header) ---
+
+      // 1. Logic for Color (State)
+      getBill17Level1State: function(sStatus) {
+          // Pending / Submitted -> Blue
+          if (sStatus === "DC1_PND" || sStatus === "CIL1_PND") { 
+              return "Information"; 
+          } 
+          
+          // Level 1 Approved -> Green
+          if (sStatus === "DC1_APR" || sStatus === "CIL_APR") { 
+              return "Success";     
+          }
+
+          // Level 1 Rejected -> Red
+          if (sStatus === "DC1_REJ" || sStatus === "CIL1_REJ") { 
+              return "Error";     
+          }
+
+          // Final Approved -> Amber
+          if (sStatus === "FIN_APR") { 
+              return "Warning";     
+          }
+
+          return "None";
+      },
+
+      // 2. Logic for Text label
+      getBill17Level1Text: function(sStatus) {
+          if (sStatus === "DC1_PND" || sStatus === "CIL1_PND") return "DC Level 1 Approval";
+          if (sStatus === "DC1_APR" || sStatus === "CIL_APR")  return "DC Level 1 Approved";
+          if (sStatus === "DC1_REJ" || sStatus === "CIL1_REJ") return "DC Level 1 Rejected";
+          if (sStatus === "FIN_APR") return "Final Approved";
+          
+          return ""; // Returns empty for "INP"
+      },
+
+      // --- SEPARATOR LOGIC HELPERS (Required for Header Fragment) ---
+
+      _isBill17PillVisible: function(bHidden, sStatus) {
+          var aVisibleStatuses = ["DC1_PND", "CIL1_PND", "DC1_APR", "CIL_APR", "DC1_REJ", "CIL1_REJ", "FIN_APR"];
+          return bHidden === false && aVisibleStatuses.includes(sStatus);
+      },
+
+      _isStatusPillVisible: function(sStatus) {
+          return sStatus === "CLSD" || sStatus === "PCLSD" || sStatus === "HLD";
+      },
+
+      getSeparatorForCIL: function(bDc, bBill17Hidden, bCbc, sStatus) {
+          return !!(bDc || this._isBill17PillVisible(bBill17Hidden, sStatus) || bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForDC: function(bBill17Hidden, bCbc, sStatus) {
+          return !!(this._isBill17PillVisible(bBill17Hidden, sStatus) || bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForBill17: function(bCbc, sStatus) {
+          return !!(bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForCBC: function(sStatus) {
+          return !!(this._isStatusPillVisible(sStatus));
+      }
 
 
     });

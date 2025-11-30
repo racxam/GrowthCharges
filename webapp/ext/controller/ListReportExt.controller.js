@@ -86,7 +86,13 @@ sap.ui.define([
              * @param {sap.ui.base.Event} oEvent event handler for before binding event
              */
             onBeforeRebindTableExtension: function (oEvent) {
+
                 var oBindingParams = oEvent.getParameter("bindingParams");
+                if (oBindingParams.parameters.select) {
+                    oBindingParams.parameters.select += ",bill17_hidden,status";
+                } else {
+                    oBindingParams.parameters.select = "bill17_hidden,status";
+                }
                 oBindingParams.parameters = oBindingParams.parameters || {};
                 const oSmartTable = oEvent.getSource();
                 const oSmartFilterBar = this.byId(oSmartTable.getSmartFilterId());
@@ -381,6 +387,77 @@ sap.ui.define([
                     bState = Math.floor(iSpent / 86400000) > 0 ? true : false;
                 }
                 return bState;
-            }
+            },
+            // Bill17 Status Changes
+
+ // 1. Logic for Color (State)
+    getBill17Level1State: function(sStatus) {
+        // Pending / Submitted -> Blue
+        if (sStatus === "DC1_PND") { 
+            return "Information"; 
+        } 
+        
+        // Level 1 Approved -> Green
+        if (sStatus === "DC1_APR") { 
+            return "Success";     
+        }
+
+        // Level 1 Rejected -> Red
+        if (sStatus === "DC1_REJ") { 
+            return "Error";     
+        }
+
+        // Final Approved -> Amber (as requested)
+        if (sStatus === "FIN_APR") { 
+            return "Warning";     
+        }
+
+        return "None";
+    },
+
+    // 2. Logic for Text label
+    getBill17Level1Text: function(sStatus) {
+        if (sStatus === "DC1_PND") return "DC Level 1 Approval";
+        if (sStatus === "DC1_APR") return "DC Level 1 Approved";
+        if (sStatus === "DC1_REJ") return "DC Level 1 Rejected";
+        if (sStatus === "FIN_APR") return "Final Approved";
+        
+        return ""; // Returns empty for "INP", effectively hiding the text
+    },
+    // --- SEPARATOR LOGIC HELPERS ---
+
+   // --- HELPER: Strict check for Bill 17 Pill Visibility ---
+    _isBill17PillVisible: function(bHidden, sStatus) {
+        // It is visible ONLY if not hidden AND status is one of the specific Bill 17 codes
+        // This matches the logic in getBill17Level1Text
+        var aVisibleStatuses = ["DC1_PND", "CIL1_PND", "DC1_APR", "CIL_APR", "DC1_REJ", "CIL1_REJ", "FIN_APR"];
+        return bHidden === false && aVisibleStatuses.includes(sStatus);
+    },
+
+    // --- HELPER: Check if Status Pill is Visible ---
+    _isStatusPillVisible: function(sStatus) {
+        return sStatus === "CLSD" || sStatus === "PCLSD" || sStatus === "HLD";
+    },
+
+    // 1. CIL Separator
+    getSeparatorForCIL: function(bDc, bBill17Hidden, bCbc, sStatus) {
+        return !!(bDc || this._isBill17PillVisible(bBill17Hidden, sStatus) || bCbc || this._isStatusPillVisible(sStatus));
+    },
+
+    // 2. DC Separator
+    getSeparatorForDC: function(bBill17Hidden, bCbc, sStatus) {
+        return !!(this._isBill17PillVisible(bBill17Hidden, sStatus) || bCbc || this._isStatusPillVisible(sStatus));
+    },
+
+    // 3. Bill 17 Separator
+    getSeparatorForBill17: function(bCbc, sStatus) {
+        return !!(bCbc || this._isStatusPillVisible(sStatus));
+    },
+
+    // 4. CBC Separator
+    getSeparatorForCBC: function(sStatus) {
+        return !!(this._isStatusPillVisible(sStatus));
+    }
+    // end of controller
         });
     });
