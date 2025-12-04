@@ -27,16 +27,11 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
-        ignoreCertError: false
+        ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
         backend:
           - path: /sap
             url: http://vhcfmecdci.sap.mississauga.ca:44300/
             destination: RISE_ECD
-          - url: http://vhcfmecdci.sap.mississauga.ca:44300/
-            client: '200'
-            authenticationType: BasicAuthentication
-            destination: RISE_ECD
-            path: /sap/opu/odata/sap/ZGC_C_REQUESTS_CDS/
     - name: sap-fe-mockserver
       beforeMiddleware: csp
       configuration:
@@ -53,4 +48,4 @@ server:
       afterMiddleware: fiori-tools-appreload
       configuration:
         component: com.gc.dashboard
-        ui5Theme: sap_fiori_3_dark
+        ui5Theme: sap_fiori_3

@@ -9,6 +9,7 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
+        ignoreCertError: true # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
         ui5:
           path:
             - /resources
@@ -17,12 +18,6 @@ server:
         backend:
           - path: /sap
             url: http://vhcfmecdci.sap.mississauga.ca:44300
-          - url: http://vhcfmecdci.sap.mississauga.ca:44300/
-            client: '200'
-            authenticationType: BasicAuthentication
-            destination: RISE_ECD
-            path: /sap/opu/odata/sap/ZGC_C_REQUESTS_CDS/
-        ignoreCertErrors: false
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

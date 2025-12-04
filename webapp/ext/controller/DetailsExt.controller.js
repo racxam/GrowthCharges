@@ -1629,13 +1629,19 @@ sap.ui.define(
             oDialog.openBy(this.status1);
           }.bind(this));
       },
+      //  Change: Updated logic to inverse greying based on Permit Issued status
       _onDcTableDataReceived: function (oEventOrTable) {
-        // FIX: Support both Event (from listener) and Control (manual call)
         var oTable;
         if (oEventOrTable.getSource) {
-          oTable = oEventOrTable.getSource(); // It is an Event
+          oTable = oEventOrTable.getSource(); // Event
         } else {
-          oTable = oEventOrTable; // It is the Table control itself
+          oTable = oEventOrTable; // Direct Control
+        }
+
+        // 1. Get Permit Issued Status
+        var bPermitIssued = false;
+        if (this.getView().getBindingContext()) {
+            bPermitIssued = this.getView().getBindingContext().getProperty("permit_issued");
         }
 
         var aRows = oTable.getRows();
@@ -1644,9 +1650,17 @@ sap.ui.define(
           var oContext = oRow.getBindingContext();
           if (oContext) {
             var oRowData = oContext.getObject();
+            
+            // 2. Determine Logic
+            // If Permit Issued (True)  AND is_bill17 (False) -> Grey Out (True)
+            // If Permit Issued (False) AND is_bill17 (True)  -> Grey Out (True)
+            // This is an inequality check (!==)
+            var bShouldGrey = false;
+            if (oRowData) {
+                 bShouldGrey = (!!bPermitIssued !== !!oRowData.is_bill17_appl);
+            }
 
-            // Logic to grey out based on flag
-            if (oRowData && oRowData.is_bill17_appl === true) {
+            if (bShouldGrey) {
               oRow.addStyleClass("greyedOutRow");
             } else {
               oRow.removeStyleClass("greyedOutRow");
@@ -1655,7 +1669,7 @@ sap.ui.define(
         });
       },
 
-      _onPropertyChange: function (oEvent) {
+     _onPropertyChange: function (oEvent) {
         var sPath = oEvent.getParameter("path");
         var oValue = oEvent.getParameter("value");
         var oContext = oEvent.getParameter("context");
@@ -1663,36 +1677,38 @@ sap.ui.define(
         // --- Logic 1: Permit Issued ---
         if (sPath === "permit_issued") {
 
-          // A. Immediately grey out the Partner field (your existing requirement)
+          // A. Update Field State (Existing)
           if (this._updatePartnerFieldState) {
             this._updatePartnerFieldState(oValue);
           }
+          
+          // ##$ Change: Immediately refresh table colors based on new value
+          this._refreshAllTableStyles();
 
-          // B. If Checked (True), show Warning + Lock Logic
+          // B. Popup Logic
           if (oValue === true) {
             var that = this;
             MessageBox.warning(
-              // [UPDATED TEXT]
-              "Once Permit Issued is selected, it cannot be unchecked.\n\nAs permit issued is selected you can't change or delete the Deferral Partners.",
+              "Once Permit Issued is selected, it cannot be unchecked.\n\nAs permit issued is selected you can't add or delete the Deferral Partners.",
               {
                 title: "Warning",
                 actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
                 onClose: function (sAction) {
                   if (sAction === MessageBox.Action.CANCEL) {
-                    // --- CANCEL CASE: Revert everything ---
+                    // Revert
                     var sFullPath = oContext.getPath() + "/permit_issued";
-
-                    // 1. Revert value to false
                     that.getView().getModel().setProperty(sFullPath, false);
                     that.getView().getModel().resetChanges([sFullPath]);
 
-                    // 2. Re-enable the Partner field
                     if (that._updatePartnerFieldState) {
                       that._updatePartnerFieldState(false);
                     }
+                    
+                    // ##$ Change: Revert table colors back to original state
+                    that._refreshAllTableStyles();
+
                   } else {
-                    // --- OK CASE: Lock the Permit Issued Field ---
-                    // This prevents them from unchecking it later
+                    // Lock
                     that._disablePermitIssuedField(true);
                   }
                 }
@@ -1825,47 +1841,56 @@ sap.ui.define(
     // 2. Logic bill17 pill on obj page
     // --- BILL 17 STATUS FORMATTERS (Required for Object Page Header) ---
 
-      // 1. Logic for Color (State)
-      getBill17Level1State: function(sStatus) {
-          // Pending / Submitted -> Blue
-          if (sStatus === "DC1_PND" || sStatus === "CIL1_PND") { 
-              return "Information"; 
-          } 
-          
-          // Level 1 Approved -> Green
-          if (sStatus === "DC1_APR" || sStatus === "CIL_APR") { 
-              return "Success";     
-          }
+      
+    // 2. Logic for Color (State)
+    getBill17Level1State: function(sStatus) {
+        // Pending / Submitted -> Blue
+        if (sStatus === "DC1_PND") { 
+            return "Information"; 
+        } 
+        
+        // Level 1 Approved -> Green
+        if (sStatus === "DC1_APR") { 
+            return "Success";     
+        }
 
-          // Level 1 Rejected -> Red
-          if (sStatus === "DC1_REJ" || sStatus === "CIL1_REJ") { 
-              return "Error";     
-          }
+        // Level 1 Rejected -> Red
+        if (sStatus === "DC1_REJ") { 
+            return "Error";     
+        }
 
-          // Final Approved -> Amber
-          if (sStatus === "FIN_APR") { 
-              return "Warning";     
-          }
+        // Final Approved -> Amber
+        if (sStatus === "FIN_APR") { 
+            return "Warning";     
+        }
 
-          return "None";
-      },
+        return "None";
+    },
 
-      // 2. Logic for Text label
-      getBill17Level1Text: function(sStatus) {
-          if (sStatus === "DC1_PND" || sStatus === "CIL1_PND") return "DC Level 1 Approval";
-          if (sStatus === "DC1_APR" || sStatus === "CIL_APR")  return "DC Level 1 Approved";
-          if (sStatus === "DC1_REJ" || sStatus === "CIL1_REJ") return "DC Level 1 Rejected";
-          if (sStatus === "FIN_APR") return "Final Approved";
-          
-          return ""; // Returns empty for "INP"
-      },
+    // 3. Logic for Text label
+    getBill17Level1Text: function(sStatus) {
+        // FIX: Removed CIL statuses. Returns empty string for CIL_APR, hiding the pill.
+        if (sStatus === "DC1_PND") return "DC Level 1 Approval";
+        if (sStatus === "DC1_APR") return "DC Level 1 Approved";
+        if (sStatus === "DC1_REJ") return "DC Level 1 Rejected";
+        if (sStatus === "FIN_APR") return "Final Approved";
+    },
 
       // --- SEPARATOR LOGIC HELPERS (Required for Header Fragment) ---
 
-      _isBill17PillVisible: function(bHidden, sStatus) {
-          var aVisibleStatuses = ["DC1_PND", "CIL1_PND", "DC1_APR", "CIL_APR", "DC1_REJ", "CIL1_REJ", "FIN_APR"];
-          return bHidden === false && aVisibleStatuses.includes(sStatus);
-      },
+    _isBill17PillVisible: function(bHidden, sStatus) {
+        // Defines the EXACT list of statuses where Bill 17 Pill should appear
+        var aVisibleStatuses = [
+            "DC1_PND", 
+            "DC1_APR", 
+            "DC1_REJ",
+            "FIN_APR"
+        ];
+        
+        // Only show if Bill 17 is applicable AND status is in the list
+        return bHidden === false && aVisibleStatuses.includes(sStatus);
+    },
+
 
       _isStatusPillVisible: function(sStatus) {
           return sStatus === "CLSD" || sStatus === "PCLSD" || sStatus === "HLD";
@@ -1885,7 +1910,18 @@ sap.ui.define(
 
       getSeparatorForCBC: function(sStatus) {
           return !!(this._isStatusPillVisible(sStatus));
-      }
+      },
+
+    // Helper to force refresh styles on all tables
+      _refreshAllTableStyles: function() {
+        var aTableIds = ["TotalDC-ID", "Section-14-ID", "DemolitionCred-ID", "DCExemption-ID"];
+        aTableIds.forEach(function(sId) {
+            var oSmartTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sId + "::Table");
+            if (oSmartTable) {
+                this._onDcTableDataReceived(oSmartTable.getTable());
+            }
+        }.bind(this));
+      },
 
 
     });

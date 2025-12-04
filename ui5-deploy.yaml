@@ -4,24 +4,19 @@ specVersion: "2.5"
 metadata:
   name: com.gc.dashboard
 type: application
+resources:
+  configuration:
+    propertiesFileSourceEncoding: UTF-8
 builder:
   resources:
     excludes:
       - /test/**
       - /localService/**
   customTasks:
-    - name: deploy-to-abap
+    - name: ui5-task-zipper
       afterTask: generateCachebusterInfo
       configuration:
-        target:
-          destination: RISE_ECD 
-          url:  http://vhcfmecdci.sap.mississauga.ca:44300/
-          client: "200"
-        app:
-          name: ZGC_DASHBOARD
-          description: Fiori App
-          package: ZGROWTH_CHARGES
-          transport: ECDK937241
-        exclude:
-          - /test/
-        
+        archiveName: comgcdashboard
+        relativePaths: true
+        additionalFiles:
+          - xs-app.json

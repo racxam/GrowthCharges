@@ -762,7 +762,35 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+
+                <!-- Another bill17 changes of occupancy date changes -->
+                <Annotation Term="Common.SideEffects" Qualifier="OccupancyDateChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>occupancy_date</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
+                        
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>       
+                                <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>    
+                                 <NavigationPropertyPath>to_demos</NavigationPropertyPath>       
+                                 <NavigationPropertyPath>to_exemptions</NavigationPropertyPath> 
+                                 <NavigationPropertyPath>to_sec14</NavigationPropertyPath>      
+                                  <NavigationPropertyPath>to_defpartner</NavigationPropertyPath> 
+                                   </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            
+            
             </Annotations>
+
+
 
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true" />
