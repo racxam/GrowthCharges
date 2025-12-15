@@ -116,25 +116,6 @@
                     </Record>
                 </Annotation>
 
-                <Annotation Term="Common.SideEffects" Qualifier="InvCalDateChange">
-                    <Record Type="Common.SideEffectsType">
-                        <PropertyValue Property="SourceProperties">
-                            <Collection>
-                                <PropertyPath>invoice_calculation_date</PropertyPath>
-
-                                <PropertyPath>interest_applied_date</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-
-                        <PropertyValue Property="TargetProperties">
-                            <Collection>
-                                <PropertyPath>days_of_interest</PropertyPath>
-
-                                <PropertyPath>dc_valid_until</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
 
                 <Annotation Term="Common.SideEffects" Qualifier="CBCApplicableChanged">
                     <Record Type="Common.SideEffectsType">
@@ -746,7 +727,7 @@
                 </Annotation>
 
                 <!-- Permit Issued Change (another bill17 side effect) -->
-               <Annotation Term="Common.SideEffects" Qualifier="PermitIssuedChanged">
+                <Annotation Term="Common.SideEffects" Qualifier="PermitIssuedChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
@@ -756,7 +737,7 @@
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_defpartner</NavigationPropertyPath>
-                                
+
                                 <NavigationPropertyPath />
                             </Collection>
                         </PropertyValue>
@@ -771,26 +752,30 @@
                                 <PropertyPath>occupancy_date</PropertyPath>
                             </Collection>
                         </PropertyValue>
-                        
+
+                         <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>occupancy_valid_until</PropertyPath>
+                                <PropertyPath>occupancy_valid_until_fc</PropertyPath>
+                                <PropertyPath>occupancy_clearance_date</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+
                         <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
-                        
+
                         <PropertyValue Property="TargetEntities">
                             <Collection>
-                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>       
-                                <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>    
-                                 <NavigationPropertyPath>to_demos</NavigationPropertyPath>       
-                                 <NavigationPropertyPath>to_exemptions</NavigationPropertyPath> 
-                                 <NavigationPropertyPath>to_sec14</NavigationPropertyPath>      
-                                  <NavigationPropertyPath>to_defpartner</NavigationPropertyPath> 
-                                   </Collection>
+                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_defpartner</NavigationPropertyPath>
+                            </Collection>
                         </PropertyValue>
                     </Record>
                 </Annotation>
-            
-            
             </Annotations>
-
-
 
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true" />
@@ -2010,6 +1995,48 @@
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/total_non_def_invoice_amt">
                 <Annotation Term="UI.Hidden" Path="bill17_hidden" />
             </Annotations>
+
+            //Invoice Calculation Date Changed
+            <Annotation Term="Common.SideEffects" Qualifier="InvCalcDateChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>invoice_calculation_date</PropertyPath>
+                                <PropertyPath>interest_applied_date</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
+                        
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>days_of_interest</PropertyPath>
+                                <PropertyPath>dc_valid_until</PropertyPath>
+                                
+                                <PropertyPath>occupancy_valid_until</PropertyPath>
+                                <PropertyPath>occupancy_valid_until_fc</PropertyPath>
+                                <PropertyPath>occupancy_clearance_date</PropertyPath>
+                                <PropertyPath>total_def_non_dc_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_defpartner</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+          
+
+               
+
             <!-- Tool Tip -->
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/total_payable">
                 <Annotation Term="Common.QuickInfo" String="If at point of Invoice 1 then = Final CBC Amount + Final CIL amount + Non-Deferred DC Amount &#xA; &#xA; If Invoice 2 has been created then = Total Deferred Invoice Amount" />

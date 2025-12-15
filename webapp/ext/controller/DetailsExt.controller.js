@@ -156,48 +156,73 @@ sap.ui.define(
         }
       },
 
-      _hideDCButtons: function () {
-        const aButtonSufixes = ["TotalDC-ID::addEntry",
-          "TotalDC-ID::deleteEntry", "DemolitionCred-ID::addEntry",
-          "Section-14-ID::addEntry", "DCExemption-ID::addEntry"];
+     _hideDCButtons: function () {
+        // List of all standard Add/Delete buttons in the DC Section tables
+        const aButtonSufixes = [
+            "TotalDC-ID::addEntry",
+            "TotalDC-ID::deleteEntry", 
+            "DemolitionCred-ID::addEntry",
+            "DemolitionCred-ID::deleteEntry", // Good practice to include delete if it exists
+            "Section-14-ID::addEntry", 
+            "Section-14-ID::deleteEntry",
+            "DCExemption-ID::addEntry",
+            "DCExemption-ID::deleteEntry"
+        ];
 
-        //Disable all buttons
+        // LOGIC: Enable only if Editable AND Status is NOT Final/Closed/Hold
+        // This decouples it from the 'permit_issued' lock but respects the overall status.
+        var sExpression = "{= ${ui>/editable} && ${status} !== 'FIN_APR' && ${status} !== 'CLSD' && ${status} !== 'PCLSD' && ${status} !== 'HLD' }";
+
         aButtonSufixes.forEach(function (sButtonSufix) {
           const oButton = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sButtonSufix);
-          oButton.setEnabled(false);
+          if (oButton) {
+             // Bind the 'enabled' property to our expression
+             oButton.bindProperty("enabled", {
+                parts: [
+                    { path: "ui>/editable" },
+                    { path: "status" }
+                ],
+                formatter: function(bEditable, sStatus) {
+                    return bEditable && sStatus !== 'FIN_APR' && sStatus !== 'CLSD' && sStatus !== 'PCLSD' && sStatus !== 'HLD';
+                }
+             });
+          }
         });
       },
       _addCustomActions: function () {
         let oCalculateButton = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton");
-        if (oCalculateButton) {
-          return;
+        
+        // 1. Calculate Button
+        if (!oCalculateButton) {
+            oCalculateButton = new Button({
+                "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton",
+                "text": "Calculate",
+                "type": "Emphasized",
+                "press": this.onPressDCCalc.bind(this),
+                "visible": "{ui>/editable}",
+                // LOGIC: Enable if Editable AND Status is NOT Final/Closed/Hold
+                "enabled": "{= ${ui>/editable} && ${status} !== 'FIN_APR' && ${status} !== 'CLSD' && ${status} !== 'PCLSD' && ${status} !== 'HLD' }"
+            });
+            const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
+            const oDCHeader = oDCTable.getToolbar();
+            oDCHeader.addContent(oCalculateButton);
         }
-        //Calculate Button
-        oCalculateButton = new Button(
-          {
-            "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton",
-            "text": "Calculate",
-            "type": "Emphasized",
-            "press": this.onPressDCCalc.bind(this),
-            "visible": "{ui>/editable}",
-            "enabled": "{= ${ui>/editable} && ${dc_applicable_fc} !== 1}"
-          }
-        );
-        const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
-        const oDCHeader = oDCTable.getToolbar();
-        oDCHeader.addContent(oCalculateButton);
-        //Add New PBP Button
-        const oNewPBPButton = new Button(
-          {
-            "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton",
-            "text": "Add Credit",
-            "press": this.onPressNewPBP.bind(this),
-            "enabled": "{= ${ui>/editable} && ${dc_applicable_fc} !== 1}"
-          }
-        );
-        const oPBPTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
-        const oPBPHeader = oPBPTable.getToolbar();
-        oPBPHeader.addContent(oNewPBPButton);
+
+        let oNewPBPButton = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton");
+        
+        // 2. Add Credit Button
+        if (!oNewPBPButton) {
+            oNewPBPButton = new Button({
+                "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton",
+                "text": "Add Credit",
+                "press": this.onPressNewPBP.bind(this),
+                // LOGIC: Enable if Editable AND Status is NOT Final/Closed/Hold
+                "enabled": "{= ${ui>/editable} && ${status} !== 'FIN_APR' && ${status} !== 'CLSD' && ${status} !== 'PCLSD' && ${status} !== 'HLD' }"
+            });
+            const oPBPTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
+            const oPBPHeader = oPBPTable.getToolbar();
+            oPBPHeader.addContent(oNewPBPButton);
+        }
       },
       _defineLocalModel: function () {
         const oLocalModel = new JSONModel({
