@@ -334,7 +334,7 @@ sap.ui.define(
             //Without the below delay, action buttons like 'Calculate' and 'Add Credit' are not getting disabled
             that._hideDCButtons();
           }
-          // this._updateBill17AmountFieldsState(oRequest.status);// bill17 
+
 
           //Calculate and Add Credit Button Visibility
           const oCalBtn = sap.ui.getCore().byId(
@@ -785,8 +785,7 @@ sap.ui.define(
         var oContext = this.getView().getBindingContext();
         if (oContext) {
           var bPermitIssued = oContext.getProperty("permit_issued");
-          // var sStatus = oContext.getProperty("status"); // bill17 case for TOTAL_NON_DEF_INVOICE_AMT,TOTAL_DEF_NON_DC_PAYABLE , they should be greyed out after DC1_PND status
-          // this._updateBill17AmountFieldsState(sStatus);
+        
 
           // 1. Disable/Grey out Deferral Partners
           if (this._updatePartnerFieldState) {
@@ -1753,12 +1752,28 @@ sap.ui.define(
         }
       },
 
-      _updatePartnerFieldState: function (bPermitIssued) {
+     _updatePartnerFieldState: function (bPermitIssued) {
         var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
         var oSmartField = this.getView().byId(sRelativeId);
+        
+        // 1. Get Current Status
+        var oContext = this.getView().getBindingContext();
+        var sStatus = oContext ? oContext.getProperty("status") : "";
+
+        // 2. Define Statuses considered "Greater than or Equal to DC1_APR"
+        // These are the statuses where the field should default to Disabled (Greyed Out)
+        var aRestrictedStatuses = [
+            "DC1_APR",  // DC Level 1 Approved
+            "FIN_PND",  // Final Pending (if applicable)
+            "FIN_APR",  // Final Approved
+            "CLSD",     // Closed
+            "PCLSD",    // Partially Closed
+            "HLD" ,     // Hold,
+            "FIN_REJ " // Final approval reject
+        ];
 
         if (oSmartField) {
-          // 1. Force SmartField to be Editable (to show tokens)
+          // Force SmartField to be Editable (so we can control inner input enabled state)
           oSmartField.setEditable(true);
 
           var fnFix = function () {
@@ -1766,22 +1781,28 @@ sap.ui.define(
             if (aInner && aInner.length > 0) {
               var oCtrl = aInner[0];
 
-              // 2. Disable the Input (Grey Out)
+              // --- LOGIC START ---
               if (oCtrl.setEnabled) {
-                oCtrl.setEnabled(!bPermitIssued);
+                // If Status is DC1_APR or higher (Final, Closed, etc.)
+                if (aRestrictedStatuses.includes(sStatus)) {
+                   // RULE: Disabled (Greyed Out) UNLESS Permit is Issued
+                   // bPermitIssued = False -> Field Disabled (Grey)
+                   // bPermitIssued = True  -> Field Enabled
+                   oCtrl.setEnabled(bPermitIssued);
+                } else {
+                   // Earlier Statuses (INP, DC1_PND, etc.): Always Enabled in Edit mode
+                   oCtrl.setEnabled(true);
+                }
               }
+              // --- LOGIC END ---
 
-              // 3. PERMANENT FIX FOR "1 More"
+              // Tokenizer Fix (Keep existing logic)
               if (oCtrl.getAggregation) {
                 var oTokenizer = oCtrl.getAggregation("tokenizer");
                 if (oTokenizer) {
-
-                  // A. Set it immediately
                   if (oTokenizer.setRenderMode) {
                     oTokenizer.setRenderMode("Loose");
                   }
-
-                  // B. Add a Delegate to re-apply it every time Fiori tries to reset it
                   oTokenizer.addEventDelegate({
                     onAfterRendering: function () {
                       if (this.getRenderMode() !== "Loose") {
@@ -1794,10 +1815,9 @@ sap.ui.define(
             }
           };
 
-          // Run immediately
+          // Run immediately and attach to events
           fnFix();
-
-          // Run again when controls are created (lazy loading)
+          oSmartField.detachEvent("innerControlsCreated", fnFix);
           oSmartField.attachEvent("innerControlsCreated", fnFix);
         }
       },
@@ -2055,43 +2075,6 @@ sap.ui.define(
       // ====================================================================
       //  END OF STATUS PILL LOGIC
       // ====================================================================
-
-      // --- LOGIC TO DISABLE BILL 17 AMOUNT FIELDS ---
-      _updateBill17AmountFieldsState: function (sStatus) {
-        // 1. Define the Statuses where fields should be GREYED OUT (Read Only)
-        var aDisabledStatuses = ["DC1_PND", "DC1_APR", "DC1_REJ", "FIN_APR"];
-        
-        // If status matches list -> Disable (bEditable = false)
-        var bShouldDisable = aDisabledStatuses.includes(sStatus);
-        var bEditable = !bShouldDisable; 
-
-        // 2. Define the exact property paths to target (lowercase as requested)
-        var aFieldsToUpdate = [
-            "total_non_def_invoice_amt",
-            "total_def_non_dc_payable"
-        ];
-
-        // 3. Find Controls and Set Editable Property
-        // We use findAggregatedObjects because we don't have stable IDs for these SmartFields
-        aFieldsToUpdate.forEach(function(sPath) {
-            var aControls = this.getView().findAggregatedObjects(true, function(oControl) {
-                // Look for SmartFields or Inputs bound to this path
-                return (oControl.getBindingPath && oControl.getBindingPath("value") === sPath);
-            });
-
-            aControls.forEach(function(oControl) {
-                // If it's a SmartField or Input, toggle Editable
-                if (oControl.setEditable) {
-                    oControl.setEditable(bEditable); 
-                } 
-                // Fallback for other controls like Buttons/Inputs
-                else if (oControl.setEnabled) {
-                    oControl.setEnabled(bEditable);
-                }
-            });
-        }.bind(this));
-      },
-
       //end of controller
 
 

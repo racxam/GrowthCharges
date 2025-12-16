@@ -2039,7 +2039,7 @@
 
             <!-- Tool Tip -->
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/total_payable">
-                <Annotation Term="Common.QuickInfo" String="If at point of Invoice 1 then = Final CBC Amount + Final CIL amount + Non-Deferred DC Amount &#xA; &#xA; If Invoice 2 has been created then = Total Deferred Invoice Amount" />
+                <Annotation Term="Common.QuickInfo" String="If at point of Invoice 1 then = Final CBC Payable + Final CIL amount + Non-Deferred DC Amount &#xA; &#xA; If Invoice 2 has been created then = Total Deferred Invoice Amount" />
             </Annotations>
         </Schema>
     </edmx:DataServices>
