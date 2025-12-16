@@ -15,7 +15,8 @@
              <!-- Defect 135 CIL Validity Warning Indicator added-->
             <core:Icon src="sap-icon://alert" size="1.5rem" color="red" visible="{= ${cil_validity_warning} === true }" class="sapUiSmallMarginBegin" tooltip="{i18n>cil_validity_warning}"/>
         </l:HorizontalLayout>
-      <commons:MicroProcessFlow id="_IDGenMicroProcessFlow1">
+<!-- Pills color coding -->
+<commons:MicroProcessFlow id="_IDGenMicroProcessFlow1">
             <commons:content>
                 
                 <commons:MicroProcessFlowItem 
@@ -26,7 +27,7 @@
                     showSeparator="{
                         parts: [
                             {path: 'dc_applicable'},
-                            {path: 'bill17_hidden'},
+                            {path: 'to_defpartner'}, 
                             {path: 'cbc_applicable'},
                             {path: 'status'}
                         ],
@@ -39,19 +40,25 @@
 
                 <commons:MicroProcessFlowItem 
                     id="ObjPage_DC" 
-                    visible="{dc_applicable}"
+                    visible="{
+                        parts: [
+                            {path: 'dc_applicable'},
+                            {path: 'to_defpartner'} 
+                        ],
+                        formatter: '._isDCPillVisible'
+                    }"
                     state="{ path: 'status', formatter: '.getStatusStateForDC' }" 
                     press=".openMilestoneDialog($event,'DC')"
                     showSeparator="{
                         parts: [
-                            {path: 'bill17_hidden'},
+                            {path: 'to_defpartner'}, 
                             {path: 'cbc_applicable'},
                             {path: 'status'}
                         ],
                         formatter: '.getSeparatorForDC'
                     }">
                     <commons:customControl>
-                        <ObjectStatus text="{i18n>titleDC}" state="{ path: 'status', formatter: '.getStatusStateForDC' }" inverted="true" visible="{dc_applicable}"/>
+                        <ObjectStatus text="{i18n>titleDC}" state="{ path: 'status', formatter: '.getStatusStateForDC' }" inverted="true" />
                     </commons:customControl>
                 </commons:MicroProcessFlowItem>
 
@@ -59,7 +66,7 @@
                     id="ObjPage_Bill17"
                     visible="{
                         parts: [
-                            {path: 'bill17_hidden'},
+                            {path: 'to_defpartner'}, 
                             {path: 'status'}
                         ],
                         formatter: '._isBill17PillVisible'
@@ -67,6 +74,7 @@
                     state="{path: 'status', formatter: '.getBill17Level1State'}"
                     showSeparator="{
                         parts: [
+                            {path: 'to_defpartner'},
                             {path: 'cbc_applicable'},
                             {path: 'status'}
                         ],
@@ -76,6 +84,31 @@
                         <ObjectStatus 
                             text="{path: 'status', formatter: '.getBill17Level1Text'}" 
                             state="{path: 'status', formatter: '.getBill17Level1State'}" 
+                            inverted="true" />
+                    </commons:customControl>
+                </commons:MicroProcessFlowItem>
+
+                <commons:MicroProcessFlowItem 
+                    id="ObjPage_Bill17_Final"
+                    visible="{
+                        parts: [
+                            {path: 'to_defpartner'}, 
+                            {path: 'status'}
+                        ],
+                        formatter: '._isBill17FinalPillVisible'
+                    }"
+                    state="{path: 'status', formatter: '.getBill17FinalPillState'}"
+                    showSeparator="{
+                        parts: [
+                            {path: 'cbc_applicable'},
+                            {path: 'status'}
+                        ],
+                        formatter: '.getSeparatorForBill17Final'
+                    }">
+                    <commons:customControl>
+                        <ObjectStatus 
+                            text="{path: 'status', formatter: '.getBill17FinalPillText'}" 
+                            state="{path: 'status', formatter: '.getBill17FinalPillState'}" 
                             inverted="true" />
                     </commons:customControl>
                 </commons:MicroProcessFlowItem>
@@ -111,5 +144,6 @@
 
             </commons:content>
         </commons:MicroProcessFlow>
-    </VBox>
+<!-- Pills color coding end -->
+  </VBox>
 </core:FragmentDefinition>

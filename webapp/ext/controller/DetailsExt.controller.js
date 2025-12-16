@@ -334,6 +334,7 @@ sap.ui.define(
             //Without the below delay, action buttons like 'Calculate' and 'Add Credit' are not getting disabled
             that._hideDCButtons();
           }
+          // this._updateBill17AmountFieldsState(oRequest.status);// bill17 
 
           //Calculate and Add Credit Button Visibility
           const oCalBtn = sap.ui.getCore().byId(
@@ -508,6 +509,8 @@ sap.ui.define(
       onAfterRendering: function () {
         this._applyDefaultVariant();
         this._addCILIconControl();
+
+      
 
         //  START OF NEW CODE 
         // List of all tables that need the "Grey Row" logic
@@ -782,6 +785,8 @@ sap.ui.define(
         var oContext = this.getView().getBindingContext();
         if (oContext) {
           var bPermitIssued = oContext.getProperty("permit_issued");
+          // var sStatus = oContext.getProperty("status"); // bill17 case for TOTAL_NON_DEF_INVOICE_AMT,TOTAL_DEF_NON_DC_PAYABLE , they should be greyed out after DC1_PND status
+          // this._updateBill17AmountFieldsState(sStatus);
 
           // 1. Disable/Grey out Deferral Partners
           if (this._updatePartnerFieldState) {
@@ -1861,92 +1866,233 @@ sap.ui.define(
           }
         }
       },
+     // ====================================================================
+      //  STATUS PILL & COLOR CODING LOGIC (DYNAMIC BILL 17)
+      // ====================================================================
 
+      _isBill17Active: function(vDefPartner) {
+          if (!vDefPartner) return false;
+          // OData V2 often returns { results: [...] } for expanded navigation
+          if (vDefPartner.results && vDefPartner.results.length > 0) {
+              return true;
+          }
+          // Fallback for direct arrays
+          if (Array.isArray(vDefPartner) && vDefPartner.length > 0) {
+              return true;
+          }
+          return false;
+      },
 
-    // 2. Logic bill17 pill on obj page
-    // --- BILL 17 STATUS FORMATTERS (Required for Object Page Header) ---
-
-      
-    // 2. Logic for Color (State)
-    getBill17Level1State: function(sStatus) {
-        // Pending / Submitted -> Blue
-        if (sStatus === "DC1_PND") { 
-            return "Information"; 
+      // --- 1. CIL PILL ---
+      getStatusStateForCIL: function (sStatus) {
+        // Pending -> Orange
+        if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND") {
+          return "Warning";
         } 
-        
-        // Level 1 Approved -> Green
-        if (sStatus === "DC1_APR") { 
-            return "Success";     
+        // Rejected -> Red
+        else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") {
+          return "Error";
+        } 
+        // Approved/Success States -> Green
+        // (Includes Bill 17 states so CIL stays green during that process)
+        else if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "FIN_PND" ||
+                 sStatus === "DC1_APR" || sStatus === "DC1_PND" || sStatus === "CLSD" || sStatus === "PCLSD") {
+          return "Success";
+        } 
+        // Default (INP) -> Blue
+        else {
+          return "Information";
         }
+      },
 
-        // Level 1 Rejected -> Red
-        if (sStatus === "DC1_REJ") { 
-            return "Error";     
+      // --- 2. GENERIC DC PILL ---
+      // Logic: Visible ONLY if DC is Applicable AND Bill 17 is NOT active.
+      _isDCPillVisible: function (bDcApplicable, vDefPartner) {
+        // If Bill 17 is Active (Has Partners), HIDE generic DC pill.
+        // (The Level 1 pill takes its place).
+        if (this._isBill17Active(vDefPartner)) {
+          return false; 
         }
+        return !!bDcApplicable;
+      },
 
-        // Final Approved -> Amber
-        if (sStatus === "FIN_APR") { 
-            return "Warning";     
-        }
+      getStatusStateForDC: function (sStatus) {
+        if (sStatus === "FIN_PND" || sStatus === "DC1_PND") return "Warning"; // Orange
+        if (sStatus === "FIN_REJ" || sStatus === "DC1_REJ") return "Error";   // Red
+        if (sStatus === "FIN_APR" || sStatus === "DC1_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success"; // Green
+        return "Information"; // Blue
+      },
 
+      // --- 3. BILL 17: LEVEL 1 PILL ---
+      // Logic: Visible only during Level 1. Hides when we move to Final Approval.
+      _isBill17PillVisible: function (vDefPartner, sStatus) {
+        // 1. Must be Bill 17 case
+        if (!this._isBill17Active(vDefPartner)) return false;
+
+        // 2. Must be in Level 1 Statuses
+        var aVisibleStatuses = ["DC1_PND", "DC1_APR", "DC1_REJ"];
+        return aVisibleStatuses.includes(sStatus);
+      },
+
+      getBill17Level1State: function (sStatus) {
+        if (sStatus === "DC1_PND") return "Information"; // Blue (Pending)
+        if (sStatus === "DC1_APR") return "Success";     // Green (Approved)
+        if (sStatus === "DC1_REJ") return "Error";       // Red (Rejected)
         return "None";
-    },
+      },
 
-    // 3. Logic for Text label
-    getBill17Level1Text: function(sStatus) {
-        // FIX: Removed CIL statuses. Returns empty string for CIL_APR, hiding the pill.
+      getBill17Level1Text: function (sStatus) {
         if (sStatus === "DC1_PND") return "DC Level 1 Approval";
         if (sStatus === "DC1_APR") return "DC Level 1 Approved";
         if (sStatus === "DC1_REJ") return "DC Level 1 Rejected";
-        if (sStatus === "FIN_APR") return "Final Approved";
-    },
+        return "";
+      },
 
-      // --- SEPARATOR LOGIC HELPERS (Required for Header Fragment) ---
+      // --- 4. BILL 17: FINAL APPROVAL PILL ---
+      // Logic: Visible if DC1 Approved (as "Next Step") OR Final Approved (as "Done").
+      _isBill17FinalPillVisible: function (vDefPartner, sStatus) {
+        // 1. Must be Bill 17 case
+        if (!this._isBill17Active(vDefPartner)) return false;
 
-    _isBill17PillVisible: function(bHidden, sStatus) {
-        // Defines the EXACT list of statuses where Bill 17 Pill should appear
-        var aVisibleStatuses = [
-            "DC1_PND", 
-            "DC1_APR", 
-            "DC1_REJ",
-            "FIN_APR"
-        ];
+        // 2. Show if Final Approved OR if waiting for Final (DC1_APR)
+        return (sStatus === "FIN_APR" || sStatus === "DC1_APR");
+      },
+
+      getBill17FinalPillState: function (sStatus) {
+        // PENDING STATE: DC1 done, waiting for Final -> ORANGE
+        if (sStatus === "DC1_APR") return "Warning"; 
         
-        // Only show if Bill 17 is applicable AND status is in the list
-        return bHidden === false && aVisibleStatuses.includes(sStatus);
-    },
-
-
-      _isStatusPillVisible: function(sStatus) {
-          return sStatus === "CLSD" || sStatus === "PCLSD" || sStatus === "HLD";
+        // DONE STATE: Final done -> GREEN
+        if (sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success"; 
+        
+        return "None";
       },
 
-      getSeparatorForCIL: function(bDc, bBill17Hidden, bCbc, sStatus) {
-          return !!(bDc || this._isBill17PillVisible(bBill17Hidden, sStatus) || bCbc || this._isStatusPillVisible(sStatus));
+      getBill17FinalPillText: function (sStatus) {
+        // Noun (The Pending Task)
+        if (sStatus === "DC1_APR") return "Final Approval";
+        // Adjective (The Completed State)
+        return "Final Approved";
       },
 
-      getSeparatorForDC: function(bBill17Hidden, bCbc, sStatus) {
-          return !!(this._isBill17PillVisible(bBill17Hidden, sStatus) || bCbc || this._isStatusPillVisible(sStatus));
+      // --- 5. CBC PILL ---
+      getStatusStateForCBC: function (sStatus) {
+        // PENDING / WARNING States -> ORANGE
+        // Note: DC1_APR means "Waiting for Final", so CBC is also waiting.
+        if (sStatus === "FIN_PND" || sStatus === "DC1_APR") {
+          return "Warning";
+        } 
+        // ERROR -> RED
+        else if (sStatus === "FIN_REJ") {
+          return "Error";
+        } 
+        // SUCCESS -> GREEN
+        else if (sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") {
+          return "Success";
+        } 
+        // DEFAULT -> BLUE
+        else {
+          return "Information";
+        }
       },
 
-      getSeparatorForBill17: function(bCbc, sStatus) {
-          return !!(bCbc || this._isStatusPillVisible(sStatus));
+      // --- 6. SEPARATOR LOGIC ---
+      _isStatusPillVisible: function (sStatus) {
+        return sStatus === "CLSD" || sStatus === "PCLSD" || sStatus === "HLD";
       },
 
-      getSeparatorForCBC: function(sStatus) {
-          return !!(this._isStatusPillVisible(sStatus));
+      getSeparatorForCIL: function (bDc, vDefPartner, bCbc, sStatus) {
+        // 1. Is Generic DC Visible?
+        var bGenericDcVisible = this._isDCPillVisible(bDc, vDefPartner);
+        
+        // 2. Is Bill 17 (Level 1 or Final) Visible?
+        var bBill17Visible = this._isBill17PillVisible(vDefPartner, sStatus) || this._isBill17FinalPillVisible(vDefPartner, sStatus);
+        
+        // Show line if ANY subsequent pill is visible
+        return !!(bGenericDcVisible || bBill17Visible || bCbc || this._isStatusPillVisible(sStatus));
       },
 
-    // Helper to force refresh styles on all tables
-      _refreshAllTableStyles: function() {
-        var aTableIds = ["TotalDC-ID", "Section-14-ID", "DemolitionCred-ID", "DCExemption-ID"];
-        aTableIds.forEach(function(sId) {
-            var oSmartTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sId + "::Table");
-            if (oSmartTable) {
-                this._onDcTableDataReceived(oSmartTable.getTable());
-            }
+      getSeparatorForDC: function (vDefPartner, bCbc, sStatus) {
+        // Separator after Generic DC (used for Bill 17 spacing if needed)
+        var bBill17Visible = this._isBill17PillVisible(vDefPartner, sStatus) || this._isBill17FinalPillVisible(vDefPartner, sStatus);
+        return !!(bBill17Visible || bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForBill17: function (vDefPartner, bCbc, sStatus) {
+        // Separator after Bill 17 Level 1
+        // Show if Final Pill is visible (at DC1_APR) OR CBC is next
+        var bFinalVisible = this._isBill17FinalPillVisible(vDefPartner, sStatus);
+        return !!(bFinalVisible || bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForBill17Final: function (bCbc, sStatus) {
+        // Separator after Bill 17 Final
+        return !!(bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForCBC: function (sStatus) {
+        return !!(this._isStatusPillVisible(sStatus));
+      },
+
+      // --- 7. STANDARD LEGACY LOGIC ---
+      getStatusStateForClosed: function (sStatus) {
+        if (sStatus === "INP") return "Information";
+        else if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") return "Warning";
+        else if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") return "Error";
+        else if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
+        else return "None";
+      },
+
+      showStatusPClosed: function (sStatus) {
+        if (sStatus === "PCLSD") return "None";
+        return "None";
+      },
+
+      getStatusStateForHold: function (sStatus) {
+        if (sStatus === "HLD") return "None";
+        return "None";
+      },
+      // ====================================================================
+      //  END OF STATUS PILL LOGIC
+      // ====================================================================
+
+      // --- LOGIC TO DISABLE BILL 17 AMOUNT FIELDS ---
+      _updateBill17AmountFieldsState: function (sStatus) {
+        // 1. Define the Statuses where fields should be GREYED OUT (Read Only)
+        var aDisabledStatuses = ["DC1_PND", "DC1_APR", "DC1_REJ", "FIN_APR"];
+        
+        // If status matches list -> Disable (bEditable = false)
+        var bShouldDisable = aDisabledStatuses.includes(sStatus);
+        var bEditable = !bShouldDisable; 
+
+        // 2. Define the exact property paths to target (lowercase as requested)
+        var aFieldsToUpdate = [
+            "total_non_def_invoice_amt",
+            "total_def_non_dc_payable"
+        ];
+
+        // 3. Find Controls and Set Editable Property
+        // We use findAggregatedObjects because we don't have stable IDs for these SmartFields
+        aFieldsToUpdate.forEach(function(sPath) {
+            var aControls = this.getView().findAggregatedObjects(true, function(oControl) {
+                // Look for SmartFields or Inputs bound to this path
+                return (oControl.getBindingPath && oControl.getBindingPath("value") === sPath);
+            });
+
+            aControls.forEach(function(oControl) {
+                // If it's a SmartField or Input, toggle Editable
+                if (oControl.setEditable) {
+                    oControl.setEditable(bEditable); 
+                } 
+                // Fallback for other controls like Buttons/Inputs
+                else if (oControl.setEnabled) {
+                    oControl.setEnabled(bEditable);
+                }
+            });
         }.bind(this));
       },
+
+      //end of controller
 
 
     });

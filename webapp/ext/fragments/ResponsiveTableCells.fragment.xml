@@ -50,97 +50,135 @@
         visible="{  path: 'cilComments' ,formatter: '.showCILComments' }"
         press=".onPressComments($event,'CIL')"
     />
+    <!-- Pills color coding -->
     <commons:MicroProcessFlow id="_IDGenMicroProcessFlow1">
-   <commons:content>
-            
-            <commons:MicroProcessFlowItem 
-                id="_IDGenMicroProcessFlowItem1" 
-                visible="{cil_applicable}"
-                state="{ path: 'status', formatter: '.getStatusStateForCIL' }" 
-                showSeparator="{
-                    parts: [
-                        {path: 'dc_applicable'},
-                        {path: 'bill17_hidden'},
-                        {path: 'cbc_applicable'},
-                        {path: 'status'}
-                    ],
-                    formatter: '.getSeparatorForCIL'
-                }">
-                <commons:customControl>
-                    <ObjectStatus id="_IDGenObjectStatus1" text="{i18n>titleCIL}" state="{ path: 'status', formatter: '.getStatusStateForCIL' }" inverted="true"/>
-                </commons:customControl>
-            </commons:MicroProcessFlowItem>
+            <commons:content>
+                
+                <commons:MicroProcessFlowItem 
+                    id="ObjPage_CIL" 
+                    visible="{cil_applicable}"
+                    state="{ path: 'status', formatter: '.getStatusStateForCIL' }" 
+                    press=".openMilestoneDialog($event,'CIL')"
+                    showSeparator="{
+                        parts: [
+                            {path: 'dc_applicable'},
+                            {path: 'to_defpartner'}, 
+                            {path: 'cbc_applicable'},
+                            {path: 'status'}
+                        ],
+                        formatter: '.getSeparatorForCIL'
+                    }">
+                    <commons:customControl>
+                        <ObjectStatus text="{i18n>titleCIL}" state="{ path: 'status', formatter: '.getStatusStateForCIL' }" inverted="true" visible="{cil_applicable}" />
+                    </commons:customControl>
+                </commons:MicroProcessFlowItem>
 
-            <commons:MicroProcessFlowItem 
-                id="_IDGenMicroProcessFlowItem2" 
-                visible="{dc_applicable}"
-                state="{ path: 'status', formatter: '.showStatusDC' }" 
-                showSeparator="{
-                    parts: [
-                        {path: 'bill17_hidden'},
-                        {path: 'cbc_applicable'},
-                        {path: 'status'}
-                    ],
-                    formatter: '.getSeparatorForDC'
-                }">
-                <commons:customControl>
-                    <ObjectStatus id="_IDGenObjectStatus2" text="{i18n>titleDC}" state="{ path: 'status', formatter: '.showStatusDC' }" inverted="true"/>
-                </commons:customControl>
-            </commons:MicroProcessFlowItem>
+                <commons:MicroProcessFlowItem 
+                    id="ObjPage_DC" 
+                    visible="{
+                        parts: [
+                            {path: 'dc_applicable'},
+                            {path: 'to_defpartner'} 
+                        ],
+                        formatter: '._isDCPillVisible'
+                    }"
+                    state="{ path: 'status', formatter: '.getStatusStateForDC' }" 
+                    press=".openMilestoneDialog($event,'DC')"
+                    showSeparator="{
+                        parts: [
+                            {path: 'to_defpartner'}, 
+                            {path: 'cbc_applicable'},
+                            {path: 'status'}
+                        ],
+                        formatter: '.getSeparatorForDC'
+                    }">
+                    <commons:customControl>
+                        <ObjectStatus text="{i18n>titleDC}" state="{ path: 'status', formatter: '.getStatusStateForDC' }" inverted="true" />
+                    </commons:customControl>
+                </commons:MicroProcessFlowItem>
 
-            <commons:MicroProcessFlowItem 
-                visible="{
-                    parts: [
-                        {path: 'bill17_hidden'},
-                        {path: 'status'}
-                    ],
-                    formatter: '._isBill17PillVisible'
-                }"
-                state="{path: 'status', formatter: '.getBill17Level1State'}"
-                showSeparator="{
-                    parts: [
-                        {path: 'cbc_applicable'},
-                        {path: 'status'}
-                    ],
-                    formatter: '.getSeparatorForBill17'
-                }">
-                <commons:customControl>
-                    <ObjectStatus 
-                        text="{path: 'status', formatter: '.getBill17Level1Text'}" 
-                        state="{path: 'status', formatter: '.getBill17Level1State'}" 
-                        inverted="true" />
-                </commons:customControl>
-            </commons:MicroProcessFlowItem>
+                <commons:MicroProcessFlowItem 
+                    id="ObjPage_Bill17"
+                    visible="{
+                        parts: [
+                            {path: 'to_defpartner'}, 
+                            {path: 'status'}
+                        ],
+                        formatter: '._isBill17PillVisible'
+                    }"
+                    state="{path: 'status', formatter: '.getBill17Level1State'}"
+                    showSeparator="{
+                        parts: [
+                            {path: 'to_defpartner'},
+                            {path: 'cbc_applicable'},
+                            {path: 'status'}
+                        ],
+                        formatter: '.getSeparatorForBill17'
+                    }">
+                    <commons:customControl>
+                        <ObjectStatus 
+                            text="{path: 'status', formatter: '.getBill17Level1Text'}" 
+                            state="{path: 'status', formatter: '.getBill17Level1State'}" 
+                            inverted="true" />
+                    </commons:customControl>
+                </commons:MicroProcessFlowItem>
 
-            <commons:MicroProcessFlowItem 
-                id="_IDGenMicroProcessFlowItem3" 
-                visible="{cbc_applicable}"
-                state="{ path: 'status', formatter: '.showStatusCBC' }" 
-                showSeparator="{path: 'status', formatter: '.getSeparatorForCBC'}">
-                <commons:customControl>
-                    <ObjectStatus id="_IDGenObjectStatus3" text="{i18n>titleCBC}" state="{ path: 'status', formatter: '.showStatusCBC' }" inverted="true"/>
-                </commons:customControl>
-            </commons:MicroProcessFlowItem>
+                <commons:MicroProcessFlowItem 
+                    id="ObjPage_Bill17_Final"
+                    visible="{
+                        parts: [
+                            {path: 'to_defpartner'}, 
+                            {path: 'status'}
+                        ],
+                        formatter: '._isBill17FinalPillVisible'
+                    }"
+                    state="{path: 'status', formatter: '.getBill17FinalPillState'}"
+                    showSeparator="{
+                        parts: [
+                            {path: 'cbc_applicable'},
+                            {path: 'status'}
+                        ],
+                        formatter: '.getSeparatorForBill17Final'
+                    }">
+                    <commons:customControl>
+                        <ObjectStatus 
+                            text="{path: 'status', formatter: '.getBill17FinalPillText'}" 
+                            state="{path: 'status', formatter: '.getBill17FinalPillState'}" 
+                            inverted="true" />
+                    </commons:customControl>
+                </commons:MicroProcessFlowItem>
 
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItemPCLSD" showSeparator="{=${status} === 'CLSD' || ${status} === 'HLD'}" state="{ path: 'status', formatter: '.showStatusPClosed' }" visible="{=${status} === 'PCLSD'}">
-                <commons:customControl>
-                    <ObjectStatus id="_IDGenObjectStatusPCLSD" text="{i18n>titlePartialClosed}" state="{ path: 'status', formatter: '.showStatusPClosed' }" inverted="true"/>
-                </commons:customControl>
-            </commons:MicroProcessFlowItem>
-            
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem4" showSeparator="{=${status} === 'PCLSD' || ${status} === 'HLD'}" state="{ path: 'status', formatter: '.showStatusClosed' }" visible="{=${status} === 'CLSD'}">
-                <commons:customControl>
-                    <ObjectStatus id="_IDGenObjectStatus4" text="{i18n>titleClosed}" state="{ path: 'status', formatter: '.showStatusClosed' }" inverted="true"/>
-                </commons:customControl>
-            </commons:MicroProcessFlowItem>
-            
-            <commons:MicroProcessFlowItem id="_IDGenMicroProcessFlowItem5" showSeparator="false" state="{ path: 'status', formatter: '.showStatusHold' }" visible="{=${status} === 'HLD'}">
-                <commons:customControl>
-                    <ObjectStatus id="_IDGenObjectStatus5" text="{i18n>titleHold}" state="{ path: 'status', formatter: '.showStatusHold' }" inverted="true"/>
-                </commons:customControl>
-            </commons:MicroProcessFlowItem>
+                <commons:MicroProcessFlowItem 
+                    id="ObjPage_CBC" 
+                    visible="{cbc_applicable}"
+                    state="{ path: 'status', formatter: '.getStatusStateForCBC' }" 
+                    press=".openMilestoneDialog($event,'CBC')"
+                    showSeparator="{path: 'status', formatter: '.getSeparatorForCBC'}">
+                    <commons:customControl>
+                        <ObjectStatus text="{i18n>titleCBC}" state="{ path: 'status', formatter: '.getStatusStateForCBC' }" inverted="true" visible="{cbc_applicable}" />
+                    </commons:customControl>
+                </commons:MicroProcessFlowItem>
 
-        </commons:content>
-   </commons:MicroProcessFlow>
+                <commons:MicroProcessFlowItem id="ObjPage_PCLSD" showSeparator="{=${status} === 'CLSD' || ${status} === 'HLD'}" state="{ path: 'status', formatter: '.showStatusPClosed' }" visible="{=${status} === 'PCLSD'}" press=".openMilestoneDialog($event,'PCLSD')">
+                    <commons:customControl>
+                        <ObjectStatus text="{i18n>titlePartialClosed}" state="{ path: 'status', formatter: '.showStatusPClosed' }" inverted="true"/>
+                    </commons:customControl>
+                </commons:MicroProcessFlowItem>
+
+                <commons:MicroProcessFlowItem id="ObjPage_CLSD" showSeparator="{=${status} === 'PCLSD' || ${status} === 'HLD'}" press=".openMilestoneDialog($event,'CLSD')" visible="{=${status} === 'CLSD'}">
+                    <commons:customControl>
+                        <ObjectStatus text="{i18n>titleClosed}" state="{ path: 'status', formatter: '.getStatusStateForClosed' }" inverted="true" visible="{=${status} === 'CLSD'}"/>
+                    </commons:customControl>
+                </commons:MicroProcessFlowItem>
+
+                <commons:MicroProcessFlowItem id="ObjPage_HLD" showSeparator="false" press=".openMilestoneDialog($event,'HLD')" visible="{=${status} === 'HLD'}">
+                    <commons:customControl>
+                        <ObjectStatus text="{i18n>titleHold}" state="{ path: 'status', formatter: '.getStatusStateForHold' }" inverted="true" visible="{=${status} === 'HLD'}"/>
+                    </commons:customControl>
+                </commons:MicroProcessFlowItem>
+
+            </commons:content>
+        </commons:MicroProcessFlow>
+<!-- Pills color coding end -->
 
 </core:FragmentDefinition>
