@@ -537,7 +537,19 @@ sap.ui.define(
           }
         }.bind(this));
         // --- END OF NEW CODE ---
-        // --- END OF NEW CODE ---
+
+        // >>> NEW BLOCK FOR PAYMENT TABLE <<<
+        var oPayTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table");
+        if (oPayTable) {
+            var oInnerPayTable = oPayTable.getTable();
+            // Attach listener to re-apply logic if user sorts/filters/pages
+            oInnerPayTable.detachEvent("rowsUpdated", this._updatePaymentDocFieldState, this);
+            oInnerPayTable.attachEvent("rowsUpdated", this._updatePaymentDocFieldState, this);
+            
+            // Run immediately
+            this._updatePaymentDocFieldState();
+        }
+        // >>> END NEW BLOCK OF PAYMENT TABLE<<<
         //Value help for CIL capped rate and CIL rate
         this._cilUpdates = {
           "onAfterRendering": function () {
@@ -814,10 +826,24 @@ sap.ui.define(
           oEvent.getParameter("bindingParams").parameters = oEvent.getParameter("bindingParams").parameters || {};
           // Add property 'Gen_pay_receipt_ac' to $select
           oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",Gen_pay_receipt_ac,deferral_adjust";
-          oEvent.getParameter("bindingParams").sorter = [
-            new sap.ui.model.Sorter("sort_date", false),
-            new sap.ui.model.Sorter("sort_document", false)
-          ];
+         // >>> UPDATING THIS BLOCK for payment table sorting logic in bill17 <<<
+          // Check if Bill 17 is Active
+          var vDefPartner = this.getView().getBindingContext().getProperty("to_defpartner");
+          var bIsBill17 = this._isBill17Active(vDefPartner);
+
+          if (bIsBill17) {
+             // BILL 17 SCENARIO: Sort by Invoice Issue Date (Ascending)
+             oEvent.getParameter("bindingParams").sorter = [
+                new sap.ui.model.Sorter("invoice_doc_issue", false) 
+             ];
+          } else {
+             // STANDARD SCENARIO: Sort by Date and Document (Descending)
+             oEvent.getParameter("bindingParams").sorter = [
+                new sap.ui.model.Sorter("sort_date", false),
+                new sap.ui.model.Sorter("sort_document", false)
+             ];
+          }
+          // >>> END UPDATE <<<
         }
         if (oEvent.getSource().getId() ===
           "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table") {
@@ -1710,6 +1736,7 @@ sap.ui.define(
           if (this._updatePartnerFieldState) {
             this._updatePartnerFieldState(oValue);
           }
+          this._updatePaymentDocFieldState(); // Bill 17 payment grey out of fields
           
           // ##$ Change: Immediately refresh table colors based on new value
           this._refreshAllTableStyles();
@@ -1748,32 +1775,24 @@ sap.ui.define(
 
         // --- Logic 2: DC Clearance Date ---
         if (sPath === "dc_clearance_date") {
+          this._updatePaymentDocFieldState(); // Bill 17 payment grey out of fields
           MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
         }
       },
 
-     _updatePartnerFieldState: function (bPermitIssued) {
+  _updatePartnerFieldState: function (bPermitIssued) {
         var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
         var oSmartField = this.getView().byId(sRelativeId);
         
-        // 1. Get Current Status
         var oContext = this.getView().getBindingContext();
         var sStatus = oContext ? oContext.getProperty("status") : "";
 
-        // 2. Define Statuses considered "Greater than or Equal to DC1_APR"
-        // These are the statuses where the field should default to Disabled (Greyed Out)
+        // Statuses where the field must ALWAYS be disabled
         var aRestrictedStatuses = [
-            "DC1_APR",  // DC Level 1 Approved
-            "FIN_PND",  // Final Pending (if applicable)
-            "FIN_APR",  // Final Approved
-            "CLSD",     // Closed
-            "PCLSD",    // Partially Closed
-            "HLD" ,     // Hold,
-            "FIN_REJ " // Final approval reject
+            "DC1_APR", "FIN_PND", "FIN_APR", "CLSD", "PCLSD", "HLD", "FIN_REJ"
         ];
 
         if (oSmartField) {
-          // Force SmartField to be Editable (so we can control inner input enabled state)
           oSmartField.setEditable(true);
 
           var fnFix = function () {
@@ -1781,41 +1800,31 @@ sap.ui.define(
             if (aInner && aInner.length > 0) {
               var oCtrl = aInner[0];
 
-              // --- LOGIC START ---
               if (oCtrl.setEnabled) {
-                // If Status is DC1_APR or higher (Final, Closed, etc.)
+                // --- FIX STARTS HERE ---
                 if (aRestrictedStatuses.includes(sStatus)) {
-                   // RULE: Disabled (Greyed Out) UNLESS Permit is Issued
-                   // bPermitIssued = False -> Field Disabled (Grey)
-                   // bPermitIssued = True  -> Field Enabled
-                   oCtrl.setEnabled(bPermitIssued);
+                   // Case 1: Restricted Status (DC1_APR+) -> ALWAYS DISABLE
+                   oCtrl.setEnabled(false);
                 } else {
-                   // Earlier Statuses (INP, DC1_PND, etc.): Always Enabled in Edit mode
-                   oCtrl.setEnabled(true);
+                   // Case 2: Open Status (INP) -> Disable ONLY if Permit is Issued
+                   oCtrl.setEnabled(!bPermitIssued); 
                 }
+                // --- FIX ENDS HERE ---
               }
-              // --- LOGIC END ---
-
-              // Tokenizer Fix (Keep existing logic)
+              
               if (oCtrl.getAggregation) {
                 var oTokenizer = oCtrl.getAggregation("tokenizer");
                 if (oTokenizer) {
-                  if (oTokenizer.setRenderMode) {
-                    oTokenizer.setRenderMode("Loose");
-                  }
+                  if (oTokenizer.setRenderMode) oTokenizer.setRenderMode("Loose");
                   oTokenizer.addEventDelegate({
                     onAfterRendering: function () {
-                      if (this.getRenderMode() !== "Loose") {
-                        this.setRenderMode("Loose");
-                      }
+                      if (this.getRenderMode() !== "Loose") this.setRenderMode("Loose");
                     }
                   }, oTokenizer);
                 }
               }
             }
           };
-
-          // Run immediately and attach to events
           fnFix();
           oSmartField.detachEvent("innerControlsCreated", fnFix);
           oSmartField.attachEvent("innerControlsCreated", fnFix);
@@ -2075,6 +2084,106 @@ sap.ui.define(
       // ====================================================================
       //  END OF STATUS PILL LOGIC
       // ====================================================================
+   
+
+
+      // Bill17 case Graying out of the payment field
+   // --- HELPER: DISABLE PAYMENT DOCUMENT FIELD ---
+     // --- HELPER: DISABLE PAYMENT DOCUMENT FIELD ---
+      _updatePaymentDocFieldState: function () {
+        // console.log("[DEBUG] _updatePaymentDocFieldState: Starting...");
+
+        var sTableId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table";
+        var oSmartTable = sap.ui.getCore().byId(sTableId);
+        
+        if (!oSmartTable) { return; }
+        
+        var oInnerTable = oSmartTable.getTable(); 
+        var aRows = oInnerTable.getRows();
+        var aColumns = oInnerTable.getColumns();
+
+        var oHeaderContext = this.getView().getBindingContext();
+        if (!oHeaderContext) return;
+
+        // --- 1. ROBUST BILL 17 CHECK (Recursive Token Finder) ---
+        var bIsBill17 = false;
+        var oPartnerField = this.getView().byId("DCHeader-FG2::to_defpartner::id::MultiInput");
+
+        // Helper: safely checks if a control has tokens
+        var fnHasTokens = function(oCtrl) {
+            if (oCtrl && oCtrl.getTokens) {
+                return oCtrl.getTokens().length > 0;
+            }
+            return false;
+        };
+
+        if (oPartnerField) {
+            // Check 1: Is the control itself the MultiInput?
+            if (fnHasTokens(oPartnerField)) {
+                bIsBill17 = true;
+            } 
+            // Check 2: Does it contain the MultiInput (SmartField Wrapper)?
+            else if (oPartnerField.getInnerControls) {
+                var aInner = oPartnerField.getInnerControls();
+                for (var k = 0; k < aInner.length; k++) {
+                    if (fnHasTokens(aInner[k])) {
+                        bIsBill17 = true;
+                        break; 
+                    }
+                }
+            }
+        }
+
+    
+        var bPermitIssued = oHeaderContext.getProperty("permit_issued");
+        var dDcClearance = oHeaderContext.getProperty("dc_clearance_date");
+
+        // --- 2. EVALUATE CONDITION ---
+        var bShouldDisable = bIsBill17 && bPermitIssued && (dDcClearance !== null && dDcClearance !== "" && dDcClearance !== undefined);
+        var bEditable = !bShouldDisable;
+        
+        // console.log("[DEBUG] Bill17: " + bIsBill17 + " | Disable: " + bShouldDisable);
+
+        // --- 3. FIND TARGET COLUMN (Including CustomColumn1) ---
+        var iDocNoIndex = -1;
+        for (var i = 0; i < aColumns.length; i++) {
+            var oCol = aColumns[i];
+            var sKey = "";
+            if (oCol.data && oCol.data("p13nData") && oCol.data("p13nData").columnKey) {
+                sKey = oCol.data("p13nData").columnKey;
+            }
+            if (!sKey) sKey = oCol.getId();
+
+            // Match 'CustomColumn1' (from your logs) or 'document_no'
+            if (sKey === "document_no" || sKey === "CustomColumn1" || sKey.indexOf("document_no") > -1) {
+                iDocNoIndex = i;
+                break;
+            }
+        }
+
+        if (iDocNoIndex === -1) {
+            // console.error("[DEBUG] CRITICAL: Column not found.");
+            return; 
+        }
+
+        // --- 4. APPLY STATE (Drill-Down) ---
+        var fnDisableControl = function(oControl) {
+            if (!oControl) return;
+            if (oControl.setEditable) oControl.setEditable(bEditable);
+            else if (oControl.setEnabled) oControl.setEnabled(bEditable);
+
+            if (oControl.getItems) oControl.getItems().forEach(fnDisableControl);
+            else if (oControl.getContent) oControl.getContent().forEach(fnDisableControl);
+        };
+
+        aRows.forEach(function (oRow) {
+          var aCells = oRow.getCells();
+          if (aCells.length > iDocNoIndex) {
+              fnDisableControl(aCells[iDocNoIndex]);
+          }
+        });
+      },
+
       //end of controller
 
 
