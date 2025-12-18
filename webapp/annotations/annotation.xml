@@ -680,6 +680,44 @@
                 </Annotation>
                 <!--  dc header moved from backend to frontend end  -->
 
+                 <!-- //Invoice Calculation Date Changed -->
+                 <Annotation Term="Common.SideEffects" Qualifier="InvCalcDateChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>invoice_calculation_date</PropertyPath>
+                                <PropertyPath>interest_applied_date</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+
+                        
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
+                        
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <PropertyPath>days_of_interest</PropertyPath>
+                                <PropertyPath>dc_valid_until</PropertyPath>
+                                
+                                <PropertyPath>occupancy_valid_until</PropertyPath>
+                                <PropertyPath>occupancy_valid_until_fc</PropertyPath>
+                                <PropertyPath>occupancy_clearance_date</PropertyPath>
+                                <PropertyPath>total_def_non_dc_payable</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_defpartner</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
                 <!-- // Bill 17 changes -->
 
                 <Annotation Term="Common.SideEffects" Qualifier="Bill17PartnerChanged">
@@ -912,35 +950,6 @@
             </Annotations>
 
             <Annotations Target="SAP.zgc_c_requestsType">
-                <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="InvCalcDateChanged">
-                    <Record>
-                        <PropertyValue Property="SourceProperties">
-                            <Collection>
-                                <PropertyPath>invoice_calculation_date</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-
-                        <!--Calling the calculate function. This will refresh to_dccal,to_demos,to_exemptions,to_sec14,to_dc_spec -->
-
-                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
-
-                        <!-- Defect 115 added below anotation 23/07/2025 -->
-
-                        <PropertyValue Property="TargetEntities">
-                            <Collection>
-                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
-
-                                <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>
-
-                                <NavigationPropertyPath>to_demos</NavigationPropertyPath>
-
-                                <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
-
-                                <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
 
                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CILPayableChanged">
                     <Record>
@@ -1996,42 +2005,7 @@
                 <Annotation Term="UI.Hidden" Path="bill17_hidden" />
             </Annotations>
 
-            //Invoice Calculation Date Changed
-            <Annotation Term="Common.SideEffects" Qualifier="InvCalcDateChanged">
-                    <Record Type="Common.SideEffectsType">
-                        <PropertyValue Property="SourceProperties">
-                            <Collection>
-                                <PropertyPath>invoice_calculation_date</PropertyPath>
-                                <PropertyPath>interest_applied_date</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                        
-                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
-                        
-                        <PropertyValue Property="TargetProperties">
-                            <Collection>
-                                <PropertyPath>days_of_interest</PropertyPath>
-                                <PropertyPath>dc_valid_until</PropertyPath>
-                                
-                                <PropertyPath>occupancy_valid_until</PropertyPath>
-                                <PropertyPath>occupancy_valid_until_fc</PropertyPath>
-                                <PropertyPath>occupancy_clearance_date</PropertyPath>
-                                <PropertyPath>total_def_non_dc_payable</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-
-                        <PropertyValue Property="TargetEntities">
-                            <Collection>
-                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
-                                <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>
-                                <NavigationPropertyPath>to_demos</NavigationPropertyPath>
-                                <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
-                                <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
-                                <NavigationPropertyPath>to_defpartner</NavigationPropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
+           
 
           
 
