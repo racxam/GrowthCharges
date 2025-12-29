@@ -1778,6 +1778,11 @@ sap.ui.define(
           this._updatePaymentDocFieldState(); // Bill 17 payment grey out of fields
           MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
         }
+        
+        // --- Logic 3: Occupancy Clearance Date (NEW) ---
+        if (sPath === "occupancy_clearance_date") {
+          MessageBox.warning("Once you save the request, you will not be able to edit the Occupancy Clearance Date.");
+        }
       },
 
   _updatePartnerFieldState: function (bPermitIssued) {
