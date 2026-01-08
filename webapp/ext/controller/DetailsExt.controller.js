@@ -20,57 +20,38 @@ sap.ui.define(
        * @private
        */
       _enableVariantManagement: function () {
-        //DC Tables
-        const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
-        oDCTable.setUseVariantManagement(true);
-        oDCTable.setUseExportToExcel(true);
-        oDCTable.setShowFullScreenButton(true);
-        const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
-        oSec14Table.setUseVariantManagement(true);
-        oSec14Table.setUseExportToExcel(true);
-        oSec14Table.setShowFullScreenButton(true);
-        const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table");
-        demoTable.setUseVariantManagement(true);
-        demoTable.setUseExportToExcel(true);
-        demoTable.setShowFullScreenButton(true);
-        const totalNonIndDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table");
-        totalNonIndDCTable.setUseVariantManagement(true);
-        totalNonIndDCTable.setUseExportToExcel(true);
-        totalNonIndDCTable.setShowFullScreenButton(true);
-        const oExemptionDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table");
-        oExemptionDCTable.setUseVariantManagement(true);
-        oExemptionDCTable.setUseExportToExcel(true);
-        oExemptionDCTable.setShowFullScreenButton(true);
-        const oDeferralDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCDeferralTable-ID::Table");
-        oDeferralDCTable.setUseVariantManagement(true);
-        oDeferralDCTable.setUseExportToExcel(true);
-        oDeferralDCTable.setShowFullScreenButton(true);
-        const oPrvBuidlingPermitDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
-        oPrvBuidlingPermitDCTable.setUseVariantManagement(true);
-        oPrvBuidlingPermitDCTable.setUseExportToExcel(true);
-        oPrvBuidlingPermitDCTable.setShowFullScreenButton(true);
+        // Helper function to safely configure a table if it exists
+        const fnConfigureTable = function (sId) {
+          const oTable = sap.ui.getCore().byId(
+            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sId + "::Table"
+          );
 
-        //CBC Tables
-        const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
-        oCBCExemptTable.setUseVariantManagement(true);
-        oCBCExemptTable.setShowFullScreenButton(true);
-        const oCBCInKindTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--InKindContr-ID::Table");
-        oCBCInKindTable.setUseVariantManagement(true);
-        oCBCInKindTable.setShowFullScreenButton(true);
-        const oCBCDemoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemoExm-ID::Table");
-        oCBCDemoTable.setUseVariantManagement(true);
-        oCBCDemoTable.setShowFullScreenButton(true);
+          // CRITICAL FIX: Only proceed if the table actually exists
+          if (oTable) {
+            oTable.setUseVariantManagement(true);
+            oTable.setUseExportToExcel(true);
+            oTable.setShowFullScreenButton(true);
+          }
+        };
 
-        //Payment Table
-        const oPaymentInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table");
-        oPaymentInfoPaymentTable.setUseVariantManagement(true);
-        oPaymentInfoPaymentTable.setShowFullScreenButton(true);
-        const oRefundInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--RefundInfo-ID::Table");
-        oRefundInfoPaymentTable.setUseVariantManagement(true);
-        oRefundInfoPaymentTable.setShowFullScreenButton(true);
-        const oDeferralPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DeferralInfo-ID::Table");
-        oDeferralPaymentTable.setUseVariantManagement(true);
-        oDeferralPaymentTable.setShowFullScreenButton(true);
+        // --- DC Tables ---
+        fnConfigureTable("TotalDC-ID");
+        fnConfigureTable("Section-14-ID");
+        fnConfigureTable("DemolitionCred-ID");
+        fnConfigureTable("TotalDC-ID-NonInd");
+        fnConfigureTable("DCExemption-ID");
+        fnConfigureTable("DCDeferralTable-ID");
+        fnConfigureTable("Previous-Building-Permit-Credit-ID");
+
+        // --- CBC Tables ---
+        fnConfigureTable("ExemptionCBC-ID");
+        fnConfigureTable("InKindContr-ID");
+        fnConfigureTable("DemoExm-ID");
+
+        // --- Payment Tables ---
+        fnConfigureTable("PaymentInfo-ID");
+        fnConfigureTable("RefundInfo-ID");
+        fnConfigureTable("DeferralInfo-ID");
       },
 
       /**
@@ -157,47 +138,72 @@ sap.ui.define(
       },
 
       _hideDCButtons: function () {
-        const aButtonSufixes = ["TotalDC-ID::addEntry",
-          "TotalDC-ID::deleteEntry", "DemolitionCred-ID::addEntry",
-          "Section-14-ID::addEntry", "DCExemption-ID::addEntry"];
+        // List of all standard Add/Delete buttons in the DC Section tables
+        const aButtonSufixes = [
+          "TotalDC-ID::addEntry",
+          "TotalDC-ID::deleteEntry",
+          "DemolitionCred-ID::addEntry",
+          "DemolitionCred-ID::deleteEntry", // Good practice to include delete if it exists
+          "Section-14-ID::addEntry",
+          "Section-14-ID::deleteEntry",
+          "DCExemption-ID::addEntry",
+          "DCExemption-ID::deleteEntry"
+        ];
 
-        //Disable all buttons
+        // LOGIC: Enable only if Editable AND Status is NOT Final/Closed/Hold
+        // This decouples it from the 'permit_issued' lock but respects the overall status.
+        var sExpression = "{= ${ui>/editable} && ${status} !== 'FIN_APR' && ${status} !== 'CLSD' && ${status} !== 'PCLSD' && ${status} !== 'HLD' }";
+
         aButtonSufixes.forEach(function (sButtonSufix) {
           const oButton = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sButtonSufix);
-          oButton.setEnabled(false);
+          if (oButton) {
+            // Bind the 'enabled' property to our expression
+            oButton.bindProperty("enabled", {
+              parts: [
+                { path: "ui>/editable" },
+                { path: "status" }
+              ],
+              formatter: function (bEditable, sStatus) {
+                return bEditable && sStatus !== 'FIN_APR' && sStatus !== 'CLSD' && sStatus !== 'PCLSD' && sStatus !== 'HLD';
+              }
+            });
+          }
         });
       },
       _addCustomActions: function () {
         let oCalculateButton = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton");
-        if (oCalculateButton) {
-          return;
-        }
-        //Calculate Button
-        oCalculateButton = new Button(
-          {
+
+        // 1. Calculate Button
+        if (!oCalculateButton) {
+          oCalculateButton = new Button({
             "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton",
             "text": "Calculate",
             "type": "Emphasized",
             "press": this.onPressDCCalc.bind(this),
             "visible": "{ui>/editable}",
-            "enabled": "{= ${ui>/editable} && ${dc_applicable_fc} !== 1}"
-          }
-        );
-        const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
-        const oDCHeader = oDCTable.getToolbar();
-        oDCHeader.addContent(oCalculateButton);
-        //Add New PBP Button
-        const oNewPBPButton = new Button(
-          {
+            // LOGIC: Enable if Editable AND Status is NOT Final/Closed/Hold
+            "enabled": "{= ${ui>/editable} && ${status} !== 'FIN_APR' && ${status} !== 'CLSD' && ${status} !== 'PCLSD' && ${status} !== 'HLD' }"
+          });
+          const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
+          const oDCHeader = oDCTable.getToolbar();
+          oDCHeader.addContent(oCalculateButton);
+        }
+
+        let oNewPBPButton = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton");
+
+        // 2. Add Credit Button
+        if (!oNewPBPButton) {
+          oNewPBPButton = new Button({
             "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton",
             "text": "Add Credit",
             "press": this.onPressNewPBP.bind(this),
-            "enabled": "{= ${ui>/editable} && ${dc_applicable_fc} !== 1}"
-          }
-        );
-        const oPBPTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
-        const oPBPHeader = oPBPTable.getToolbar();
-        oPBPHeader.addContent(oNewPBPButton);
+            // LOGIC: Enable if Editable AND Status is NOT Final/Closed/Hold
+            "enabled": "{= ${ui>/editable} && ${status} !== 'FIN_APR' && ${status} !== 'CLSD' && ${status} !== 'PCLSD' && ${status} !== 'HLD' }"
+          });
+          const oPBPTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
+          const oPBPHeader = oPBPTable.getToolbar();
+          oPBPHeader.addContent(oNewPBPButton);
+        }
       },
       _defineLocalModel: function () {
         const oLocalModel = new JSONModel({
@@ -210,10 +216,19 @@ sap.ui.define(
         //Enable Variant management for various tables
         this._enableVariantManagement();
         //Warning poup when DC clearance datee edited
-        const dcClearanceDate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo_FG-ID::dc_clearance_date::Field");
-        dcClearanceDate.attachChange(function (oEvent) {
-          MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
-        });
+        // FIX 1: Get Model from Component safely and use correct event 'attachPropertyChange'
+        var oComponent = this.getOwnerComponent();
+        if (oComponent) {
+          var oModel = oComponent.getModel();
+          if (oModel) {
+            oModel.attachPropertyChange(this._onPropertyChange, this);
+          }
+        }
+
+        // const dcClearanceDate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo_FG-ID::dc_clearance_date::Field");
+        // dcClearanceDate.attachChange(function (oEvent) {
+        //   MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
+        // });
         const oRouter = this.getOwnerComponent().getRouter();
         const sHashKey = oRouter.getHashChanger().key;
         if (sHashKey === "Child") {
@@ -288,10 +303,19 @@ sap.ui.define(
           //that._hidePasteButton();
           //Park Planner in Edit Mode. Disable DC buttons
           const oRequest = event.context.getObject();
+          // Check initial state and disable field if needed
+          //  Check Initial State for Partner Field
+          //  Change: Removed 'if' check so it updates (enables/disables) regardless of value
+          this._updatePartnerFieldState(!!oRequest.permit_issued);
+
+          // Apply state to the Permit Issued checkbox itself
+          this._disablePermitIssuedField(!!oRequest.permit_issued);
+
           if (oRequest.dc_applicable_fc === 1 && oRequest.Activation_ac) {
             //Without the below delay, action buttons like 'Calculate' and 'Add Credit' are not getting disabled
             that._hideDCButtons();
           }
+
 
           //Calculate and Add Credit Button Visibility
           const oCalBtn = sap.ui.getCore().byId(
@@ -326,7 +350,7 @@ sap.ui.define(
           });
           view.byId("PDFViewer").setModel(this._oModel, "local");
 
-        });
+        }.bind(this));
 
         //On clicking Invoice tab, refresh the PDF Viewer
         const oObjectPage = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--objectPage");
@@ -341,7 +365,7 @@ sap.ui.define(
           }
         });
       },
-//commented this to match the code with ECD (1809) system code 29/08/2025  for defect 216
+      //commented this to match the code with ECD (1809) system code 29/08/2025  for defect 216
 
       // _defineCILIconControl: function (sId) {
       //   const oCILIcon = new Icon(
@@ -405,7 +429,7 @@ sap.ui.define(
         }
         return oCILIcon;
       },
-//commented this to match the code with ECD (1809) system code 29/08/2025  for defect 216
+      //commented this to match the code with ECD (1809) system code 29/08/2025  for defect 216
       // _addCILIconControl: function () {
       //   const aCILGroup = ["density_payable", "exm_units", "oth_cr_units"];
       //   aCILGroup.forEach(mItem => {
@@ -460,12 +484,53 @@ sap.ui.define(
         });
       },
       //added below code to match the code with ECD (1809) system code 29/08/2025  for defect 216
-       _applyCustomSpanToInput : function(oControl){
-        oControl.setLayoutData(new sap.ui.layout.GridData({span:"L10 M10 S12"}));
+      _applyCustomSpanToInput: function (oControl) {
+        oControl.setLayoutData(new sap.ui.layout.GridData({ span: "L10 M10 S12" }));
       },
       onAfterRendering: function () {
         this._applyDefaultVariant();
         this._addCILIconControl();
+        this._insertBelowBill17DeferralPartner();
+
+
+        //  START OF NEW CODE 
+        // List of all tables that need the "Grey Row" logic
+        var aTableIds = [
+          "TotalDC-ID",
+          "Section-14-ID",
+          "DemolitionCred-ID",
+          "DCExemption-ID"
+        ];
+
+        aTableIds.forEach(function (sId) {
+          var oSmartTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sId + "::Table");
+
+          if (oSmartTable) {
+            var oInnerTable = oSmartTable.getTable();
+
+            // 1. Detach/Attach Listener (For future updates)
+            oInnerTable.detachEvent("rowsUpdated", this._onDcTableDataReceived, this);
+            oInnerTable.attachEvent("rowsUpdated", this._onDcTableDataReceived, this);
+
+            // 2. FIX: CALL IMMEDIATELY (For data already loaded)
+            // Pass the table directly to the function
+            this._onDcTableDataReceived(oInnerTable);
+          }
+        }.bind(this));
+        // --- END OF NEW CODE ---
+
+        // >>> NEW BLOCK FOR PAYMENT TABLE <<<
+        var oPayTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table");
+        if (oPayTable) {
+          var oInnerPayTable = oPayTable.getTable();
+          // Attach listener to re-apply logic if user sorts/filters/pages
+          oInnerPayTable.detachEvent("rowsUpdated", this._updatePaymentDocFieldState, this);
+          oInnerPayTable.attachEvent("rowsUpdated", this._updatePaymentDocFieldState, this);
+
+          // Run immediately
+          this._updatePaymentDocFieldState();
+        }
+        // >>> END NEW BLOCK OF PAYMENT TABLE<<<
         //Value help for CIL capped rate and CIL rate
         this._cilUpdates = {
           "onAfterRendering": function () {
@@ -708,6 +773,31 @@ sap.ui.define(
           cil_CommentsSubSection.onAfterRendering = setBlocksRight;
         }
 
+        // FIX 1 (Backup): Ensure Field State is applied after rendering
+        // This catches cases where onInit was too early
+        var oContext = this.getView().getBindingContext();
+        if (oContext) {
+          var bPermitIssued = oContext.getProperty("permit_issued");
+
+
+          // 1. Disable/Grey out Deferral Partners
+          if (this._updatePartnerFieldState) {
+            this._updatePartnerFieldState(!!bPermitIssued);
+          }
+
+          // 2. [NEW] Disable "Permit Issued" checkbox itself
+          // ##$ Change: Removed 'if (bPermitIssued)' check so it can re-enable if false
+          if (this._disablePermitIssuedField) {
+            this._disablePermitIssuedField(!!bPermitIssued);
+          }
+        }
+
+        // [NEW] Force the list to show ALL items by default
+        // We wrap it in a small timeout to ensure the control is fully drawn by Fiori first
+        setTimeout(function () {
+          this._forceFullTokenDisplay();
+        }.bind(this), 500);
+
 
       },
 
@@ -717,10 +807,24 @@ sap.ui.define(
           oEvent.getParameter("bindingParams").parameters = oEvent.getParameter("bindingParams").parameters || {};
           // Add property 'Gen_pay_receipt_ac' to $select
           oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",Gen_pay_receipt_ac,deferral_adjust";
-          oEvent.getParameter("bindingParams").sorter = [
-            new sap.ui.model.Sorter("sort_date", false),
-            new sap.ui.model.Sorter("sort_document", false)
-          ];
+          // >>> UPDATING THIS BLOCK for payment table sorting logic in bill17 <<<
+          // Check if Bill 17 is Active
+          var vDefPartner = this.getView().getBindingContext().getProperty("to_defpartner");
+          var bIsBill17 = this._isBill17Active(vDefPartner);
+
+          if (bIsBill17) {
+            // BILL 17 SCENARIO: Sort by Invoice Issue Date (Ascending)
+            oEvent.getParameter("bindingParams").sorter = [
+              new sap.ui.model.Sorter("invoice_doc_issue", true)
+            ];
+          } else {
+            // STANDARD SCENARIO: Sort by Date and Document (Descending)
+            oEvent.getParameter("bindingParams").sorter = [
+              new sap.ui.model.Sorter("sort_date", false),
+              new sap.ui.model.Sorter("sort_document", false)
+            ];
+          }
+          // >>> END UPDATE <<<
         }
         if (oEvent.getSource().getId() ===
           "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table") {
@@ -748,7 +852,7 @@ sap.ui.define(
           var oBindingParams = oEvent.getParameter("bindingParams");
           oBindingParams.parameters = oBindingParams.parameters || {};
           oBindingParams.parameters.operationMode = "Client";
-          oBindingParams.parameters.select = oBindingParams.parameters.select + ",is_rate_edited";
+          oBindingParams.parameters.select = oBindingParams.parameters.select + ",is_rate_edited,is_bill17_appl";
         }
 
         //Default sorting by sort_order, dc_type, hierarchy_level, sub_service_id
@@ -1560,7 +1664,586 @@ sap.ui.define(
             }
             oDialog.openBy(this.status1);
           }.bind(this));
-      }
+      },
+      //  Change: Updated logic to inverse greying based on Permit Issued status
+      _onDcTableDataReceived: function (oEventOrTable) {
+        var oTable;
+        if (oEventOrTable.getSource) {
+          oTable = oEventOrTable.getSource(); // Event
+        } else {
+          oTable = oEventOrTable; // Direct Control
+        }
+
+        // 1. Get Permit Issued Status
+        var bPermitIssued = false;
+        if (this.getView().getBindingContext()) {
+          bPermitIssued = this.getView().getBindingContext().getProperty("permit_issued");
+        }
+
+        var aRows = oTable.getRows();
+
+        aRows.forEach(function (oRow) {
+          var oContext = oRow.getBindingContext();
+          if (oContext) {
+            var oRowData = oContext.getObject();
+
+            // 2. Determine Logic
+            // If Permit Issued (True)  AND is_bill17 (False) -> Grey Out (True)
+            // If Permit Issued (False) AND is_bill17 (True)  -> Grey Out (True)
+            // This is an inequality check (!==)
+            var bShouldGrey = false;
+            if (oRowData) {
+              bShouldGrey = (!!bPermitIssued !== !!oRowData.is_bill17_appl);
+            }
+
+            if (bShouldGrey) {
+              oRow.addStyleClass("greyedOutRow");
+            } else {
+              oRow.removeStyleClass("greyedOutRow");
+            }
+          }
+        });
+      },
+
+      _onPropertyChange: function (oEvent) {
+        var sPath = oEvent.getParameter("path");
+        var oValue = oEvent.getParameter("value");
+        var oContext = oEvent.getParameter("context");
+
+        // --- Logic 1: Permit Issued ---
+        if (sPath === "permit_issued") {
+
+          // A. Update Field State (Existing)
+          if (this._updatePartnerFieldState) {
+            this._updatePartnerFieldState(oValue);
+          }
+          this._updatePaymentDocFieldState(); // Bill 17 payment grey out of fields
+
+          // ##$ Change: Immediately refresh table colors based on new value
+          this._refreshAllTableStyles();
+
+          // B. Popup Logic
+          if (oValue === true) {
+            var that = this;
+            MessageBox.warning(
+              "Once Permit Issued is selected, it cannot be unchecked.\n\nAs permit issued is selected you can't add or delete the Deferral Partners.",
+              {
+                title: "Warning",
+                actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+                onClose: function (sAction) {
+                  if (sAction === MessageBox.Action.CANCEL) {
+                    // Revert
+                    var sFullPath = oContext.getPath() + "/permit_issued";
+                    that.getView().getModel().setProperty(sFullPath, false);
+                    that.getView().getModel().resetChanges([sFullPath]);
+
+                    if (that._updatePartnerFieldState) {
+                      that._updatePartnerFieldState(false);
+                    }
+
+                    // ##$ Change: Revert table colors back to original state
+                    that._refreshAllTableStyles();
+
+                  } else {
+                    // Lock
+                    that._disablePermitIssuedField(true);
+                  }
+                }
+              }
+            );
+          }
+        }
+
+        // --- Logic 2: DC Clearance Date ---
+        if (sPath === "dc_clearance_date") {
+          this._updatePaymentDocFieldState(); // Bill 17 payment grey out of fields
+          MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
+        }
+
+        // --- Logic 3: Occupancy Clearance Date (NEW) ---
+        if (sPath === "occupancy_clearance_date") {
+          MessageBox.warning("Once you save the request, you will not be able to edit the Occupancy Clearance Date.");
+        }
+      },
+
+      _updatePartnerFieldState: function (bPermitIssued) {
+        var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
+        var oSmartField = this.getView().byId(sRelativeId);
+
+        var oContext = this.getView().getBindingContext();
+        var sStatus = oContext ? oContext.getProperty("status") : "";
+
+        // Statuses where the field must ALWAYS be disabled
+        var aRestrictedStatuses = [
+          "DC1_APR", "FIN_PND", "FIN_APR", "CLSD", "PCLSD", "HLD", "FIN_REJ"
+        ];
+
+        if (oSmartField) {
+          oSmartField.setEditable(true);
+
+          var fnFix = function () {
+            var aInner = oSmartField.getInnerControls();
+            if (aInner && aInner.length > 0) {
+              var oCtrl = aInner[0];
+
+              if (oCtrl.setEnabled) {
+                // --- FIX STARTS HERE ---
+                if (aRestrictedStatuses.includes(sStatus)) {
+                  // Case 1: Restricted Status (DC1_APR+) -> ALWAYS DISABLE
+                  oCtrl.setEnabled(false);
+                } else {
+                  // Case 2: Open Status (INP) -> Disable ONLY if Permit is Issued
+                  oCtrl.setEnabled(!bPermitIssued);
+                }
+                // --- FIX ENDS HERE ---
+              }
+
+              if (oCtrl.getAggregation) {
+                var oTokenizer = oCtrl.getAggregation("tokenizer");
+                if (oTokenizer) {
+                  if (oTokenizer.setRenderMode) oTokenizer.setRenderMode("Loose");
+                  oTokenizer.addEventDelegate({
+                    onAfterRendering: function () {
+                      if (this.getRenderMode() !== "Loose") this.setRenderMode("Loose");
+                    }
+                  }, oTokenizer);
+                }
+              }
+            }
+          };
+          fnFix();
+          oSmartField.detachEvent("innerControlsCreated", fnFix);
+          oSmartField.attachEvent("innerControlsCreated", fnFix);
+        }
+      },
+
+      _forceFullTokenDisplay: function () {
+        var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
+        var oSmartField = this.getView().byId(sRelativeId);
+
+        if (oSmartField) {
+          // Define the fix logic
+          var fnApplyLooseMode = function () {
+            var aInner = oSmartField.getInnerControls();
+            if (aInner && aInner.length > 0) {
+              var oMultiInput = aInner[0];
+
+              // Access the internal Tokenizer of the MultiInput
+              if (oMultiInput.getAggregation) {
+                var oTokenizer = oMultiInput.getAggregation("tokenizer");
+                if (oTokenizer) {
+
+                  // 1. Apply "Loose" mode immediately (Forces wrapping)
+                  if (oTokenizer.setRenderMode && oTokenizer.getRenderMode() !== "Loose") {
+                    oTokenizer.setRenderMode("Loose");
+                  }
+
+                  // 2. Add a "Watchdog" (Delegate) to keep it Loose forever
+                  // Fiori loves to reset this on re-render, so we force it back every time.
+                  if (!oTokenizer._bLooseDelegateAdded) {
+                    oTokenizer.addEventDelegate({
+                      onAfterRendering: function () {
+                        if (this.getRenderMode() !== "Loose") {
+                          this.setRenderMode("Loose");
+                        }
+                      }
+                    }, oTokenizer);
+                    oTokenizer._bLooseDelegateAdded = true;
+                  }
+                }
+              }
+            }
+          };
+
+          // Run immediately
+          fnApplyLooseMode();
+
+          // Also attach to the SmartField's creation event to catch it if it redraws later
+          oSmartField.detachEvent("innerControlsCreated", fnApplyLooseMode);
+          oSmartField.attachEvent("innerControlsCreated", fnApplyLooseMode);
+        }
+      },
+      // Helper to disable the Permit Issued field itself
+      _disablePermitIssuedField: function (bDisable) {
+        // 1. Try to find the field using the binding path "permit_issued"
+        // This is safer than guessing the ID (e.g. PaymentInfo_FG vs PayHeader)
+        var aControls = this.getView().findAggregatedObjects(true, function (oControl) {
+          return oControl.getBindingPath && oControl.getBindingPath("value") === "permit_issued";
+        });
+
+        // 2. If found, set Enabled/Editable to false
+        if (aControls.length > 0) {
+          var oControl = aControls[0];
+          if (oControl.setEnabled) {
+            oControl.setEnabled(!bDisable);
+          } else if (oControl.setEditable) {
+            oControl.setEditable(!bDisable);
+          }
+        }
+      },
+
+      // ====================================================================
+      //  STATUS PILL & COLOR CODING LOGIC (DYNAMIC BILL 17)
+      // ====================================================================
+      // ====================================================================
+      //  STATUS PILL & COLOR CODING LOGIC (FIXED: ENABLE FINAL PILL FOR STANDARD)
+      // ====================================================================
+
+      _isBill17Active: function (vDefPartner) {
+        if (!vDefPartner) return false;
+        if (vDefPartner.results && vDefPartner.results.length > 0) return true;
+        if (Array.isArray(vDefPartner) && vDefPartner.length > 0) return true;
+        return false;
+      },
+
+      // --- 1. CIL PILL ---
+      getStatusStateForCIL: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return "None"; // Grey
+
+        if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND") return "Warning";
+        if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") return "Error";
+        if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "FIN_PND" ||
+          sStatus === "DC1_APR" || sStatus === "DC1_PND" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
+
+        return "Information";
+      },
+
+      // --- 2. GENERIC DC PILL ---
+      _isDCPillVisible: function (bDcApplicable, vDefPartner) {
+        if (this._isBill17Active(vDefPartner)) return false;
+        return !!bDcApplicable;
+      },
+
+      getStatusStateForDC: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return "None";
+
+        if (sStatus === "FIN_PND" || sStatus === "DC1_PND") return "Warning";
+        if (sStatus === "FIN_REJ" || sStatus === "DC1_REJ") return "Error";
+        if (sStatus === "FIN_APR" || sStatus === "DC1_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
+        return "Information";
+      },
+
+      // --- 3. BILL 17: LEVEL 1 PILL ---
+      _isBill17PillVisible: function (vDefPartner, sStatus) {
+        // Level 1 is STRICTLY for Bill 17
+        if (!this._isBill17Active(vDefPartner)) return false;
+
+        var aVisibleStatuses = [
+          "DC1_PND", "DC1_APR", "DC1_REJ",
+          "FIN_PND", "FIN_APR", "FIN_REJ",
+          "CLSD", "PCLSD", "HLD",
+          "WITHDRAWN"
+        ];
+        return aVisibleStatuses.includes(sStatus);
+      },
+
+      getBill17Level1State: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return "None";
+
+        if (sStatus === "DC1_PND") return "Information";
+        if (sStatus === "DC1_REJ") return "Error";
+        return "Success";
+      },
+
+      getBill17Level1Text: function (sStatus) {
+        if (sStatus === "DC1_PND") return "DC Level 1 Approval";
+        if (sStatus === "DC1_REJ") return "DC Level 1 Rejected";
+        // History text for all other states
+        return "DC Level 1 Approved";
+      },
+
+      // --- 4. BILL 17: FINAL APPROVAL PILL (RENAMED MENTALLY TO 'FINAL PILL') ---
+      _isBill17FinalPillVisible: function (vDefPartner, sStatus) {
+        // FIX: REMOVED STRICT BILL 17 CHECK.
+        // This pill should show for Standard Cases too if they are Approved.
+
+        var aVisibleStatuses = [
+          "DC1_APR", // Bill 17 specific Pending
+          "FIN_PND", // Generic Pending
+          "FIN_APR", // Generic Approved
+          "CLSD", "PCLSD"
+        ];
+
+        return aVisibleStatuses.includes(sStatus);
+      },
+
+      getBill17FinalPillState: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return "None";
+
+        if (sStatus === "DC1_APR" || sStatus === "FIN_PND") return "Warning"; // Pending
+        if (sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
+        return "None";
+      },
+
+      getBill17FinalPillText: function (sStatus) {
+        if (sStatus === "DC1_APR" || sStatus === "FIN_PND") return "Final Approval";
+        return "Final Approved";
+      },
+
+      // --- 5. CBC PILL ---
+      getStatusStateForCBC: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return "None";
+
+        if (sStatus === "FIN_PND" || sStatus === "DC1_APR") return "Warning";
+        if (sStatus === "FIN_REJ") return "Error";
+        if (sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
+        return "Information";
+      },
+
+      // --- 6. SEPARATOR LOGIC ---
+      _isStatusPillVisible: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return false;
+        return sStatus === "CLSD" || sStatus === "PCLSD" || sStatus === "HLD";
+      },
+
+      getSeparatorForCIL: function (bDc, vDefPartner, bCbc, sStatus) {
+        // Do not force return false on Withdrawn, rely on next pill visibility
+        var bGenericDcVisible = this._isDCPillVisible(bDc, vDefPartner);
+        var bBill17Visible = this._isBill17PillVisible(vDefPartner, sStatus) || this._isBill17FinalPillVisible(vDefPartner, sStatus);
+
+        return !!(bGenericDcVisible || bBill17Visible || bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForDC: function (vDefPartner, bCbc, sStatus) {
+        var bBill17Visible = this._isBill17PillVisible(vDefPartner, sStatus) || this._isBill17FinalPillVisible(vDefPartner, sStatus);
+        return !!(bBill17Visible || bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForBill17: function (vDefPartner, bCbc, sStatus) {
+        var bFinalVisible = this._isBill17FinalPillVisible(vDefPartner, sStatus);
+        return !!(bFinalVisible || bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForBill17Final: function (bCbc, sStatus) {
+        return !!(bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForCBC: function (sStatus) {
+        return !!(this._isStatusPillVisible(sStatus));
+      },
+
+      // --- 7. STANDARD LEGACY LOGIC ---
+      getStatusStateForClosed: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return "None";
+
+        if (sStatus === "INP") return "Information";
+        if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") return "Warning";
+        if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") return "Error";
+        if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
+        return "None";
+      },
+
+      showStatusPClosed: function (sStatus) {
+        if (sStatus === "PCLSD") return "None";
+        return "None";
+      },
+
+      getStatusStateForHold: function (sStatus) {
+        if (sStatus === "HLD") return "None";
+        return "None";
+      },
+      // ====================================================================
+      //  END OF STATUS PILL LOGIC
+      // ====================================================================
+
+      // Bill17 case Graying out of the payment field
+      // --- HELPER: DISABLE PAYMENT DOCUMENT FIELD ---
+      _updatePaymentDocFieldState: function () {
+        // console.log("[DEBUG] _updatePaymentDocFieldState: Starting...");
+
+        var sTableId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table";
+        var oSmartTable = sap.ui.getCore().byId(sTableId);
+
+        if (!oSmartTable) { return; }
+
+        var oInnerTable = oSmartTable.getTable();
+        var aRows = oInnerTable.getRows();
+        var aColumns = oInnerTable.getColumns();
+
+        var oHeaderContext = this.getView().getBindingContext();
+        if (!oHeaderContext) return;
+
+        // --- 1. BILL 17 CHECK ---
+        var bIsBill17 = false;
+        var oPartnerField = this.getView().byId("DCHeader-FG2::to_defpartner::id::MultiInput");
+
+        // Helper: safely checks if a control has tokens
+        var fnHasTokens = function (oCtrl) {
+          if (oCtrl && oCtrl.getTokens) {
+            return oCtrl.getTokens().length > 0;
+          }
+          return false;
+        };
+
+        if (oPartnerField) {
+          if (fnHasTokens(oPartnerField)) {
+            bIsBill17 = true;
+          } else if (oPartnerField.getInnerControls) {
+            var aInner = oPartnerField.getInnerControls();
+            for (var k = 0; k < aInner.length; k++) {
+              if (fnHasTokens(aInner[k])) {
+                bIsBill17 = true;
+                break;
+              }
+            }
+          }
+        }
+
+        // Fallback to Backend Flag
+        if (!bIsBill17 && oHeaderContext.getProperty("bill17_hidden") === false) {
+          bIsBill17 = true;
+        }
+
+        var bPermitIssued = oHeaderContext.getProperty("permit_issued");
+        var dDcClearance = oHeaderContext.getProperty("dc_clearance_date");
+
+        // --- 2. EVALUATE GLOBAL LOCK CONDITION ---
+        // This is the "Potential" to lock. We refine it per row below.
+        var bGlobalLockActive = bIsBill17 && bPermitIssued && (dDcClearance !== null && dDcClearance !== "" && dDcClearance !== undefined);
+
+        // --- 3. FIND TARGET COLUMN ---
+        var iDocNoIndex = -1;
+        for (var i = 0; i < aColumns.length; i++) {
+          var oCol = aColumns[i];
+          var sKey = "";
+          if (oCol.data && oCol.data("p13nData") && oCol.data("p13nData").columnKey) {
+            sKey = oCol.data("p13nData").columnKey;
+          }
+          if (!sKey) sKey = oCol.getId();
+
+          if (sKey === "document_no" || sKey === "CustomColumn1" || sKey.indexOf("document_no") > -1) {
+            iDocNoIndex = i;
+            break;
+          }
+        }
+
+        if (iDocNoIndex === -1) return;
+
+        // --- 4. APPLY STATE (Row-Specific Logic) ---
+        // Helper to apply state recursively
+        var fnSetControlState = function (oControl, bIsEditable) {
+          if (!oControl) return;
+          if (oControl.setEditable) oControl.setEditable(bIsEditable);
+          else if (oControl.setEnabled) oControl.setEnabled(bIsEditable);
+
+          if (oControl.getItems) oControl.getItems().forEach(function (c) { fnSetControlState(c, bIsEditable); });
+          else if (oControl.getContent) oControl.getContent().forEach(function (c) { fnSetControlState(c, bIsEditable); });
+        };
+
+        aRows.forEach(function (oRow) {
+          var aCells = oRow.getCells();
+          var oRowContext = oRow.getBindingContext();
+
+          if (aCells.length > iDocNoIndex) {
+            var oTargetCell = aCells[iDocNoIndex];
+            var bRowEditable = true; // Default to Editable
+
+            // ONLY check logic if data exists for this row
+            if (oRowContext) {
+              var sDocNum = oRowContext.getProperty("document_no");
+
+              // LOGIC: If Global Lock is ON ... AND ... Document Number EXISTS
+              // Then we LOCK this specific row.
+              if (bGlobalLockActive && sDocNum && sDocNum.trim() !== "") {
+                bRowEditable = false;
+              }
+            }
+
+            // Apply the specific state for this row
+            fnSetControlState(oTargetCell, bRowEditable);
+          }
+        });
+      },  
+      //2A,2B,2C Sceanrio related Functions
+      formatCalcOptionToIndex: function (sValue) {
+        // Backend → UI
+        if (sValue === "L") {
+          return 0; // Locked
+        }
+        if (sValue === "P") {
+          return 1; // Prevailing
+        }
+        return 0; // Default
+      },
+      //Changing Radio Buttons L or P
+      onCalcOptionChange: function (oEvent) {
+        var oRadioGroup = oEvent.getSource();
+        var iIndex = oRadioGroup.getSelectedIndex();
+        var sValue = iIndex === 0 ? "L" : "P"; // 
+
+        var oContext = oRadioGroup.getBindingContext();
+        if (oContext) {
+          // 1. Update the local property in the model
+          oContext.getModel().setProperty(oContext.getPath() + "/calc_option", sValue);
+
+          // 2. Submit Changes 
+          oContext.getModel().submitChanges();
+        }
+      },
+      // Radio button Insertion Logic
+      _insertBelowBill17DeferralPartner: function () {
+        var oView = this.getView();
+
+        // 1. Find the label of "Bill 17 Deferral Partner"
+        var aMatches = oView.findAggregatedObjects(true, function (o) {
+          return o.getId && o.getId().indexOf("DCHeader-FG2::to_defpartner::id::MultiInput-label") !== -1;
+        });
+
+        if (!aMatches.length) {
+          console.warn("Bill17 Deferral Partner label not found.");
+          return;
+        }
+
+        var oLabel = aMatches[0];
+
+        // 2. Walk up: Label -> GroupElement -> Group
+        var oGroupElement = oLabel.getParent();
+        if (!oGroupElement || !oGroupElement.isA("sap.ui.comp.smartform.GroupElement")) {
+          console.warn("Parent is not a GroupElement.");
+          return;
+        }
+
+        var oGroup = oGroupElement.getParent();
+        if (!oGroup || !oGroup.insertGroupElement) {
+          console.warn("Parent is not a SmartForm Group.");
+          return;
+        }
+
+        // Prevent duplicate insertion
+        if (this._bBill17Inserted) {
+          return;
+        }
+        this._bBill17Inserted = true;
+
+        // 3. Load fragment
+        sap.ui.core.Fragment.load({
+          name: "com.gc.dashboard.ext.fragments.Bill17RateOptions",
+          controller: this
+        }).then(function (oFragment) {
+
+          // 4. Wrap fragment inside a GroupElement
+          var oNewGroupElement = new sap.ui.comp.smartform.GroupElement({
+            label: "",
+            elements: [oFragment]
+          });
+
+          // 5. Insert BELOW "Bill 17 Deferral Partner"
+          var iIndex = oGroup.indexOfGroupElement(oGroupElement);
+          if (iIndex > -1) {
+            oGroup.insertGroupElement(oNewGroupElement, iIndex);
+          } else {
+            oGroup.addGroupElement(oNewGroupElement);
+          }
+
+          console.log("✔ Bill17 Rate Options inserted below Deferral Partner");
+
+        }.bind(this));
+      },
+
+
+      //end of controller
+
+
     });
   }
 );

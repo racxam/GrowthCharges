@@ -86,7 +86,13 @@ sap.ui.define([
              * @param {sap.ui.base.Event} oEvent event handler for before binding event
              */
             onBeforeRebindTableExtension: function (oEvent) {
+
                 var oBindingParams = oEvent.getParameter("bindingParams");
+                if (oBindingParams.parameters.select) {
+                    oBindingParams.parameters.select += ",bill17_hidden,status";
+                } else {
+                    oBindingParams.parameters.select = "bill17_hidden,status";
+                }
                 oBindingParams.parameters = oBindingParams.parameters || {};
                 const oSmartTable = oEvent.getSource();
                 const oSmartFilterBar = this.byId(oSmartTable.getSmartFilterId());
@@ -381,6 +387,168 @@ sap.ui.define([
                     bState = Math.floor(iSpent / 86400000) > 0 ? true : false;
                 }
                 return bState;
-            }
+            },
+          // ====================================================================
+      //  STATUS PILL & COLOR CODING LOGIC (DYNAMIC BILL 17)
+// ====================================================================
+// ====================================================================
+      //  STATUS PILL & COLOR CODING LOGIC (FIXED: ENABLE FINAL PILL FOR STANDARD)
+      // ====================================================================
+
+      _isBill17Active: function(vDefPartner) {
+          if (!vDefPartner) return false;
+          if (vDefPartner.results && vDefPartner.results.length > 0) return true;
+          if (Array.isArray(vDefPartner) && vDefPartner.length > 0) return true;
+          return false;
+      },
+
+      // --- 1. CIL PILL ---
+      getStatusStateForCIL: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return "None"; // Grey
+
+        if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND") return "Warning";
+        if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") return "Error";
+        if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "FIN_PND" ||
+            sStatus === "DC1_APR" || sStatus === "DC1_PND" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
+        
+        return "Information";
+      },
+
+      // --- 2. GENERIC DC PILL ---
+      _isDCPillVisible: function (bDcApplicable, vDefPartner) {
+        if (this._isBill17Active(vDefPartner)) return false; 
+        return !!bDcApplicable;
+      },
+
+      getStatusStateForDC: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return "None";
+
+        if (sStatus === "FIN_PND" || sStatus === "DC1_PND") return "Warning"; 
+        if (sStatus === "FIN_REJ" || sStatus === "DC1_REJ") return "Error";   
+        if (sStatus === "FIN_APR" || sStatus === "DC1_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success"; 
+        return "Information"; 
+      },
+
+      // --- 3. BILL 17: LEVEL 1 PILL ---
+      _isBill17PillVisible: function (vDefPartner, sStatus) {
+        // Level 1 is STRICTLY for Bill 17
+        if (!this._isBill17Active(vDefPartner)) return false;
+
+        var aVisibleStatuses = [
+            "DC1_PND", "DC1_APR", "DC1_REJ", 
+            "FIN_PND", "FIN_APR", "FIN_REJ", 
+            "CLSD", "PCLSD", "HLD",
+            "WITHDRAWN" 
+        ];
+        return aVisibleStatuses.includes(sStatus);
+      },
+
+      getBill17Level1State: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return "None";
+
+        if (sStatus === "DC1_PND") return "Information"; 
+        if (sStatus === "DC1_REJ") return "Error";       
+        return "Success";
+      },
+
+      getBill17Level1Text: function (sStatus) {
+        if (sStatus === "DC1_PND") return "DC Level 1 Approval";
+        if (sStatus === "DC1_REJ") return "DC Level 1 Rejected";
+        // History text for all other states
+        return "DC Level 1 Approved";
+      },
+
+      // --- 4. BILL 17: FINAL APPROVAL PILL (RENAMED MENTALLY TO 'FINAL PILL') ---
+      _isBill17FinalPillVisible: function (vDefPartner, sStatus) {
+        // FIX: REMOVED STRICT BILL 17 CHECK.
+        // This pill should show for Standard Cases too if they are Approved.
+        
+        var aVisibleStatuses = [
+            "DC1_APR", // Bill 17 specific Pending
+            "FIN_PND", // Generic Pending
+            "FIN_APR", // Generic Approved
+            "CLSD", "PCLSD"
+        ];
+        
+        return aVisibleStatuses.includes(sStatus);
+      },
+
+      getBill17FinalPillState: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return "None";
+
+        if (sStatus === "DC1_APR" || sStatus === "FIN_PND") return "Warning"; // Pending
+        if (sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success"; 
+        return "None";
+      },
+
+      getBill17FinalPillText: function (sStatus) {
+        if (sStatus === "DC1_APR" || sStatus === "FIN_PND") return "Final Approval";
+        return "Final Approved";
+      },
+
+      // --- 5. CBC PILL ---
+      getStatusStateForCBC: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return "None";
+
+        if (sStatus === "FIN_PND" || sStatus === "DC1_APR") return "Warning";
+        if (sStatus === "FIN_REJ") return "Error";
+        if (sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
+        return "Information";
+      },
+
+      // --- 6. SEPARATOR LOGIC ---
+      _isStatusPillVisible: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return false;
+        return sStatus === "CLSD" || sStatus === "PCLSD" || sStatus === "HLD";
+      },
+
+      getSeparatorForCIL: function (bDc, vDefPartner, bCbc, sStatus) {
+        // Do not force return false on Withdrawn, rely on next pill visibility
+        var bGenericDcVisible = this._isDCPillVisible(bDc, vDefPartner);
+        var bBill17Visible = this._isBill17PillVisible(vDefPartner, sStatus) || this._isBill17FinalPillVisible(vDefPartner, sStatus);
+        
+        return !!(bGenericDcVisible || bBill17Visible || bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForDC: function (vDefPartner, bCbc, sStatus) {
+        var bBill17Visible = this._isBill17PillVisible(vDefPartner, sStatus) || this._isBill17FinalPillVisible(vDefPartner, sStatus);
+        return !!(bBill17Visible || bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForBill17: function (vDefPartner, bCbc, sStatus) {
+        var bFinalVisible = this._isBill17FinalPillVisible(vDefPartner, sStatus);
+        return !!(bFinalVisible || bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForBill17Final: function (bCbc, sStatus) {
+        return !!(bCbc || this._isStatusPillVisible(sStatus));
+      },
+
+      getSeparatorForCBC: function (sStatus) {
+        return !!(this._isStatusPillVisible(sStatus));
+      },
+
+      // --- 7. STANDARD LEGACY LOGIC ---
+      getStatusStateForClosed: function (sStatus) {
+        if (sStatus === "WITHDRAWN") return "None";
+
+        if (sStatus === "INP") return "Information";
+        if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND" || sStatus === "FIN_PND") return "Warning";
+        if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") return "Error";
+        if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
+        return "None";
+      },
+
+      showStatusPClosed: function (sStatus) {
+        if (sStatus === "PCLSD") return "None";
+        return "None";
+      },
+
+      getStatusStateForHold: function (sStatus) {
+        if (sStatus === "HLD") return "None";
+        return "None";
+      },
+
+    // end of controller
         });
     });
