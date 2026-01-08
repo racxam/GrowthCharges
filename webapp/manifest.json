@@ -349,7 +349,11 @@
                     "tableType": "GridTable"
                   }
                 }
-              }
+              },
+              "requestAtLeast": [
+                "to_bill17rtopt",
+                "calc_option"
+              ]
             },
             "embeddedComponents": {
               "CBC::Attachments": {

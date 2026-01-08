@@ -20,57 +20,38 @@ sap.ui.define(
        * @private
        */
       _enableVariantManagement: function () {
-        //DC Tables
-        const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
-        oDCTable.setUseVariantManagement(true);
-        oDCTable.setUseExportToExcel(true);
-        oDCTable.setShowFullScreenButton(true);
-        const oSec14Table = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table");
-        oSec14Table.setUseVariantManagement(true);
-        oSec14Table.setUseExportToExcel(true);
-        oSec14Table.setShowFullScreenButton(true);
-        const demoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table");
-        demoTable.setUseVariantManagement(true);
-        demoTable.setUseExportToExcel(true);
-        demoTable.setShowFullScreenButton(true);
-        const totalNonIndDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table");
-        totalNonIndDCTable.setUseVariantManagement(true);
-        totalNonIndDCTable.setUseExportToExcel(true);
-        totalNonIndDCTable.setShowFullScreenButton(true);
-        const oExemptionDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table");
-        oExemptionDCTable.setUseVariantManagement(true);
-        oExemptionDCTable.setUseExportToExcel(true);
-        oExemptionDCTable.setShowFullScreenButton(true);
-        const oDeferralDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCDeferralTable-ID::Table");
-        oDeferralDCTable.setUseVariantManagement(true);
-        oDeferralDCTable.setUseExportToExcel(true);
-        oDeferralDCTable.setShowFullScreenButton(true);
-        const oPrvBuidlingPermitDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
-        oPrvBuidlingPermitDCTable.setUseVariantManagement(true);
-        oPrvBuidlingPermitDCTable.setUseExportToExcel(true);
-        oPrvBuidlingPermitDCTable.setShowFullScreenButton(true);
+        // Helper function to safely configure a table if it exists
+        const fnConfigureTable = function (sId) {
+          const oTable = sap.ui.getCore().byId(
+            "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sId + "::Table"
+          );
 
-        //CBC Tables
-        const oCBCExemptTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--ExemptionCBC-ID::Table");
-        oCBCExemptTable.setUseVariantManagement(true);
-        oCBCExemptTable.setShowFullScreenButton(true);
-        const oCBCInKindTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--InKindContr-ID::Table");
-        oCBCInKindTable.setUseVariantManagement(true);
-        oCBCInKindTable.setShowFullScreenButton(true);
-        const oCBCDemoTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemoExm-ID::Table");
-        oCBCDemoTable.setUseVariantManagement(true);
-        oCBCDemoTable.setShowFullScreenButton(true);
+          // CRITICAL FIX: Only proceed if the table actually exists
+          if (oTable) {
+            oTable.setUseVariantManagement(true);
+            oTable.setUseExportToExcel(true);
+            oTable.setShowFullScreenButton(true);
+          }
+        };
 
-        //Payment Table
-        const oPaymentInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table");
-        oPaymentInfoPaymentTable.setUseVariantManagement(true);
-        oPaymentInfoPaymentTable.setShowFullScreenButton(true);
-        const oRefundInfoPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--RefundInfo-ID::Table");
-        oRefundInfoPaymentTable.setUseVariantManagement(true);
-        oRefundInfoPaymentTable.setShowFullScreenButton(true);
-        const oDeferralPaymentTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DeferralInfo-ID::Table");
-        oDeferralPaymentTable.setUseVariantManagement(true);
-        oDeferralPaymentTable.setShowFullScreenButton(true);
+        // --- DC Tables ---
+        fnConfigureTable("TotalDC-ID");
+        fnConfigureTable("Section-14-ID");
+        fnConfigureTable("DemolitionCred-ID");
+        fnConfigureTable("TotalDC-ID-NonInd");
+        fnConfigureTable("DCExemption-ID");
+        fnConfigureTable("DCDeferralTable-ID");
+        fnConfigureTable("Previous-Building-Permit-Credit-ID");
+
+        // --- CBC Tables ---
+        fnConfigureTable("ExemptionCBC-ID");
+        fnConfigureTable("InKindContr-ID");
+        fnConfigureTable("DemoExm-ID");
+
+        // --- Payment Tables ---
+        fnConfigureTable("PaymentInfo-ID");
+        fnConfigureTable("RefundInfo-ID");
+        fnConfigureTable("DeferralInfo-ID");
       },
 
       /**
@@ -156,17 +137,17 @@ sap.ui.define(
         }
       },
 
-     _hideDCButtons: function () {
+      _hideDCButtons: function () {
         // List of all standard Add/Delete buttons in the DC Section tables
         const aButtonSufixes = [
-            "TotalDC-ID::addEntry",
-            "TotalDC-ID::deleteEntry", 
-            "DemolitionCred-ID::addEntry",
-            "DemolitionCred-ID::deleteEntry", // Good practice to include delete if it exists
-            "Section-14-ID::addEntry", 
-            "Section-14-ID::deleteEntry",
-            "DCExemption-ID::addEntry",
-            "DCExemption-ID::deleteEntry"
+          "TotalDC-ID::addEntry",
+          "TotalDC-ID::deleteEntry",
+          "DemolitionCred-ID::addEntry",
+          "DemolitionCred-ID::deleteEntry", // Good practice to include delete if it exists
+          "Section-14-ID::addEntry",
+          "Section-14-ID::deleteEntry",
+          "DCExemption-ID::addEntry",
+          "DCExemption-ID::deleteEntry"
         ];
 
         // LOGIC: Enable only if Editable AND Status is NOT Final/Closed/Hold
@@ -176,52 +157,52 @@ sap.ui.define(
         aButtonSufixes.forEach(function (sButtonSufix) {
           const oButton = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sButtonSufix);
           if (oButton) {
-             // Bind the 'enabled' property to our expression
-             oButton.bindProperty("enabled", {
-                parts: [
-                    { path: "ui>/editable" },
-                    { path: "status" }
-                ],
-                formatter: function(bEditable, sStatus) {
-                    return bEditable && sStatus !== 'FIN_APR' && sStatus !== 'CLSD' && sStatus !== 'PCLSD' && sStatus !== 'HLD';
-                }
-             });
+            // Bind the 'enabled' property to our expression
+            oButton.bindProperty("enabled", {
+              parts: [
+                { path: "ui>/editable" },
+                { path: "status" }
+              ],
+              formatter: function (bEditable, sStatus) {
+                return bEditable && sStatus !== 'FIN_APR' && sStatus !== 'CLSD' && sStatus !== 'PCLSD' && sStatus !== 'HLD';
+              }
+            });
           }
         });
       },
       _addCustomActions: function () {
         let oCalculateButton = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton");
-        
+
         // 1. Calculate Button
         if (!oCalculateButton) {
-            oCalculateButton = new Button({
-                "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton",
-                "text": "Calculate",
-                "type": "Emphasized",
-                "press": this.onPressDCCalc.bind(this),
-                "visible": "{ui>/editable}",
-                // LOGIC: Enable if Editable AND Status is NOT Final/Closed/Hold
-                "enabled": "{= ${ui>/editable} && ${status} !== 'FIN_APR' && ${status} !== 'CLSD' && ${status} !== 'PCLSD' && ${status} !== 'HLD' }"
-            });
-            const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
-            const oDCHeader = oDCTable.getToolbar();
-            oDCHeader.addContent(oCalculateButton);
+          oCalculateButton = new Button({
+            "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton",
+            "text": "Calculate",
+            "type": "Emphasized",
+            "press": this.onPressDCCalc.bind(this),
+            "visible": "{ui>/editable}",
+            // LOGIC: Enable if Editable AND Status is NOT Final/Closed/Hold
+            "enabled": "{= ${ui>/editable} && ${status} !== 'FIN_APR' && ${status} !== 'CLSD' && ${status} !== 'PCLSD' && ${status} !== 'HLD' }"
+          });
+          const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
+          const oDCHeader = oDCTable.getToolbar();
+          oDCHeader.addContent(oCalculateButton);
         }
 
         let oNewPBPButton = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton");
-        
+
         // 2. Add Credit Button
         if (!oNewPBPButton) {
-            oNewPBPButton = new Button({
-                "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton",
-                "text": "Add Credit",
-                "press": this.onPressNewPBP.bind(this),
-                // LOGIC: Enable if Editable AND Status is NOT Final/Closed/Hold
-                "enabled": "{= ${ui>/editable} && ${status} !== 'FIN_APR' && ${status} !== 'CLSD' && ${status} !== 'PCLSD' && ${status} !== 'HLD' }"
-            });
-            const oPBPTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
-            const oPBPHeader = oPBPTable.getToolbar();
-            oPBPHeader.addContent(oNewPBPButton);
+          oNewPBPButton = new Button({
+            "id": "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--NewPBPButton",
+            "text": "Add Credit",
+            "press": this.onPressNewPBP.bind(this),
+            // LOGIC: Enable if Editable AND Status is NOT Final/Closed/Hold
+            "enabled": "{= ${ui>/editable} && ${status} !== 'FIN_APR' && ${status} !== 'CLSD' && ${status} !== 'PCLSD' && ${status} !== 'HLD' }"
+          });
+          const oPBPTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table");
+          const oPBPHeader = oPBPTable.getToolbar();
+          oPBPHeader.addContent(oNewPBPButton);
         }
       },
       _defineLocalModel: function () {
@@ -509,8 +490,8 @@ sap.ui.define(
       onAfterRendering: function () {
         this._applyDefaultVariant();
         this._addCILIconControl();
+        this._insertBelowBill17DeferralPartner();
 
-      
 
         //  START OF NEW CODE 
         // List of all tables that need the "Grey Row" logic
@@ -541,13 +522,13 @@ sap.ui.define(
         // >>> NEW BLOCK FOR PAYMENT TABLE <<<
         var oPayTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table");
         if (oPayTable) {
-            var oInnerPayTable = oPayTable.getTable();
-            // Attach listener to re-apply logic if user sorts/filters/pages
-            oInnerPayTable.detachEvent("rowsUpdated", this._updatePaymentDocFieldState, this);
-            oInnerPayTable.attachEvent("rowsUpdated", this._updatePaymentDocFieldState, this);
-            
-            // Run immediately
-            this._updatePaymentDocFieldState();
+          var oInnerPayTable = oPayTable.getTable();
+          // Attach listener to re-apply logic if user sorts/filters/pages
+          oInnerPayTable.detachEvent("rowsUpdated", this._updatePaymentDocFieldState, this);
+          oInnerPayTable.attachEvent("rowsUpdated", this._updatePaymentDocFieldState, this);
+
+          // Run immediately
+          this._updatePaymentDocFieldState();
         }
         // >>> END NEW BLOCK OF PAYMENT TABLE<<<
         //Value help for CIL capped rate and CIL rate
@@ -797,7 +778,7 @@ sap.ui.define(
         var oContext = this.getView().getBindingContext();
         if (oContext) {
           var bPermitIssued = oContext.getProperty("permit_issued");
-        
+
 
           // 1. Disable/Grey out Deferral Partners
           if (this._updatePartnerFieldState) {
@@ -826,22 +807,22 @@ sap.ui.define(
           oEvent.getParameter("bindingParams").parameters = oEvent.getParameter("bindingParams").parameters || {};
           // Add property 'Gen_pay_receipt_ac' to $select
           oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",Gen_pay_receipt_ac,deferral_adjust";
-         // >>> UPDATING THIS BLOCK for payment table sorting logic in bill17 <<<
+          // >>> UPDATING THIS BLOCK for payment table sorting logic in bill17 <<<
           // Check if Bill 17 is Active
           var vDefPartner = this.getView().getBindingContext().getProperty("to_defpartner");
           var bIsBill17 = this._isBill17Active(vDefPartner);
 
           if (bIsBill17) {
-             // BILL 17 SCENARIO: Sort by Invoice Issue Date (Ascending)
-             oEvent.getParameter("bindingParams").sorter = [
-                new sap.ui.model.Sorter("invoice_doc_issue", true) 
-             ];
+            // BILL 17 SCENARIO: Sort by Invoice Issue Date (Ascending)
+            oEvent.getParameter("bindingParams").sorter = [
+              new sap.ui.model.Sorter("invoice_doc_issue", true)
+            ];
           } else {
-             // STANDARD SCENARIO: Sort by Date and Document (Descending)
-             oEvent.getParameter("bindingParams").sorter = [
-                new sap.ui.model.Sorter("sort_date", false),
-                new sap.ui.model.Sorter("sort_document", false)
-             ];
+            // STANDARD SCENARIO: Sort by Date and Document (Descending)
+            oEvent.getParameter("bindingParams").sorter = [
+              new sap.ui.model.Sorter("sort_date", false),
+              new sap.ui.model.Sorter("sort_document", false)
+            ];
           }
           // >>> END UPDATE <<<
         }
@@ -1696,7 +1677,7 @@ sap.ui.define(
         // 1. Get Permit Issued Status
         var bPermitIssued = false;
         if (this.getView().getBindingContext()) {
-            bPermitIssued = this.getView().getBindingContext().getProperty("permit_issued");
+          bPermitIssued = this.getView().getBindingContext().getProperty("permit_issued");
         }
 
         var aRows = oTable.getRows();
@@ -1705,14 +1686,14 @@ sap.ui.define(
           var oContext = oRow.getBindingContext();
           if (oContext) {
             var oRowData = oContext.getObject();
-            
+
             // 2. Determine Logic
             // If Permit Issued (True)  AND is_bill17 (False) -> Grey Out (True)
             // If Permit Issued (False) AND is_bill17 (True)  -> Grey Out (True)
             // This is an inequality check (!==)
             var bShouldGrey = false;
             if (oRowData) {
-                 bShouldGrey = (!!bPermitIssued !== !!oRowData.is_bill17_appl);
+              bShouldGrey = (!!bPermitIssued !== !!oRowData.is_bill17_appl);
             }
 
             if (bShouldGrey) {
@@ -1724,7 +1705,7 @@ sap.ui.define(
         });
       },
 
-     _onPropertyChange: function (oEvent) {
+      _onPropertyChange: function (oEvent) {
         var sPath = oEvent.getParameter("path");
         var oValue = oEvent.getParameter("value");
         var oContext = oEvent.getParameter("context");
@@ -1737,7 +1718,7 @@ sap.ui.define(
             this._updatePartnerFieldState(oValue);
           }
           this._updatePaymentDocFieldState(); // Bill 17 payment grey out of fields
-          
+
           // ##$ Change: Immediately refresh table colors based on new value
           this._refreshAllTableStyles();
 
@@ -1759,7 +1740,7 @@ sap.ui.define(
                     if (that._updatePartnerFieldState) {
                       that._updatePartnerFieldState(false);
                     }
-                    
+
                     // ##$ Change: Revert table colors back to original state
                     that._refreshAllTableStyles();
 
@@ -1778,23 +1759,23 @@ sap.ui.define(
           this._updatePaymentDocFieldState(); // Bill 17 payment grey out of fields
           MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
         }
-        
+
         // --- Logic 3: Occupancy Clearance Date (NEW) ---
         if (sPath === "occupancy_clearance_date") {
           MessageBox.warning("Once you save the request, you will not be able to edit the Occupancy Clearance Date.");
         }
       },
 
-  _updatePartnerFieldState: function (bPermitIssued) {
+      _updatePartnerFieldState: function (bPermitIssued) {
         var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
         var oSmartField = this.getView().byId(sRelativeId);
-        
+
         var oContext = this.getView().getBindingContext();
         var sStatus = oContext ? oContext.getProperty("status") : "";
 
         // Statuses where the field must ALWAYS be disabled
         var aRestrictedStatuses = [
-            "DC1_APR", "FIN_PND", "FIN_APR", "CLSD", "PCLSD", "HLD", "FIN_REJ"
+          "DC1_APR", "FIN_PND", "FIN_APR", "CLSD", "PCLSD", "HLD", "FIN_REJ"
         ];
 
         if (oSmartField) {
@@ -1808,15 +1789,15 @@ sap.ui.define(
               if (oCtrl.setEnabled) {
                 // --- FIX STARTS HERE ---
                 if (aRestrictedStatuses.includes(sStatus)) {
-                   // Case 1: Restricted Status (DC1_APR+) -> ALWAYS DISABLE
-                   oCtrl.setEnabled(false);
+                  // Case 1: Restricted Status (DC1_APR+) -> ALWAYS DISABLE
+                  oCtrl.setEnabled(false);
                 } else {
-                   // Case 2: Open Status (INP) -> Disable ONLY if Permit is Issued
-                   oCtrl.setEnabled(!bPermitIssued); 
+                  // Case 2: Open Status (INP) -> Disable ONLY if Permit is Issued
+                  oCtrl.setEnabled(!bPermitIssued);
                 }
                 // --- FIX ENDS HERE ---
               }
-              
+
               if (oCtrl.getAggregation) {
                 var oTokenizer = oCtrl.getAggregation("tokenizer");
                 if (oTokenizer) {
@@ -1901,18 +1882,18 @@ sap.ui.define(
         }
       },
 
-     // ====================================================================
+      // ====================================================================
       //  STATUS PILL & COLOR CODING LOGIC (DYNAMIC BILL 17)
       // ====================================================================
- // ====================================================================
+      // ====================================================================
       //  STATUS PILL & COLOR CODING LOGIC (FIXED: ENABLE FINAL PILL FOR STANDARD)
       // ====================================================================
 
-      _isBill17Active: function(vDefPartner) {
-          if (!vDefPartner) return false;
-          if (vDefPartner.results && vDefPartner.results.length > 0) return true;
-          if (Array.isArray(vDefPartner) && vDefPartner.length > 0) return true;
-          return false;
+      _isBill17Active: function (vDefPartner) {
+        if (!vDefPartner) return false;
+        if (vDefPartner.results && vDefPartner.results.length > 0) return true;
+        if (Array.isArray(vDefPartner) && vDefPartner.length > 0) return true;
+        return false;
       },
 
       // --- 1. CIL PILL ---
@@ -1922,24 +1903,24 @@ sap.ui.define(
         if (sStatus === "CIL1_PND" || sStatus === "CIL2_PND") return "Warning";
         if (sStatus === "CIL1_REJ" || sStatus === "CIL2_REJ" || sStatus === "FIN_REJ") return "Error";
         if (sStatus === "CIL_APR" || sStatus === "FIN_APR" || sStatus === "FIN_PND" ||
-            sStatus === "DC1_APR" || sStatus === "DC1_PND" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
-        
+          sStatus === "DC1_APR" || sStatus === "DC1_PND" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
+
         return "Information";
       },
 
       // --- 2. GENERIC DC PILL ---
       _isDCPillVisible: function (bDcApplicable, vDefPartner) {
-        if (this._isBill17Active(vDefPartner)) return false; 
+        if (this._isBill17Active(vDefPartner)) return false;
         return !!bDcApplicable;
       },
 
       getStatusStateForDC: function (sStatus) {
         if (sStatus === "WITHDRAWN") return "None";
 
-        if (sStatus === "FIN_PND" || sStatus === "DC1_PND") return "Warning"; 
-        if (sStatus === "FIN_REJ" || sStatus === "DC1_REJ") return "Error";   
-        if (sStatus === "FIN_APR" || sStatus === "DC1_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success"; 
-        return "Information"; 
+        if (sStatus === "FIN_PND" || sStatus === "DC1_PND") return "Warning";
+        if (sStatus === "FIN_REJ" || sStatus === "DC1_REJ") return "Error";
+        if (sStatus === "FIN_APR" || sStatus === "DC1_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
+        return "Information";
       },
 
       // --- 3. BILL 17: LEVEL 1 PILL ---
@@ -1948,10 +1929,10 @@ sap.ui.define(
         if (!this._isBill17Active(vDefPartner)) return false;
 
         var aVisibleStatuses = [
-            "DC1_PND", "DC1_APR", "DC1_REJ", 
-            "FIN_PND", "FIN_APR", "FIN_REJ", 
-            "CLSD", "PCLSD", "HLD",
-            "WITHDRAWN" 
+          "DC1_PND", "DC1_APR", "DC1_REJ",
+          "FIN_PND", "FIN_APR", "FIN_REJ",
+          "CLSD", "PCLSD", "HLD",
+          "WITHDRAWN"
         ];
         return aVisibleStatuses.includes(sStatus);
       },
@@ -1959,8 +1940,8 @@ sap.ui.define(
       getBill17Level1State: function (sStatus) {
         if (sStatus === "WITHDRAWN") return "None";
 
-        if (sStatus === "DC1_PND") return "Information"; 
-        if (sStatus === "DC1_REJ") return "Error";       
+        if (sStatus === "DC1_PND") return "Information";
+        if (sStatus === "DC1_REJ") return "Error";
         return "Success";
       },
 
@@ -1975,14 +1956,14 @@ sap.ui.define(
       _isBill17FinalPillVisible: function (vDefPartner, sStatus) {
         // FIX: REMOVED STRICT BILL 17 CHECK.
         // This pill should show for Standard Cases too if they are Approved.
-        
+
         var aVisibleStatuses = [
-            "DC1_APR", // Bill 17 specific Pending
-            "FIN_PND", // Generic Pending
-            "FIN_APR", // Generic Approved
-            "CLSD", "PCLSD"
+          "DC1_APR", // Bill 17 specific Pending
+          "FIN_PND", // Generic Pending
+          "FIN_APR", // Generic Approved
+          "CLSD", "PCLSD"
         ];
-        
+
         return aVisibleStatuses.includes(sStatus);
       },
 
@@ -1990,7 +1971,7 @@ sap.ui.define(
         if (sStatus === "WITHDRAWN") return "None";
 
         if (sStatus === "DC1_APR" || sStatus === "FIN_PND") return "Warning"; // Pending
-        if (sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success"; 
+        if (sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
         return "None";
       },
 
@@ -2019,7 +2000,7 @@ sap.ui.define(
         // Do not force return false on Withdrawn, rely on next pill visibility
         var bGenericDcVisible = this._isDCPillVisible(bDc, vDefPartner);
         var bBill17Visible = this._isBill17PillVisible(vDefPartner, sStatus) || this._isBill17FinalPillVisible(vDefPartner, sStatus);
-        
+
         return !!(bGenericDcVisible || bBill17Visible || bCbc || this._isStatusPillVisible(sStatus));
       },
 
@@ -2064,20 +2045,18 @@ sap.ui.define(
       // ====================================================================
       //  END OF STATUS PILL LOGIC
       // ====================================================================
-   
-
 
       // Bill17 case Graying out of the payment field
-    // --- HELPER: DISABLE PAYMENT DOCUMENT FIELD ---
+      // --- HELPER: DISABLE PAYMENT DOCUMENT FIELD ---
       _updatePaymentDocFieldState: function () {
         // console.log("[DEBUG] _updatePaymentDocFieldState: Starting...");
 
         var sTableId = "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table";
         var oSmartTable = sap.ui.getCore().byId(sTableId);
-        
+
         if (!oSmartTable) { return; }
-        
-        var oInnerTable = oSmartTable.getTable(); 
+
+        var oInnerTable = oSmartTable.getTable();
         var aRows = oInnerTable.getRows();
         var aColumns = oInnerTable.getColumns();
 
@@ -2089,30 +2068,30 @@ sap.ui.define(
         var oPartnerField = this.getView().byId("DCHeader-FG2::to_defpartner::id::MultiInput");
 
         // Helper: safely checks if a control has tokens
-        var fnHasTokens = function(oCtrl) {
-            if (oCtrl && oCtrl.getTokens) {
-                return oCtrl.getTokens().length > 0;
-            }
-            return false;
+        var fnHasTokens = function (oCtrl) {
+          if (oCtrl && oCtrl.getTokens) {
+            return oCtrl.getTokens().length > 0;
+          }
+          return false;
         };
 
         if (oPartnerField) {
-            if (fnHasTokens(oPartnerField)) {
+          if (fnHasTokens(oPartnerField)) {
+            bIsBill17 = true;
+          } else if (oPartnerField.getInnerControls) {
+            var aInner = oPartnerField.getInnerControls();
+            for (var k = 0; k < aInner.length; k++) {
+              if (fnHasTokens(aInner[k])) {
                 bIsBill17 = true;
-            } else if (oPartnerField.getInnerControls) {
-                var aInner = oPartnerField.getInnerControls();
-                for (var k = 0; k < aInner.length; k++) {
-                    if (fnHasTokens(aInner[k])) {
-                        bIsBill17 = true;
-                        break; 
-                    }
-                }
+                break;
+              }
             }
+          }
         }
-        
+
         // Fallback to Backend Flag
         if (!bIsBill17 && oHeaderContext.getProperty("bill17_hidden") === false) {
-             bIsBill17 = true;
+          bIsBill17 = true;
         }
 
         var bPermitIssued = oHeaderContext.getProperty("permit_issued");
@@ -2121,60 +2100,146 @@ sap.ui.define(
         // --- 2. EVALUATE GLOBAL LOCK CONDITION ---
         // This is the "Potential" to lock. We refine it per row below.
         var bGlobalLockActive = bIsBill17 && bPermitIssued && (dDcClearance !== null && dDcClearance !== "" && dDcClearance !== undefined);
-        
+
         // --- 3. FIND TARGET COLUMN ---
         var iDocNoIndex = -1;
         for (var i = 0; i < aColumns.length; i++) {
-            var oCol = aColumns[i];
-            var sKey = "";
-            if (oCol.data && oCol.data("p13nData") && oCol.data("p13nData").columnKey) {
-                sKey = oCol.data("p13nData").columnKey;
-            }
-            if (!sKey) sKey = oCol.getId();
+          var oCol = aColumns[i];
+          var sKey = "";
+          if (oCol.data && oCol.data("p13nData") && oCol.data("p13nData").columnKey) {
+            sKey = oCol.data("p13nData").columnKey;
+          }
+          if (!sKey) sKey = oCol.getId();
 
-            if (sKey === "document_no" || sKey === "CustomColumn1" || sKey.indexOf("document_no") > -1) {
-                iDocNoIndex = i;
-                break;
-            }
+          if (sKey === "document_no" || sKey === "CustomColumn1" || sKey.indexOf("document_no") > -1) {
+            iDocNoIndex = i;
+            break;
+          }
         }
 
-        if (iDocNoIndex === -1) return; 
+        if (iDocNoIndex === -1) return;
 
         // --- 4. APPLY STATE (Row-Specific Logic) ---
         // Helper to apply state recursively
-        var fnSetControlState = function(oControl, bIsEditable) {
-            if (!oControl) return;
-            if (oControl.setEditable) oControl.setEditable(bIsEditable);
-            else if (oControl.setEnabled) oControl.setEnabled(bIsEditable);
+        var fnSetControlState = function (oControl, bIsEditable) {
+          if (!oControl) return;
+          if (oControl.setEditable) oControl.setEditable(bIsEditable);
+          else if (oControl.setEnabled) oControl.setEnabled(bIsEditable);
 
-            if (oControl.getItems) oControl.getItems().forEach(function(c){ fnSetControlState(c, bIsEditable); });
-            else if (oControl.getContent) oControl.getContent().forEach(function(c){ fnSetControlState(c, bIsEditable); });
+          if (oControl.getItems) oControl.getItems().forEach(function (c) { fnSetControlState(c, bIsEditable); });
+          else if (oControl.getContent) oControl.getContent().forEach(function (c) { fnSetControlState(c, bIsEditable); });
         };
 
         aRows.forEach(function (oRow) {
           var aCells = oRow.getCells();
           var oRowContext = oRow.getBindingContext();
-          
+
           if (aCells.length > iDocNoIndex) {
-              var oTargetCell = aCells[iDocNoIndex];
-              var bRowEditable = true; // Default to Editable
+            var oTargetCell = aCells[iDocNoIndex];
+            var bRowEditable = true; // Default to Editable
 
-              // ONLY check logic if data exists for this row
-              if (oRowContext) {
-                  var sDocNum = oRowContext.getProperty("document_no");
-                  
-                  // LOGIC: If Global Lock is ON ... AND ... Document Number EXISTS
-                  // Then we LOCK this specific row.
-                  if (bGlobalLockActive && sDocNum && sDocNum.trim() !== "") {
-                      bRowEditable = false;
-                  }
+            // ONLY check logic if data exists for this row
+            if (oRowContext) {
+              var sDocNum = oRowContext.getProperty("document_no");
+
+              // LOGIC: If Global Lock is ON ... AND ... Document Number EXISTS
+              // Then we LOCK this specific row.
+              if (bGlobalLockActive && sDocNum && sDocNum.trim() !== "") {
+                bRowEditable = false;
               }
+            }
 
-              // Apply the specific state for this row
-              fnSetControlState(oTargetCell, bRowEditable);
+            // Apply the specific state for this row
+            fnSetControlState(oTargetCell, bRowEditable);
           }
         });
+      },  
+      //2A,2B,2C Sceanrio related Functions
+      formatCalcOptionToIndex: function (sValue) {
+        // Backend → UI
+        if (sValue === "L") {
+          return 0; // Locked
+        }
+        if (sValue === "P") {
+          return 1; // Prevailing
+        }
+        return 0; // Default
       },
+      //Changing Radio Buttons L or P
+      onCalcOptionChange: function (oEvent) {
+        var oRadioGroup = oEvent.getSource();
+        var iIndex = oRadioGroup.getSelectedIndex();
+        var sValue = iIndex === 0 ? "L" : "P"; // 
+
+        var oContext = oRadioGroup.getBindingContext();
+        if (oContext) {
+          // 1. Update the local property in the model
+          oContext.getModel().setProperty(oContext.getPath() + "/calc_option", sValue);
+
+          // 2. Submit Changes 
+          oContext.getModel().submitChanges();
+        }
+      },
+      // Radio button Insertion Logic
+      _insertBelowBill17DeferralPartner: function () {
+        var oView = this.getView();
+
+        // 1. Find the label of "Bill 17 Deferral Partner"
+        var aMatches = oView.findAggregatedObjects(true, function (o) {
+          return o.getId && o.getId().indexOf("DCHeader-FG2::to_defpartner::id::MultiInput-label") !== -1;
+        });
+
+        if (!aMatches.length) {
+          console.warn("Bill17 Deferral Partner label not found.");
+          return;
+        }
+
+        var oLabel = aMatches[0];
+
+        // 2. Walk up: Label -> GroupElement -> Group
+        var oGroupElement = oLabel.getParent();
+        if (!oGroupElement || !oGroupElement.isA("sap.ui.comp.smartform.GroupElement")) {
+          console.warn("Parent is not a GroupElement.");
+          return;
+        }
+
+        var oGroup = oGroupElement.getParent();
+        if (!oGroup || !oGroup.insertGroupElement) {
+          console.warn("Parent is not a SmartForm Group.");
+          return;
+        }
+
+        // Prevent duplicate insertion
+        if (this._bBill17Inserted) {
+          return;
+        }
+        this._bBill17Inserted = true;
+
+        // 3. Load fragment
+        sap.ui.core.Fragment.load({
+          name: "com.gc.dashboard.ext.fragments.Bill17RateOptions",
+          controller: this
+        }).then(function (oFragment) {
+
+          // 4. Wrap fragment inside a GroupElement
+          var oNewGroupElement = new sap.ui.comp.smartform.GroupElement({
+            label: "",
+            elements: [oFragment]
+          });
+
+          // 5. Insert BELOW "Bill 17 Deferral Partner"
+          var iIndex = oGroup.indexOfGroupElement(oGroupElement);
+          if (iIndex > -1) {
+            oGroup.insertGroupElement(oNewGroupElement, iIndex);
+          } else {
+            oGroup.addGroupElement(oNewGroupElement);
+          }
+
+          console.log("✔ Bill17 Rate Options inserted below Deferral Partner");
+
+        }.bind(this));
+      },
+
 
       //end of controller
 

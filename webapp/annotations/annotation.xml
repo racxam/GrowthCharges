@@ -116,7 +116,6 @@
                     </Record>
                 </Annotation>
 
-
                 <Annotation Term="Common.SideEffects" Qualifier="CBCApplicableChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -680,8 +679,8 @@
                 </Annotation>
                 <!--  dc header moved from backend to frontend end  -->
 
-                 <!-- //Invoice Calculation Date Changed -->
-                 <Annotation Term="Common.SideEffects" Qualifier="InvCalcDateChanged">
+                <!-- //Invoice Calculation Date Changed -->
+                <Annotation Term="Common.SideEffects" Qualifier="InvCalcDateChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
                             <Collection>
@@ -690,14 +689,13 @@
                             </Collection>
                         </PropertyValue>
 
-                        
                         <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
-                        
+
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>days_of_interest</PropertyPath>
                                 <PropertyPath>dc_valid_until</PropertyPath>
-                                
+
                                 <PropertyPath>occupancy_valid_until</PropertyPath>
                                 <PropertyPath>occupancy_valid_until_fc</PropertyPath>
                                 <PropertyPath>occupancy_clearance_date</PropertyPath>
@@ -791,7 +789,7 @@
                             </Collection>
                         </PropertyValue>
 
-                         <PropertyValue Property="TargetProperties">
+                        <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>occupancy_valid_until</PropertyPath>
                                 <PropertyPath>occupancy_valid_until_fc</PropertyPath>
@@ -813,7 +811,68 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-            </Annotations>
+
+
+                <!-- // 2A,2B,2C Scenario start -->
+                <Annotation Term="Common.SideEffects" Qualifier="SitePlanDateChanged">
+            <Record>
+                <PropertyValue Property="SourceProperties">
+                    <Collection>
+                        <PropertyPath>site_plan_approved_date</PropertyPath>
+                    </Collection>
+                </PropertyValue>
+                <PropertyValue Property="TargetEntities">
+                    <Collection>
+                        <NavigationPropertyPath>to_bill17rtopt</NavigationPropertyPath>
+                    </Collection>
+                </PropertyValue>
+                <PropertyValue Property="TargetProperties">
+                    <Collection>
+                        <String>bill17_hidden</String>
+                    </Collection>
+                </PropertyValue>
+            </Record>
+        </Annotation>
+
+        <Annotation Term="Common.SideEffects" Qualifier="Bill17OptionChanged">
+            <Record>
+                <PropertyValue Property="SourceProperties">
+                    <Collection>
+                        <PropertyPath>to_bill17rtopt/calc_option</PropertyPath>
+                    </Collection>
+                </PropertyValue>
+                
+                <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
+
+                <PropertyValue Property="TargetProperties">
+                    <Collection>
+                        <PropertyPath>days_of_interest</PropertyPath>
+                        <PropertyPath>dc_valid_until</PropertyPath>
+                        <PropertyPath>total_def_non_dc_payable</PropertyPath>
+                        <String>non_def_dc_payable</String>
+                        <String>total_non_def_dc_pay</String>
+                        <String>def_dc_payable</String>
+                        <String>total_def_dc_payable</String>
+                        <String>total_def_non_dc_payable</String>
+                        <String>total_non_def_invoice_amt</String>
+                    </Collection>
+                </PropertyValue>
+                
+                <PropertyValue Property="TargetEntities">
+                    <Collection>
+                        <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
+                        <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>
+                        <NavigationPropertyPath>to_demos</NavigationPropertyPath>
+                        <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
+                        <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
+                        <NavigationPropertyPath>to_defpartner</NavigationPropertyPath>
+                    </Collection>
+                </PropertyValue>
+            </Record>
+        </Annotation>
+                <!-- // 2A,2B,2C Scenario end -->
+                    <!-- // request annotations end  -->
+                </Annotations>
 
             <Annotations Target="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsWithdraw_approval">
                 <Annotation Term="com.sap.vocabularies.Common.v1.IsActionCritical" Bool="true" />
@@ -950,7 +1009,6 @@
             </Annotations>
 
             <Annotations Target="SAP.zgc_c_requestsType">
-
                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CILPayableChanged">
                     <Record>
                         <PropertyValue Property="SourceProperties">
@@ -2004,12 +2062,6 @@
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/total_non_def_invoice_amt">
                 <Annotation Term="UI.Hidden" Path="bill17_hidden" />
             </Annotations>
-
-           
-
-          
-
-               
 
             <!-- Tool Tip -->
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/total_payable">

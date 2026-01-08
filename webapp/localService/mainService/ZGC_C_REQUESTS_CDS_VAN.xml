@@ -645,6 +645,45 @@
                     </Record>
                 </Annotation>
             </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_BILL17_RATEType/HasDraftEntity">
+                <Annotation Term="UI.HiddenFilter" />
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_BILL17_RATEType/ActiveUUID">
+                <Annotation Term="UI.HiddenFilter" />
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_BILL17_RATEType/DraftEntityCreationDateTime">
+                <Annotation Term="UI.HiddenFilter" />
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_BILL17_RATEType/DraftEntityLastChangeDateTime">
+                <Annotation Term="UI.HiddenFilter" />
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_BILL17_RATEType/HasActiveEntity">
+                <Annotation Term="UI.HiddenFilter" />
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_BILL17_RATEType/IsActiveEntity">
+                <Annotation Term="UI.HiddenFilter" />
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_BILL17_RATEType/Preparation_ac">
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_BILL17_RATEType/Validation_ac">
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_BILL17_RATEType/id_fc">
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_BILL17_RATEType/Delete_mc">
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_BILL17_RATEType/Update_mc">
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_dc_calcltnsType/HasDraftEntity">
                 <Annotation Term="UI.HiddenFilter" />
                 <Annotation Term="UI.Hidden" />
@@ -879,6 +918,9 @@
                 <Annotation Term="UI.Hidden" />
             </Annotations>
             <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_DEF_PARTType/Validation_ac">
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_DEF_PARTType/id_fc">
                 <Annotation Term="UI.Hidden" />
             </Annotations>
             <Annotations Target="ZGC_C_REQUESTS_CDS.ZGC_C_DC_DEF_PARTType/Delete_mc">
@@ -1726,6 +1768,9 @@
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/loc_date_fc">
                 <Annotation Term="UI.Hidden" />
             </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/occupancy_clearance_date_fc">
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/occupancy_date_fc">
                 <Annotation Term="UI.Hidden" />
             </Annotations>
@@ -1736,6 +1781,9 @@
                 <Annotation Term="UI.Hidden" />
             </Annotations>
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/permit_description_fc">
+                <Annotation Term="UI.Hidden" />
+            </Annotations>
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/permit_issued_fc">
                 <Annotation Term="UI.Hidden" />
             </Annotations>
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/rop_associated_payment_fc">
@@ -1881,6 +1929,7 @@
                                             </Collection>
                                         </PropertyValue>
                                     </Record>
+                                    
                                     <Record Type="UI.CollectionFacet">
                                         <PropertyValue Property="Label" String="Bill 17 Deferral Partner" />
                                         <PropertyValue Property="ID" String="Def_Partner_Bill17" />
@@ -2923,11 +2972,11 @@
                             <Collection>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Label" String="Non -Deferred DC Payable" />
-                                    <PropertyValue Property="Value" Path="non_def_dc_payable" />
+                                    <PropertyValue Property="Value" Path="total_non_def_dc_pay" />
                                 </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Label" String="Deferred DC Amount" />
-                                    <PropertyValue Property="Value" Path="def_dc_payable" />
+                                    <PropertyValue Property="Value" Path="total_def_dc_payable" />
                                 </Record>
                             </Collection>
                         </PropertyValue>
