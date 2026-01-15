@@ -476,7 +476,9 @@ sap.ui.define([
       getBill17FinalPillState: function (sStatus) {
         if (sStatus === "WITHDRAWN") return "None";
 
-        if (sStatus === "DC1_APR" || sStatus === "FIN_PND") return "Warning"; // Pending
+        if (sStatus === "DC1_APR") return "Information"
+
+        if ( sStatus === "FIN_PND") return "Warning"; // Pending
         if (sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success"; 
         return "None";
       },

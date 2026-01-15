@@ -686,6 +686,7 @@
                             <Collection>
                                 <PropertyPath>invoice_calculation_date</PropertyPath>
                                 <PropertyPath>interest_applied_date</PropertyPath>
+                                <PropertyPath>to_bill17rtopt/calc_option</PropertyPath>
                             </Collection>
                         </PropertyValue>
 
@@ -834,43 +835,32 @@
             </Record>
         </Annotation>
 
-        <Annotation Term="Common.SideEffects" Qualifier="Bill17OptionChanged">
-            <Record>
-                <PropertyValue Property="SourceProperties">
-                    <Collection>
-                        <PropertyPath>to_bill17rtopt/calc_option</PropertyPath>
-                    </Collection>
-                </PropertyValue>
-                
-                <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
 
-                <PropertyValue Property="TargetProperties">
-                    <Collection>
-                        <PropertyPath>days_of_interest</PropertyPath>
-                        <PropertyPath>dc_valid_until</PropertyPath>
-                        <PropertyPath>total_def_non_dc_payable</PropertyPath>
-                        <String>non_def_dc_payable</String>
-                        <String>total_non_def_dc_pay</String>
-                        <String>def_dc_payable</String>
-                        <String>total_def_dc_payable</String>
-                        <String>total_def_non_dc_payable</String>
-                        <String>total_non_def_invoice_amt</String>
-                    </Collection>
-                </PropertyValue>
-                
-                <PropertyValue Property="TargetEntities">
-                    <Collection>
-                        <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
-                        <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>
-                        <NavigationPropertyPath>to_demos</NavigationPropertyPath>
-                        <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
-                        <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
-                        <NavigationPropertyPath>to_defpartner</NavigationPropertyPath>
-                    </Collection>
-                </PropertyValue>
-            </Record>
-        </Annotation>
                 <!-- // 2A,2B,2C Scenario end -->
+
+                <Annotation Term="Common.SideEffects" Qualifier="Bill17CalcOptionChanged">
+                    <Record Type="Common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>to_bill17rtopt/calc_option</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+
+                        <PropertyValue Property="TriggerAction" String="SAP.ZGC_C_REQUESTS_CDS_Entities/zgc_c_dc_calcltnsCalculate" />
+
+                        <PropertyValue Property="TargetEntities">
+                            <Collection>
+                                <NavigationPropertyPath>to_dccal</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_dc_spec</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_demos</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_defpartner</NavigationPropertyPath>
+                                <NavigationPropertyPath>to_bill17rtopt</NavigationPropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
                     <!-- // request annotations end  -->
                 </Annotations>
 

@@ -72,6 +72,7 @@
                         formatter: '._isBill17PillVisible'
                     }"
                     state="{path: 'status', formatter: '.getBill17Level1State'}"
+                    press=".openMilestoneDialog($event, 'DC1')"
                     showSeparator="{
                         parts: [
                             {path: 'to_defpartner'},
@@ -84,6 +85,8 @@
                         <ObjectStatus 
                             text="{path: 'status', formatter: '.getBill17Level1Text'}" 
                             state="{path: 'status', formatter: '.getBill17Level1State'}" 
+                            active="true"
+                            press=".openMilestoneDialog($event, 'DC1')"
                             inverted="true" />
                     </commons:customControl>
                 </commons:MicroProcessFlowItem>
@@ -98,6 +101,7 @@
                         formatter: '._isBill17FinalPillVisible'
                     }"
                     state="{path: 'status', formatter: '.getBill17FinalPillState'}"
+                    press=".openMilestoneDialog($event,'FIN_APR')"
                     showSeparator="{
                         parts: [
                             {path: 'cbc_applicable'},
@@ -108,7 +112,9 @@
                     <commons:customControl>
                         <ObjectStatus 
                             text="{path: 'status', formatter: '.getBill17FinalPillText'}" 
+                            active="true"
                             state="{path: 'status', formatter: '.getBill17FinalPillState'}" 
+                            press=".openMilestoneDialog($event,'FIN_APR')"
                             inverted="true" />
                     </commons:customControl>
                 </commons:MicroProcessFlowItem>

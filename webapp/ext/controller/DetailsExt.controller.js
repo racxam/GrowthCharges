@@ -1665,6 +1665,7 @@ sap.ui.define(
             oDialog.openBy(this.status1);
           }.bind(this));
       },
+      
       //  Change: Updated logic to inverse greying based on Permit Issued status
       _onDcTableDataReceived: function (oEventOrTable) {
         var oTable;
@@ -1709,6 +1710,36 @@ sap.ui.define(
         var sPath = oEvent.getParameter("path");
         var oValue = oEvent.getParameter("value");
         var oContext = oEvent.getParameter("context");
+
+
+
+        // Payment Information, is bill17 applicable
+    // Inside _onPropertyChange
+if (sPath === "is_bill17_appl") {
+    
+    if (oValue === true) {
+        sap.m.MessageBox.warning(
+            "Saving this would create a new version and Bill 17 changes would be applicable in that version.\n\nDo you want to proceed?",
+            {
+                title: "Create New Version?",
+                actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+                
+                // FIX STARTS HERE
+                onClose: function (sAction) {
+                    // Because of .bind(this) below, 'this' now refers to the Controller
+                    if (sAction === sap.m.MessageBox.Action.OK) {
+                        this._triggerCreateNewVersion(oContext);
+                    } else {
+                        // Revert Checkbox
+                        this.getView().getModel().setProperty(oContext.getPath() + "/" + sPath, false);
+                        this.getView().getModel().resetChanges([oContext.getPath() + "/" + sPath]);
+                    }
+                }.bind(this) // <--- THIS IS THE KEY FIX
+                // FIX ENDS HERE
+            }
+        );
+    }
+}
 
         // --- Logic 1: Permit Issued ---
         if (sPath === "permit_issued") {
@@ -1882,6 +1913,8 @@ sap.ui.define(
         }
       },
 
+      
+
       // ====================================================================
       //  STATUS PILL & COLOR CODING LOGIC (DYNAMIC BILL 17)
       // ====================================================================
@@ -1969,8 +2002,9 @@ sap.ui.define(
 
       getBill17FinalPillState: function (sStatus) {
         if (sStatus === "WITHDRAWN") return "None";
+        if (sStatus === "DC1_APR") return "Information"
 
-        if (sStatus === "DC1_APR" || sStatus === "FIN_PND") return "Warning"; // Pending
+        if ( sStatus === "FIN_PND") return "Warning"; // Pending
         if (sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
         return "None";
       },
@@ -2166,19 +2200,66 @@ sap.ui.define(
         return 0; // Default
       },
       //Changing Radio Buttons L or P
+    
       onCalcOptionChange: function (oEvent) {
         var oRadioGroup = oEvent.getSource();
-        var iIndex = oRadioGroup.getSelectedIndex();
-        var sValue = iIndex === 0 ? "L" : "P"; // 
+        var sValue = oRadioGroup.getSelectedIndex() === 0 ? "L" : "P";
 
         var oContext = oRadioGroup.getBindingContext();
-        if (oContext) {
-          // 1. Update the local property in the model
-          oContext.getModel().setProperty(oContext.getPath() + "/calc_option", sValue);
+        if (!oContext) return;
 
-          // 2. Submit Changes 
-          oContext.getModel().submitChanges();
-        }
+        var oModel = oContext.getModel();
+        var sPath = oContext.getPath() + "/calc_option";
+        var that = this;
+
+        // 1. Optimistic Update
+        oModel.setProperty(sPath, sValue);
+
+        // NOTE: Removed sap.ui.core.BusyIndicator.show(0); 
+        // It was causing the black screen freeze.
+
+        // 2. Submit Changes
+        oModel.submitChanges({
+          success: function (oData) {
+            if (oData && oData.__batchResponses) {
+              var hasError = oData.__batchResponses.some(function (r) {
+                return r.response && r.response.statusCode >= 400;
+              });
+              if (hasError) {
+                sap.m.MessageBox.error("Error saving option.");
+                return;
+              }
+            }
+
+            // 3. Trigger Calculation
+            var reqGuid = oContext.getProperty("req_uuid");
+            oModel.callFunction("/zgc_c_dc_calcltnsCalculate", {
+              method: "POST",
+              urlParameters: { req_uuid: reqGuid },
+              success: function (oData) {
+                sap.m.MessageToast.show("Calculation updated.");
+
+                // 4. THE SAFE REFRESH
+                // We try to use the standard ExtensionAPI first.
+                if (that.extensionAPI && that.extensionAPI.refresh) {
+                  that.extensionAPI.refresh();
+                } else {
+                  // Fallback: Refresh the View Binding naturally.
+                  // This is safer than oModel.refresh(true) as it respects the view lifecycle.
+                  if (that.getView().getElementBinding()) {
+                    that.getView().getElementBinding().refresh();
+                  }
+                }
+              },
+              error: function (oError) {
+                // Error handling
+              }
+            });
+          },
+          error: function (oError) {
+            sap.m.MessageBox.error("Failed to save.");
+          }
+        });
       },
       // Radio button Insertion Logic
       _insertBelowBill17DeferralPartner: function () {
@@ -2239,6 +2320,42 @@ sap.ui.define(
 
         }.bind(this));
       },
+
+      //Create new version on Bill17
+_triggerCreateNewVersion: function (oContext) {
+    var oExtensionAPI = this.extensionAPI;
+    var that = this;
+
+    // 1. Use the FULL Action Name from your annotations.xml
+    // Format: Namespace.EntityContainer/FunctionImportName
+    var sFunctionName = "ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsCreate_new_version";
+
+    sap.ui.core.BusyIndicator.show();
+
+    // 2. Invoke via ExtensionAPI (Handles Context & Draft logic automatically)
+    oExtensionAPI.invokeActions(sFunctionName, [oContext])
+        .then(function () {
+            sap.ui.core.BusyIndicator.hide();
+            sap.m.MessageToast.show("New Version Created Successfully");
+            
+            // 3. Refresh to show new data
+            oExtensionAPI.refresh();
+        })
+        .catch(function (oError) {
+            sap.ui.core.BusyIndicator.hide();
+            
+            // 4. Revert checkbox if failed
+            if (that.getView().getModel()) {
+                that.getView().getModel().setProperty(oContext.getPath() + "/is_bill17_appl", false);
+                that.getView().getModel().resetChanges([oContext.getPath() + "/is_bill17_appl"]);
+            }
+            
+            // 5. Handle Error Message
+            var sMsg = "Failed to create new version.";
+            // ... (Your error parsing logic is fine here) ...
+            sap.m.MessageBox.error(sMsg);
+        });
+},
 
 
       //end of controller
