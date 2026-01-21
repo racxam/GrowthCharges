@@ -1223,121 +1223,122 @@ sap.ui.define(
        * @param {sap.ui.base.event} oEvent Event for the input field
        * @param {string} label of the associated field
        */
-      onValueHelpRequested: function (oEvent) {
-        //For the custom control, enable side effects
-        this._prepareSideEffects(oEvent);
-        this.VHInput = oEvent.getSource();
-        const fragment = Fragment.load({
-          name: "com.gc.dashboard.ext.fragment.DCRateValueHelp",
-          controller: this
-        });
-        //Date filter
-        //If site-plan approved date is more than 2 years old than the invoice calculation date,
-        //use the invoice calculation date. If not, check if interest applied date is available. If yes, use that date.
-        //If not, use the invoice calculation date.
+    /**
+ * Handler for F4 Input fields (DC Rates)
+ * Logic: Checks "Locked" vs "Prevailing" status for the specific Partner (COM/GO/ROP)
+ */
+onValueHelpRequested: function (oEvent) {
+    // 1. Prepare Side Effects (Standard)
+    this._prepareSideEffects(oEvent);
+    this.VHInput = oEvent.getSource();
 
-        const sitePlanApprovedDate = this.getView()
-          .getBindingContext()
-          .getObject().site_plan_approved_date;
-        const invoiceCalculationDate = this.getView()
-          .getBindingContext()
-          .getObject().invoice_calculation_date;
-        const interestAppliedDate = this.getView()
-          .getBindingContext()
-          .getObject().interest_applied_date;
-        let dateFilter = "";
-        if (sitePlanApprovedDate) {
-          let date1 = new Date(sitePlanApprovedDate);
-          date1.setFullYear(date1.getFullYear() + 2); //Two years from site plan approved date
-          const date2 = new Date(invoiceCalculationDate);
-          if (date2 > date1) {
-            dateFilter = invoiceCalculationDate;
-          }
+    // 2. Load Fragment
+    var fragment = sap.ui.core.Fragment.load({
+        name: "com.gc.dashboard.ext.fragment.DCRateValueHelp",
+        controller: this
+    });
+
+    // ---------------------------------------------------------
+    // NEW DATE LOGIC: "L" (Site Plan Applied) vs "P" (Invoice Calc)
+    // ---------------------------------------------------------
+    var oRowContext = oEvent.getSource().getBindingContext();
+    var oHeaderContext = this.getView().getBindingContext();
+    var oModel = this.getView().getModel();
+
+    // A. Default Date = Invoice Calculation Date (Corresponds to "P")
+    var sFilterDate = oHeaderContext.getProperty("invoice_calculation_date");
+
+    // B. Get Site Plan Date & Partner ID
+    var sSitePlanAppDate = oHeaderContext.getProperty("site_plan_applied_date");
+    
+    // NOTE: 'dc_partner' must be available in the row data. 
+    // If your table doesn't show it, ensure it's in the $select parameters.
+    var sRowPartner = oRowContext.getProperty("dc_partner"); 
+
+    // C. Check the Bill 17 Option for THIS specific partner
+    if (sRowPartner && sSitePlanAppDate) {
+        // Retrieve the list of Bill 17 options loaded in the model (via the Fragment binding)
+        var sNavPath = oHeaderContext.getPath() + "/to_bill17rtopt";
+        var aOptionKeys = oModel.getProperty(sNavPath); 
+
+        // OData V2 returns navigation as a list of path strings (e.g. ["Entry('A')", "Entry('B')"])
+        if (Array.isArray(aOptionKeys)) {
+            for (var i = 0; i < aOptionKeys.length; i++) {
+                var oOption = oModel.getProperty("/" + aOptionKeys[i]);
+                
+                // Match the Row's Partner to the Option's Partner
+                if (oOption && oOption.id === sRowPartner) {
+                    // IF user selected "L" (Locked), use Site Plan Applied Date
+                    if (oOption.calc_option === "L") {
+                        sFilterDate = sSitePlanAppDate;
+                    }
+                    // Else keep default (Invoice Date) for "P"
+                    break; 
+                }
+            }
         }
-        if (interestAppliedDate && !dateFilter) {
-          dateFilter = interestAppliedDate;
-        } else {
-          dateFilter = invoiceCalculationDate;
-        }
-        const startDateFilter = new Filter(
-          "start_date",
-          "LE",
-          dateFilter
-        );
-        const endDateFilter = new Filter(
-          "end_date",
-          "GE",
-          dateFilter
-        );
-        const dcFilter = new Filter(
-          "dc_type",
-          "EQ",
-          oEvent.getSource().getBindingContext().getObject().dc_type
-        );
-        this.rateFilters = [startDateFilter, endDateFilter, dcFilter];
-        fragment.then(
-          function (oDialog) {
-            this._oValueHelpDialog = oDialog;
-            this.getView().addDependent(oDialog);
-            oDialog.getTableAsync().then(
-              function (oTable) {
-                oTable.setModel(this.getView().getModel());
-                // For Desktop and tabled the default table is sap.ui.table.Table
-                if (oTable.bindRows) {
-                  // Bind rows to the ODataModel and add columns
-                  oTable.bindRows({
+    }
+    // ---------------------------------------------------------
+
+    // 3. Create Filters using the determined sFilterDate
+    var startDateFilter = new sap.ui.model.Filter("start_date", "LE", sFilterDate);
+    var endDateFilter = new sap.ui.model.Filter("end_date", "GE", sFilterDate);
+    
+    // Add DC Type filter
+    var dcFilter = new sap.ui.model.Filter(
+        "dc_type",
+        "EQ",
+        oRowContext.getObject().dc_type
+    );
+
+    this.rateFilters = [startDateFilter, endDateFilter, dcFilter];
+
+    // 4. Open Dialog
+    fragment.then(function (oDialog) {
+        this._oValueHelpDialog = oDialog;
+        this.getView().addDependent(oDialog);
+        
+        oDialog.getTableAsync().then(function (oTable) {
+            oTable.setModel(this.getView().getModel());
+            
+            if (oTable.bindRows) {
+                oTable.bindRows({
                     path: "/zgc_dcrates_vh",
                     filters: this.rateFilters,
                     events: {
-                      dataRequested: function () {
-                        this.getView().getModel("LocalModel").setProperty("/busy", true);
-                      }.bind(this),
-                      dataReceived: function () {
-                        this.getView().getModel("LocalModel").setProperty("/busy", false);
-                        oDialog.update();
-                      }.bind(this)
+                        dataRequested: function () {
+                            this.getView().getModel("LocalModel").setProperty("/busy", true);
+                        }.bind(this),
+                        dataReceived: function () {
+                            this.getView().getModel("LocalModel").setProperty("/busy", false);
+                            oDialog.update();
+                        }.bind(this)
                     }
-                  });
-                  // Only two decimal places
-                  const dcRateTemplate = new Text({
-                    text: "{ path: 'dc_rate',type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}"
-                  });
-                  const startDateTemplate = new Text({
+                });
+
+                // Columns definition
+                var dcRateTemplate = new sap.m.Text({
+                    text: "{ path: 'dc_rate', type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}"
+                });
+                var startDateTemplate = new sap.m.Text({
                     text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
-                  });
-                  const endDateTemplate = new Text({
+                });
+                var endDateTemplate = new sap.m.Text({
                     text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
-                  });
-                  const rateComments = new Text({ text: "{rate_note}" });
-                  oTable.addColumn(
-                    new UIColumn({ label: "DC Rate", template: dcRateTemplate })
-                  );
-                  oTable.addColumn(
-                    new UIColumn({
-                      label: "Valid From",
-                      template: startDateTemplate
-                    })
-                  );
-                  oTable.addColumn(
-                    new UIColumn({
-                      label: "Valid To",
-                      template: endDateTemplate
-                    })
-                  );
-                  oTable.addColumn(
-                    new UIColumn({
-                      label: "Comments",
-                      template: rateComments
-                    })
-                  );
-                }
-                oDialog.update();
-              }.bind(this)
-            );
-            oDialog.open();
-          }.bind(this)
-        );
-      },
+                });
+                var rateComments = new sap.m.Text({ text: "{rate_note}" });
+
+                oTable.addColumn(new sap.ui.table.Column({ label: "DC Rate", template: dcRateTemplate }));
+                oTable.addColumn(new sap.ui.table.Column({ label: "Valid From", template: startDateTemplate }));
+                oTable.addColumn(new sap.ui.table.Column({ label: "Valid To", template: endDateTemplate }));
+                oTable.addColumn(new sap.ui.table.Column({ label: "Comments", template: rateComments }));
+            }
+            oDialog.update();
+        }.bind(this));
+        
+        oDialog.open();
+    }.bind(this));
+},
       _prepareSideEffects: function (oEvent) {
         //Setup Side effect - copied from smartfield/SideEffectsUtil.js
         //For a custom column or field, to trigger side effects,
