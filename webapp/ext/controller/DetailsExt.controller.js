@@ -801,88 +801,66 @@ sap.ui.define(
 
       },
 
-      onBeforeRebindTableExtension: function (oEvent) {
-        //Add $select for payment table
-        if (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo-ID::Table") {
-          oEvent.getParameter("bindingParams").parameters = oEvent.getParameter("bindingParams").parameters || {};
-          // Add property 'Gen_pay_receipt_ac' to $select
-          oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",Gen_pay_receipt_ac,deferral_adjust";
-          // >>> UPDATING THIS BLOCK for payment table sorting logic in bill17 <<<
-          // Check if Bill 17 is Active
-          var vDefPartner = this.getView().getBindingContext().getProperty("to_defpartner");
-          var bIsBill17 = this._isBill17Active(vDefPartner);
+ onBeforeRebindTableExtension: function (oEvent) {
+    var sTableId = oEvent.getSource().getId();
 
-          if (bIsBill17) {
-            // BILL 17 SCENARIO: Sort by Invoice Issue Date (Ascending)
-            oEvent.getParameter("bindingParams").sorter = [
-              new sap.ui.model.Sorter("invoice_doc_issue", true)
-            ];
-          } else {
-            // STANDARD SCENARIO: Sort by Date and Document (Descending)
-            oEvent.getParameter("bindingParams").sorter = [
-              new sap.ui.model.Sorter("sort_date", false),
-              new sap.ui.model.Sorter("sort_document", false)
-            ];
-          }
-          // >>> END UPDATE <<<
-        }
-        if (oEvent.getSource().getId() ===
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table") {
-          var oBindingParams = oEvent.getParameter("bindingParams");
-          oBindingParams.parameters = oBindingParams.parameters || {};
-          oBindingParams.parameters.operationMode = "Client";
-        }
-        if (oEvent.getSource().getId() ===
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table") {
-          var oBindingParams = oEvent.getParameter("bindingParams");
-          oBindingParams.parameters = oBindingParams.parameters || {};
-          oBindingParams.parameters.operationMode = "Client";
-        }
-        //Binding parameter change is only for the DC Table, Speculative, Exemption, Demolition table
-        if (
-          oEvent.getSource().getId() ===
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table" ||
-          oEvent.getSource().getId() ===
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table" ||
-          oEvent.getSource().getId() ===
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table" ||
-          oEvent.getSource().getId() ===
-          "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table"
-        ) {
-          var oBindingParams = oEvent.getParameter("bindingParams");
-          oBindingParams.parameters = oBindingParams.parameters || {};
-          oBindingParams.parameters.operationMode = "Client";
-          oBindingParams.parameters.select = oBindingParams.parameters.select + ",is_rate_edited,is_bill17_appl";
-        }
+    // 1. Payment Table Logic (Keep existing)
+    if (sTableId.indexOf("PaymentInfo-ID::Table") > -1) {
+        var oBindingParams = oEvent.getParameter("bindingParams");
+        oBindingParams.parameters = oBindingParams.parameters || {};
+        oBindingParams.parameters.select = oBindingParams.parameters.select + ",Gen_pay_receipt_ac,deferral_adjust";
 
-        //Default sorting by sort_order, dc_type, hierarchy_level, sub_service_id
-        if ((oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table")
-          || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DemolitionCred-ID::Table")
-          || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID-NonInd::Table")
-          || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Section-14-ID::Table")
-          || (oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Previous-Building-Permit-Credit-ID::Table")
-        ) {
-          if (oEvent.getParameter("bindingParams").parameters.select.indexOf("sort_order") === -1) {
-            oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",sort_order";
-          }
-          oEvent.getParameter("bindingParams").sorter = [
-            new sap.ui.model.Sorter("sort_order", false),
-            new sap.ui.model.Sorter("dc_type", false),
-            new sap.ui.model.Sorter("hierarchy_level", false),
-            new sap.ui.model.Sorter("sub_service_id", false)
-          ];
+        // Sort logic for Payment
+        var vDefPartner = this.getView().getBindingContext().getProperty("to_defpartner");
+        var bIsBill17 = this._isBill17Active(vDefPartner);
+
+        if (bIsBill17) {
+            oBindingParams.sorter = [new sap.ui.model.Sorter("invoice_doc_issue", true)];
+        } else {
+            oBindingParams.sorter = [new sap.ui.model.Sorter("sort_date", false), new sap.ui.model.Sorter("sort_document", false)];
         }
-        // Temporary Comments for Exemption Side effects issues
-        // if ((oEvent.getSource().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table")) {
-        //   if (oEvent.getParameter("bindingParams").parameters.select.indexOf("sort_order") === -1) {
-        //     oEvent.getParameter("bindingParams").parameters.select = oEvent.getParameter("bindingParams").parameters.select + ",sort_order";
-        //   }
-        //   oEvent.getParameter("bindingParams").sorter = [
-        //     new sap.ui.model.Sorter("sort_order", false),
-        //     new sap.ui.model.Sorter("dc_type", false)
-        //   ];
-        // }
-      },
+    }
+
+    // 2. Previous Building Permit & Section 14 (Client Mode)
+    if (sTableId.indexOf("Previous-Building-Permit-Credit-ID::Table") > -1 || 
+        sTableId.indexOf("Section-14-ID::Table") > -1) {
+        var oBindingParams = oEvent.getParameter("bindingParams");
+        oBindingParams.parameters = oBindingParams.parameters || {};
+        oBindingParams.parameters.operationMode = "Client";
+    }
+
+    // 3. DC TABLES (Fix for F4 Help)
+    if (
+        sTableId.indexOf("TotalDC-ID::Table") > -1 ||
+        sTableId.indexOf("DemolitionCred-ID::Table") > -1 ||
+        sTableId.indexOf("TotalDC-ID-NonInd::Table") > -1 ||
+        sTableId.indexOf("DCExemption-ID::Table") > -1 ||
+        sTableId.indexOf("Previous-Building-Permit-Credit-ID::Table") > -1
+    ) {
+        var oBindingParams = oEvent.getParameter("bindingParams");
+        oBindingParams.parameters = oBindingParams.parameters || {};
+        oBindingParams.parameters.operationMode = "Client";
+
+        // --- ADDED dc_partner HERE ---
+        var sSelect = oBindingParams.parameters.select || "";
+        // Ensure dc_partner is requested so F4 help works
+        if (sSelect.indexOf("dc_partner") === -1) {
+            sSelect += ",dc_partner"; 
+        }
+        sSelect += ",is_rate_edited,is_bill17_appl,sort_order";
+        oBindingParams.parameters.select = sSelect;
+
+        // Default Sorting
+        if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
+            oBindingParams.sorter = [
+                new sap.ui.model.Sorter("sort_order", false),
+                new sap.ui.model.Sorter("dc_type", false),
+                new sap.ui.model.Sorter("hierarchy_level", false),
+                new sap.ui.model.Sorter("sub_service_id", false)
+            ];
+        }
+    }
+},
 
       onPressDCCalc: function (oEvent) {
         const oModel = this.getView().getModel();
@@ -1228,84 +1206,87 @@ sap.ui.define(
  * Logic: Checks "Locked" vs "Prevailing" status for the specific Partner (COM/GO/ROP)
  */
 onValueHelpRequested: function (oEvent) {
-    // 1. Prepare Side Effects (Standard)
     this._prepareSideEffects(oEvent);
     this.VHInput = oEvent.getSource();
 
-    // 2. Load Fragment
     var fragment = sap.ui.core.Fragment.load({
         name: "com.gc.dashboard.ext.fragment.DCRateValueHelp",
         controller: this
     });
 
-    // ---------------------------------------------------------
-    // NEW DATE LOGIC: "L" (Site Plan Applied) vs "P" (Invoice Calc)
-    // ---------------------------------------------------------
+    // --- 1. GET DATA ---
     var oRowContext = oEvent.getSource().getBindingContext();
     var oHeaderContext = this.getView().getBindingContext();
-    var oModel = this.getView().getModel();
-
-    // A. Default Date = Invoice Calculation Date (Corresponds to "P")
-    var sFilterDate = oHeaderContext.getProperty("invoice_calculation_date");
-
-    // B. Get Site Plan Date & Partner ID
-    var sSitePlanAppDate = oHeaderContext.getProperty("site_plan_applied_date");
     
-    // NOTE: 'dc_partner' must be available in the row data. 
-    // If your table doesn't show it, ensure it's in the $select parameters.
+    var sInvoiceDate = oHeaderContext.getProperty("invoice_calculation_date");
+    var sSitePlanAppDate = oHeaderContext.getProperty("site_plan_applied_date");
     var sRowPartner = oRowContext.getProperty("dc_partner"); 
 
-    // C. Check the Bill 17 Option for THIS specific partner
-    if (sRowPartner && sSitePlanAppDate) {
-        // Retrieve the list of Bill 17 options loaded in the model (via the Fragment binding)
-        var sNavPath = oHeaderContext.getPath() + "/to_bill17rtopt";
-        var aOptionKeys = oModel.getProperty(sNavPath); 
+    // --- 2. DEBUG LOGS (CHECK CONSOLE) ---
+    console.log("================ F4 DEBUG START ================");
+    console.log("Row Partner (dc_partner):", sRowPartner);
+    console.log("Invoice Date:", sInvoiceDate);
+    console.log("Site Plan App Date:", sSitePlanAppDate);
+    console.log("Is Bill17 List Loaded?", !!this._oBill17List);
 
-        // OData V2 returns navigation as a list of path strings (e.g. ["Entry('A')", "Entry('B')"])
-        if (Array.isArray(aOptionKeys)) {
-            for (var i = 0; i < aOptionKeys.length; i++) {
-                var oOption = oModel.getProperty("/" + aOptionKeys[i]);
-                
-                // Match the Row's Partner to the Option's Partner
-                if (oOption && oOption.id === sRowPartner) {
-                    // IF user selected "L" (Locked), use Site Plan Applied Date
-                    if (oOption.calc_option === "L") {
+    // Default to Prevailing (Invoice Date)
+    var sFilterDate = sInvoiceDate; 
+
+    // --- 3. LOGIC: MATCH PARTNER IN VISIBLE LIST ---
+    if (sRowPartner && sSitePlanAppDate && this._oBill17List) {
+        var aItems = this._oBill17List.getItems(); 
+        
+        for (var i = 0; i < aItems.length; i++) {
+            var oItemContext = aItems[i].getBindingContext();
+            if (oItemContext) {
+                var oData = oItemContext.getObject();
+                console.log("Checking Option:", oData.id, "| Selected:", oData.calc_option);
+
+                // Match ID (e.g. "COM" == "COM") or check if string contains it
+                var bMatch = (oData.id === sRowPartner) || 
+                             (oData.name === sRowPartner) ||
+                             (oData.id && sRowPartner && oData.id.indexOf(sRowPartner) > -1);
+
+                if (bMatch) {
+                    console.log(">>> MATCH FOUND! Partner:", sRowPartner);
+                    // Check Selection (L or P)
+                    if (oData.calc_option === "L") {
+                        console.log(">>> Option is LOCKED (L). Using Site Plan Date.");
                         sFilterDate = sSitePlanAppDate;
+                    } else {
+                        console.log(">>> Option is PREVAILING (P). Using Invoice Date.");
                     }
-                    // Else keep default (Invoice Date) for "P"
                     break; 
                 }
             }
         }
+    } else {
+        console.warn("Skipping Logic: Missing Partner, Date, or List.");
     }
-    // ---------------------------------------------------------
 
-    // 3. Create Filters using the determined sFilterDate
+    console.log("FINAL FILTER DATE:", sFilterDate);
+    console.log("================ F4 DEBUG END ================");
+
+    // --- 4. CREATE FILTERS ---
     var startDateFilter = new sap.ui.model.Filter("start_date", "LE", sFilterDate);
     var endDateFilter = new sap.ui.model.Filter("end_date", "GE", sFilterDate);
-    
-    // Add DC Type filter
-    var dcFilter = new sap.ui.model.Filter(
-        "dc_type",
-        "EQ",
-        oRowContext.getObject().dc_type
-    );
+    var dcFilter = new sap.ui.model.Filter("dc_type", "EQ", oRowContext.getObject().dc_type);
 
     this.rateFilters = [startDateFilter, endDateFilter, dcFilter];
 
-    // 4. Open Dialog
+    // --- 5. OPEN DIALOG ---
     fragment.then(function (oDialog) {
         this._oValueHelpDialog = oDialog;
         this.getView().addDependent(oDialog);
         
         oDialog.getTableAsync().then(function (oTable) {
             oTable.setModel(this.getView().getModel());
-            
             if (oTable.bindRows) {
                 oTable.bindRows({
                     path: "/zgc_dcrates_vh",
                     filters: this.rateFilters,
                     events: {
+                        // Busy Indicator Logic for the POPUP only (LocalModel)
                         dataRequested: function () {
                             this.getView().getModel("LocalModel").setProperty("/busy", true);
                         }.bind(this),
@@ -1315,17 +1296,11 @@ onValueHelpRequested: function (oEvent) {
                         }.bind(this)
                     }
                 });
-
-                // Columns definition
-                var dcRateTemplate = new sap.m.Text({
-                    text: "{ path: 'dc_rate', type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}"
-                });
-                var startDateTemplate = new sap.m.Text({
-                    text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
-                });
-                var endDateTemplate = new sap.m.Text({
-                    text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}"
-                });
+                
+                // Columns
+                var dcRateTemplate = new sap.m.Text({ text: "{ path: 'dc_rate', type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" });
+                var startDateTemplate = new sap.m.Text({ text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}" });
+                var endDateTemplate = new sap.m.Text({ text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}" });
                 var rateComments = new sap.m.Text({ text: "{rate_note}" });
 
                 oTable.addColumn(new sap.ui.table.Column({ label: "DC Rate", template: dcRateTemplate }));
@@ -1335,10 +1310,10 @@ onValueHelpRequested: function (oEvent) {
             }
             oDialog.update();
         }.bind(this));
-        
         oDialog.open();
     }.bind(this));
 },
+
       _prepareSideEffects: function (oEvent) {
         //Setup Side effect - copied from smartfield/SideEffectsUtil.js
         //For a custom column or field, to trigger side effects,
@@ -2191,7 +2166,10 @@ if (sPath === "is_bill17_appl") {
       },  
       //2A,2B,2C Sceanrio related Functions
       formatCalcOptionToIndex: function (sValue) {
-        // Backend → UI
+        // FIX: Handle null/undefined to prevent "Expression not available" error
+        if (!sValue) {
+          return 0;
+        }
         if (sValue === "L") {
           return 0; // Locked
         }
@@ -2283,63 +2261,44 @@ if (sPath === "is_bill17_appl") {
       },
       // Radio button Insertion Logic
       _insertBelowBill17DeferralPartner: function () {
-        var oView = this.getView();
+    var oView = this.getView();
 
-        // 1. Find the label of "Bill 17 Deferral Partner"
-        var aMatches = oView.findAggregatedObjects(true, function (o) {
-          return o.getId && o.getId().indexOf("DCHeader-FG2::to_defpartner::id::MultiInput-label") !== -1;
-        });
+    // 1. Find Label (Existing logic...)
+    var aMatches = oView.findAggregatedObjects(true, function (o) {
+      return o.getId && o.getId().indexOf("DCHeader-FG2::to_defpartner::id::MultiInput-label") !== -1;
+    });
 
-        if (!aMatches.length) {
-          console.warn("Bill17 Deferral Partner label not found.");
-          return;
-        }
+    if (!aMatches.length) return;
+    var oLabel = aMatches[0];
+    var oGroupElement = oLabel.getParent();
+    var oGroup = oGroupElement.getParent();
 
-        var oLabel = aMatches[0];
+    if (this._bBill17Inserted) return;
+    this._bBill17Inserted = true;
 
-        // 2. Walk up: Label -> GroupElement -> Group
-        var oGroupElement = oLabel.getParent();
-        if (!oGroupElement || !oGroupElement.isA("sap.ui.comp.smartform.GroupElement")) {
-          console.warn("Parent is not a GroupElement.");
-          return;
-        }
+    // 2. Load Fragment (UPDATED)
+    sap.ui.core.Fragment.load({
+      name: "com.gc.dashboard.ext.fragments.Bill17RateOptions",
+      controller: this,
+      id: oView.getId() // <--- CRITICAL: Binds Fragment IDs to View ID
+    }).then(function (oFragment) {
 
-        var oGroup = oGroupElement.getParent();
-        if (!oGroup || !oGroup.insertGroupElement) {
-          console.warn("Parent is not a SmartForm Group.");
-          return;
-        }
+      // Capture the List reference for later use (F4 Help & Save)
+      this._oBill17List = this.byId("idBill17List");
 
-        // Prevent duplicate insertion
-        if (this._bBill17Inserted) {
-          return;
-        }
-        this._bBill17Inserted = true;
+      var oNewGroupElement = new sap.ui.comp.smartform.GroupElement({
+        label: "",
+        elements: [oFragment]
+      });
 
-        // 3. Load fragment
-        sap.ui.core.Fragment.load({
-          name: "com.gc.dashboard.ext.fragments.Bill17RateOptions",
-          controller: this
-        }).then(function (oFragment) {
-
-          // 4. Wrap fragment inside a GroupElement
-          var oNewGroupElement = new sap.ui.comp.smartform.GroupElement({
-            label: "",
-            elements: [oFragment]
-          });
-
-          // 5. Insert BELOW "Bill 17 Deferral Partner"
-          var iIndex = oGroup.indexOfGroupElement(oGroupElement);
-          if (iIndex > -1) {
-            oGroup.insertGroupElement(oNewGroupElement, iIndex);
-          } else {
-            oGroup.addGroupElement(oNewGroupElement);
-          }
-
-          console.log("✔ Bill17 Rate Options inserted below Deferral Partner");
-
-        }.bind(this));
-      },
+      var iIndex = oGroup.indexOfGroupElement(oGroupElement);
+      if (iIndex > -1) {
+        oGroup.insertGroupElement(oNewGroupElement, iIndex);
+      } else {
+        oGroup.addGroupElement(oNewGroupElement);
+      }
+    }.bind(this));
+},
 
       //Create new version on Bill17
 _triggerCreateNewVersion: function (oContext) {

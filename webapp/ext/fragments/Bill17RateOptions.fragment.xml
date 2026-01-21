@@ -2,11 +2,12 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core">
 
-    <VBox 
+    <VBox id="_IDGenVBox2" 
         class="sapUiNoMargin sapUiNoContentPadding"
         visible="{= ${site_plan_applied_date} !== null }">
 
         <List
+            id="idBill17List"
             items="{
                 path: 'to_bill17rtopt', 
                 templateShareable: false,
@@ -19,15 +20,15 @@
             backgroundDesign="Transparent"
             class="sapUiNoMargin sapUiNoContentPadding">
 
-            <CustomListItem class="sapUiNoContentPadding">
-                <VBox class="sapUiNoMargin sapUiNoContentPadding">
+            <CustomListItem id="_IDGenCustomListItem" class="sapUiNoContentPadding">
+                <VBox id="_IDGenVBox3" class="sapUiNoMargin sapUiNoContentPadding">
                     
-                    <Text
+                    <Text id="_IDGenText"
                         text="{name}" 
                         design="Bold"
                         class="sapUiTinyMarginBottom"/>
 
-                    <RadioButtonGroup
+                    <RadioButtonGroup id="_IDGenRadioButtonGroup"
                         columns="2"
                         enabled="{= ${ui>/editable} }"
                         selectedIndex="{
@@ -37,8 +38,8 @@
                         select=".onCalcOptionChange"
                         class="sapUiNoMargin">
                         <buttons>
-                            <RadioButton text="Locked"/> 
-                            <RadioButton text="Prevailing"/>
+                            <RadioButton id="_IDGenRadioButton" text="Locked"/> 
+                            <RadioButton id="_IDGenRadioButton1" text="Prevailing"/>
                         </buttons>
                     </RadioButtonGroup>
 
