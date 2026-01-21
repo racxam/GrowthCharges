@@ -4,7 +4,7 @@
 
     <VBox 
         class="sapUiNoMargin sapUiNoContentPadding"
-        visible="{= ${site_plan_approved_date} !== null }">
+        visible="{= ${site_plan_applied_date} !== null }">
 
         <List
             items="{

@@ -2212,6 +2212,25 @@ if (sPath === "is_bill17_appl") {
         var sPath = oContext.getPath() + "/calc_option";
         var that = this;
 
+        var oList = oRadioGroup.getParent().getParent().getParent(); 
+       if (oList && oList.getItems) {
+        var aItems = oList.getItems();
+        aItems.forEach(function(oItem) {
+            var oItemContext = oItem.getBindingContext();
+            if (oItemContext) {
+                var sItemPath = oItemContext.getPath();
+                
+                // If this is NOT the row we just clicked, force an update for it too.
+                // We use the 'changes' groupId so it gets bundled into the submitChanges call below.
+                if (sItemPath !== oContext.getPath()) {
+                     var sExistingVal = oItemContext.getProperty("calc_option");
+                     // This marks the row as "dirty" so the backend receives it in the batch
+                     oModel.update(sItemPath, { calc_option: sExistingVal }, { groupId: "changes" });
+                }
+            }
+        });
+    }
+
         // 1. Optimistic Update
         oModel.setProperty(sPath, sValue);
 
