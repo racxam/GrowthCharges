@@ -801,13 +801,15 @@ sap.ui.define(
 
       },
 
- onBeforeRebindTableExtension: function (oEvent) {
+onBeforeRebindTableExtension: function (oEvent) {
     var sTableId = oEvent.getSource().getId();
+    var oBindingParams = oEvent.getParameter("bindingParams");
+    oBindingParams.parameters = oBindingParams.parameters || {};
 
-    // 1. Payment Table Logic (Keep existing)
+    // ============================================================
+    // 1. PAYMENT TABLE (PaymentInfo-ID)
+    // ============================================================
     if (sTableId.indexOf("PaymentInfo-ID::Table") > -1) {
-        var oBindingParams = oEvent.getParameter("bindingParams");
-        oBindingParams.parameters = oBindingParams.parameters || {};
         oBindingParams.parameters.select = oBindingParams.parameters.select + ",Gen_pay_receipt_ac,deferral_adjust";
 
         // Sort logic for Payment
@@ -819,34 +821,20 @@ sap.ui.define(
         } else {
             oBindingParams.sorter = [new sap.ui.model.Sorter("sort_date", false), new sap.ui.model.Sorter("sort_document", false)];
         }
+        return; // Done for this table
     }
 
-    // 2. Previous Building Permit & Section 14 (Client Mode)
-    if (sTableId.indexOf("Previous-Building-Permit-Credit-ID::Table") > -1 || 
-        sTableId.indexOf("Section-14-ID::Table") > -1) {
-        var oBindingParams = oEvent.getParameter("bindingParams");
-        oBindingParams.parameters = oBindingParams.parameters || {};
+    // ============================================================
+    // 2. MAIN DC TABLES (TotalDC-ID, TotalDC-ID-NonInd)
+    // These have 'dc_partner', 'is_rate_edited', 'hierarchy_level'
+    // ============================================================
+    if (sTableId.indexOf("TotalDC-ID::Table") > -1 || sTableId.indexOf("TotalDC-ID-NonInd::Table") > -1) {
         oBindingParams.parameters.operationMode = "Client";
-    }
-
-    // 3. DC TABLES (Fix for F4 Help)
-    if (
-        sTableId.indexOf("TotalDC-ID::Table") > -1 ||
-        sTableId.indexOf("DemolitionCred-ID::Table") > -1 ||
-        sTableId.indexOf("TotalDC-ID-NonInd::Table") > -1 ||
-        sTableId.indexOf("DCExemption-ID::Table") > -1 ||
-        sTableId.indexOf("Previous-Building-Permit-Credit-ID::Table") > -1
-    ) {
-        var oBindingParams = oEvent.getParameter("bindingParams");
-        oBindingParams.parameters = oBindingParams.parameters || {};
-        oBindingParams.parameters.operationMode = "Client";
-
-        // --- ADDED dc_partner HERE ---
+        
         var sSelect = oBindingParams.parameters.select || "";
-        // Ensure dc_partner is requested so F4 help works
-        if (sSelect.indexOf("dc_partner") === -1) {
-            sSelect += ",dc_partner"; 
-        }
+        // Force 'dc_partner' for F4 Help logic
+        if (sSelect.indexOf("dc_partner") === -1) sSelect += ",dc_partner";
+        // Add other flags
         sSelect += ",is_rate_edited,is_bill17_appl,sort_order";
         oBindingParams.parameters.select = sSelect;
 
@@ -859,8 +847,72 @@ sap.ui.define(
                 new sap.ui.model.Sorter("sub_service_id", false)
             ];
         }
+        return;
+    }
+
+    // ============================================================
+    // 3. PREVIOUS BUILDING PERMIT (Previous-Building-Permit-Credit-ID)
+    // Does NOT have 'is_rate_edited' (Fixes 404 Error)
+    // ============================================================
+    if (sTableId.indexOf("Previous-Building-Permit-Credit-ID::Table") > -1) {
+        oBindingParams.parameters.operationMode = "Client";
+        
+        // Only add sort_order, DO NOT add is_rate_edited
+        var sSelect = oBindingParams.parameters.select || "";
+        sSelect += ",sort_order"; 
+        oBindingParams.parameters.select = sSelect;
+
+        if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
+            oBindingParams.sorter = [
+                new sap.ui.model.Sorter("sort_order", false),
+                new sap.ui.model.Sorter("dc_type", false)
+            ];
+        }
+        return;
+    }
+
+    // ============================================================
+    // 4. EXEMPTIONS & DEMOLITION (DCExemption-ID, DemolitionCred-ID)
+    // Does NOT have 'hierarchy_level' or 'sub_service_id' (Fixes Assertion Error)
+    // ============================================================
+    if (sTableId.indexOf("DCExemption-ID::Table") > -1 || sTableId.indexOf("DemolitionCred-ID::Table") > -1) {
+        oBindingParams.parameters.operationMode = "Client";
+
+        var sSelect = oBindingParams.parameters.select || "";
+        // Demolition/Exemption likely supports is_rate_edited/bill17, but NOT dc_partner
+        sSelect += ",is_rate_edited,is_bill17_appl,sort_order";
+        oBindingParams.parameters.select = sSelect;
+
+        // Simplified Sorting (Removed hierarchy_level/sub_service_id)
+        if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
+            oBindingParams.sorter = [
+                new sap.ui.model.Sorter("sort_order", false),
+                new sap.ui.model.Sorter("dc_type", false)
+            ];
+        }
+        return;
+    }
+
+    // ============================================================
+    // 5. SECTION 14 (Section-14-ID)
+    // ============================================================
+    if (sTableId.indexOf("Section-14-ID::Table") > -1) {
+        oBindingParams.parameters.operationMode = "Client";
+        
+        var sSelect = oBindingParams.parameters.select || "";
+        sSelect += ",sort_order";
+        oBindingParams.parameters.select = sSelect;
+
+        if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
+            oBindingParams.sorter = [
+                new sap.ui.model.Sorter("sort_order", false),
+                new sap.ui.model.Sorter("dc_type", false)
+            ];
+        }
+        return;
     }
 },
+
 
       onPressDCCalc: function (oEvent) {
         const oModel = this.getView().getModel();
