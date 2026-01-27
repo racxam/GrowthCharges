@@ -821,12 +821,12 @@ onBeforeRebindTableExtension: function (oEvent) {
         } else {
             oBindingParams.sorter = [new sap.ui.model.Sorter("sort_date", false), new sap.ui.model.Sorter("sort_document", false)];
         }
-        return; // Done for this table
+        return;
     }
 
     // ============================================================
     // 2. MAIN DC TABLES (TotalDC-ID, TotalDC-ID-NonInd)
-    // These have 'dc_partner', 'is_rate_edited', 'hierarchy_level'
+    // SUPPORT: dc_partner, is_rate_edited, hierarchy_level, is_bill17_appl
     // ============================================================
     if (sTableId.indexOf("TotalDC-ID::Table") > -1 || sTableId.indexOf("TotalDC-ID-NonInd::Table") > -1) {
         oBindingParams.parameters.operationMode = "Client";
@@ -834,11 +834,11 @@ onBeforeRebindTableExtension: function (oEvent) {
         var sSelect = oBindingParams.parameters.select || "";
         // Force 'dc_partner' for F4 Help logic
         if (sSelect.indexOf("dc_partner") === -1) sSelect += ",dc_partner";
-        // Add other flags
+        
         sSelect += ",is_rate_edited,is_bill17_appl,sort_order";
         oBindingParams.parameters.select = sSelect;
 
-        // Default Sorting
+        // Complex Sorting
         if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
             oBindingParams.sorter = [
                 new sap.ui.model.Sorter("sort_order", false),
@@ -851,15 +851,20 @@ onBeforeRebindTableExtension: function (oEvent) {
     }
 
     // ============================================================
-    // 3. PREVIOUS BUILDING PERMIT (Previous-Building-Permit-Credit-ID)
-    // Does NOT have 'is_rate_edited' (Fixes 404 Error)
+    // 3. DEMOLITION & EXEMPTION (DemolitionCred-ID, DCExemption-ID)
+    // ERROR FIX: Removed 'dc_partner'
     // ============================================================
-    if (sTableId.indexOf("Previous-Building-Permit-Credit-ID::Table") > -1) {
+    if (sTableId.indexOf("DemolitionCred-ID::Table") > -1 || sTableId.indexOf("DCExemption-ID::Table") > -1) {
         oBindingParams.parameters.operationMode = "Client";
-        
-        // Only add sort_order, DO NOT add is_rate_edited
+
         var sSelect = oBindingParams.parameters.select || "";
-        sSelect += ",sort_order"; 
+        
+        // These tables usually support is_bill17_appl/is_rate_edited
+        sSelect += ",is_rate_edited,is_bill17_appl,sort_order";
+        
+        // Ensure dc_type is present for F4 filter
+        if (sSelect.indexOf("dc_type") === -1) sSelect += ",dc_type";
+
         oBindingParams.parameters.select = sSelect;
 
         if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
@@ -872,18 +877,19 @@ onBeforeRebindTableExtension: function (oEvent) {
     }
 
     // ============================================================
-    // 4. EXEMPTIONS & DEMOLITION (DCExemption-ID, DemolitionCred-ID)
-    // Does NOT have 'hierarchy_level' or 'sub_service_id' (Fixes Assertion Error)
+    // 4. PREVIOUS BUILDING PERMIT (Previous-Building-Permit-Credit-ID)
+    // ERROR FIX: Removed 'is_rate_edited' AND 'is_bill17_appl' (Both cause 404)
     // ============================================================
-    if (sTableId.indexOf("DCExemption-ID::Table") > -1 || sTableId.indexOf("DemolitionCred-ID::Table") > -1) {
+    if (sTableId.indexOf("Previous-Building-Permit-Credit-ID::Table") > -1) {
         oBindingParams.parameters.operationMode = "Client";
-
+        
         var sSelect = oBindingParams.parameters.select || "";
-        // Demolition/Exemption likely supports is_rate_edited/bill17, but NOT dc_partner
-        sSelect += ",is_rate_edited,is_bill17_appl,sort_order";
+        
+        // Only request sort_order. NO flags.
+        sSelect += ",sort_order"; 
+        
         oBindingParams.parameters.select = sSelect;
 
-        // Simplified Sorting (Removed hierarchy_level/sub_service_id)
         if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
             oBindingParams.sorter = [
                 new sap.ui.model.Sorter("sort_order", false),
@@ -912,6 +918,8 @@ onBeforeRebindTableExtension: function (oEvent) {
         return;
     }
 },
+
+
 
 
       onPressDCCalc: function (oEvent) {
@@ -1247,124 +1255,7 @@ onBeforeRebindTableExtension: function (oEvent) {
         this._prepareSideEffects(oEvent);
       },
 
-      /**
-       * Handler for F4 Input fields
-       * @public
-       * @param {sap.ui.base.event} oEvent Event for the input field
-       * @param {string} label of the associated field
-       */
-    /**
- * Handler for F4 Input fields (DC Rates)
- * Logic: Checks "Locked" vs "Prevailing" status for the specific Partner (COM/GO/ROP)
- */
-onValueHelpRequested: function (oEvent) {
-    this._prepareSideEffects(oEvent);
-    this.VHInput = oEvent.getSource();
 
-    var fragment = sap.ui.core.Fragment.load({
-        name: "com.gc.dashboard.ext.fragment.DCRateValueHelp",
-        controller: this
-    });
-
-    // --- 1. GET DATA ---
-    var oRowContext = oEvent.getSource().getBindingContext();
-    var oHeaderContext = this.getView().getBindingContext();
-    
-    var sInvoiceDate = oHeaderContext.getProperty("invoice_calculation_date");
-    var sSitePlanAppDate = oHeaderContext.getProperty("site_plan_applied_date");
-    var sRowPartner = oRowContext.getProperty("dc_partner"); 
-
-    // --- 2. DEBUG LOGS (CHECK CONSOLE) ---
-    console.log("================ F4 DEBUG START ================");
-    console.log("Row Partner (dc_partner):", sRowPartner);
-    console.log("Invoice Date:", sInvoiceDate);
-    console.log("Site Plan App Date:", sSitePlanAppDate);
-    console.log("Is Bill17 List Loaded?", !!this._oBill17List);
-
-    // Default to Prevailing (Invoice Date)
-    var sFilterDate = sInvoiceDate; 
-
-    // --- 3. LOGIC: MATCH PARTNER IN VISIBLE LIST ---
-    if (sRowPartner && sSitePlanAppDate && this._oBill17List) {
-        var aItems = this._oBill17List.getItems(); 
-        
-        for (var i = 0; i < aItems.length; i++) {
-            var oItemContext = aItems[i].getBindingContext();
-            if (oItemContext) {
-                var oData = oItemContext.getObject();
-                console.log("Checking Option:", oData.id, "| Selected:", oData.calc_option);
-
-                // Match ID (e.g. "COM" == "COM") or check if string contains it
-                var bMatch = (oData.id === sRowPartner) || 
-                             (oData.name === sRowPartner) ||
-                             (oData.id && sRowPartner && oData.id.indexOf(sRowPartner) > -1);
-
-                if (bMatch) {
-                    console.log(">>> MATCH FOUND! Partner:", sRowPartner);
-                    // Check Selection (L or P)
-                    if (oData.calc_option === "L") {
-                        console.log(">>> Option is LOCKED (L). Using Site Plan Date.");
-                        sFilterDate = sSitePlanAppDate;
-                    } else {
-                        console.log(">>> Option is PREVAILING (P). Using Invoice Date.");
-                    }
-                    break; 
-                }
-            }
-        }
-    } else {
-        console.warn("Skipping Logic: Missing Partner, Date, or List.");
-    }
-
-    console.log("FINAL FILTER DATE:", sFilterDate);
-    console.log("================ F4 DEBUG END ================");
-
-    // --- 4. CREATE FILTERS ---
-    var startDateFilter = new sap.ui.model.Filter("start_date", "LE", sFilterDate);
-    var endDateFilter = new sap.ui.model.Filter("end_date", "GE", sFilterDate);
-    var dcFilter = new sap.ui.model.Filter("dc_type", "EQ", oRowContext.getObject().dc_type);
-
-    this.rateFilters = [startDateFilter, endDateFilter, dcFilter];
-
-    // --- 5. OPEN DIALOG ---
-    fragment.then(function (oDialog) {
-        this._oValueHelpDialog = oDialog;
-        this.getView().addDependent(oDialog);
-        
-        oDialog.getTableAsync().then(function (oTable) {
-            oTable.setModel(this.getView().getModel());
-            if (oTable.bindRows) {
-                oTable.bindRows({
-                    path: "/zgc_dcrates_vh",
-                    filters: this.rateFilters,
-                    events: {
-                        // Busy Indicator Logic for the POPUP only (LocalModel)
-                        dataRequested: function () {
-                            this.getView().getModel("LocalModel").setProperty("/busy", true);
-                        }.bind(this),
-                        dataReceived: function () {
-                            this.getView().getModel("LocalModel").setProperty("/busy", false);
-                            oDialog.update();
-                        }.bind(this)
-                    }
-                });
-                
-                // Columns
-                var dcRateTemplate = new sap.m.Text({ text: "{ path: 'dc_rate', type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" });
-                var startDateTemplate = new sap.m.Text({ text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}" });
-                var endDateTemplate = new sap.m.Text({ text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}" });
-                var rateComments = new sap.m.Text({ text: "{rate_note}" });
-
-                oTable.addColumn(new sap.ui.table.Column({ label: "DC Rate", template: dcRateTemplate }));
-                oTable.addColumn(new sap.ui.table.Column({ label: "Valid From", template: startDateTemplate }));
-                oTable.addColumn(new sap.ui.table.Column({ label: "Valid To", template: endDateTemplate }));
-                oTable.addColumn(new sap.ui.table.Column({ label: "Comments", template: rateComments }));
-            }
-            oDialog.update();
-        }.bind(this));
-        oDialog.open();
-    }.bind(this));
-},
 
       _prepareSideEffects: function (oEvent) {
         //Setup Side effect - copied from smartfield/SideEffectsUtil.js
@@ -1504,13 +1395,114 @@ onValueHelpRequested: function (oEvent) {
         );
       },
 
-      onValueHelpOkPress: function (oEvent) {
-        let selectedValue = oEvent.getParameter("tokens")[0].getKey();
-        //Convert to two decimal digits
-        selectedValue = parseFloat(selectedValue).toFixed(2);
-        this.VHInput.setValue(selectedValue);
-        oEvent.getSource().close();
-      },
+onValueHelpRequested: function (oEvent) {
+    this._prepareSideEffects(oEvent);
+    this.VHInput = oEvent.getSource();
+
+    var fragment = sap.ui.core.Fragment.load({
+        name: "com.gc.dashboard.ext.fragment.DCRateValueHelp",
+        controller: this
+    });
+
+    // 1. GET CONTEXTS
+    var oRowContext = oEvent.getSource().getBindingContext();
+    var oHeaderContext = this.getView().getBindingContext();
+    
+    var sInvoiceDate = oHeaderContext.getProperty("invoice_calculation_date");
+    var sSitePlanAppDate = oHeaderContext.getProperty("site_plan_applied_date");
+    
+    // Attempt to get partner directly (Works for Total DC)
+    var sRowPartner = oRowContext.getProperty("dc_partner"); 
+    var sCurrentDcType = oRowContext.getProperty("dc_type");
+
+    // --- SMART LOOKUP (Fix for Demolition/Exemption) ---
+    if (!sRowPartner && sCurrentDcType) {
+        var oTotalDcTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
+        
+        if (oTotalDcTable && oTotalDcTable.getTable) {
+            var oInnerTable = oTotalDcTable.getTable();
+            var aRows = oInnerTable.getRows ? oInnerTable.getRows() : (oInnerTable.getItems ? oInnerTable.getItems() : []);
+            
+            for (var k = 0; k < aRows.length; k++) {
+                var oDcContext = aRows[k].getBindingContext();
+                if (oDcContext) {
+                    var sType = oDcContext.getProperty("dc_type");
+                    var sPartner = oDcContext.getProperty("dc_partner");
+                    
+                    if (sType === sCurrentDcType && sPartner) {
+                        sRowPartner = sPartner;
+                        break; 
+                    }
+                }
+            }
+        }
+    }
+
+    // Default: Prevailing (Invoice Date)
+    var sFilterDate = sInvoiceDate; 
+
+    // 2. LOGIC: Check the Visible List (Source of Truth)
+    if (sRowPartner && sSitePlanAppDate && this._oBill17List) {
+        var aItems = this._oBill17List.getItems(); 
+        for (var i = 0; i < aItems.length; i++) {
+            var oItemContext = aItems[i].getBindingContext();
+            if (oItemContext) {
+                var oData = oItemContext.getObject();
+                
+                var bMatch = (oData.id === sRowPartner) || 
+                             (oData.name === sRowPartner) ||
+                             (oData.id && sRowPartner && oData.id.indexOf(sRowPartner) > -1);
+
+                if (bMatch) {
+                    if (oData.calc_option === "L") {
+                        sFilterDate = sSitePlanAppDate;
+                    }
+                    break; 
+                }
+            }
+        }
+    }
+
+    // 3. Filters
+    var startDateFilter = new sap.ui.model.Filter("start_date", "LE", sFilterDate);
+    var endDateFilter = new sap.ui.model.Filter("end_date", "GE", sFilterDate);
+    var dcFilter = new sap.ui.model.Filter("dc_type", "EQ", sCurrentDcType || "");
+
+    this.rateFilters = [startDateFilter, endDateFilter, dcFilter];
+
+    fragment.then(function (oDialog) {
+        this._oValueHelpDialog = oDialog;
+        this.getView().addDependent(oDialog);
+        
+        oDialog.getTableAsync().then(function (oTable) {
+            oTable.setModel(this.getView().getModel());
+            
+            // --- FIX FOR STUCK BUSY INDICATOR ---
+            // Explicitly set busy to false so the dialog shows data immediately
+            this.getView().getModel("LocalModel").setProperty("/busy", false);
+            // ------------------------------------
+
+            if (oTable.bindRows) {
+                oTable.bindRows({
+                    path: "/zgc_dcrates_vh",
+                    filters: this.rateFilters
+                });
+                
+                var dcRateTemplate = new sap.m.Text({ text: "{ path: 'dc_rate', type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" });
+                var startDateTemplate = new sap.m.Text({ text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}" });
+                var endDateTemplate = new sap.m.Text({ text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}" });
+                var rateComments = new sap.m.Text({ text: "{rate_note}" });
+
+                oTable.addColumn(new sap.ui.table.Column({ label: "DC Rate", template: dcRateTemplate }));
+                oTable.addColumn(new sap.ui.table.Column({ label: "Valid From", template: startDateTemplate }));
+                oTable.addColumn(new sap.ui.table.Column({ label: "Valid To", template: endDateTemplate }));
+                oTable.addColumn(new sap.ui.table.Column({ label: "Comments", template: rateComments }));
+            }
+            oDialog.update();
+        }.bind(this));
+        oDialog.open();
+    }.bind(this));
+},
       onCILRateValueHelpOkPress: function (oEvent) {
         let selectedValue = oEvent.getParameter("tokens")[0].getKey();
         //Convert to integer
@@ -1524,13 +1516,28 @@ onValueHelpRequested: function (oEvent) {
         oEvent.getSource().close();
       },
 
-      onValueHelpCancelPress: function (oEvt) {
-        oEvt.getSource().close();
-      },
+     // This MUST exist for selection to work
+onValueHelpOkPress: function (oEvent) {
+    // 1. Get the Selected Key (This comes from oDialog.setKey("dc_rate"))
+    var aTokens = oEvent.getParameter("tokens");
+    
+    if (aTokens && aTokens.length > 0) {
+        var selectedValue = aTokens[0].getKey();
+        // 2. Format and Set Value
+        selectedValue = parseFloat(selectedValue).toFixed(2);
+        this.VHInput.setValue(selectedValue);
+    }
+    // 3. Close
+    oEvent.getSource().close();
+},
 
-      onValueHelpAfterClose: function (oEvt) {
-        oEvt.getSource().destroy();
-      },
+onValueHelpCancelPress: function (oEvt) {
+    oEvt.getSource().close();
+},
+
+onValueHelpAfterClose: function (oEvt) {
+    oEvt.getSource().destroy();
+},
       // **************************************STATUS CHANGES ****************************
       /**
        * Formatter to control state of CIL Processflow
