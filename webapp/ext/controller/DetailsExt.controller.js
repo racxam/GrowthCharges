@@ -213,6 +213,8 @@ sap.ui.define(
       },
       onInit: function () {
         this._defineLocalModel();
+
+        
         //Enable Variant management for various tables
         this._enableVariantManagement();
         //Warning poup when DC clearance datee edited
@@ -242,6 +244,11 @@ sap.ui.define(
         var that = this;
         //Add custom action buttons in DC section
         this._addCustomActions();
+this.getView().attachModelContextChange(this._updateBill17Status, this);
+        
+        // Also run it once immediately just in case
+        this._updateBill17Status();
+    
 
         this.getOwnerComponent().getModel().attachRequestCompleted(function (oEvent) {
           //Check if the call was for action Generate Receipt
@@ -491,6 +498,15 @@ sap.ui.define(
         this._applyDefaultVariant();
         this._addCILIconControl();
         this._insertBelowBill17DeferralPartner();
+        this._updateBill17Status();
+    
+    // Also try to attach to data changes (Double Safety)
+    var oBinding = this.getView().getElementBinding();
+    if (oBinding) {
+        oBinding.attachDataReceived(this._updateBill17Status, this);
+        oBinding.attachChange(this._updateBill17Status, this);
+    }
+
 
 
         //  START OF NEW CODE 
@@ -809,36 +825,46 @@ onBeforeRebindTableExtension: function (oEvent) {
     // ============================================================
     // 1. PAYMENT TABLE (PaymentInfo-ID)
     // ============================================================
-    if (sTableId.indexOf("PaymentInfo-ID::Table") > -1) {
+ if (sTableId.indexOf("PaymentInfo-ID::Table") > -1) {
         oBindingParams.parameters.select = oBindingParams.parameters.select + ",Gen_pay_receipt_ac,deferral_adjust";
 
-        // Sort logic for Payment
         var vDefPartner = this.getView().getBindingContext().getProperty("to_defpartner");
         var bIsBill17 = this._isBill17Active(vDefPartner);
 
         if (bIsBill17) {
-            oBindingParams.sorter = [new sap.ui.model.Sorter("invoice_doc_issue", true)];
+            // --- FIX START ---
+            // 1. CLEAR existing sorters to remove "DraftEntityCreationDateTime" priority
+            oBindingParams.sorter = []; 
+
+            // 2. Add your custom sorters in strict order
+            oBindingParams.sorter.push(new sap.ui.model.Sorter("invoice_doc_issue", true)); // 1. Issue Date -> Descending
+            oBindingParams.sorter.push(new sap.ui.model.Sorter("sort_document", false));    // 2. Doc #      -> Ascending
+            oBindingParams.sorter.push(new sap.ui.model.Sorter("sort_date", false));        // 3. Date       -> Ascending (Safety)
+            // --- FIX END ---
+            
         } else {
-            oBindingParams.sorter = [new sap.ui.model.Sorter("sort_date", false), new sap.ui.model.Sorter("sort_document", false)];
+            // Standard Logic (Legacy)
+            oBindingParams.sorter = [
+                new sap.ui.model.Sorter("sort_date", false), 
+                new sap.ui.model.Sorter("sort_document", false)
+            ];
         }
         return;
     }
 
     // ============================================================
-    // 2. MAIN DC TABLES (TotalDC-ID, TotalDC-ID-NonInd)
-    // SUPPORT: dc_partner, is_rate_edited, hierarchy_level, is_bill17_appl
+    // 2. MAIN TOTAL DC TABLE (TotalDC-ID) 
+    // This is the ONLY table that supports 'dc_partner' & 'hierarchy_level'
     // ============================================================
-    if (sTableId.indexOf("TotalDC-ID::Table") > -1 || sTableId.indexOf("TotalDC-ID-NonInd::Table") > -1) {
+    if (sTableId.indexOf("TotalDC-ID::Table") > -1) {
         oBindingParams.parameters.operationMode = "Client";
         
         var sSelect = oBindingParams.parameters.select || "";
-        // Force 'dc_partner' for F4 Help logic
         if (sSelect.indexOf("dc_partner") === -1) sSelect += ",dc_partner";
         
         sSelect += ",is_rate_edited,is_bill17_appl,sort_order";
         oBindingParams.parameters.select = sSelect;
 
-        // Complex Sorting
         if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
             oBindingParams.sorter = [
                 new sap.ui.model.Sorter("sort_order", false),
@@ -851,15 +877,19 @@ onBeforeRebindTableExtension: function (oEvent) {
     }
 
     // ============================================================
-    // 3. DEMOLITION & EXEMPTION (DemolitionCred-ID, DCExemption-ID)
-    // ERROR FIX: Removed 'dc_partner'
+    // 3. SAFE DC TABLES (NonInd, Demolition, Exemption)
+    // FIX: Removed 'dc_partner' to prevent 404 Errors
     // ============================================================
-    if (sTableId.indexOf("DemolitionCred-ID::Table") > -1 || sTableId.indexOf("DCExemption-ID::Table") > -1) {
+    if (
+        sTableId.indexOf("TotalDC-ID-NonInd::Table") > -1 || 
+        sTableId.indexOf("DemolitionCred-ID::Table") > -1 || 
+        sTableId.indexOf("DCExemption-ID::Table") > -1
+    ) {
         oBindingParams.parameters.operationMode = "Client";
 
         var sSelect = oBindingParams.parameters.select || "";
         
-        // These tables usually support is_bill17_appl/is_rate_edited
+        // Only request safe fields. NO dc_partner.
         sSelect += ",is_rate_edited,is_bill17_appl,sort_order";
         
         // Ensure dc_type is present for F4 filter
@@ -867,6 +897,7 @@ onBeforeRebindTableExtension: function (oEvent) {
 
         oBindingParams.parameters.select = sSelect;
 
+        // Simple Sorting (No hierarchy_level to be safe)
         if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
             oBindingParams.sorter = [
                 new sap.ui.model.Sorter("sort_order", false),
@@ -878,16 +909,13 @@ onBeforeRebindTableExtension: function (oEvent) {
 
     // ============================================================
     // 4. PREVIOUS BUILDING PERMIT (Previous-Building-Permit-Credit-ID)
-    // ERROR FIX: Removed 'is_rate_edited' AND 'is_bill17_appl' (Both cause 404)
+    // No flags supported
     // ============================================================
     if (sTableId.indexOf("Previous-Building-Permit-Credit-ID::Table") > -1) {
         oBindingParams.parameters.operationMode = "Client";
         
         var sSelect = oBindingParams.parameters.select || "";
-        
-        // Only request sort_order. NO flags.
         sSelect += ",sort_order"; 
-        
         oBindingParams.parameters.select = sSelect;
 
         if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
@@ -1404,44 +1432,37 @@ onValueHelpRequested: function (oEvent) {
         controller: this
     });
 
-    // 1. GET CONTEXTS
+    // 1. GET DATA
     var oRowContext = oEvent.getSource().getBindingContext();
     var oHeaderContext = this.getView().getBindingContext();
     
     var sInvoiceDate = oHeaderContext.getProperty("invoice_calculation_date");
     var sSitePlanAppDate = oHeaderContext.getProperty("site_plan_applied_date");
     
-    // Attempt to get partner directly (Works for Total DC)
     var sRowPartner = oRowContext.getProperty("dc_partner"); 
-    var sCurrentDcType = oRowContext.getProperty("dc_type");
+    var sCurrentDcType = oRowContext.getProperty("dc_type"); // e.g. "MISS_OS_IND"
 
-    // --- SMART LOOKUP (Fix for Demolition/Exemption) ---
+    // --- FIX: ROBUST PARTNER DETECTION ---
+    // If dc_partner is missing (Non-Ind/Demolition), verify it from the DC Type string.
     if (!sRowPartner && sCurrentDcType) {
-        var oTotalDcTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
-        
-        if (oTotalDcTable && oTotalDcTable.getTable) {
-            var oInnerTable = oTotalDcTable.getTable();
-            var aRows = oInnerTable.getRows ? oInnerTable.getRows() : (oInnerTable.getItems ? oInnerTable.getItems() : []);
-            
-            for (var k = 0; k < aRows.length; k++) {
-                var oDcContext = aRows[k].getBindingContext();
-                if (oDcContext) {
-                    var sType = oDcContext.getProperty("dc_type");
-                    var sPartner = oDcContext.getProperty("dc_partner");
-                    
-                    if (sType === sCurrentDcType && sPartner) {
-                        sRowPartner = sPartner;
-                        break; 
-                    }
-                }
-            }
+        if (sCurrentDcType.startsWith("MISS")) {
+            sRowPartner = "COM";
+        } else if (sCurrentDcType.startsWith("REG")) {
+            sRowPartner = "ROP";
+        } else if (sCurrentDcType.startsWith("PEEL")) {
+            sRowPartner = "PDSB";
+        } else if (sCurrentDcType.startsWith("DP")) {
+            sRowPartner = "DPCSB";
+        } else if (sCurrentDcType.startsWith("GO")) {
+            sRowPartner = "GO";
         }
     }
+    // -------------------------------------
 
     // Default: Prevailing (Invoice Date)
     var sFilterDate = sInvoiceDate; 
 
-    // 2. LOGIC: Check the Visible List (Source of Truth)
+    // 2. LOGIC: Check Locked vs Prevailing
     if (sRowPartner && sSitePlanAppDate && this._oBill17List) {
         var aItems = this._oBill17List.getItems(); 
         for (var i = 0; i < aItems.length; i++) {
@@ -1449,11 +1470,13 @@ onValueHelpRequested: function (oEvent) {
             if (oItemContext) {
                 var oData = oItemContext.getObject();
                 
+                // Flexible Match (ID or Name)
                 var bMatch = (oData.id === sRowPartner) || 
                              (oData.name === sRowPartner) ||
                              (oData.id && sRowPartner && oData.id.indexOf(sRowPartner) > -1);
 
                 if (bMatch) {
+                    // If Locked ("L"), use Site Plan Date
                     if (oData.calc_option === "L") {
                         sFilterDate = sSitePlanAppDate;
                     }
@@ -1463,7 +1486,10 @@ onValueHelpRequested: function (oEvent) {
         }
     }
 
-    // 3. Filters
+    // Fallback if date is invalid
+    if (!sFilterDate) { sFilterDate = new Date(); }
+
+    // 3. FILTERS
     var startDateFilter = new sap.ui.model.Filter("start_date", "LE", sFilterDate);
     var endDateFilter = new sap.ui.model.Filter("end_date", "GE", sFilterDate);
     var dcFilter = new sap.ui.model.Filter("dc_type", "EQ", sCurrentDcType || "");
@@ -1477,10 +1503,9 @@ onValueHelpRequested: function (oEvent) {
         oDialog.getTableAsync().then(function (oTable) {
             oTable.setModel(this.getView().getModel());
             
-            // --- FIX FOR STUCK BUSY INDICATOR ---
-            // Explicitly set busy to false so the dialog shows data immediately
+            // Fixes for Selection & Busy State
+            if (oDialog.setKey) { oDialog.setKey("dc_rate"); }
             this.getView().getModel("LocalModel").setProperty("/busy", false);
-            // ------------------------------------
 
             if (oTable.bindRows) {
                 oTable.bindRows({
@@ -1503,6 +1528,7 @@ onValueHelpRequested: function (oEvent) {
         oDialog.open();
     }.bind(this));
 },
+
       onCILRateValueHelpOkPress: function (oEvent) {
         let selectedValue = oEvent.getParameter("tokens")[0].getKey();
         //Convert to integer
@@ -1751,31 +1777,30 @@ onValueHelpAfterClose: function (oEvt) {
         // Payment Information, is bill17 applicable
     // Inside _onPropertyChange
 if (sPath === "is_bill17_appl") {
-    
-    if (oValue === true) {
-        sap.m.MessageBox.warning(
-            "Saving this would create a new version and Bill 17 changes would be applicable in that version.\n\nDo you want to proceed?",
-            {
-                title: "Create New Version?",
-                actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
-                
-                // FIX STARTS HERE
-                onClose: function (sAction) {
-                    // Because of .bind(this) below, 'this' now refers to the Controller
-                    if (sAction === sap.m.MessageBox.Action.OK) {
-                        this._triggerCreateNewVersion(oContext);
-                    } else {
-                        // Revert Checkbox
-                        this.getView().getModel().setProperty(oContext.getPath() + "/" + sPath, false);
-                        this.getView().getModel().resetChanges([oContext.getPath() + "/" + sPath]);
-                    }
-                }.bind(this) // <--- THIS IS THE KEY FIX
-                // FIX ENDS HERE
-            }
-        );
+        
+        if (oValue === true) {
+            sap.m.MessageBox.warning(
+                "Saving this would create a new version and Bill 17 changes would be applicable in that version.\n\nDo you want to proceed?",
+                {
+                    title: "Create New Version?",
+                    actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+                    
+                    // --- FIX STARTS HERE ---
+                    onClose: function (sAction) {
+                        if (sAction === sap.m.MessageBox.Action.OK) {
+                            // this._triggerCreateNewVersion(oContext);
+                            // The checkbox stays checked (true), and waits for the user to click "Save".
+                        } else {
+                            // User clicked Cancel: Revert Checkbox
+                            this.getView().getModel().setProperty(oContext.getPath() + "/" + sPath, false);
+                            this.getView().getModel().resetChanges([oContext.getPath() + "/" + sPath]);
+                        }
+                    }.bind(this)
+                    // --- FIX ENDS HERE ---
+                }
+            );
+        }
     }
-}
-
         // --- Logic 1: Permit Issued ---
         if (sPath === "permit_issued") {
 
@@ -2239,85 +2264,110 @@ if (sPath === "is_bill17_appl") {
       },
       //Changing Radio Buttons L or P
     
-      onCalcOptionChange: function (oEvent) {
-        var oRadioGroup = oEvent.getSource();
-        var sValue = oRadioGroup.getSelectedIndex() === 0 ? "L" : "P";
+   onCalcOptionChange: function (oEvent) {
+    var oRadioGroup = oEvent.getSource();
+    var iIndex = oRadioGroup.getSelectedIndex();
+    
+    // --- DEBUG LOGS (Press F12 to see these) ---
+    console.log("---------------- DEBUG START ----------------");
+    console.log("Radio Button Index Selected:", iIndex); 
+    // 0 = First Button, 1 = Second Button
+    
+    // ASSUMPTION: Button 0 is "Locked", Button 1 is "Prevailing"
+    var sValue = iIndex === 0 ? "L" : "P"; 
+    console.log("Calculated Value (L/P):", sValue);
 
-        var oContext = oRadioGroup.getBindingContext();
-        if (!oContext) return;
+    if (sValue === "L") {
+        var oHeaderContext = this.getView().getBindingContext();
+        
+        if (oHeaderContext) {
+            // Get the raw value from the model
+            var sSiteDate = oHeaderContext.getProperty("site_plan_applied_date");
+            console.log("Raw Site Plan Date Value:", sSiteDate);
 
-        var oModel = oContext.getModel();
-        var sPath = oContext.getPath() + "/calc_option";
-        var that = this;
+            // Check specifically for null, undefined, or empty
+            // Note: A Date object is truthy, null is falsy.
+            if (!sSiteDate) {
+                console.log(">> Date is MISSING. Triggering Popup...");
+                sap.m.MessageBox.warning(
+                    "Site Plan Applied Date is missing. Selecting 'Locked' may result in 0.00 rates.\n\nPlease ensure a date is entered or the Backend applies a fallback."
+                );
+            } else {
+                console.log(">> Date EXISTS. Skipping Popup.");
+            }
+        } else {
+            console.error(">> ERROR: Could not find Header Binding Context!");
+        }
+    } else {
+        console.log(">> Selection is 'Prevailing' (P). No popup required.");
+    }
+    console.log("---------------- DEBUG END ----------------");
 
-        var oList = oRadioGroup.getParent().getParent().getParent(); 
-       if (oList && oList.getItems) {
+    // --- EXISTING SAVE LOGIC ---
+    var oContext = oRadioGroup.getBindingContext();
+    if (!oContext) return;
+
+    var oModel = oContext.getModel();
+    var sPath = oContext.getPath() + "/calc_option";
+    var that = this;
+
+    // Update other rows in the list to match
+    var oList = oRadioGroup.getParent().getParent().getParent(); 
+    if (oList && oList.getItems) {
         var aItems = oList.getItems();
         aItems.forEach(function(oItem) {
             var oItemContext = oItem.getBindingContext();
             if (oItemContext) {
                 var sItemPath = oItemContext.getPath();
-                
-                // If this is NOT the row we just clicked, force an update for it too.
-                // We use the 'changes' groupId so it gets bundled into the submitChanges call below.
                 if (sItemPath !== oContext.getPath()) {
                      var sExistingVal = oItemContext.getProperty("calc_option");
-                     // This marks the row as "dirty" so the backend receives it in the batch
                      oModel.update(sItemPath, { calc_option: sExistingVal }, { groupId: "changes" });
                 }
             }
         });
     }
 
-        // 1. Optimistic Update
-        oModel.setProperty(sPath, sValue);
+    // 1. Optimistic Update
+    oModel.setProperty(sPath, sValue);
 
-        // NOTE: Removed sap.ui.core.BusyIndicator.show(0); 
-        // It was causing the black screen freeze.
-
-        // 2. Submit Changes
-        oModel.submitChanges({
-          success: function (oData) {
+    // 2. Submit Changes
+    oModel.submitChanges({
+        success: function (oData) {
             if (oData && oData.__batchResponses) {
-              var hasError = oData.__batchResponses.some(function (r) {
-                return r.response && r.response.statusCode >= 400;
-              });
-              if (hasError) {
-                sap.m.MessageBox.error("Error saving option.");
-                return;
-              }
+                var hasError = oData.__batchResponses.some(function (r) {
+                    return r.response && r.response.statusCode >= 400;
+                });
+                if (hasError) {
+                    sap.m.MessageBox.error("Error saving option.");
+                    return;
+                }
             }
 
             // 3. Trigger Calculation
             var reqGuid = oContext.getProperty("req_uuid");
             oModel.callFunction("/zgc_c_dc_calcltnsCalculate", {
-              method: "POST",
-              urlParameters: { req_uuid: reqGuid },
-              success: function (oData) {
-                sap.m.MessageToast.show("Calculation updated.");
+                method: "POST",
+                urlParameters: { req_uuid: reqGuid },
+                success: function (oData) {
+                    sap.m.MessageToast.show("Calculation updated.");
 
-                // 4. THE SAFE REFRESH
-                // We try to use the standard ExtensionAPI first.
-                if (that.extensionAPI && that.extensionAPI.refresh) {
-                  that.extensionAPI.refresh();
-                } else {
-                  // Fallback: Refresh the View Binding naturally.
-                  // This is safer than oModel.refresh(true) as it respects the view lifecycle.
-                  if (that.getView().getElementBinding()) {
-                    that.getView().getElementBinding().refresh();
-                  }
-                }
-              },
-              error: function (oError) {
-                // Error handling
-              }
+                    // 4. Safe Refresh
+                    if (that.extensionAPI && that.extensionAPI.refresh) {
+                        that.extensionAPI.refresh();
+                    } else {
+                        if (that.getView().getElementBinding()) {
+                            that.getView().getElementBinding().refresh();
+                        }
+                    }
+                },
+                error: function (oError) { }
             });
-          },
-          error: function (oError) {
+        },
+        error: function (oError) {
             sap.m.MessageBox.error("Failed to save.");
-          }
-        });
-      },
+        }
+    });
+},
       // Radio button Insertion Logic
       _insertBelowBill17DeferralPartner: function () {
     var oView = this.getView();
@@ -2363,37 +2413,69 @@ if (sPath === "is_bill17_appl") {
 _triggerCreateNewVersion: function (oContext) {
     var oExtensionAPI = this.extensionAPI;
     var that = this;
-
-    // 1. Use the FULL Action Name from your annotations.xml
-    // Format: Namespace.EntityContainer/FunctionImportName
     var sFunctionName = "ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsCreate_new_version";
 
     sap.ui.core.BusyIndicator.show();
 
-    // 2. Invoke via ExtensionAPI (Handles Context & Draft logic automatically)
     oExtensionAPI.invokeActions(sFunctionName, [oContext])
         .then(function () {
             sap.ui.core.BusyIndicator.hide();
             sap.m.MessageToast.show("New Version Created Successfully");
             
-            // 3. Refresh to show new data
+            // Refresh to show new data
             oExtensionAPI.refresh();
         })
         .catch(function (oError) {
             sap.ui.core.BusyIndicator.hide();
             
-            // 4. Revert checkbox if failed
+            // Revert checkbox if failed
             if (that.getView().getModel()) {
                 that.getView().getModel().setProperty(oContext.getPath() + "/is_bill17_appl", false);
                 that.getView().getModel().resetChanges([oContext.getPath() + "/is_bill17_appl"]);
             }
             
-            // 5. Handle Error Message
             var sMsg = "Failed to create new version.";
-            // ... (Your error parsing logic is fine here) ...
             sap.m.MessageBox.error(sMsg);
         });
 },
+
+// Function to check Status and Lock/Unlock controls
+_updateBill17Status: function() {
+        var oView = this.getView();
+        
+        // Safety Check: If View is not ready, stop
+        if (!oView) return;
+
+        var oContext = oView.getBindingContext();
+
+        // If no data loaded yet, stop.
+        if (!oContext) {
+            return; 
+        }
+
+        // A. GET THE STATUS
+        // Ensure "status" is the correct field name from your backend!
+        var sStatus = oContext.getProperty("status"); 
+
+        // --- DEBUG LOG (Check Console F12) ---
+        console.log("---------------------------------------------");
+        console.log("DEBUG: STATUS FROM BACKEND IS:", sStatus);
+        console.log("---------------------------------------------");
+
+        // B. THE LOGIC
+        // If Status is 'FIN_APR' (Final Approved), set Editable = FALSE
+        // Change 'FIN_APR' to '03' or whatever your real code is if needed
+        var bIsEditable = (sStatus !== 'FIN_APR'); 
+
+        // C. SET THE LOCAL MODEL
+        var oLocalModel = oView.getModel("LocalModel");
+        if (!oLocalModel) {
+            oLocalModel = new sap.ui.model.json.JSONModel();
+            oView.setModel(oLocalModel, "LocalModel");
+        }
+        
+        oLocalModel.setProperty("/isBill17Editable", bIsEditable);
+    },
 
 
       //end of controller

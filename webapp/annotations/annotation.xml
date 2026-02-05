@@ -2057,6 +2057,11 @@
             <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/total_payable">
                 <Annotation Term="Common.QuickInfo" String="If at point of Invoice 1 then = Final CBC Payable + Final CIL amount + Non-Deferred DC Amount &#xA; &#xA; If Invoice 2 has been created then = Total Deferred Invoice Amount" />
             </Annotations>
+
+            <Annotations Target="ZGC_C_REQUESTS_CDS.zgc_c_requestsType/is_bill17_appl">
+                <Annotation Term="UI.Hidden" Path="is_bill17_appl_hide" />
+            </Annotations>
+
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>

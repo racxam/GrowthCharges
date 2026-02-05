@@ -1,11 +1,12 @@
 <core:FragmentDefinition
     xmlns="sap.m"
-    xmlns:core="sap.ui.core">
-
-    <VBox id="_IDGenVBox2" 
+    xmlns:core="sap.ui.core"
+>
+    <VBox
+        id="_IDGenVBox2"
         class="sapUiNoMargin sapUiNoContentPadding"
-        visible="{= ${site_plan_applied_date} !== null }">
-
+        visible="{= ${site_plan_applied_date} !== null }"
+    >
         <List
             id="idBill17List"
             items="{
@@ -18,31 +19,40 @@
             }"
             showSeparators="None"
             backgroundDesign="Transparent"
-            class="sapUiNoMargin sapUiNoContentPadding">
+            class="sapUiNoMargin sapUiNoContentPadding"
+        >
+            <CustomListItem
+                id="_IDGenCustomListItem"
+                class="sapUiNoContentPadding"
+            >
+                <VBox
+                    id="_IDGenVBox3"
+                    class="sapUiNoMargin sapUiNoContentPadding"
+                >
+                  <Label id="_IDGenLabel" text="{name}" design="Bold" class="sapUiTinyMarginBottom"/>
 
-            <CustomListItem id="_IDGenCustomListItem" class="sapUiNoContentPadding">
-                <VBox id="_IDGenVBox3" class="sapUiNoMargin sapUiNoContentPadding">
-                    
-                    <Text id="_IDGenText"
-                        text="{name}" 
-                        design="Bold"
-                        class="sapUiTinyMarginBottom"/>
-
-                    <RadioButtonGroup id="_IDGenRadioButtonGroup"
+                    <RadioButtonGroup
+                        id="_IDGenRadioButtonGroup"
                         columns="2"
-                        enabled="{= ${ui>/editable} }"
+                        enabled="{= ${ui>/editable} &amp;&amp; ${LocalModel>/isBill17Editable} }"
                         selectedIndex="{
-                            path: 'calc_option',
-                            formatter: '.formatCalcOptionToIndex'
-                        }"
+        path: 'calc_option',
+        formatter: '.formatCalcOptionToIndex'
+    }"
                         select=".onCalcOptionChange"
-                        class="sapUiNoMargin">
+                        class="sapUiNoMargin"
+                    >
                         <buttons>
-                            <RadioButton id="_IDGenRadioButton" text="Locked"/> 
-                            <RadioButton id="_IDGenRadioButton1" text="Prevailing"/>
+                            <RadioButton
+                                id="_IDGenRadioButton"
+                                text="Locked"
+                            />
+                            <RadioButton
+                                id="_IDGenRadioButton1"
+                                text="Prevailing"
+                            />
                         </buttons>
                     </RadioButtonGroup>
-
                 </VBox>
             </CustomListItem>
         </List>
