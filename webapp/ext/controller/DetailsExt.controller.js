@@ -1436,28 +1436,31 @@ onValueHelpRequested: function (oEvent) {
     var oRowContext = oEvent.getSource().getBindingContext();
     var oHeaderContext = this.getView().getBindingContext();
     
+    // Existing Date Properties
     var sInvoiceDate = oHeaderContext.getProperty("invoice_calculation_date");
     var sSitePlanAppDate = oHeaderContext.getProperty("site_plan_applied_date");
     
+    // --- DEBUGGING VARIABLES ---
+    var sStatus = oHeaderContext.getProperty("status");
+    var sOccupancyDate = oHeaderContext.getProperty("occupancy_date"); 
+    
+    console.log("---------------- VALUE HELP DEBUG ----------------");
+    console.log("Current Status:", sStatus);
+    console.log("Occupancy Date:", sOccupancyDate);
+    console.log("Invoice Date:", sInvoiceDate);
+    // ---------------------------
+    
     var sRowPartner = oRowContext.getProperty("dc_partner"); 
-    var sCurrentDcType = oRowContext.getProperty("dc_type"); // e.g. "MISS_OS_IND"
+    var sCurrentDcType = oRowContext.getProperty("dc_type");
 
     // --- FIX: ROBUST PARTNER DETECTION ---
-    // If dc_partner is missing (Non-Ind/Demolition), verify it from the DC Type string.
     if (!sRowPartner && sCurrentDcType) {
-        if (sCurrentDcType.startsWith("MISS")) {
-            sRowPartner = "COM";
-        } else if (sCurrentDcType.startsWith("REG")) {
-            sRowPartner = "ROP";
-        } else if (sCurrentDcType.startsWith("PEEL")) {
-            sRowPartner = "PDSB";
-        } else if (sCurrentDcType.startsWith("DP")) {
-            sRowPartner = "DPCSB";
-        } else if (sCurrentDcType.startsWith("GO")) {
-            sRowPartner = "GO";
-        }
+        if (sCurrentDcType.startsWith("MISS")) { sRowPartner = "COM"; } 
+        else if (sCurrentDcType.startsWith("REG")) { sRowPartner = "ROP"; } 
+        else if (sCurrentDcType.startsWith("PEEL")) { sRowPartner = "PDSB"; } 
+        else if (sCurrentDcType.startsWith("DP")) { sRowPartner = "DPCSB"; } 
+        else if (sCurrentDcType.startsWith("GO")) { sRowPartner = "GO"; }
     }
-    // -------------------------------------
 
     // Default: Prevailing (Invoice Date)
     var sFilterDate = sInvoiceDate; 
@@ -1469,16 +1472,12 @@ onValueHelpRequested: function (oEvent) {
             var oItemContext = aItems[i].getBindingContext();
             if (oItemContext) {
                 var oData = oItemContext.getObject();
-                
-                // Flexible Match (ID or Name)
-                var bMatch = (oData.id === sRowPartner) || 
-                             (oData.name === sRowPartner) ||
-                             (oData.id && sRowPartner && oData.id.indexOf(sRowPartner) > -1);
+                var bMatch = (oData.id === sRowPartner) || (oData.name === sRowPartner) || (oData.id && sRowPartner && oData.id.indexOf(sRowPartner) > -1);
 
                 if (bMatch) {
-                    // If Locked ("L"), use Site Plan Date
                     if (oData.calc_option === "L") {
                         sFilterDate = sSitePlanAppDate;
+                        console.log(">> Logic: Bill 17 Locked Date Applied");
                     }
                     break; 
                 }
@@ -1486,10 +1485,23 @@ onValueHelpRequested: function (oEvent) {
         }
     }
 
-    // Fallback if date is invalid
+    // --- 3. STATUS OVERRIDE LOGIC ---
+    // Make sure sStatus matches exactly 'FIN_APR' (case sensitive)
+     var aOverrideStatuses = ["DC1_APR","FIN_APR", "DC1_APR", "FIN_PND", "CLSD", "PCLSD"];
+    
+    if (aOverrideStatuses.includes(sStatus) && sOccupancyDate) {
+        sFilterDate = sOccupancyDate;
+        console.log(">> Logic: Status Override Applied (" + sStatus + ")! Using Occupancy Date.");
+    }
+    // -----------------------------
+
+    // Fallback
     if (!sFilterDate) { sFilterDate = new Date(); }
 
-    // 3. FILTERS
+    console.log(">> FINAL DATE SENT TO BACKEND:", sFilterDate);
+    console.log("--------------------------------------------------");
+
+    // 4. FILTERS
     var startDateFilter = new sap.ui.model.Filter("start_date", "LE", sFilterDate);
     var endDateFilter = new sap.ui.model.Filter("end_date", "GE", sFilterDate);
     var dcFilter = new sap.ui.model.Filter("dc_type", "EQ", sCurrentDcType || "");
@@ -1502,8 +1514,6 @@ onValueHelpRequested: function (oEvent) {
         
         oDialog.getTableAsync().then(function (oTable) {
             oTable.setModel(this.getView().getModel());
-            
-            // Fixes for Selection & Busy State
             if (oDialog.setKey) { oDialog.setKey("dc_rate"); }
             this.getView().getModel("LocalModel").setProperty("/busy", false);
 
@@ -1528,7 +1538,6 @@ onValueHelpRequested: function (oEvent) {
         oDialog.open();
     }.bind(this));
 },
-
       onCILRateValueHelpOkPress: function (oEvent) {
         let selectedValue = oEvent.getParameter("tokens")[0].getKey();
         //Convert to integer
