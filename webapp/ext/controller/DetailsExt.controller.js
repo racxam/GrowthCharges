@@ -212,9 +212,41 @@ sap.ui.define(
         oLocalModel.setProperty("/busy", true);
       },
       onInit: function () {
+
+     var oUiModel = this.getView().getModel("ui");
+
+// 2. If it's not found on the View, try the Component
+if (!oUiModel) {
+    var oComponent = this.getOwnerComponent();
+    if (oComponent) {
+        oUiModel = oComponent.getModel("ui");
+    }
+}
+
+// 3. Attach Listener ONLY if the model exists
+if (oUiModel) {
+    oUiModel.attachPropertyChange(function(oEvent){
+        if (oEvent.getParameter("path") === "/editable") {
+            this._updateBill17ListState();
+        }
+    }.bind(this));
+} else {
+    // Fallback: If model isn't ready, attach to the view's modelContextChange event
+    // This fires when models are propagated to the view
+    this.getView().attachEventOnce("modelContextChange", function() {
+        var oLateUiModel = this.getView().getModel("ui");
+        if (oLateUiModel) {
+            oLateUiModel.attachPropertyChange(function(oEvent){
+                if (oEvent.getParameter("path") === "/editable") {
+                    this._updateBill17ListState();
+                }
+            }.bind(this));
+        }
+    }.bind(this));
+}
         this._defineLocalModel();
 
-        
+
         //Enable Variant management for various tables
         this._enableVariantManagement();
         //Warning poup when DC clearance datee edited
@@ -244,11 +276,11 @@ sap.ui.define(
         var that = this;
         //Add custom action buttons in DC section
         this._addCustomActions();
-this.getView().attachModelContextChange(this._updateBill17Status, this);
-        
+        this.getView().attachModelContextChange(this._updateBill17Status, this);
+
         // Also run it once immediately just in case
         this._updateBill17Status();
-    
+
 
         this.getOwnerComponent().getModel().attachRequestCompleted(function (oEvent) {
           //Check if the call was for action Generate Receipt
@@ -356,6 +388,7 @@ this.getView().attachModelContextChange(this._updateBill17Status, this);
             Source: this._sValidPath
           });
           view.byId("PDFViewer").setModel(this._oModel, "local");
+          this._updateBill17ListState();
 
         }.bind(this));
 
@@ -499,13 +532,13 @@ this.getView().attachModelContextChange(this._updateBill17Status, this);
         this._addCILIconControl();
         this._insertBelowBill17DeferralPartner();
         this._updateBill17Status();
-    
-    // Also try to attach to data changes (Double Safety)
-    var oBinding = this.getView().getElementBinding();
-    if (oBinding) {
-        oBinding.attachDataReceived(this._updateBill17Status, this);
-        oBinding.attachChange(this._updateBill17Status, this);
-    }
+
+        // Also try to attach to data changes (Double Safety)
+        var oBinding = this.getView().getElementBinding();
+        if (oBinding) {
+          oBinding.attachDataReceived(this._updateBill17Status, this);
+          oBinding.attachChange(this._updateBill17Status, this);
+        }
 
 
 
@@ -817,135 +850,134 @@ this.getView().attachModelContextChange(this._updateBill17Status, this);
 
       },
 
-onBeforeRebindTableExtension: function (oEvent) {
-    var sTableId = oEvent.getSource().getId();
-    var oBindingParams = oEvent.getParameter("bindingParams");
-    oBindingParams.parameters = oBindingParams.parameters || {};
+      onBeforeRebindTableExtension: function (oEvent) {
+        var sTableId = oEvent.getSource().getId();
+        var oBindingParams = oEvent.getParameter("bindingParams");
+        oBindingParams.parameters = oBindingParams.parameters || {};
 
-    // ============================================================
-    // 1. PAYMENT TABLE (PaymentInfo-ID)
-    // ============================================================
- if (sTableId.indexOf("PaymentInfo-ID::Table") > -1) {
-        oBindingParams.parameters.select = oBindingParams.parameters.select + ",Gen_pay_receipt_ac,deferral_adjust";
+        // ============================================================
+        // 1. PAYMENT TABLE (PaymentInfo-ID)
+        // ============================================================
+        if (sTableId.indexOf("PaymentInfo-ID::Table") > -1) {
+          oBindingParams.parameters.select = oBindingParams.parameters.select + ",Gen_pay_receipt_ac,deferral_adjust";
 
-        var vDefPartner = this.getView().getBindingContext().getProperty("to_defpartner");
-        var bIsBill17 = this._isBill17Active(vDefPartner);
+          var vDefPartner = this.getView().getBindingContext().getProperty("to_defpartner");
+          var bIsBill17 = this._isBill17Active(vDefPartner);
 
-        if (bIsBill17) {
+          if (bIsBill17) {
             // --- FIX START ---
             // 1. CLEAR existing sorters to remove "DraftEntityCreationDateTime" priority
-            oBindingParams.sorter = []; 
+            oBindingParams.sorter = [];
 
             // 2. Add your custom sorters in strict order
             oBindingParams.sorter.push(new sap.ui.model.Sorter("invoice_doc_issue", true)); // 1. Issue Date -> Descending
             oBindingParams.sorter.push(new sap.ui.model.Sorter("sort_document", false));    // 2. Doc #      -> Ascending
             oBindingParams.sorter.push(new sap.ui.model.Sorter("sort_date", false));        // 3. Date       -> Ascending (Safety)
             // --- FIX END ---
-            
-        } else {
+
+          } else {
             // Standard Logic (Legacy)
             oBindingParams.sorter = [
-                new sap.ui.model.Sorter("sort_date", false), 
-                new sap.ui.model.Sorter("sort_document", false)
+              new sap.ui.model.Sorter("sort_date", false),
+              new sap.ui.model.Sorter("sort_document", false)
             ];
+          }
+          return;
         }
-        return;
-    }
 
-    // ============================================================
-    // 2. MAIN TOTAL DC TABLE (TotalDC-ID) 
-    // This is the ONLY table that supports 'dc_partner' & 'hierarchy_level'
-    // ============================================================
-    if (sTableId.indexOf("TotalDC-ID::Table") > -1) {
-        oBindingParams.parameters.operationMode = "Client";
-        
-        var sSelect = oBindingParams.parameters.select || "";
-        if (sSelect.indexOf("dc_partner") === -1) sSelect += ",dc_partner";
-        
-        sSelect += ",is_rate_edited,is_bill17_appl,sort_order";
-        oBindingParams.parameters.select = sSelect;
+        // ============================================================
+        // 2. MAIN TOTAL DC TABLE (TotalDC-ID) 
+        // This is the ONLY table that supports 'dc_partner' & 'hierarchy_level'
+        // ============================================================
+        if (sTableId.indexOf("TotalDC-ID::Table") > -1) {
+          oBindingParams.parameters.operationMode = "Client";
 
-        if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
+          var sSelect = oBindingParams.parameters.select || "";
+          if (sSelect.indexOf("dc_partner") === -1) sSelect += ",dc_partner";
+
+          sSelect += ",is_rate_edited,is_bill17_appl,sort_order,dc_txt";
+          oBindingParams.parameters.select = sSelect;
+
+          if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
             oBindingParams.sorter = [
-                new sap.ui.model.Sorter("sort_order", false),
-                new sap.ui.model.Sorter("dc_type", false),
-                new sap.ui.model.Sorter("hierarchy_level", false),
-                new sap.ui.model.Sorter("sub_service_id", false)
+              new sap.ui.model.Sorter("sort_order", false),
+              new sap.ui.model.Sorter("dc_type", false),
+              new sap.ui.model.Sorter("hierarchy_level", false),
+              new sap.ui.model.Sorter("sub_service_id", false)
             ];
+          }
+          return;
         }
-        return;
-    }
 
-    // ============================================================
-    // 3. SAFE DC TABLES (NonInd, Demolition, Exemption)
-    // FIX: Removed 'dc_partner' to prevent 404 Errors
-    // ============================================================
-    if (
-        sTableId.indexOf("TotalDC-ID-NonInd::Table") > -1 || 
-        sTableId.indexOf("DemolitionCred-ID::Table") > -1 || 
-        sTableId.indexOf("DCExemption-ID::Table") > -1
-    ) {
-        oBindingParams.parameters.operationMode = "Client";
+        // ============================================================
+        // 3. SAFE DC TABLES (NonInd, Demolition, Exemption)
+        // FIX: Removed 'dc_partner' to prevent 404 Errors
+        // ============================================================
+        if (
+          sTableId.indexOf("TotalDC-ID-NonInd::Table") > -1 ||
+          sTableId.indexOf("DemolitionCred-ID::Table") > -1 ||
+          sTableId.indexOf("DCExemption-ID::Table") > -1
+        ) {
+          oBindingParams.parameters.operationMode = "Client";
 
-        var sSelect = oBindingParams.parameters.select || "";
-        
-        // Only request safe fields. NO dc_partner.
-        sSelect += ",is_rate_edited,is_bill17_appl,sort_order";
-        
-        // Ensure dc_type is present for F4 filter
-        if (sSelect.indexOf("dc_type") === -1) sSelect += ",dc_type";
+          var sSelect = oBindingParams.parameters.select || "";
 
-        oBindingParams.parameters.select = sSelect;
+          // Only request safe fields. NO dc_partner.
+          sSelect += ",is_rate_edited,is_bill17_appl,sort_order,dc_txt";
 
-        // Simple Sorting (No hierarchy_level to be safe)
-        if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
+          // Ensure dc_type is present for F4 filter
+          if (sSelect.indexOf("dc_type") === -1) sSelect += ",dc_type";
+
+          oBindingParams.parameters.select = sSelect;
+
+          // Simple Sorting (No hierarchy_level to be safe)
+          if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
             oBindingParams.sorter = [
-                new sap.ui.model.Sorter("sort_order", false),
-                new sap.ui.model.Sorter("dc_type", false)
+              new sap.ui.model.Sorter("sort_order", false)
             ];
+          }
+          return;
         }
-        return;
-    }
 
-    // ============================================================
-    // 4. PREVIOUS BUILDING PERMIT (Previous-Building-Permit-Credit-ID)
-    // No flags supported
-    // ============================================================
-    if (sTableId.indexOf("Previous-Building-Permit-Credit-ID::Table") > -1) {
-        oBindingParams.parameters.operationMode = "Client";
-        
-        var sSelect = oBindingParams.parameters.select || "";
-        sSelect += ",sort_order"; 
-        oBindingParams.parameters.select = sSelect;
+        // ============================================================
+        // 4. PREVIOUS BUILDING PERMIT (Previous-Building-Permit-Credit-ID)
+        // No flags supported
+        // ============================================================
+        if (sTableId.indexOf("Previous-Building-Permit-Credit-ID::Table") > -1) {
+          oBindingParams.parameters.operationMode = "Client";
 
-        if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
+          var sSelect = oBindingParams.parameters.select || "";
+          sSelect += ",sort_order";
+          oBindingParams.parameters.select = sSelect;
+
+          if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
             oBindingParams.sorter = [
-                new sap.ui.model.Sorter("sort_order", false),
-                new sap.ui.model.Sorter("dc_type", false)
+              new sap.ui.model.Sorter("sort_order", false),
+              new sap.ui.model.Sorter("dc_type", false)
             ];
+          }
+          return;
         }
-        return;
-    }
 
-    // ============================================================
-    // 5. SECTION 14 (Section-14-ID)
-    // ============================================================
-    if (sTableId.indexOf("Section-14-ID::Table") > -1) {
-        oBindingParams.parameters.operationMode = "Client";
-        
-        var sSelect = oBindingParams.parameters.select || "";
-        sSelect += ",sort_order";
-        oBindingParams.parameters.select = sSelect;
+        // ============================================================
+        // 5. SECTION 14 (Section-14-ID)
+        // ============================================================
+        if (sTableId.indexOf("Section-14-ID::Table") > -1) {
+          oBindingParams.parameters.operationMode = "Client";
 
-        if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
+          var sSelect = oBindingParams.parameters.select || "";
+          sSelect += ",sort_order";
+          oBindingParams.parameters.select = sSelect;
+
+          if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
             oBindingParams.sorter = [
-                new sap.ui.model.Sorter("sort_order", false),
-                new sap.ui.model.Sorter("dc_type", false)
+              new sap.ui.model.Sorter("sort_order", false),
+              new sap.ui.model.Sorter("dc_type", false)
             ];
+          }
+          return;
         }
-        return;
-    }
-},
+      },
 
 
 
@@ -1423,121 +1455,121 @@ onBeforeRebindTableExtension: function (oEvent) {
         );
       },
 
-onValueHelpRequested: function (oEvent) {
-    this._prepareSideEffects(oEvent);
-    this.VHInput = oEvent.getSource();
+      onValueHelpRequested: function (oEvent) {
+        this._prepareSideEffects(oEvent);
+        this.VHInput = oEvent.getSource();
 
-    var fragment = sap.ui.core.Fragment.load({
-        name: "com.gc.dashboard.ext.fragment.DCRateValueHelp",
-        controller: this
-    });
+        var fragment = sap.ui.core.Fragment.load({
+          name: "com.gc.dashboard.ext.fragment.DCRateValueHelp",
+          controller: this
+        });
 
-    // 1. GET DATA
-    var oRowContext = oEvent.getSource().getBindingContext();
-    var oHeaderContext = this.getView().getBindingContext();
-    
-    // Existing Date Properties
-    var sInvoiceDate = oHeaderContext.getProperty("invoice_calculation_date");
-    var sSitePlanAppDate = oHeaderContext.getProperty("site_plan_applied_date");
-    
-    // --- DEBUGGING VARIABLES ---
-    var sStatus = oHeaderContext.getProperty("status");
-    var sOccupancyDate = oHeaderContext.getProperty("occupancy_date"); 
-    
-    console.log("---------------- VALUE HELP DEBUG ----------------");
-    console.log("Current Status:", sStatus);
-    console.log("Occupancy Date:", sOccupancyDate);
-    console.log("Invoice Date:", sInvoiceDate);
-    // ---------------------------
-    
-    var sRowPartner = oRowContext.getProperty("dc_partner"); 
-    var sCurrentDcType = oRowContext.getProperty("dc_type");
+        // 1. GET DATA
+        var oRowContext = oEvent.getSource().getBindingContext();
+        var oHeaderContext = this.getView().getBindingContext();
 
-    // --- FIX: ROBUST PARTNER DETECTION ---
-    if (!sRowPartner && sCurrentDcType) {
-        if (sCurrentDcType.startsWith("MISS")) { sRowPartner = "COM"; } 
-        else if (sCurrentDcType.startsWith("REG")) { sRowPartner = "ROP"; } 
-        else if (sCurrentDcType.startsWith("PEEL")) { sRowPartner = "PDSB"; } 
-        else if (sCurrentDcType.startsWith("DP")) { sRowPartner = "DPCSB"; } 
-        else if (sCurrentDcType.startsWith("GO")) { sRowPartner = "GO"; }
-    }
+        // Existing Date Properties
+        var sInvoiceDate = oHeaderContext.getProperty("invoice_calculation_date");
+        var sSitePlanAppDate = oHeaderContext.getProperty("site_plan_applied_date");
 
-    // Default: Prevailing (Invoice Date)
-    var sFilterDate = sInvoiceDate; 
+        // --- DEBUGGING VARIABLES ---
+        var sStatus = oHeaderContext.getProperty("status");
+        var sOccupancyDate = oHeaderContext.getProperty("occupancy_date");
 
-    // 2. LOGIC: Check Locked vs Prevailing
-    if (sRowPartner && sSitePlanAppDate && this._oBill17List) {
-        var aItems = this._oBill17List.getItems(); 
-        for (var i = 0; i < aItems.length; i++) {
+        console.log("---------------- VALUE HELP DEBUG ----------------");
+        console.log("Current Status:", sStatus);
+        console.log("Occupancy Date:", sOccupancyDate);
+        console.log("Invoice Date:", sInvoiceDate);
+        // ---------------------------
+
+        var sRowPartner = oRowContext.getProperty("dc_partner");
+        var sCurrentDcType = oRowContext.getProperty("dc_type");
+
+        // --- FIX: ROBUST PARTNER DETECTION ---
+        if (!sRowPartner && sCurrentDcType) {
+          if (sCurrentDcType.startsWith("MISS")) { sRowPartner = "COM"; }
+          else if (sCurrentDcType.startsWith("REG")) { sRowPartner = "ROP"; }
+          else if (sCurrentDcType.startsWith("PEEL")) { sRowPartner = "PDSB"; }
+          else if (sCurrentDcType.startsWith("DP")) { sRowPartner = "DPCSB"; }
+          else if (sCurrentDcType.startsWith("GO")) { sRowPartner = "GO"; }
+        }
+
+        // Default: Prevailing (Invoice Date)
+        var sFilterDate = sInvoiceDate;
+
+        // 2. LOGIC: Check Locked vs Prevailing
+        if (sRowPartner && sSitePlanAppDate && this._oBill17List) {
+          var aItems = this._oBill17List.getItems();
+          for (var i = 0; i < aItems.length; i++) {
             var oItemContext = aItems[i].getBindingContext();
             if (oItemContext) {
-                var oData = oItemContext.getObject();
-                var bMatch = (oData.id === sRowPartner) || (oData.name === sRowPartner) || (oData.id && sRowPartner && oData.id.indexOf(sRowPartner) > -1);
+              var oData = oItemContext.getObject();
+              var bMatch = (oData.id === sRowPartner) || (oData.name === sRowPartner) || (oData.id && sRowPartner && oData.id.indexOf(sRowPartner) > -1);
 
-                if (bMatch) {
-                    if (oData.calc_option === "L") {
-                        sFilterDate = sSitePlanAppDate;
-                        console.log(">> Logic: Bill 17 Locked Date Applied");
-                    }
-                    break; 
+              if (bMatch) {
+                if (oData.calc_option === "L") {
+                  sFilterDate = sSitePlanAppDate;
+                  console.log(">> Logic: Bill 17 Locked Date Applied");
                 }
+                break;
+              }
             }
+          }
         }
-    }
 
-    // --- 3. STATUS OVERRIDE LOGIC ---
-    // Make sure sStatus matches exactly 'FIN_APR' (case sensitive)
-     var aOverrideStatuses = ["DC1_APR","FIN_APR", "DC1_APR", "FIN_PND", "CLSD", "PCLSD"];
-    
-    if (aOverrideStatuses.includes(sStatus) && sOccupancyDate) {
-        sFilterDate = sOccupancyDate;
-        console.log(">> Logic: Status Override Applied (" + sStatus + ")! Using Occupancy Date.");
-    }
-    // -----------------------------
+        // --- 3. STATUS OVERRIDE LOGIC ---
+        // Make sure sStatus matches exactly 'FIN_APR' (case sensitive)
+        var aOverrideStatuses = ["DC1_APR", "FIN_APR", "DC1_APR", "FIN_PND", "CLSD", "PCLSD"];
 
-    // Fallback
-    if (!sFilterDate) { sFilterDate = new Date(); }
+        if (aOverrideStatuses.includes(sStatus) && sOccupancyDate) {
+          sFilterDate = sOccupancyDate;
+          console.log(">> Logic: Status Override Applied (" + sStatus + ")! Using Occupancy Date.");
+        }
+        // -----------------------------
 
-    console.log(">> FINAL DATE SENT TO BACKEND:", sFilterDate);
-    console.log("--------------------------------------------------");
+        // Fallback
+        if (!sFilterDate) { sFilterDate = new Date(); }
 
-    // 4. FILTERS
-    var startDateFilter = new sap.ui.model.Filter("start_date", "LE", sFilterDate);
-    var endDateFilter = new sap.ui.model.Filter("end_date", "GE", sFilterDate);
-    var dcFilter = new sap.ui.model.Filter("dc_type", "EQ", sCurrentDcType || "");
+        console.log(">> FINAL DATE SENT TO BACKEND:", sFilterDate);
+        console.log("--------------------------------------------------");
 
-    this.rateFilters = [startDateFilter, endDateFilter, dcFilter];
+        // 4. FILTERS
+        var startDateFilter = new sap.ui.model.Filter("start_date", "LE", sFilterDate);
+        var endDateFilter = new sap.ui.model.Filter("end_date", "GE", sFilterDate);
+        var dcFilter = new sap.ui.model.Filter("dc_type", "EQ", sCurrentDcType || "");
 
-    fragment.then(function (oDialog) {
-        this._oValueHelpDialog = oDialog;
-        this.getView().addDependent(oDialog);
-        
-        oDialog.getTableAsync().then(function (oTable) {
+        this.rateFilters = [startDateFilter, endDateFilter, dcFilter];
+
+        fragment.then(function (oDialog) {
+          this._oValueHelpDialog = oDialog;
+          this.getView().addDependent(oDialog);
+
+          oDialog.getTableAsync().then(function (oTable) {
             oTable.setModel(this.getView().getModel());
             if (oDialog.setKey) { oDialog.setKey("dc_rate"); }
             this.getView().getModel("LocalModel").setProperty("/busy", false);
 
             if (oTable.bindRows) {
-                oTable.bindRows({
-                    path: "/zgc_dcrates_vh",
-                    filters: this.rateFilters
-                });
-                
-                var dcRateTemplate = new sap.m.Text({ text: "{ path: 'dc_rate', type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" });
-                var startDateTemplate = new sap.m.Text({ text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}" });
-                var endDateTemplate = new sap.m.Text({ text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}" });
-                var rateComments = new sap.m.Text({ text: "{rate_note}" });
+              oTable.bindRows({
+                path: "/zgc_dcrates_vh",
+                filters: this.rateFilters
+              });
 
-                oTable.addColumn(new sap.ui.table.Column({ label: "DC Rate", template: dcRateTemplate }));
-                oTable.addColumn(new sap.ui.table.Column({ label: "Valid From", template: startDateTemplate }));
-                oTable.addColumn(new sap.ui.table.Column({ label: "Valid To", template: endDateTemplate }));
-                oTable.addColumn(new sap.ui.table.Column({ label: "Comments", template: rateComments }));
+              var dcRateTemplate = new sap.m.Text({ text: "{ path: 'dc_rate', type: 'sap.ui.model.type.Float', formatOptions: {minFractionDigits: 2, maxFractionDigits: 2}}" });
+              var startDateTemplate = new sap.m.Text({ text: "{path: 'start_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}" });
+              var endDateTemplate = new sap.m.Text({ text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}" });
+              var rateComments = new sap.m.Text({ text: "{rate_note}" });
+
+              oTable.addColumn(new sap.ui.table.Column({ label: "DC Rate", template: dcRateTemplate }));
+              oTable.addColumn(new sap.ui.table.Column({ label: "Valid From", template: startDateTemplate }));
+              oTable.addColumn(new sap.ui.table.Column({ label: "Valid To", template: endDateTemplate }));
+              oTable.addColumn(new sap.ui.table.Column({ label: "Comments", template: rateComments }));
             }
             oDialog.update();
+          }.bind(this));
+          oDialog.open();
         }.bind(this));
-        oDialog.open();
-    }.bind(this));
-},
+      },
       onCILRateValueHelpOkPress: function (oEvent) {
         let selectedValue = oEvent.getParameter("tokens")[0].getKey();
         //Convert to integer
@@ -1551,28 +1583,28 @@ onValueHelpRequested: function (oEvent) {
         oEvent.getSource().close();
       },
 
-     // This MUST exist for selection to work
-onValueHelpOkPress: function (oEvent) {
-    // 1. Get the Selected Key (This comes from oDialog.setKey("dc_rate"))
-    var aTokens = oEvent.getParameter("tokens");
-    
-    if (aTokens && aTokens.length > 0) {
-        var selectedValue = aTokens[0].getKey();
-        // 2. Format and Set Value
-        selectedValue = parseFloat(selectedValue).toFixed(2);
-        this.VHInput.setValue(selectedValue);
-    }
-    // 3. Close
-    oEvent.getSource().close();
-},
+      // This MUST exist for selection to work
+      onValueHelpOkPress: function (oEvent) {
+        // 1. Get the Selected Key (This comes from oDialog.setKey("dc_rate"))
+        var aTokens = oEvent.getParameter("tokens");
 
-onValueHelpCancelPress: function (oEvt) {
-    oEvt.getSource().close();
-},
+        if (aTokens && aTokens.length > 0) {
+          var selectedValue = aTokens[0].getKey();
+          // 2. Format and Set Value
+          selectedValue = parseFloat(selectedValue).toFixed(2);
+          this.VHInput.setValue(selectedValue);
+        }
+        // 3. Close
+        oEvent.getSource().close();
+      },
 
-onValueHelpAfterClose: function (oEvt) {
-    oEvt.getSource().destroy();
-},
+      onValueHelpCancelPress: function (oEvt) {
+        oEvt.getSource().close();
+      },
+
+      onValueHelpAfterClose: function (oEvt) {
+        oEvt.getSource().destroy();
+      },
       // **************************************STATUS CHANGES ****************************
       /**
        * Formatter to control state of CIL Processflow
@@ -1735,7 +1767,7 @@ onValueHelpAfterClose: function (oEvt) {
             oDialog.openBy(this.status1);
           }.bind(this));
       },
-      
+
       //  Change: Updated logic to inverse greying based on Permit Issued status
       _onDcTableDataReceived: function (oEventOrTable) {
         var oTable;
@@ -1784,32 +1816,35 @@ onValueHelpAfterClose: function (oEvt) {
 
 
         // Payment Information, is bill17 applicable
-    // Inside _onPropertyChange
-if (sPath === "is_bill17_appl") {
-        
-        if (oValue === true) {
+        // Inside _onPropertyChange
+        if (sPath === "is_bill17_appl") {
+          this._updateBill17ListState();
+          // >>> FIX: Pass 'undefined' for Permit (to look it up) and 'oValue' for Bill 17 override
+           this._updatePartnerFieldState(undefined, oValue);
+
+          if (oValue === true) {
             sap.m.MessageBox.warning(
-                "Saving this would create a new version and Bill 17 changes would be applicable in that version.\n\nDo you want to proceed?",
-                {
-                    title: "Create New Version?",
-                    actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
-                    
-                    // --- FIX STARTS HERE ---
-                    onClose: function (sAction) {
-                        if (sAction === sap.m.MessageBox.Action.OK) {
-                            // this._triggerCreateNewVersion(oContext);
-                            // The checkbox stays checked (true), and waits for the user to click "Save".
-                        } else {
-                            // User clicked Cancel: Revert Checkbox
-                            this.getView().getModel().setProperty(oContext.getPath() + "/" + sPath, false);
-                            this.getView().getModel().resetChanges([oContext.getPath() + "/" + sPath]);
-                        }
-                    }.bind(this)
-                    // --- FIX ENDS HERE ---
-                }
+              "Saving this would create a new version and Bill 17 changes would be applicable in that version.\n\nDo you want to proceed?",
+              {
+                title: "Create New Version?",
+                actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+
+                // --- FIX STARTS HERE ---
+                onClose: function (sAction) {
+                  if (sAction === sap.m.MessageBox.Action.OK) {
+                    // this._triggerCreateNewVersion(oContext);
+                    // The checkbox stays checked (true), and waits for the user to click "Save".
+                  } else {
+                    // User clicked Cancel: Revert Checkbox
+                    this.getView().getModel().setProperty(oContext.getPath() + "/" + sPath, false);
+                    this.getView().getModel().resetChanges([oContext.getPath() + "/" + sPath]);
+                  }
+                }.bind(this)
+                // --- FIX ENDS HERE ---
+              }
             );
+          }
         }
-    }
         // --- Logic 1: Permit Issued ---
         if (sPath === "permit_issued") {
 
@@ -1866,56 +1901,81 @@ if (sPath === "is_bill17_appl") {
         }
       },
 
-      _updatePartnerFieldState: function (bPermitIssued) {
-        var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
-        var oSmartField = this.getView().byId(sRelativeId);
+_updatePartnerFieldState: function (bPermitIssued, bIsBill17Override) {
+    // 1. Find the Control
+    var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
+    var oSmartField = this.getView().byId(sRelativeId);
 
-        var oContext = this.getView().getBindingContext();
-        var sStatus = oContext ? oContext.getProperty("status") : "";
+    if (!oSmartField) return;
 
-        // Statuses where the field must ALWAYS be disabled
-        var aRestrictedStatuses = [
-          "DC1_APR", "FIN_PND", "FIN_APR", "CLSD", "PCLSD", "HLD", "FIN_REJ"
-        ];
+    // 2. Get Context Data
+    var oContext = this.getView().getBindingContext();
+    var sStatus = oContext ? oContext.getProperty("status") : "";
 
-        if (oSmartField) {
-          oSmartField.setEditable(true);
+    // --- FIX: PRIORITY TO OVERRIDE VALUE ---
+    // If the checkbox just changed, use the new value passed in. 
+    // Otherwise, read from the model.
+    var bIsBill17;
+    if (bIsBill17Override !== undefined) {
+        bIsBill17 = bIsBill17Override;
+    } else {
+        bIsBill17 = oContext ? oContext.getProperty("is_bill17_appl") : false;
+    }
+    // ----------------------------------------
 
-          var fnFix = function () {
-            var aInner = oSmartField.getInnerControls();
-            if (aInner && aInner.length > 0) {
-              var oCtrl = aInner[0];
+    // Safety: If bPermitIssued is undefined, try to read it from context
+    if (bPermitIssued === undefined && oContext) {
+        bPermitIssued = oContext.getProperty("permit_issued");
+    }
 
-              if (oCtrl.setEnabled) {
-                // --- FIX STARTS HERE ---
-                if (aRestrictedStatuses.includes(sStatus)) {
-                  // Case 1: Restricted Status (DC1_APR+) -> ALWAYS DISABLE
-                  oCtrl.setEnabled(false);
-                } else {
-                  // Case 2: Open Status (INP) -> Disable ONLY if Permit is Issued
-                  oCtrl.setEnabled(!bPermitIssued);
+    // 3. Define Logic
+    var aStandardRestrictedStatuses = ["FIN_APR", "DC1_APR", "FIN_PND", "CLSD", "PCLSD", "HLD", "FIN_REJ"];
+    var aBill17RestrictedStatuses = ["CLSD", "PCLSD", "HLD", "FIN_REJ"]; 
+
+    // 4. Force Editable on the Wrapper
+    oSmartField.setEditable(true);
+
+    // 5. Apply Logic
+    var fnFix = function () {
+        var aInner = oSmartField.getInnerControls();
+        if (aInner && aInner.length > 0) {
+            var oCtrl = aInner[0];
+            var bFinalEnabledState = true;
+
+            if (bIsBill17) {
+                // SCENARIO 1: BILL 17 IS ACTIVE
+                if (aBill17RestrictedStatuses.includes(sStatus) || bPermitIssued) {
+                    bFinalEnabledState = false; 
                 }
-                // --- FIX ENDS HERE ---
-              }
+            } else {
+                // SCENARIO 2: STANDARD (OLD LOGIC)
+                if (aStandardRestrictedStatuses.includes(sStatus) || bPermitIssued) {
+                    bFinalEnabledState = false; 
+                }
+            }
 
-              if (oCtrl.getAggregation) {
+            if (oCtrl.setEnabled) oCtrl.setEnabled(bFinalEnabledState);
+            if (oCtrl.setEditable) oCtrl.setEditable(bFinalEnabledState);
+
+            // Tokenizer Fix
+            if (oCtrl.getAggregation) {
                 var oTokenizer = oCtrl.getAggregation("tokenizer");
                 if (oTokenizer) {
-                  if (oTokenizer.setRenderMode) oTokenizer.setRenderMode("Loose");
-                  oTokenizer.addEventDelegate({
-                    onAfterRendering: function () {
-                      if (this.getRenderMode() !== "Loose") this.setRenderMode("Loose");
-                    }
-                  }, oTokenizer);
+                    if (oTokenizer.setRenderMode) oTokenizer.setRenderMode("Loose");
+                    oTokenizer.addEventDelegate({
+                        onAfterRendering: function () {
+                            if (this.getRenderMode() !== "Loose") this.setRenderMode("Loose");
+                        }
+                    }, oTokenizer);
                 }
-              }
             }
-          };
-          fnFix();
-          oSmartField.detachEvent("innerControlsCreated", fnFix);
-          oSmartField.attachEvent("innerControlsCreated", fnFix);
         }
-      },
+    };
+
+    fnFix();
+    oSmartField.detachEvent("innerControlsCreated", fnFix);
+    oSmartField.attachEvent("innerControlsCreated", fnFix);
+},
 
       _forceFullTokenDisplay: function () {
         var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
@@ -1982,7 +2042,7 @@ if (sPath === "is_bill17_appl") {
         }
       },
 
-      
+
 
       // ====================================================================
       //  STATUS PILL & COLOR CODING LOGIC (DYNAMIC BILL 17)
@@ -2073,7 +2133,7 @@ if (sPath === "is_bill17_appl") {
         if (sStatus === "WITHDRAWN") return "None";
         if (sStatus === "DC1_APR") return "Information"
 
-        if ( sStatus === "FIN_PND") return "Warning"; // Pending
+        if (sStatus === "FIN_PND") return "Warning"; // Pending
         if (sStatus === "FIN_APR" || sStatus === "CLSD" || sStatus === "PCLSD") return "Success";
         return "None";
       },
@@ -2256,7 +2316,7 @@ if (sPath === "is_bill17_appl") {
             fnSetControlState(oTargetCell, bRowEditable);
           }
         });
-      },  
+      },
       //2A,2B,2C Sceanrio related Functions
       formatCalcOptionToIndex: function (sValue) {
         // FIX: Handle null/undefined to prevent "Expression not available" error
@@ -2272,24 +2332,24 @@ if (sPath === "is_bill17_appl") {
         return 0; // Default
       },
       //Changing Radio Buttons L or P
-    
-   onCalcOptionChange: function (oEvent) {
-    var oRadioGroup = oEvent.getSource();
-    var iIndex = oRadioGroup.getSelectedIndex();
-    
-    // --- DEBUG LOGS (Press F12 to see these) ---
-    console.log("---------------- DEBUG START ----------------");
-    console.log("Radio Button Index Selected:", iIndex); 
-    // 0 = First Button, 1 = Second Button
-    
-    // ASSUMPTION: Button 0 is "Locked", Button 1 is "Prevailing"
-    var sValue = iIndex === 0 ? "L" : "P"; 
-    console.log("Calculated Value (L/P):", sValue);
 
-    if (sValue === "L") {
-        var oHeaderContext = this.getView().getBindingContext();
-        
-        if (oHeaderContext) {
+      onCalcOptionChange: function (oEvent) {
+        var oRadioGroup = oEvent.getSource();
+        var iIndex = oRadioGroup.getSelectedIndex();
+
+        // --- DEBUG LOGS (Press F12 to see these) ---
+        console.log("---------------- DEBUG START ----------------");
+        console.log("Radio Button Index Selected:", iIndex);
+        // 0 = First Button, 1 = Second Button
+
+        // ASSUMPTION: Button 0 is "Locked", Button 1 is "Prevailing"
+        var sValue = iIndex === 0 ? "L" : "P";
+        console.log("Calculated Value (L/P):", sValue);
+
+        if (sValue === "L") {
+          var oHeaderContext = this.getView().getBindingContext();
+
+          if (oHeaderContext) {
             // Get the raw value from the model
             var sSiteDate = oHeaderContext.getProperty("site_plan_applied_date");
             console.log("Raw Site Plan Date Value:", sSiteDate);
@@ -2297,93 +2357,91 @@ if (sPath === "is_bill17_appl") {
             // Check specifically for null, undefined, or empty
             // Note: A Date object is truthy, null is falsy.
             if (!sSiteDate) {
-                console.log(">> Date is MISSING. Triggering Popup...");
-                sap.m.MessageBox.warning(
-                    "Site Plan Applied Date is missing. Selecting 'Locked' may result in 0.00 rates.\n\nPlease ensure a date is entered or the Backend applies a fallback."
-                );
+              console.log(">> Date is MISSING. Triggering Popup...");
+              sap.m.MessageBox.warning(
+                "Site Plan Applied Date is missing. Selecting 'Locked' may result in 0.00 rates.\n\nPlease ensure a date is entered or the Backend applies a fallback."
+              );
             } else {
-                console.log(">> Date EXISTS. Skipping Popup.");
+              console.log(">> Date EXISTS. Skipping Popup.");
             }
-        } else {
+          } else {
             console.error(">> ERROR: Could not find Header Binding Context!");
+          }
+        } else {
+          console.log(">> Selection is 'Prevailing' (P). No popup required.");
         }
-    } else {
-        console.log(">> Selection is 'Prevailing' (P). No popup required.");
-    }
-    console.log("---------------- DEBUG END ----------------");
+        console.log("---------------- DEBUG END ----------------");
 
-    // --- EXISTING SAVE LOGIC ---
-    var oContext = oRadioGroup.getBindingContext();
-    if (!oContext) return;
+        // --- EXISTING SAVE LOGIC ---
+        var oContext = oRadioGroup.getBindingContext();
+        if (!oContext) return;
 
-    var oModel = oContext.getModel();
-    var sPath = oContext.getPath() + "/calc_option";
-    var that = this;
+        var oModel = oContext.getModel();
+        var sPath = oContext.getPath() + "/calc_option";
+        var that = this;
 
-    // Update other rows in the list to match
-    var oList = oRadioGroup.getParent().getParent().getParent(); 
-    if (oList && oList.getItems) {
-        var aItems = oList.getItems();
-        aItems.forEach(function(oItem) {
+        // Update other rows in the list to match
+        var oList = oRadioGroup.getParent().getParent().getParent();
+        if (oList && oList.getItems) {
+          var aItems = oList.getItems();
+          aItems.forEach(function (oItem) {
             var oItemContext = oItem.getBindingContext();
             if (oItemContext) {
-                var sItemPath = oItemContext.getPath();
-                if (sItemPath !== oContext.getPath()) {
-                     var sExistingVal = oItemContext.getProperty("calc_option");
-                     oModel.update(sItemPath, { calc_option: sExistingVal }, { groupId: "changes" });
-                }
+              var sItemPath = oItemContext.getPath();
+              if (sItemPath !== oContext.getPath()) {
+                var sExistingVal = oItemContext.getProperty("calc_option");
+                oModel.update(sItemPath, { calc_option: sExistingVal }, { groupId: "changes" });
+              }
             }
-        });
-    }
+          });
+        }
 
-    // 1. Optimistic Update
-    oModel.setProperty(sPath, sValue);
+        // 1. Optimistic Update
+        oModel.setProperty(sPath, sValue);
 
-    // 2. Submit Changes
-    oModel.submitChanges({
-        success: function (oData) {
+        // 2. Submit Changes
+        oModel.submitChanges({
+          success: function (oData) {
             if (oData && oData.__batchResponses) {
-                var hasError = oData.__batchResponses.some(function (r) {
-                    return r.response && r.response.statusCode >= 400;
-                });
-                if (hasError) {
-                    sap.m.MessageBox.error("Error saving option.");
-                    return;
-                }
+              var hasError = oData.__batchResponses.some(function (r) {
+                return r.response && r.response.statusCode >= 400;
+              });
+              if (hasError) {
+                sap.m.MessageBox.error("Error saving option.");
+                return;
+              }
             }
 
             // 3. Trigger Calculation
             var reqGuid = oContext.getProperty("req_uuid");
             oModel.callFunction("/zgc_c_dc_calcltnsCalculate", {
-                method: "POST",
-                urlParameters: { req_uuid: reqGuid },
-                success: function (oData) {
-                    sap.m.MessageToast.show("Calculation updated.");
+              method: "POST",
+              urlParameters: { req_uuid: reqGuid },
+              success: function (oData) {
+                sap.m.MessageToast.show("Calculation updated.");
 
-                    // 4. Safe Refresh
-                    if (that.extensionAPI && that.extensionAPI.refresh) {
-                        that.extensionAPI.refresh();
-                    } else {
-                        if (that.getView().getElementBinding()) {
-                            that.getView().getElementBinding().refresh();
-                        }
-                    }
-                },
-                error: function (oError) { }
+                // 4. Safe Refresh
+                if (that.extensionAPI && that.extensionAPI.refresh) {
+                  that.extensionAPI.refresh();
+                } else {
+                  if (that.getView().getElementBinding()) {
+                    that.getView().getElementBinding().refresh();
+                  }
+                }
+              },
+              error: function (oError) { }
             });
-        },
-        error: function (oError) {
+          },
+          error: function (oError) {
             sap.m.MessageBox.error("Failed to save.");
-        }
-    });
-},
+          }
+        });
+      },
       // Radio button Insertion Logic
       _insertBelowBill17DeferralPartner: function () {
     var oView = this.getView();
-
-    // 1. Find Label (Existing logic...)
     var aMatches = oView.findAggregatedObjects(true, function (o) {
-      return o.getId && o.getId().indexOf("DCHeader-FG2::to_defpartner::id::MultiInput-label") !== -1;
+        return o.getId && o.getId().indexOf("DCHeader-FG2::to_defpartner::id::MultiInput-label") !== -1;
     });
 
     if (!aMatches.length) return;
@@ -2394,64 +2452,87 @@ if (sPath === "is_bill17_appl") {
     if (this._bBill17Inserted) return;
     this._bBill17Inserted = true;
 
-    // 2. Load Fragment (UPDATED)
     sap.ui.core.Fragment.load({
-      name: "com.gc.dashboard.ext.fragments.Bill17RateOptions",
-      controller: this,
-      id: oView.getId() // <--- CRITICAL: Binds Fragment IDs to View ID
+        name: "com.gc.dashboard.ext.fragments.Bill17RateOptions",
+        controller: this,
+        id: oView.getId()
     }).then(function (oFragment) {
+        
+        this._oBill17List = this.byId("idBill17List");
+        
+        // >>> FIX: ROBUST EVENT LISTENER <<<
+        if (this._oBill17List) {
+            var sType = this._oBill17List.getMetadata().getName();
+            console.log("[DEBUG_BILL17] List Found! Type:", sType);
 
-      // Capture the List reference for later use (F4 Help & Save)
-      this._oBill17List = this.byId("idBill17List");
+            // Case A: sap.m.List or sap.m.Table
+            if (this._oBill17List.attachUpdateFinished) {
+                this._oBill17List.attachUpdateFinished(function() {
+                    console.log("[DEBUG_BILL17] Event 'updateFinished' fired.");
+                    this._updateBill17ListState();
+                }.bind(this));
+            }
+            // Case B: sap.ui.table.Table (Grid Table)
+            else if (this._oBill17List.attachRowsUpdated) {
+                this._oBill17List.attachRowsUpdated(function() {
+                    console.log("[DEBUG_BILL17] Event 'rowsUpdated' fired.");
+                    this._updateBill17ListState();
+                }.bind(this));
+            }
+        }
+        // >>> END FIX <<<
 
-      var oNewGroupElement = new sap.ui.comp.smartform.GroupElement({
-        label: "",
-        elements: [oFragment]
-      });
+        var oNewGroupElement = new sap.ui.comp.smartform.GroupElement({
+            label: "",
+            elements: [oFragment]
+        });
 
-      var iIndex = oGroup.indexOfGroupElement(oGroupElement);
-      if (iIndex > -1) {
-        oGroup.insertGroupElement(oNewGroupElement, iIndex);
-      } else {
-        oGroup.addGroupElement(oNewGroupElement);
-      }
+        var iIndex = oGroup.indexOfGroupElement(oGroupElement);
+        if (iIndex > -1) {
+            oGroup.insertGroupElement(oNewGroupElement, iIndex);
+        } else {
+            oGroup.addGroupElement(oNewGroupElement);
+        }
+
+        this._updateBill17ListState();
+
     }.bind(this));
 },
 
       //Create new version on Bill17
-_triggerCreateNewVersion: function (oContext) {
-    var oExtensionAPI = this.extensionAPI;
-    var that = this;
-    var sFunctionName = "ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsCreate_new_version";
+      _triggerCreateNewVersion: function (oContext) {
+        var oExtensionAPI = this.extensionAPI;
+        var that = this;
+        var sFunctionName = "ZGC_C_REQUESTS_CDS.ZGC_C_REQUESTS_CDS_Entities/zgc_c_requestsCreate_new_version";
 
-    sap.ui.core.BusyIndicator.show();
+        sap.ui.core.BusyIndicator.show();
 
-    oExtensionAPI.invokeActions(sFunctionName, [oContext])
-        .then(function () {
+        oExtensionAPI.invokeActions(sFunctionName, [oContext])
+          .then(function () {
             sap.ui.core.BusyIndicator.hide();
             sap.m.MessageToast.show("New Version Created Successfully");
-            
+
             // Refresh to show new data
             oExtensionAPI.refresh();
-        })
-        .catch(function (oError) {
+          })
+          .catch(function (oError) {
             sap.ui.core.BusyIndicator.hide();
-            
+
             // Revert checkbox if failed
             if (that.getView().getModel()) {
-                that.getView().getModel().setProperty(oContext.getPath() + "/is_bill17_appl", false);
-                that.getView().getModel().resetChanges([oContext.getPath() + "/is_bill17_appl"]);
+              that.getView().getModel().setProperty(oContext.getPath() + "/is_bill17_appl", false);
+              that.getView().getModel().resetChanges([oContext.getPath() + "/is_bill17_appl"]);
             }
-            
+
             var sMsg = "Failed to create new version.";
             sap.m.MessageBox.error(sMsg);
-        });
-},
+          });
+      },
 
-// Function to check Status and Lock/Unlock controls
-_updateBill17Status: function() {
+      // Function to check Status and Lock/Unlock controls
+      _updateBill17Status: function () {
         var oView = this.getView();
-        
+
         // Safety Check: If View is not ready, stop
         if (!oView) return;
 
@@ -2459,12 +2540,12 @@ _updateBill17Status: function() {
 
         // If no data loaded yet, stop.
         if (!oContext) {
-            return; 
+          return;
         }
 
         // A. GET THE STATUS
         // Ensure "status" is the correct field name from your backend!
-        var sStatus = oContext.getProperty("status"); 
+        var sStatus = oContext.getProperty("status");
 
         // --- DEBUG LOG (Check Console F12) ---
         console.log("---------------------------------------------");
@@ -2474,17 +2555,58 @@ _updateBill17Status: function() {
         // B. THE LOGIC
         // If Status is 'FIN_APR' (Final Approved), set Editable = FALSE
         // Change 'FIN_APR' to '03' or whatever your real code is if needed
-        var bIsEditable = (sStatus !== 'FIN_APR'); 
+        var bIsEditable = (sStatus !== 'FIN_APR');
 
         // C. SET THE LOCAL MODEL
         var oLocalModel = oView.getModel("LocalModel");
         if (!oLocalModel) {
-            oLocalModel = new sap.ui.model.json.JSONModel();
-            oView.setModel(oLocalModel, "LocalModel");
+          oLocalModel = new sap.ui.model.json.JSONModel();
+          oView.setModel(oLocalModel, "LocalModel");
         }
-        
+
         oLocalModel.setProperty("/isBill17Editable", bIsEditable);
-    },
+        this._updateBill17ListState();
+      },
+
+      // --- NEW HELPER FUNCTION ---
+      _updateBill17ListState: function () {
+    var oList = this.byId("idBill17List") || this._oBill17List;
+    if (!oList) return;
+
+    var oContext = this.getView().getBindingContext();
+    var bBill17Active = oContext ? oContext.getProperty("is_bill17_appl") : false;
+    
+    var oUiModel = this.getView().getModel("ui") || this.getOwnerComponent().getModel("ui");
+    var bIsEditable = oUiModel ? oUiModel.getProperty("/editable") : false;
+
+    // Logic: Must be Edit Mode AND Bill 17 Checked
+    var bEnableState = bIsEditable && bBill17Active;
+
+    // >>> FIX: ROBUST ITEM RETRIEVAL <<<
+    var aItems = [];
+    if (oList.getItems) {
+        aItems = oList.getItems(); // sap.m.List / sap.m.Table
+    } else if (oList.getRows) {
+        aItems = oList.getRows();  // sap.ui.table.Table
+    }
+    // >>> END FIX <<<
+
+    if (aItems.length > 0) {
+        console.log("[DEBUG_BILL17] Applying state " + bEnableState + " to " + aItems.length + " items.");
+        
+        aItems.forEach(function (oItem) {
+            var aCells = oItem.getCells ? oItem.getCells() : [];
+            aCells.forEach(function (oControl) {
+                if (oControl.setEnabled) {
+                    oControl.setEnabled(bEnableState);
+                }
+            });
+        });
+    } else {
+        // Silent wait - the event listener from step 1 will catch it when data arrives
+    }
+},
+
 
 
       //end of controller
