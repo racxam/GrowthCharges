@@ -185,6 +185,9 @@ sap.ui.define(
             "enabled": "{= ${ui>/editable} && ${status} !== 'FIN_APR' && ${status} !== 'CLSD' && ${status} !== 'PCLSD' && ${status} !== 'HLD' }"
           });
           const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
+          if (oDCTable && !oDCTable.getCurrentVariantId()) {
+    oDCTable.setCurrentVariantId("id_1676542872462_327_table");
+}
           const oDCHeader = oDCTable.getToolbar();
           oDCHeader.addContent(oCalculateButton);
         }
@@ -547,8 +550,7 @@ if (oUiModel) {
         var aTableIds = [
           "TotalDC-ID",
           "Section-14-ID",
-          "DemolitionCred-ID",
-          "DCExemption-ID"
+          "DemolitionCred-ID"
         ];
 
         aTableIds.forEach(function (sId) {

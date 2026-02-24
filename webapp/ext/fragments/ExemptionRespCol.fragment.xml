@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Column hAlign="End">
+        <Text text="{i18n>labelDCRate}" />
+        <customData>
+            <core:CustomData key="p13nData" value='\{"columnKey": "CustomColumn1", "leadingProperty": "dc_rate", "columnIndex": "3"}' />
+        </customData>
+    </Column>
+</core:FragmentDefinition>

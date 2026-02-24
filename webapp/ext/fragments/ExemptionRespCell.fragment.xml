@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <HBox justifyContent="SpaceBetween" alignContent="Center" alignItems="Center" fitContainer="true">
+        <HBox width="50px">
+            <core:Icon src="sap-icon://alert" visible="{is_rate_edited}" color="#E69A17" class="sapUiTinyMarginEnd" tooltip="{i18n>rate_edited}" />
+        </HBox>
+        <HBox>
+            <Input width="100%" value="{dc_rate}" showValueHelp="true" valueHelpOnly="true" visible="{= ${ui>/editable} &amp;&amp; ${Update_mc}}" valueHelpRequest=".onValueHelpRequested"/>
+            <Text width="100%" text="{dc_rate}" visible="{= !${ui>/editable} || !${Update_mc}}"/>
+        </HBox>
+    </HBox>
+</core:FragmentDefinition>
