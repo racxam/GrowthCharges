@@ -547,24 +547,27 @@ if (oUiModel) {
 
         //  START OF NEW CODE 
         // List of all tables that need the "Grey Row" logic
-        var aTableIds = [
+      var aTableIds = [
           "TotalDC-ID",
           "Section-14-ID",
-          "DemolitionCred-ID"
+          "DemolitionCred-ID",
+          "DCExemption-ID"
         ];
 
-        aTableIds.forEach(function (sId) {
+       aTableIds.forEach(function (sId) {
           var oSmartTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sId + "::Table");
 
           if (oSmartTable) {
             var oInnerTable = oSmartTable.getTable();
 
-            // 1. Detach/Attach Listener (For future updates)
-            oInnerTable.detachEvent("rowsUpdated", this._onDcTableDataReceived, this);
-            oInnerTable.attachEvent("rowsUpdated", this._onDcTableDataReceived, this);
+            // CRITICAL FIX: Determine correct event based on table type
+            var sEventName = (oInnerTable.getMetadata().getName() === "sap.m.Table") ? "updateFinished" : "rowsUpdated";
 
-            // 2. FIX: CALL IMMEDIATELY (For data already loaded)
-            // Pass the table directly to the function
+            // 1. Detach/Attach Listener
+            oInnerTable.detachEvent(sEventName, this._onDcTableDataReceived, this);
+            oInnerTable.attachEvent(sEventName, this._onDcTableDataReceived, this);
+
+            // 2. CALL IMMEDIATELY (For data already loaded)
             this._onDcTableDataReceived(oInnerTable);
           }
         }.bind(this));
@@ -848,6 +851,47 @@ if (oUiModel) {
         setTimeout(function () {
           this._forceFullTokenDisplay();
         }.bind(this), 500);
+
+        //Exemption table fix:-
+        // ============================================================
+        // EXEMPTION TABLE: SINGLE SELECT & FORCE COLUMN VISIBILITY
+        // ============================================================
+        const oExemptionSmartTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table");
+        
+        if (oExemptionSmartTable) {
+          // Create a stable memory reference for the event handler
+          if (!this._fnSingleSelectHandler) {
+              this._fnSingleSelectHandler = this._enforceSingleSelectionCheckbox.bind(this);
+          }
+
+          const attachTableBehaviors = function () {
+              let oInnerTable = oExemptionSmartTable.getTable(); // Get the sap.m.Table
+
+              if (oInnerTable) {
+                  // A) Attach Single Selection Logic
+                  if (oInnerTable.attachSelectionChange) {
+                      oInnerTable.detachSelectionChange(this._fnSingleSelectHandler);
+                      oInnerTable.attachSelectionChange(this._fnSingleSelectHandler);
+                  }
+
+                  // B) Force All Columns to be Visible (Disable Responsive Hiding)
+                  if (oInnerTable.getColumns) {
+                      oInnerTable.getColumns().forEach(function(oCol) {
+                          oCol.setDemandPopin(false); // Stop columns from collapsing into the row below
+                          oCol.setMinScreenWidth(""); // Remove screen size restrictions
+                      });
+                  }
+              }
+          }.bind(this);
+
+          // Wait for the SmartTable to build its inner controls before applying
+          if (!oExemptionSmartTable.isInitialised()) {
+              oExemptionSmartTable.attachInitialise(attachTableBehaviors);
+          } else {
+              attachTableBehaviors();
+          }
+        }
+        // ============================================================
 
 
       },
@@ -1771,7 +1815,7 @@ if (oUiModel) {
       },
 
       //  Change: Updated logic to inverse greying based on Permit Issued status
-      _onDcTableDataReceived: function (oEventOrTable) {
+   _onDcTableDataReceived: function (oEventOrTable) {
         var oTable;
         if (oEventOrTable.getSource) {
           oTable = oEventOrTable.getSource(); // Event
@@ -1779,13 +1823,46 @@ if (oUiModel) {
           oTable = oEventOrTable; // Direct Control
         }
 
+        // ==========================================================
+        // CRITICAL FIX: FORCE ALL COLUMNS HORIZONTAL (DISABLE POP-IN)
+        // ==========================================================
+        // We do this here because 'updateFinished' fires after Fiori applies its variants.
+        if (oTable.getMetadata().getName() === "sap.m.Table" && typeof oTable.getColumns === "function") {
+          oTable.getColumns().forEach(function(oCol) {
+            // 1. Remove Fiori's responsive collapsing rules
+            if (oCol.setDemandPopin) { 
+                oCol.setDemandPopin(false); 
+            }
+            if (oCol.setMinScreenWidth) { 
+                oCol.setMinScreenWidth(""); 
+            }
+            
+            // 2. FORCE HORIZONTAL SCROLLBAR: Give columns a fixed width so they don't squish
+            if (oCol.setWidth) {
+                // If a column doesn't already have a width, give it a default size
+                var sCurrentWidth = oCol.getWidth();
+                if (!sCurrentWidth || sCurrentWidth === "auto" || sCurrentWidth === "") {
+                    oCol.setWidth("12rem"); // You can change this to "150px" or "14rem" depending on how wide you want them
+                }
+            }
+          });
+        }
+
+        // ==========================================================
+
         // 1. Get Permit Issued Status
         var bPermitIssued = false;
         if (this.getView().getBindingContext()) {
           bPermitIssued = this.getView().getBindingContext().getProperty("permit_issued");
         }
 
-        var aRows = oTable.getRows();
+        // CRITICAL FIX: Safely get rows depending on table type
+        var aRows = [];
+        if (typeof oTable.getRows === "function") {
+          aRows = oTable.getRows();       // For GridTable / TreeTable
+        } else if (typeof oTable.getItems === "function") {
+          aRows = oTable.getItems();      // For ResponsiveTable (sap.m.Table)
+        }
 
         aRows.forEach(function (oRow) {
           var oContext = oRow.getBindingContext();
@@ -1793,9 +1870,6 @@ if (oUiModel) {
             var oRowData = oContext.getObject();
 
             // 2. Determine Logic
-            // If Permit Issued (True)  AND is_bill17 (False) -> Grey Out (True)
-            // If Permit Issued (False) AND is_bill17 (True)  -> Grey Out (True)
-            // This is an inequality check (!==)
             var bShouldGrey = false;
             if (oRowData) {
               bShouldGrey = (!!bPermitIssued !== !!oRowData.is_bill17_appl);
@@ -2608,6 +2682,49 @@ _updatePartnerFieldState: function (bPermitIssued, bIsBill17Override) {
         // Silent wait - the event listener from step 1 will catch it when data arrives
     }
 },
+//Exemption table (Responsive Table)
+_enforceSingleSelectionCheckbox: function (oEvent) {
+        // 1. Lock to prevent infinite loops caused by programmatic selection
+        if (this._bIsSelecting) {
+            return;
+        }
+
+        const oTable = oEvent.getSource();
+        const bIsSelected = oEvent.getParameter("selected");
+        const bSelectAll = oEvent.getParameter("selectAll"); // Detects if the header "Select All" was clicked
+        const oCurrentListItem = oEvent.getParameter("listItem");
+
+        // 2. Block the header "Select All" checkbox instantly
+        if (bSelectAll) {
+            this._bIsSelecting = true;
+            oTable.removeSelections(true); // Super fast native UI5 clear (true = silent)
+            // Fire one clean event to tell Fiori the table is empty, disabling standard Action buttons
+            oTable.fireSelectionChange({ listItems: [], selected: false }); 
+            this._bIsSelecting = false;
+            
+            sap.m.MessageToast.show("Multiple selection is not allowed.");
+            return;
+        }
+
+        // 3. Handle normal single row click
+        if (bIsSelected) {
+            const aSelectedItems = oTable.getSelectedItems();
+
+            // If more than 1 item is checked, fix it instantly
+            if (aSelectedItems.length > 1) {
+                this._bIsSelecting = true; // Engage lock
+
+                // Step A: Silently and instantly clear ALL checkboxes in the table
+                oTable.removeSelections(true); 
+
+                // Step B: Re-check ONLY the row the user just clicked, and fire exactly ONE event 
+                // to Fiori so the toolbar buttons activate instantly.
+                oTable.setSelectedItem(oCurrentListItem, true, true); 
+
+                this._bIsSelecting = false; // Release lock
+            }
+        }
+      },
 
 
 
