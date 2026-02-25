@@ -73,3 +73,53 @@
 .sapUiTable tr.sapUiTableRow.greyedOutRow > td:focus {
     outline: none !important;
 }
+
+/* =========================================================================
+   1. HORIZONTAL SCROLLBAR FIX (RESTORES THE TOOLBAR)
+   ========================================================================= */
+/* Target the table control itself, leaving the SmartTable Toolbar alone */
+.customScrollTable {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+    padding-bottom: 5px; /* Gives room for the standard scrollbar */
+}
+
+/* Force the inner HTML table to expand past the screen to trigger the scrollbar */
+.customScrollTable .sapMListTbl {
+    width: max-content !important;
+    min-width: 100% !important;
+    table-layout: auto !important; 
+}
+
+/* Give the columns standard breathing room so they don't squish */
+.customScrollTable .sapMListTbl th, 
+.customScrollTable .sapMListTbl td {
+    min-width: 11rem !important; 
+}
+
+
+/* =========================================================================
+   2. VISUALLY GREY OUT AND LOCK THE ROW 
+   ========================================================================= */
+.sapMListTblRow.greyedOutRow,
+.sapUiTableRow.greyedOutRow,
+tbody.sapMListItems > tr.sapMListTblRow.greyedOutRow {
+    pointer-events: none !important; 
+    opacity: 0.45 !important; 
+    background-color: #eff4f9 !important; 
+}
+
+/* Prevent Fiori Hover States from overriding the grey */
+.sapMListTblRow.greyedOutRow:hover,
+.sapUiTableRow.greyedOutRow:hover,
+.sapMListTblRow.greyedOutRow.sapMListTblRowSel {
+    background-color: #eff4f9 !important;
+}
+
+/* Blend the standard inputs into the grey background */
+.sapMListTblRow.greyedOutRow .sapMInputBase,
+.sapMListTblRow.greyedOutRow .sapMInputBaseInner,
+.sapUiTableRow.greyedOutRow .sapMInputBaseInner {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
