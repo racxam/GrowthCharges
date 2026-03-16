@@ -1522,10 +1522,10 @@ sap.ui.define(
         var sStatus = oHeaderContext.getProperty("status");
         var sOccupancyDate = oHeaderContext.getProperty("occupancy_date");
 
-        console.log("---------------- VALUE HELP DEBUG ----------------");
-        console.log("Current Status:", sStatus);
-        console.log("Occupancy Date:", sOccupancyDate);
-        console.log("Invoice Date:", sInvoiceDate);
+        // console.log("---------------- VALUE HELP DEBUG ----------------");
+        // console.log("Current Status:", sStatus);
+        // console.log("Occupancy Date:", sOccupancyDate);
+        // console.log("Invoice Date:", sInvoiceDate);
         // ---------------------------
 
         var sRowPartner = oRowContext.getProperty("dc_partner");
@@ -1558,7 +1558,7 @@ sap.ui.define(
                 if (oData.calc_option === "L") {
                   sFilterDate = sSitePlanAppDate;
                   bIsLocked = true; // <--- MARK AS LOCKED
-                  console.log(">> Logic: Bill 17 Locked ('L'). Forced Site Plan Applied Date.");
+                  // console.log(">> Logic: Bill 17 Locked ('L'). Forced Site Plan Applied Date.");
                 }
                 break;
               }
@@ -1574,17 +1574,17 @@ sap.ui.define(
         if (!bIsLocked) {
           if ((bPermitIssued || aOverrideStatuses.includes(sStatus)) && sOccupancyDate) {
             sFilterDate = sOccupancyDate;
-            console.log(">> Logic: Prevailing ('P') + Permit Issued. Forced Occupancy Date.");
+            // console.log(">> Logic: Prevailing ('P') + Permit Issued. Forced Occupancy Date.");
           } else {
-            console.log(">> Logic: Prevailing ('P') + Before Permit. Kept Invoice Date.");
+            // console.log(">> Logic: Prevailing ('P') + Before Permit. Kept Invoice Date.");
           }
         }
         // -----------------------------
 
         // Fallback
         if (!sFilterDate) { sFilterDate = new Date(); }
-        console.log(">> FINAL DATE SENT TO BACKEND:", sFilterDate);
-        console.log("--------------------------------------------------");
+        // console.log(">> FINAL DATE SENT TO BACKEND:", sFilterDate);
+        // console.log("--------------------------------------------------");
 
         // 4. FILTERS
         var startDateFilter = new sap.ui.model.Filter("start_date", "LE", sFilterDate);
@@ -2421,13 +2421,14 @@ sap.ui.define(
         var iIndex = oRadioGroup.getSelectedIndex();
 
         // --- DEBUG LOGS (Press F12 to see these) ---
-        console.log("---------------- DEBUG START ----------------");
-        console.log("Radio Button Index Selected:", iIndex);
+        // console.log("---------------- DEBUG START ----------------");
+        // console.log("Radio Button Index Selected:", iIndex);
         // 0 = First Button, 1 = Second Button
 
         // ASSUMPTION: Button 0 is "Locked", Button 1 is "Prevailing"
         var sValue = iIndex === 0 ? "L" : "P";
-        console.log("Calculated Value (L/P):", sValue);
+        // console.log("Calculated Value (L/P):", sValue);
+
 
         if (sValue === "L") {
           var oHeaderContext = this.getView().getBindingContext();
@@ -2435,25 +2436,25 @@ sap.ui.define(
           if (oHeaderContext) {
             // Get the raw value from the model
             var sSiteDate = oHeaderContext.getProperty("site_plan_applied_date");
-            console.log("Raw Site Plan Date Value:", sSiteDate);
+            // console.log("Raw Site Plan Date Value:", sSiteDate);
 
             // Check specifically for null, undefined, or empty
             // Note: A Date object is truthy, null is falsy.
             if (!sSiteDate) {
-              console.log(">> Date is MISSING. Triggering Popup...");
+              // console.log(">> Date is MISSING. Triggering Popup...");
               sap.m.MessageBox.warning(
                 "Site Plan Applied Date is missing. Selecting 'Locked' may result in 0.00 rates.\n\nPlease ensure a date is entered or the Backend applies a fallback."
               );
             } else {
-              console.log(">> Date EXISTS. Skipping Popup.");
+              // console.log(">> Date EXISTS. Skipping Popup.");
             }
           } else {
             console.error(">> ERROR: Could not find Header Binding Context!");
           }
         } else {
-          console.log(">> Selection is 'Prevailing' (P). No popup required.");
+          // console.log(">> Selection is 'Prevailing' (P). No popup required.");
         }
-        console.log("---------------- DEBUG END ----------------");
+        // console.log("---------------- DEBUG END ----------------");
 
         // --- EXISTING SAVE LOGIC ---
         var oContext = oRadioGroup.getBindingContext();
@@ -2546,19 +2547,19 @@ sap.ui.define(
           // >>> FIX: ROBUST EVENT LISTENER <<<
           if (this._oBill17List) {
             var sType = this._oBill17List.getMetadata().getName();
-            console.log("[DEBUG_BILL17] List Found! Type:", sType);
+            // console.log("[DEBUG_BILL17] List Found! Type:", sType);
 
             // Case A: sap.m.List or sap.m.Table
             if (this._oBill17List.attachUpdateFinished) {
               this._oBill17List.attachUpdateFinished(function () {
-                console.log("[DEBUG_BILL17] Event 'updateFinished' fired.");
+                // console.log("[DEBUG_BILL17] Event 'updateFinished' fired.");
                 this._updateBill17ListState();
               }.bind(this));
             }
             // Case B: sap.ui.table.Table (Grid Table)
             else if (this._oBill17List.attachRowsUpdated) {
               this._oBill17List.attachRowsUpdated(function () {
-                console.log("[DEBUG_BILL17] Event 'rowsUpdated' fired.");
+                // console.log("[DEBUG_BILL17] Event 'rowsUpdated' fired.");
                 this._updateBill17ListState();
               }.bind(this));
             }
@@ -2631,9 +2632,9 @@ sap.ui.define(
         var sStatus = oContext.getProperty("status");
 
         // --- DEBUG LOG (Check Console F12) ---
-        console.log("---------------------------------------------");
-        console.log("DEBUG: STATUS FROM BACKEND IS:", sStatus);
-        console.log("---------------------------------------------");
+        // console.log("---------------------------------------------");
+        // console.log("DEBUG: STATUS FROM BACKEND IS:", sStatus);
+        // console.log("---------------------------------------------");
 
         // B. THE LOGIC
         // If Status is 'FIN_APR' (Final Approved), set Editable = FALSE
@@ -2675,7 +2676,7 @@ sap.ui.define(
         // >>> END FIX <<<
 
         if (aItems.length > 0) {
-          console.log("[DEBUG_BILL17] Applying state " + bEnableState + " to " + aItems.length + " items.");
+          // console.log("[DEBUG_BILL17] Applying state " + bEnableState + " to " + aItems.length + " items.");
 
           aItems.forEach(function (oItem) {
             var aCells = oItem.getCells ? oItem.getCells() : [];
