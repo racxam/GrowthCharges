@@ -186,8 +186,8 @@ sap.ui.define(
           });
           const oDCTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--TotalDC-ID::Table");
           if (oDCTable && !oDCTable.getCurrentVariantId()) {
-    oDCTable.setCurrentVariantId("id_1676542872462_327_table");
-}
+            oDCTable.setCurrentVariantId("id_1676542872462_327_table");
+          }
           const oDCHeader = oDCTable.getToolbar();
           oDCHeader.addContent(oCalculateButton);
         }
@@ -216,37 +216,37 @@ sap.ui.define(
       },
       onInit: function () {
 
-     var oUiModel = this.getView().getModel("ui");
+        var oUiModel = this.getView().getModel("ui");
 
-// 2. If it's not found on the View, try the Component
-if (!oUiModel) {
-    var oComponent = this.getOwnerComponent();
-    if (oComponent) {
-        oUiModel = oComponent.getModel("ui");
-    }
-}
-
-// 3. Attach Listener ONLY if the model exists
-if (oUiModel) {
-    oUiModel.attachPropertyChange(function(oEvent){
-        if (oEvent.getParameter("path") === "/editable") {
-            this._updateBill17ListState();
+        // 2. If it's not found on the View, try the Component
+        if (!oUiModel) {
+          var oComponent = this.getOwnerComponent();
+          if (oComponent) {
+            oUiModel = oComponent.getModel("ui");
+          }
         }
-    }.bind(this));
-} else {
-    // Fallback: If model isn't ready, attach to the view's modelContextChange event
-    // This fires when models are propagated to the view
-    this.getView().attachEventOnce("modelContextChange", function() {
-        var oLateUiModel = this.getView().getModel("ui");
-        if (oLateUiModel) {
-            oLateUiModel.attachPropertyChange(function(oEvent){
+
+        // 3. Attach Listener ONLY if the model exists
+        if (oUiModel) {
+          oUiModel.attachPropertyChange(function (oEvent) {
+            if (oEvent.getParameter("path") === "/editable") {
+              this._updateBill17ListState();
+            }
+          }.bind(this));
+        } else {
+          // Fallback: If model isn't ready, attach to the view's modelContextChange event
+          // This fires when models are propagated to the view
+          this.getView().attachEventOnce("modelContextChange", function () {
+            var oLateUiModel = this.getView().getModel("ui");
+            if (oLateUiModel) {
+              oLateUiModel.attachPropertyChange(function (oEvent) {
                 if (oEvent.getParameter("path") === "/editable") {
-                    this._updateBill17ListState();
+                  this._updateBill17ListState();
                 }
-            }.bind(this));
+              }.bind(this));
+            }
+          }.bind(this));
         }
-    }.bind(this));
-}
         this._defineLocalModel();
 
 
@@ -547,14 +547,14 @@ if (oUiModel) {
 
         //  START OF NEW CODE 
         // List of all tables that need the "Grey Row" logic
-      var aTableIds = [
+        var aTableIds = [
           "TotalDC-ID",
           "Section-14-ID",
           "DemolitionCred-ID",
           "DCExemption-ID"
         ];
 
-       aTableIds.forEach(function (sId) {
+        aTableIds.forEach(function (sId) {
           var oSmartTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--" + sId + "::Table");
 
           if (oSmartTable) {
@@ -857,38 +857,38 @@ if (oUiModel) {
         // EXEMPTION TABLE: SINGLE SELECT & FORCE COLUMN VISIBILITY
         // ============================================================
         const oExemptionSmartTable = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCExemption-ID::Table");
-        
+
         if (oExemptionSmartTable) {
           // Create a stable memory reference for the event handler
           if (!this._fnSingleSelectHandler) {
-              this._fnSingleSelectHandler = this._enforceSingleSelectionCheckbox.bind(this);
+            this._fnSingleSelectHandler = this._enforceSingleSelectionCheckbox.bind(this);
           }
 
           const attachTableBehaviors = function () {
-              let oInnerTable = oExemptionSmartTable.getTable(); // Get the sap.m.Table
+            let oInnerTable = oExemptionSmartTable.getTable(); // Get the sap.m.Table
 
-              if (oInnerTable) {
-                  // A) Attach Single Selection Logic
-                  if (oInnerTable.attachSelectionChange) {
-                      oInnerTable.detachSelectionChange(this._fnSingleSelectHandler);
-                      oInnerTable.attachSelectionChange(this._fnSingleSelectHandler);
-                  }
-
-                  // B) Force All Columns to be Visible (Disable Responsive Hiding)
-                  if (oInnerTable.getColumns) {
-                      oInnerTable.getColumns().forEach(function(oCol) {
-                          oCol.setDemandPopin(false); // Stop columns from collapsing into the row below
-                          oCol.setMinScreenWidth(""); // Remove screen size restrictions
-                      });
-                  }
+            if (oInnerTable) {
+              // A) Attach Single Selection Logic
+              if (oInnerTable.attachSelectionChange) {
+                oInnerTable.detachSelectionChange(this._fnSingleSelectHandler);
+                oInnerTable.attachSelectionChange(this._fnSingleSelectHandler);
               }
+
+              // B) Force All Columns to be Visible (Disable Responsive Hiding)
+              if (oInnerTable.getColumns) {
+                oInnerTable.getColumns().forEach(function (oCol) {
+                  oCol.setDemandPopin(false); // Stop columns from collapsing into the row below
+                  oCol.setMinScreenWidth(""); // Remove screen size restrictions
+                });
+              }
+            }
           }.bind(this);
 
           // Wait for the SmartTable to build its inner controls before applying
           if (!oExemptionSmartTable.isInitialised()) {
-              oExemptionSmartTable.attachInitialise(attachTableBehaviors);
+            oExemptionSmartTable.attachInitialise(attachTableBehaviors);
           } else {
-              attachTableBehaviors();
+            attachTableBehaviors();
           }
         }
         // ============================================================
@@ -1012,7 +1012,7 @@ if (oUiModel) {
           oBindingParams.parameters.operationMode = "Client";
 
           var sSelect = oBindingParams.parameters.select || "";
-          sSelect += ",sort_order";
+          sSelect += ",sort_order,is_bill17_appl";
           oBindingParams.parameters.select = sSelect;
 
           if (!oBindingParams.sorter || oBindingParams.sorter.length === 0) {
@@ -1541,7 +1541,9 @@ if (oUiModel) {
         }
 
         // Default: Prevailing (Invoice Date)
+        // Default: Prevailing (Invoice Date)
         var sFilterDate = sInvoiceDate;
+        var bIsLocked = false; // <--- NEW FLAG
 
         // 2. LOGIC: Check Locked vs Prevailing
         if (sRowPartner && sSitePlanAppDate && this._oBill17List) {
@@ -1555,7 +1557,8 @@ if (oUiModel) {
               if (bMatch) {
                 if (oData.calc_option === "L") {
                   sFilterDate = sSitePlanAppDate;
-                  console.log(">> Logic: Bill 17 Locked Date Applied");
+                  bIsLocked = true; // <--- MARK AS LOCKED
+                  console.log(">> Logic: Bill 17 Locked ('L'). Forced Site Plan Applied Date.");
                 }
                 break;
               }
@@ -1563,19 +1566,23 @@ if (oUiModel) {
           }
         }
 
-        // --- 3. STATUS OVERRIDE LOGIC ---
-        // Make sure sStatus matches exactly 'FIN_APR' (case sensitive)
-        var aOverrideStatuses = ["DC1_APR", "FIN_APR", "DC1_APR", "FIN_PND", "CLSD", "PCLSD"];
+        // --- 3. PREVAILING / PERMIT ISSUED OVERRIDE LOGIC ---
+        var bPermitIssued = oHeaderContext.getProperty("permit_issued");
+        var aOverrideStatuses = ["DC1_APR", "FIN_APR", "FIN_PND", "CLSD", "PCLSD"];
 
-        if (aOverrideStatuses.includes(sStatus) && sOccupancyDate) {
-          sFilterDate = sOccupancyDate;
-          console.log(">> Logic: Status Override Applied (" + sStatus + ")! Using Occupancy Date.");
+        // ONLY apply Occupancy Date if it is NOT Locked ('P' or Default)
+        if (!bIsLocked) {
+          if ((bPermitIssued || aOverrideStatuses.includes(sStatus)) && sOccupancyDate) {
+            sFilterDate = sOccupancyDate;
+            console.log(">> Logic: Prevailing ('P') + Permit Issued. Forced Occupancy Date.");
+          } else {
+            console.log(">> Logic: Prevailing ('P') + Before Permit. Kept Invoice Date.");
+          }
         }
         // -----------------------------
 
         // Fallback
         if (!sFilterDate) { sFilterDate = new Date(); }
-
         console.log(">> FINAL DATE SENT TO BACKEND:", sFilterDate);
         console.log("--------------------------------------------------");
 
@@ -1815,7 +1822,7 @@ if (oUiModel) {
       },
 
       //  Change: Updated logic to inverse greying based on Permit Issued status
-   _onDcTableDataReceived: function (oEventOrTable) {
+      _onDcTableDataReceived: function (oEventOrTable) {
         var oTable;
         if (oEventOrTable.getSource) {
           oTable = oEventOrTable.getSource(); // Event
@@ -1828,22 +1835,22 @@ if (oUiModel) {
         // ==========================================================
         // We do this here because 'updateFinished' fires after Fiori applies its variants.
         if (oTable.getMetadata().getName() === "sap.m.Table" && typeof oTable.getColumns === "function") {
-          oTable.getColumns().forEach(function(oCol) {
+          oTable.getColumns().forEach(function (oCol) {
             // 1. Remove Fiori's responsive collapsing rules
-            if (oCol.setDemandPopin) { 
-                oCol.setDemandPopin(false); 
+            if (oCol.setDemandPopin) {
+              oCol.setDemandPopin(false);
             }
-            if (oCol.setMinScreenWidth) { 
-                oCol.setMinScreenWidth(""); 
+            if (oCol.setMinScreenWidth) {
+              oCol.setMinScreenWidth("");
             }
-            
+
             // 2. FORCE HORIZONTAL SCROLLBAR: Give columns a fixed width so they don't squish
             if (oCol.setWidth) {
-                // If a column doesn't already have a width, give it a default size
-                var sCurrentWidth = oCol.getWidth();
-                if (!sCurrentWidth || sCurrentWidth === "auto" || sCurrentWidth === "") {
-                    oCol.setWidth("12rem"); // You can change this to "150px" or "14rem" depending on how wide you want them
-                }
+              // If a column doesn't already have a width, give it a default size
+              var sCurrentWidth = oCol.getWidth();
+              if (!sCurrentWidth || sCurrentWidth === "auto" || sCurrentWidth === "") {
+                oCol.setWidth("12rem"); // You can change this to "150px" or "14rem" depending on how wide you want them
+              }
             }
           });
         }
@@ -1896,7 +1903,7 @@ if (oUiModel) {
         if (sPath === "is_bill17_appl") {
           this._updateBill17ListState();
           // >>> FIX: Pass 'undefined' for Permit (to look it up) and 'oValue' for Bill 17 override
-           this._updatePartnerFieldState(undefined, oValue);
+          this._updatePartnerFieldState(undefined, oValue);
 
           if (oValue === true) {
             sap.m.MessageBox.warning(
@@ -1977,57 +1984,57 @@ if (oUiModel) {
         }
       },
 
-_updatePartnerFieldState: function (bPermitIssued, bIsBill17Override) {
-    // 1. Find the Control
-    var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
-    var oSmartField = this.getView().byId(sRelativeId);
+      _updatePartnerFieldState: function (bPermitIssued, bIsBill17Override) {
+        // 1. Find the Control
+        var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
+        var oSmartField = this.getView().byId(sRelativeId);
 
-    if (!oSmartField) return;
+        if (!oSmartField) return;
 
-    // 2. Get Context Data
-    var oContext = this.getView().getBindingContext();
-    var sStatus = oContext ? oContext.getProperty("status") : "";
+        // 2. Get Context Data
+        var oContext = this.getView().getBindingContext();
+        var sStatus = oContext ? oContext.getProperty("status") : "";
 
-    // --- FIX: PRIORITY TO OVERRIDE VALUE ---
-    // If the checkbox just changed, use the new value passed in. 
-    // Otherwise, read from the model.
-    var bIsBill17;
-    if (bIsBill17Override !== undefined) {
-        bIsBill17 = bIsBill17Override;
-    } else {
-        bIsBill17 = oContext ? oContext.getProperty("is_bill17_appl") : false;
-    }
-    // ----------------------------------------
+        // --- FIX: PRIORITY TO OVERRIDE VALUE ---
+        // If the checkbox just changed, use the new value passed in. 
+        // Otherwise, read from the model.
+        var bIsBill17;
+        if (bIsBill17Override !== undefined) {
+          bIsBill17 = bIsBill17Override;
+        } else {
+          bIsBill17 = oContext ? oContext.getProperty("is_bill17_appl") : false;
+        }
+        // ----------------------------------------
 
-    // Safety: If bPermitIssued is undefined, try to read it from context
-    if (bPermitIssued === undefined && oContext) {
-        bPermitIssued = oContext.getProperty("permit_issued");
-    }
+        // Safety: If bPermitIssued is undefined, try to read it from context
+        if (bPermitIssued === undefined && oContext) {
+          bPermitIssued = oContext.getProperty("permit_issued");
+        }
 
-    // 3. Define Logic
-    var aStandardRestrictedStatuses = ["FIN_APR", "DC1_APR", "FIN_PND", "CLSD", "PCLSD", "HLD", "FIN_REJ"];
-    var aBill17RestrictedStatuses = ["CLSD", "PCLSD", "HLD", "FIN_REJ"]; 
+        // 3. Define Logic
+        var aStandardRestrictedStatuses = ["FIN_APR", "DC1_APR", "FIN_PND", "CLSD", "PCLSD", "HLD", "FIN_REJ"];
+        var aBill17RestrictedStatuses = ["CLSD", "PCLSD", "HLD", "FIN_REJ"];
 
-    // 4. Force Editable on the Wrapper
-    oSmartField.setEditable(true);
+        // 4. Force Editable on the Wrapper
+        oSmartField.setEditable(true);
 
-    // 5. Apply Logic
-    var fnFix = function () {
-        var aInner = oSmartField.getInnerControls();
-        if (aInner && aInner.length > 0) {
+        // 5. Apply Logic
+        var fnFix = function () {
+          var aInner = oSmartField.getInnerControls();
+          if (aInner && aInner.length > 0) {
             var oCtrl = aInner[0];
             var bFinalEnabledState = true;
 
             if (bIsBill17) {
-                // SCENARIO 1: BILL 17 IS ACTIVE
-                if (aBill17RestrictedStatuses.includes(sStatus) || bPermitIssued) {
-                    bFinalEnabledState = false; 
-                }
+              // SCENARIO 1: BILL 17 IS ACTIVE
+              if (aBill17RestrictedStatuses.includes(sStatus) || bPermitIssued) {
+                bFinalEnabledState = false;
+              }
             } else {
-                // SCENARIO 2: STANDARD (OLD LOGIC)
-                if (aStandardRestrictedStatuses.includes(sStatus) || bPermitIssued) {
-                    bFinalEnabledState = false; 
-                }
+              // SCENARIO 2: STANDARD (OLD LOGIC)
+              if (aStandardRestrictedStatuses.includes(sStatus) || bPermitIssued) {
+                bFinalEnabledState = false;
+              }
             }
 
             if (oCtrl.setEnabled) oCtrl.setEnabled(bFinalEnabledState);
@@ -2035,23 +2042,23 @@ _updatePartnerFieldState: function (bPermitIssued, bIsBill17Override) {
 
             // Tokenizer Fix
             if (oCtrl.getAggregation) {
-                var oTokenizer = oCtrl.getAggregation("tokenizer");
-                if (oTokenizer) {
-                    if (oTokenizer.setRenderMode) oTokenizer.setRenderMode("Loose");
-                    oTokenizer.addEventDelegate({
-                        onAfterRendering: function () {
-                            if (this.getRenderMode() !== "Loose") this.setRenderMode("Loose");
-                        }
-                    }, oTokenizer);
-                }
+              var oTokenizer = oCtrl.getAggregation("tokenizer");
+              if (oTokenizer) {
+                if (oTokenizer.setRenderMode) oTokenizer.setRenderMode("Loose");
+                oTokenizer.addEventDelegate({
+                  onAfterRendering: function () {
+                    if (this.getRenderMode() !== "Loose") this.setRenderMode("Loose");
+                  }
+                }, oTokenizer);
+              }
             }
-        }
-    };
+          }
+        };
 
-    fnFix();
-    oSmartField.detachEvent("innerControlsCreated", fnFix);
-    oSmartField.attachEvent("innerControlsCreated", fnFix);
-},
+        fnFix();
+        oSmartField.detachEvent("innerControlsCreated", fnFix);
+        oSmartField.attachEvent("innerControlsCreated", fnFix);
+      },
 
       _forceFullTokenDisplay: function () {
         var sRelativeId = "DCHeader-FG2::to_defpartner::id::MultiInput";
@@ -2515,65 +2522,65 @@ _updatePartnerFieldState: function (bPermitIssued, bIsBill17Override) {
       },
       // Radio button Insertion Logic
       _insertBelowBill17DeferralPartner: function () {
-    var oView = this.getView();
-    var aMatches = oView.findAggregatedObjects(true, function (o) {
-        return o.getId && o.getId().indexOf("DCHeader-FG2::to_defpartner::id::MultiInput-label") !== -1;
-    });
+        var oView = this.getView();
+        var aMatches = oView.findAggregatedObjects(true, function (o) {
+          return o.getId && o.getId().indexOf("DCHeader-FG2::to_defpartner::id::MultiInput-label") !== -1;
+        });
 
-    if (!aMatches.length) return;
-    var oLabel = aMatches[0];
-    var oGroupElement = oLabel.getParent();
-    var oGroup = oGroupElement.getParent();
+        if (!aMatches.length) return;
+        var oLabel = aMatches[0];
+        var oGroupElement = oLabel.getParent();
+        var oGroup = oGroupElement.getParent();
 
-    if (this._bBill17Inserted) return;
-    this._bBill17Inserted = true;
+        if (this._bBill17Inserted) return;
+        this._bBill17Inserted = true;
 
-    sap.ui.core.Fragment.load({
-        name: "com.gc.dashboard.ext.fragments.Bill17RateOptions",
-        controller: this,
-        id: oView.getId()
-    }).then(function (oFragment) {
-        
-        this._oBill17List = this.byId("idBill17List");
-        
-        // >>> FIX: ROBUST EVENT LISTENER <<<
-        if (this._oBill17List) {
+        sap.ui.core.Fragment.load({
+          name: "com.gc.dashboard.ext.fragments.Bill17RateOptions",
+          controller: this,
+          id: oView.getId()
+        }).then(function (oFragment) {
+
+          this._oBill17List = this.byId("idBill17List");
+
+          // >>> FIX: ROBUST EVENT LISTENER <<<
+          if (this._oBill17List) {
             var sType = this._oBill17List.getMetadata().getName();
             console.log("[DEBUG_BILL17] List Found! Type:", sType);
 
             // Case A: sap.m.List or sap.m.Table
             if (this._oBill17List.attachUpdateFinished) {
-                this._oBill17List.attachUpdateFinished(function() {
-                    console.log("[DEBUG_BILL17] Event 'updateFinished' fired.");
-                    this._updateBill17ListState();
-                }.bind(this));
+              this._oBill17List.attachUpdateFinished(function () {
+                console.log("[DEBUG_BILL17] Event 'updateFinished' fired.");
+                this._updateBill17ListState();
+              }.bind(this));
             }
             // Case B: sap.ui.table.Table (Grid Table)
             else if (this._oBill17List.attachRowsUpdated) {
-                this._oBill17List.attachRowsUpdated(function() {
-                    console.log("[DEBUG_BILL17] Event 'rowsUpdated' fired.");
-                    this._updateBill17ListState();
-                }.bind(this));
+              this._oBill17List.attachRowsUpdated(function () {
+                console.log("[DEBUG_BILL17] Event 'rowsUpdated' fired.");
+                this._updateBill17ListState();
+              }.bind(this));
             }
-        }
-        // >>> END FIX <<<
+          }
+          // >>> END FIX <<<
 
-        var oNewGroupElement = new sap.ui.comp.smartform.GroupElement({
+          var oNewGroupElement = new sap.ui.comp.smartform.GroupElement({
             label: "",
             elements: [oFragment]
-        });
+          });
 
-        var iIndex = oGroup.indexOfGroupElement(oGroupElement);
-        if (iIndex > -1) {
+          var iIndex = oGroup.indexOfGroupElement(oGroupElement);
+          if (iIndex > -1) {
             oGroup.insertGroupElement(oNewGroupElement, iIndex);
-        } else {
+          } else {
             oGroup.addGroupElement(oNewGroupElement);
-        }
+          }
 
-        this._updateBill17ListState();
+          this._updateBill17ListState();
 
-    }.bind(this));
-},
+        }.bind(this));
+      },
 
       //Create new version on Bill17
       _triggerCreateNewVersion: function (oContext) {
@@ -2646,47 +2653,47 @@ _updatePartnerFieldState: function (bPermitIssued, bIsBill17Override) {
 
       // --- NEW HELPER FUNCTION ---
       _updateBill17ListState: function () {
-    var oList = this.byId("idBill17List") || this._oBill17List;
-    if (!oList) return;
+        var oList = this.byId("idBill17List") || this._oBill17List;
+        if (!oList) return;
 
-    var oContext = this.getView().getBindingContext();
-    var bBill17Active = oContext ? oContext.getProperty("is_bill17_appl") : false;
-    
-    var oUiModel = this.getView().getModel("ui") || this.getOwnerComponent().getModel("ui");
-    var bIsEditable = oUiModel ? oUiModel.getProperty("/editable") : false;
+        var oContext = this.getView().getBindingContext();
+        var bBill17Active = oContext ? oContext.getProperty("is_bill17_appl") : false;
 
-    // Logic: Must be Edit Mode AND Bill 17 Checked
-    var bEnableState = bIsEditable && bBill17Active;
+        var oUiModel = this.getView().getModel("ui") || this.getOwnerComponent().getModel("ui");
+        var bIsEditable = oUiModel ? oUiModel.getProperty("/editable") : false;
 
-    // >>> FIX: ROBUST ITEM RETRIEVAL <<<
-    var aItems = [];
-    if (oList.getItems) {
-        aItems = oList.getItems(); // sap.m.List / sap.m.Table
-    } else if (oList.getRows) {
-        aItems = oList.getRows();  // sap.ui.table.Table
-    }
-    // >>> END FIX <<<
+        // Logic: Must be Edit Mode AND Bill 17 Checked
+        var bEnableState = bIsEditable && bBill17Active;
 
-    if (aItems.length > 0) {
-        console.log("[DEBUG_BILL17] Applying state " + bEnableState + " to " + aItems.length + " items.");
-        
-        aItems.forEach(function (oItem) {
+        // >>> FIX: ROBUST ITEM RETRIEVAL <<<
+        var aItems = [];
+        if (oList.getItems) {
+          aItems = oList.getItems(); // sap.m.List / sap.m.Table
+        } else if (oList.getRows) {
+          aItems = oList.getRows();  // sap.ui.table.Table
+        }
+        // >>> END FIX <<<
+
+        if (aItems.length > 0) {
+          console.log("[DEBUG_BILL17] Applying state " + bEnableState + " to " + aItems.length + " items.");
+
+          aItems.forEach(function (oItem) {
             var aCells = oItem.getCells ? oItem.getCells() : [];
             aCells.forEach(function (oControl) {
-                if (oControl.setEnabled) {
-                    oControl.setEnabled(bEnableState);
-                }
+              if (oControl.setEnabled) {
+                oControl.setEnabled(bEnableState);
+              }
             });
-        });
-    } else {
-        // Silent wait - the event listener from step 1 will catch it when data arrives
-    }
-},
-//Exemption table (Responsive Table)
-_enforceSingleSelectionCheckbox: function (oEvent) {
+          });
+        } else {
+          // Silent wait - the event listener from step 1 will catch it when data arrives
+        }
+      },
+      //Exemption table (Responsive Table)
+      _enforceSingleSelectionCheckbox: function (oEvent) {
         // 1. Lock to prevent infinite loops caused by programmatic selection
         if (this._bIsSelecting) {
-            return;
+          return;
         }
 
         const oTable = oEvent.getSource();
@@ -2696,33 +2703,33 @@ _enforceSingleSelectionCheckbox: function (oEvent) {
 
         // 2. Block the header "Select All" checkbox instantly
         if (bSelectAll) {
-            this._bIsSelecting = true;
-            oTable.removeSelections(true); // Super fast native UI5 clear (true = silent)
-            // Fire one clean event to tell Fiori the table is empty, disabling standard Action buttons
-            oTable.fireSelectionChange({ listItems: [], selected: false }); 
-            this._bIsSelecting = false;
-            
-            sap.m.MessageToast.show("Multiple selection is not allowed.");
-            return;
+          this._bIsSelecting = true;
+          oTable.removeSelections(true); // Super fast native UI5 clear (true = silent)
+          // Fire one clean event to tell Fiori the table is empty, disabling standard Action buttons
+          oTable.fireSelectionChange({ listItems: [], selected: false });
+          this._bIsSelecting = false;
+
+          sap.m.MessageToast.show("Multiple selection is not allowed.");
+          return;
         }
 
         // 3. Handle normal single row click
         if (bIsSelected) {
-            const aSelectedItems = oTable.getSelectedItems();
+          const aSelectedItems = oTable.getSelectedItems();
 
-            // If more than 1 item is checked, fix it instantly
-            if (aSelectedItems.length > 1) {
-                this._bIsSelecting = true; // Engage lock
+          // If more than 1 item is checked, fix it instantly
+          if (aSelectedItems.length > 1) {
+            this._bIsSelecting = true; // Engage lock
 
-                // Step A: Silently and instantly clear ALL checkboxes in the table
-                oTable.removeSelections(true); 
+            // Step A: Silently and instantly clear ALL checkboxes in the table
+            oTable.removeSelections(true);
 
-                // Step B: Re-check ONLY the row the user just clicked, and fire exactly ONE event 
-                // to Fiori so the toolbar buttons activate instantly.
-                oTable.setSelectedItem(oCurrentListItem, true, true); 
+            // Step B: Re-check ONLY the row the user just clicked, and fire exactly ONE event 
+            // to Fiori so the toolbar buttons activate instantly.
+            oTable.setSelectedItem(oCurrentListItem, true, true);
 
-                this._bIsSelecting = false; // Release lock
-            }
+            this._bIsSelecting = false; // Release lock
+          }
         }
       },
 
