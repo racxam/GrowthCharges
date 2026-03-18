@@ -196,7 +196,7 @@
                             "fragmentName": "com.gc.dashboard.ext.fragments.ExemptionRespCol",
                             "type": "XML"
                         },
-                        "4zgc_c_dc_exms|DCExemption-ID": {
+                        "ResponsiveTableCellsExtension|zgc_c_dc_exms|DCExemption-ID": {
                             "className": "sap.ui.core.Fragment",
                             "fragmentName": "com.gc.dashboard.ext.fragments.ExemptionRespCell",
                             "type": "XML"

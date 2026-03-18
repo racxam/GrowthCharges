@@ -1474,24 +1474,11 @@ sap.ui.define(
                   });
                   const fyTemplate = new Text({ text: "{fiscal_year}" });
 
-                  oTable.addColumn(
-                    new UIColumn({
-                      label: "Payment Document #",
-                      template: documentNoTemplate
-                    })
-                  );
-                  oTable.addColumn(
-                    new UIColumn({
-                      label: "Company Code",
-                      template: ccTemplate
-                    })
-                  );
-                  oTable.addColumn(
-                    new UIColumn({
-                      label: "Fiscal Year",
-                      template: fyTemplate
-                    })
-                  );
+                const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+
+                oTable.addColumn(new UIColumn({ label: oResourceBundle.getText("lblPaymentDoc"), template: documentNoTemplate }));
+                oTable.addColumn(new UIColumn({ label: oResourceBundle.getText("lblCompanyCode"), template: ccTemplate }));
+                oTable.addColumn(new UIColumn({ label: oResourceBundle.getText("lblFiscalYear"), template: fyTemplate }));
                 }
                 oDialog.update();
               }.bind(this)
@@ -1613,10 +1600,14 @@ sap.ui.define(
               var endDateTemplate = new sap.m.Text({ text: "{path: 'end_date', type: 'sap.ui.model.type.Date', formatOptions: {datePattern: 'MM/dd/yyyy'}}" });
               var rateComments = new sap.m.Text({ text: "{rate_note}" });
 
-              oTable.addColumn(new sap.ui.table.Column({ label: "DC Rate", template: dcRateTemplate }));
-              oTable.addColumn(new sap.ui.table.Column({ label: "Valid From", template: startDateTemplate }));
-              oTable.addColumn(new sap.ui.table.Column({ label: "Valid To", template: endDateTemplate }));
-              oTable.addColumn(new sap.ui.table.Column({ label: "Comments", template: rateComments }));
+            // 1. Grab the i18n Resource Bundle
+            const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+
+            // 2. Fetch the translated texts dynamically
+            oTable.addColumn(new sap.ui.table.Column({ label: oResourceBundle.getText("lblDCRate"), template: dcRateTemplate }));
+            oTable.addColumn(new sap.ui.table.Column({ label: oResourceBundle.getText("lblValidFrom"), template: startDateTemplate }));
+            oTable.addColumn(new sap.ui.table.Column({ label: oResourceBundle.getText("lblValidTo"), template: endDateTemplate }));
+            oTable.addColumn(new sap.ui.table.Column({ label: oResourceBundle.getText("lblComments"), template: rateComments }));
             }
             oDialog.update();
           }.bind(this));

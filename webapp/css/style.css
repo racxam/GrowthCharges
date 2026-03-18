@@ -1,79 +1,3 @@
-/* * FIORI LAUNCHPAD (FLP) COMPATIBLE OVERRIDES
- * FLP themes apply backgrounds to 'td' and standard inputs with high specificity.
- * We use the class chaining method (.class.class) to boost weight without relying on
- * the 'html body' structure which can vary in FLP containers.
- */
-
-/* -------------------------------------------------------------------------
-   1. MAIN ROW & CELL BACKGROUND
-   Target: Row, Cells, Inner Cells
-   ------------------------------------------------------------------------- */
-.sapUiTable tr.sapUiTableRow.greyedOutRow,
-.sapUiTable tr.sapUiTableRow.greyedOutRow > td,
-.sapUiTable tr.sapUiTableRow.greyedOutRow > td > .sapUiTableCell,
-.sapUiTable tr.sapUiTableRow.greyedOutRow > td > div {
-    /* Use !important to override FLP theme defaults.
-       Fallback #eff4f9 included for safety if variables fail to parse in older FLP versions.
-    */
-    background-color: var(--sapUiFieldReadOnlyBackground, #eff4f9) !important;
-}
-
-/* -------------------------------------------------------------------------
-   2. INPUTS & DROPDOWNS (The "White Box" Fix)
-   FLP inputs have a default white background. We must force them to be transparent
-   or match the row background so they don't look like white patches.
-   ------------------------------------------------------------------------- */
-.sapUiTable tr.sapUiTableRow.greyedOutRow .sapMInputBase,
-.sapUiTable tr.sapUiTableRow.greyedOutRow .sapMInputBaseInner,
-.sapUiTable tr.sapUiTableRow.greyedOutRow .sapMInputBaseContentWrapper,
-.sapUiTable tr.sapUiTableRow.greyedOutRow .sapMInputBaseReadonlyInner {
-    background-color: var(--sapUiFieldReadOnlyBackground, #eff4f9) !important;
-    /* Remove box-shadows or borders if FLP adds them to inputs */
-    background-image: none !important; 
-}
-
-/* -------------------------------------------------------------------------
-   3. TEXT COLOR RE-COLORING
-   Ensure all text, including inputs and labels, looks disabled.
-   ------------------------------------------------------------------------- */
-.sapUiTable tr.sapUiTableRow.greyedOutRow .sapMText,
-.sapUiTable tr.sapUiTableRow.greyedOutRow .sapMLabel,
-.sapUiTable tr.sapUiTableRow.greyedOutRow .sapMInputBaseInner,
-.sapUiTable tr.sapUiTableRow.greyedOutRow span {
-    color: var(--sapUiContentDisabledTextColor, #787d85) !important;
-    -webkit-text-fill-color: var(--sapUiContentDisabledTextColor, #787d85) !important; /* For some Webkit browsers in FLP */
-    opacity: 1 !important;
-}
-
-/* -------------------------------------------------------------------------
-   4. INTERACTION KILLER (Hover & Selection)
-   FLP applies hover effects to the 'td'. We must override specifically.
-   ------------------------------------------------------------------------- */
-
-/* HOVER STATE */
-.sapUiTable tr.sapUiTableRow.greyedOutRow:hover,
-.sapUiTable tr.sapUiTableRow.greyedOutRow:hover > td,
-.sapUiTable tr.sapUiTableRow.greyedOutRow:hover .sapMInputBaseContentWrapper {
-    background-color: var(--sapUiFieldReadOnlyBackground, #eff4f9) !important;
-}
-
-/* SELECTED STATE (Standard & Zebra) */
-.sapUiTable tr.sapUiTableRow.greyedOutRow.sapUiTableRowSel,
-.sapUiTable tr.sapUiTableRow.greyedOutRow.sapUiTableRowSel > td,
-.sapUiTable tr.sapUiTableRow.greyedOutRow.sapUiTableRowSel:hover,
-.sapUiTable tr.sapUiTableRow.greyedOutRow.sapUiTableRowSel:hover > td {
-    background-color: var(--sapUiFieldReadOnlyBackground, #eff4f9) !important;
-}
-
-/* -------------------------------------------------------------------------
-   5. FOCUS OUTLINE REMOVAL (Optional)
-   If clicking the row shows a blue focus border in FLP, this hides it.
-   ------------------------------------------------------------------------- */
-.sapUiTable tr.sapUiTableRow.greyedOutRow:focus,
-.sapUiTable tr.sapUiTableRow.greyedOutRow > td:focus {
-    outline: none !important;
-}
-
 /* =========================================================================
    1. HORIZONTAL SCROLLBAR FIX (RESTORES THE TOOLBAR)
    ========================================================================= */
@@ -97,29 +21,40 @@
     min-width: 11rem !important; 
 }
 
-
 /* =========================================================================
-   2. VISUALLY GREY OUT AND LOCK THE ROW 
+   2. THEME-AGNOSTIC DISABLED ROW (WORKS IN LIGHT & DARK MODE)
    ========================================================================= */
+/* * By using opacity instead of hardcoded background colors, 
+ * the text will remain readable in both SAP Quartz Light and SAP Horizon Dark themes. 
+ */
+.sapUiTable tr.sapUiTableRow.greyedOutRow,
 .sapMListTblRow.greyedOutRow,
-.sapUiTableRow.greyedOutRow,
 tbody.sapMListItems > tr.sapMListTblRow.greyedOutRow {
     pointer-events: none !important; 
-    opacity: 0.45 !important; 
-    background-color: #eff4f9 !important; 
+    opacity: 0.4 !important; /* Creates the disabled fade effect perfectly */
+    background-color: transparent !important; /* Prevents Dark Theme text clash */
 }
 
-/* Prevent Fiori Hover States from overriding the grey */
+/* Prevent Fiori Hover & Selection States from highlighting the faded row */
+.sapUiTable tr.sapUiTableRow.greyedOutRow:hover,
 .sapMListTblRow.greyedOutRow:hover,
-.sapUiTableRow.greyedOutRow:hover,
+.sapUiTable tr.sapUiTableRow.greyedOutRow.sapUiTableRowSel,
 .sapMListTblRow.greyedOutRow.sapMListTblRowSel {
-    background-color: #eff4f9 !important;
+    background-color: transparent !important;
 }
 
-/* Blend the standard inputs into the grey background */
+/* Blend the standard inputs into the background so they don't look like active white boxes */
+.sapUiTable tr.sapUiTableRow.greyedOutRow .sapMInputBase,
+.sapUiTable tr.sapUiTableRow.greyedOutRow .sapMInputBaseInner,
 .sapMListTblRow.greyedOutRow .sapMInputBase,
-.sapMListTblRow.greyedOutRow .sapMInputBaseInner,
-.sapUiTableRow.greyedOutRow .sapMInputBaseInner {
+.sapMListTblRow.greyedOutRow .sapMInputBaseInner {
     background-color: transparent !important;
+    background-image: none !important; 
     border-color: transparent !important;
+}
+
+/* Remove focus outline if clicking the disabled row in FLP */
+.sapUiTable tr.sapUiTableRow.greyedOutRow:focus,
+.sapMListTblRow.greyedOutRow:focus {
+    outline: none !important;
 }

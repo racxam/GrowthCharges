@@ -2,7 +2,7 @@
     <Column hAlign="End">
         <Text text="{i18n>labelDCRate}" />
         <customData>
-            <core:CustomData key="p13nData" value='\{"columnKey": "CustomColumn1", "leadingProperty": "dc_rate", "columnIndex": "3"}' />
+            <core:CustomData key="p13nData" value='\{"columnKey": "CustomColumn1", "leadingProperty": "dc_rate", "columnIndex": "4"}' />
         </customData>
     </Column>
 </core:FragmentDefinition>
