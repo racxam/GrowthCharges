@@ -358,7 +358,6 @@ sap.ui.define(
             that._hideDCButtons();
           }
 
-
           //Calculate and Add Credit Button Visibility
           const oCalBtn = sap.ui.getCore().byId(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CalculateButton"

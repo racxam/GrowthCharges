@@ -115,7 +115,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="CBCApplicableChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -159,7 +158,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="DCAppliChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -201,7 +199,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="DCAppealRefChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -221,7 +218,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="IsExmCBCChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -229,7 +225,6 @@
                                 <PropertyPath>is_exm_cbc</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_cbcexm</NavigationPropertyPath>
@@ -245,7 +240,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="IsKndCBCChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -253,7 +247,6 @@
                                 <PropertyPath>is_kind_cbc</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_cbckind</NavigationPropertyPath>
@@ -269,7 +262,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="IsDemCBCChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -277,7 +269,6 @@
                                 <PropertyPath>is_dem_cbc</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_cbcdem</NavigationPropertyPath>
@@ -293,7 +284,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="IsAppealRefundChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -325,7 +315,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="UI.FieldGroup" Qualifier="CBCDEVINC-ID">
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">
@@ -349,7 +338,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="UI.FieldGroup" Qualifier="CBC_GenInfo_AP_Col2-ID">
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">
@@ -383,7 +371,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="UI.FieldGroup" Qualifier="PaymentInfo_FG2">
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">
@@ -407,7 +394,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="isSec14Changed">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -415,13 +401,11 @@
                                 <PropertyPath>is_sec14_applicable</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_sec14</NavigationPropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>sec14_hidden</PropertyPath>
@@ -429,7 +413,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="isDCExmApplicable">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -437,7 +420,6 @@
                                 <PropertyPath>is_dc_exm_applicable</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_exemptions</NavigationPropertyPath>
@@ -453,7 +435,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="isPrvPrmtApplicable">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -461,13 +442,11 @@
                                 <PropertyPath>is_dc_prv_prmt_applicable</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_prvpermitcr</NavigationPropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>dc_prv_prmt_hidden</PropertyPath>
@@ -475,7 +454,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="IsAppealCalcDateChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="TargetProperties">
@@ -483,7 +461,6 @@
                                 <PropertyPath>appeal_int_percent</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="SourceProperties">
                             <Collection>
                                 <PropertyPath>appeal_calc_date</PropertyPath>
@@ -491,7 +468,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="dcPaymentChange">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -517,7 +493,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="CBCAssocaitedPaymentChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -537,7 +512,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="CILAssocaitedPaymentChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -1016,7 +990,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="onChangeCustomerApplicant">
                     <Record>
                         <PropertyValue Property="SourceProperties">
@@ -1054,7 +1027,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="CBCLandAmtChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -1072,7 +1044,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="CBCSubtotalChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -1108,7 +1079,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="CBCTotalCBCChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -1127,7 +1097,6 @@
                     </Record>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.zgc_c_cil_calType">
                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="BuildingTypeChanged">
                     <Record>
@@ -1201,7 +1170,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="SiteCILValChange">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -1219,7 +1187,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="DevAreaChange">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -1227,7 +1194,6 @@
                                 <PropertyPath>dev_area</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>cil_site_val_perc</PropertyPath>
@@ -1235,7 +1201,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="ResGFAChange">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -1243,7 +1208,6 @@
                                 <PropertyPath>res_gfa</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>res_gfa_prcnt</PropertyPath>
@@ -1251,7 +1215,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="NResGFAChange">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -1259,7 +1222,6 @@
                                 <PropertyPath>nres_gfa</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>nres_gfa_prcnt</PropertyPath>
@@ -1267,7 +1229,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="NRES_VACChanged">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -1348,7 +1309,6 @@
                     </Record>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.zgc_c_cil_calType">
                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects">
                     <Record>
@@ -1367,7 +1327,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="CILCappedRateChanged">
                     <Record>
                         <PropertyValue Property="SourceProperties">
@@ -1375,7 +1334,6 @@
                                 <PropertyPath>cil_capped_rate</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>cil_capped_to_date</PropertyPath>
@@ -1384,7 +1342,6 @@
                     </Record>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.zgc_c_cil_calType">
                 <Annotation Term="com.sap.vocabularies.Common.v1.SideEffects" Qualifier="UnitsChanged">
                     <Record>
@@ -1410,7 +1367,6 @@
                     </Record>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.zgc_c_dc_sec14Type">
                 <Annotation Term="Common.SideEffects" Qualifier="Sec14TableRefresh">
                     <Record Type="Common.SideEffectsType">
@@ -1484,7 +1440,6 @@
                     </Record>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.ZGC_C_DC_CAL_SPECType">
                 <Annotation Term="Common.SideEffects" Qualifier="DCSpecuTableChanged">
                     <Record Type="Common.SideEffectsType">
@@ -1540,7 +1495,6 @@
                     </Record>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.zgc_c_dc_demosType">
                 <Annotation Term="Common.SideEffects" Qualifier="DemoTableChanged">
                     <Record Type="Common.SideEffectsType">
@@ -1602,7 +1556,6 @@
                     </Record>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.zgc_c_dc_exmsType">
                 <Annotation Term="Common.SideEffects" Qualifier="DCTableExemptionDCRateUpdated">
                     <Record Type="Common.SideEffectsType">
@@ -1627,7 +1580,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="DCTableExemptDCTypeUpdated">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -1655,7 +1607,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-
                 <Annotation Term="Common.SideEffects" Qualifier="DCTableExemptAmtUpdated">
                     <Record Type="Common.SideEffectsType">
                         <PropertyValue Property="SourceProperties">
@@ -1678,7 +1629,6 @@
                     </Record>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.zgc_c_cbc_exmType">
                 <Annotation Term="Common.SideEffects" Qualifier="SubtotalCbcChanged">
                     <Record Type="Common.SideEffectsType">
@@ -1687,13 +1637,11 @@
                                 <PropertyPath>subtotal_cbc_payable</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>to_request/exm_cbc_charge</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_request</NavigationPropertyPath>
@@ -1702,7 +1650,6 @@
                     </Record>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.zgc_c_cbc_kindType">
                 <Annotation Term="Common.SideEffects" Qualifier="InKindAmtCBCChanged">
                     <Record Type="Common.SideEffectsType">
@@ -1711,13 +1658,11 @@
                                 <PropertyPath>in_kind_amount</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_request</NavigationPropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>to_request/kind_cbc_charge</PropertyPath>
@@ -1726,7 +1671,6 @@
                     </Record>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.zgc_c_cbc_demType">
                 <Annotation Term="Common.SideEffects" Qualifier="DemCBCChargeChanged">
                     <Record Type="Common.SideEffectsType">
@@ -1735,13 +1679,11 @@
                                 <PropertyPath>dem_cbc_charge</PropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetEntities">
                             <Collection>
                                 <NavigationPropertyPath>to_request</NavigationPropertyPath>
                             </Collection>
                         </PropertyValue>
-
                         <PropertyValue Property="TargetProperties">
                             <Collection>
                                 <PropertyPath>to_request/dem_cbc_charge</PropertyPath>
@@ -1840,7 +1782,6 @@
                     </Record>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.zgc_c_refundsType">
                 <Annotation Term="UI.LineItem" Qualifier="RefundInfo">
                     <Collection>
@@ -1892,7 +1833,6 @@
                     </Collection>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.ZGC_C_DEFERRALSType">
                 <Annotation Term="UI.LineItem" Qualifier="DeferralInfo">
                     <Collection>
@@ -1969,7 +1909,6 @@
                     </Collection>
                 </Annotation>
             </Annotations>
-
             <Annotations Target="SAP.ZGC_C_DC_CAL_SPECType">
                 <Annotation Term="Common.SideEffects" Qualifier="SpecTableChanged">
                     <Record Type="Common.SideEffectsType">
