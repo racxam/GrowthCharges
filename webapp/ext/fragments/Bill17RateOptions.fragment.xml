@@ -45,11 +45,11 @@
                         <buttons>
                             <RadioButton
                                 id="_IDGenRadioButton"
-                                text="Locked"
+                                text="{i18n>textLocked}"
                             />
                             <RadioButton
                                 id="_IDGenRadioButton1"
-                                text="Prevailing"
+                                text="{i18n>textPrevailing}"
                             />
                         </buttons>
                     </RadioButtonGroup>

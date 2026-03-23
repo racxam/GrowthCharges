@@ -30,8 +30,8 @@
    <smartfilterbar:ControlConfiguration index="50" id="ctlConfigBill17FilterBar" groupId="_BASIC" key="is_bill17_appl" label="Bill17 Applicable" visibleInAdvancedArea="true">
         <smartfilterbar:customControl>
             <ComboBox id="Bill17ApplicableId">
-                <core:Item key="true" text="Yes"/>
-                <core:Item key="false" text="No"/>
+                <core:Item key="true" text="i18n>textYes"/>
+                <core:Item key="false" text="i18n>textNo"/>
             </ComboBox>
         </smartfilterbar:customControl>
    </smartfilterbar:ControlConfiguration>

@@ -261,11 +261,6 @@ sap.ui.define(
             oModel.attachPropertyChange(this._onPropertyChange, this);
           }
         }
-
-        // const dcClearanceDate = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PaymentInfo_FG-ID::dc_clearance_date::Field");
-        // dcClearanceDate.attachChange(function (oEvent) {
-        //   MessageBox.warning("Once you save the request, you will not be able to edit the DC Clearance Date.");
-        // });
         const oRouter = this.getOwnerComponent().getRouter();
         const sHashKey = oRouter.getHashChanger().key;
         if (sHashKey === "Child") {
@@ -295,7 +290,6 @@ sap.ui.define(
             var oContext = attachmentComponent.getBindingContext();
             attachmentComponent.stRefresh(oAttachmentModel, oContext);
             // defect 113 attachment refresh issue commented old code - 14/07/2025
-            //attachmentComponent.stRefresh();
           }
           //Check if the call was for attaching the draft invoice
           if (oEvent.getParameter("url").includes("zgc_c_requestsAttach_draft_invoice")) {
@@ -306,7 +300,6 @@ sap.ui.define(
             var oContext = attachmentComponent.getBindingContext();
             attachmentComponent.stRefresh(oAttachmentModel, oContext);
             // defect 113 attachment refresh issue - commented old refresh  code 14/07/2025
-            //attachmentComponent.stRefresh();
 
             //Refresh the invoice section
             const pdfViewer = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--PDFViewer");
@@ -325,16 +318,6 @@ sap.ui.define(
             "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests"
           ).getParent();
 
-          //Commented old code for defect 114 layout issue fix
-          /*  
-           const oRouterComp = oComponent.getRouter();
-           const sHKey = oRouterComp.getHashChanger().key;
-           if (sHKey === "Child") {
-             sap.ui.getCore().byId(
-               "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--fullScreen"
-             ).firePress();
- 
-           } */
           //CIL Selected Section
           const sCILSection = sap.ui.getCore().byId("com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CIL::Section");
           const sSelectedSection = sCILSection.getParent().getSelectedSection();
@@ -342,8 +325,6 @@ sap.ui.define(
             sCILSection.getParent().scrollToSection(sCILSection.getId());
           }
           //defect 73 busy dialog issue fix , 23/07/2025
-          //that._hidePasteButton();
-          //Park Planner in Edit Mode. Disable DC buttons
           const oRequest = event.context.getObject();
           // Check initial state and disable field if needed
           //  Check Initial State for Partner Field
@@ -407,30 +388,7 @@ sap.ui.define(
           }
         });
       },
-      //commented this to match the code with ECD (1809) system code 29/08/2025  for defect 216
 
-      // _defineCILIconControl: function (sId) {
-      //   const oCILIcon = new Icon(
-      //     {
-      //       color: "#346187",
-      //       src: "sap-icon://incident",
-      //       width: "50px",
-      //       height: "30px"
-      //     }
-      //   );
-      //   switch (sId) {
-      //     case "exm_units":
-      //       oCILIcon.setTooltip("As exemption under the parkland conveyance bylaw.");
-      //       break;
-      //     case "oth_cr_units":
-      //       oCILIcon.setTooltip("Parkland dedication agreement credits.");
-      //       break;
-      //     default:
-      //       oCILIcon.setTooltip("This is populated from lesser of the Site Specific CIL Calculation OR the CIL Site Value Cap Calculation OR the CIL Capped Rate Total");
-      //       break;
-      //   }
-      //   return oCILIcon;
-      // },
       //added below code to match the code with ECD (1809) system code 29/08/2025  for defect 216
       _defineCILIconControl: function (sId, sSec) {
         const oCILIcon = new Icon(
@@ -471,16 +429,6 @@ sap.ui.define(
         }
         return oCILIcon;
       },
-      //commented this to match the code with ECD (1809) system code 29/08/2025  for defect 216
-      // _addCILIconControl: function () {
-      //   const aCILGroup = ["density_payable", "exm_units", "oth_cr_units"];
-      //   aCILGroup.forEach(mItem => {
-      //     let oControl = sap.ui.getCore().byId(`com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CILResDensity-ID::${mItem}::GroupElement`);
-      //     oControl.addElement(this._defineCILIconControl(mItem));
-      //   });
-
-      // },
-
       //added below to match the code with ECD (1809) system code 29/08/2025  for defect 216
       _addCILIconControl: function () {
 
@@ -709,8 +657,6 @@ sap.ui.define(
           var blocks = this.getBlocks();
           for (var i = 0; i < blocks.length; i++) {
             //Temporary Comment
-            //|| blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--DCHeader-GI::SubSection"
-            //blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBCHeader-GI::SubSection"||
             if (
               blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--CBC_Comments::SubSection"
               || blocks[i].getParent().getParent().getId() === "com.gc.dashboard::sap.suite.ui.generic.template.ObjectPage.view.Details::zgc_c_requests--Gen_Info_Comments::SubSection"
@@ -1508,12 +1454,6 @@ sap.ui.define(
         var sStatus = oHeaderContext.getProperty("status");
         var sOccupancyDate = oHeaderContext.getProperty("occupancy_date");
 
-        // console.log("---------------- VALUE HELP DEBUG ----------------");
-        // console.log("Current Status:", sStatus);
-        // console.log("Occupancy Date:", sOccupancyDate);
-        // console.log("Invoice Date:", sInvoiceDate);
-        // ---------------------------
-
         var sRowPartner = oRowContext.getProperty("dc_partner");
         var sCurrentDcType = oRowContext.getProperty("dc_type");
 
@@ -1532,26 +1472,54 @@ sap.ui.define(
         var bIsLocked = false; // <--- NEW FLAG
 
         // 2. LOGIC: Check Locked vs Prevailing
+      // 2. LOGIC: Check Locked vs Prevailing (BULLETPROOF FIX)
         if (sRowPartner && sSitePlanAppDate && this._oBill17List) {
-          var aItems = this._oBill17List.getItems();
-          for (var i = 0; i < aItems.length; i++) {
-            var oItemContext = aItems[i].getBindingContext();
-            if (oItemContext) {
-              var oData = oItemContext.getObject();
-              var bMatch = (oData.id === sRowPartner) || (oData.name === sRowPartner) || (oData.id && sRowPartner && oData.id.indexOf(sRowPartner) > -1);
+          
+          var aContexts = [];
+          var oBinding = this._oBill17List.getBinding("items") || this._oBill17List.getBinding("rows");
+          
+          // Method A: Grab contexts from the active binding
+          if (oBinding && oBinding.getContexts && oBinding.getContexts().length > 0) {
+            aContexts = oBinding.getContexts();
+          } 
+          
+          // Method B: The "Gotcha" Fallback. If binding is refreshing (length 0 due to network call), 
+          // grab the contexts from the lingering UI items still on screen.
+          if (aContexts.length === 0) {
+            var aUIItems = this._oBill17List.getItems ? this._oBill17List.getItems() : (this._oBill17List.getRows ? this._oBill17List.getRows() : []);
+            for (var k = 0; k < aUIItems.length; k++) {
+              var oCtx = aUIItems[k].getBindingContext();
+              if (oCtx) {
+                aContexts.push(oCtx);
+              }
+            }
+          }
+
+          // Evaluate the contexts
+          for (var i = 0; i < aContexts.length; i++) {
+            var oData = aContexts[i].getObject();
+            
+            if (oData) {
+              // Safety: Clean strings to prevent random case/space mismatches causing silent failures
+              var sId = oData.id ? oData.id.trim().toUpperCase() : "";
+              var sName = oData.name ? oData.name.trim().toUpperCase() : "";
+              var sCheckPartner = sRowPartner ? sRowPartner.trim().toUpperCase() : "";
+
+              var bMatch = (sId === sCheckPartner) || 
+                           (sName === sCheckPartner) || 
+                           (sId && sCheckPartner && sId.indexOf(sCheckPartner) > -1);
 
               if (bMatch) {
+                // If it's Locked, force the Site Plan Applied Date
                 if (oData.calc_option === "L") {
                   sFilterDate = sSitePlanAppDate;
-                  bIsLocked = true; // <--- MARK AS LOCKED
-                  // console.log(">> Logic: Bill 17 Locked ('L'). Forced Site Plan Applied Date.");
+                  bIsLocked = true; 
                 }
-                break;
+                break; // Exit loop once matching partner is found
               }
             }
           }
         }
-
         // --- 3. PREVAILING / PERMIT ISSUED OVERRIDE LOGIC ---
         var bPermitIssued = oHeaderContext.getProperty("permit_issued");
         var aOverrideStatuses = ["DC1_APR", "FIN_APR", "FIN_PND", "CLSD", "PCLSD"];
@@ -1781,7 +1749,6 @@ sap.ui.define(
             } else {
               sErrorMsg = this.oI18n.getText("msgErrorFail");
             }
-            // MessageToast.show(sErrorMsg);
           }.bind(this)
         });
       },
@@ -2114,12 +2081,6 @@ sap.ui.define(
           }
         }
       },
-
-
-
-      // ====================================================================
-      //  STATUS PILL & COLOR CODING LOGIC (DYNAMIC BILL 17)
-      // ====================================================================
       // ====================================================================
       //  STATUS PILL & COLOR CODING LOGIC (FIXED: ENABLE FINAL PILL FOR STANDARD)
       // ====================================================================
@@ -2409,12 +2370,6 @@ sap.ui.define(
       onCalcOptionChange: function (oEvent) {
         var oRadioGroup = oEvent.getSource();
         var iIndex = oRadioGroup.getSelectedIndex();
-
-        // --- DEBUG LOGS (Press F12 to see these) ---
-        // console.log("---------------- DEBUG START ----------------");
-        // console.log("Radio Button Index Selected:", iIndex);
-        // 0 = First Button, 1 = Second Button
-
         // ASSUMPTION: Button 0 is "Locked", Button 1 is "Prevailing"
         var sValue = iIndex === 0 ? "L" : "P";
         // console.log("Calculated Value (L/P):", sValue);
@@ -2621,10 +2576,6 @@ sap.ui.define(
         // Ensure "status" is the correct field name from your backend!
         var sStatus = oContext.getProperty("status");
 
-        // --- DEBUG LOG (Check Console F12) ---
-        // console.log("---------------------------------------------");
-        // console.log("DEBUG: STATUS FROM BACKEND IS:", sStatus);
-        // console.log("---------------------------------------------");
 
         // B. THE LOGIC
         // If Status is 'FIN_APR' (Final Approved), set Editable = FALSE

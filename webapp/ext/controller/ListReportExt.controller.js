@@ -56,11 +56,11 @@ sap.ui.define([
                 //the content of the custom field will be stored in the app state, so that it can be restored later, for example after a back navigation.
                 //The developer has to ensure that the content of the field is stored in the object that is passed to this method.
                 if (oCustomData) {
-                    var oCustomField1 = this.oView.byId("AppChargesId");
+                    let oCustomField1 = this.oView.byId("AppChargesId");
                     if (oCustomField1) {
                         oCustomData.AppCharges = oCustomField1.getSelectedKeys();
                     }
-                    var oCustomField2 = this.oView.byId("VersionId");
+                    let oCustomField2 = this.oView.byId("VersionId");
                     if (oCustomField2) {
                         oCustomData.Version = oCustomField2.getSelectedKeys();
                     }
@@ -71,7 +71,7 @@ sap.ui.define([
                 //an object with the content is handed over to this method. Now the developer has to ensure that the content of the custom filter is set to the control
                 if (oCustomData) {
                     if (oCustomData.AppCharges) {
-                        var oComboBox = this.oView.byId("AppChargesId");
+                        let oComboBox = this.oView.byId("AppChargesId");
                         oComboBox.setSelectedKeys(
                             oCustomData.AppCharges
                         );
@@ -86,7 +86,7 @@ sap.ui.define([
              */
             onBeforeRebindTableExtension: function (oEvent) {
 
-                var oBindingParams = oEvent.getParameter("bindingParams");
+                let oBindingParams = oEvent.getParameter("bindingParams");
                 if (oBindingParams.parameters.select) {
                     oBindingParams.parameters.select += ",bill17_hidden,status";
                 } else {
@@ -433,7 +433,7 @@ sap.ui.define([
         // Level 1 is STRICTLY for Bill 17
         if (!this._isBill17Active(vDefPartner)) return false;
 
-        var aVisibleStatuses = [
+        let aVisibleStatuses = [
             "DC1_PND", "DC1_APR", "DC1_REJ", 
             "FIN_PND", "FIN_APR", "FIN_REJ", 
             "CLSD", "PCLSD", "HLD",
@@ -462,7 +462,7 @@ sap.ui.define([
         // FIX: REMOVED STRICT BILL 17 CHECK.
         // This pill should show for Standard Cases too if they are Approved.
         
-        var aVisibleStatuses = [
+        let aVisibleStatuses = [
             "DC1_APR", // Bill 17 specific Pending
             "FIN_PND", // Generic Pending
             "FIN_APR", // Generic Approved
@@ -505,19 +505,19 @@ sap.ui.define([
 
       getSeparatorForCIL: function (bDc, vDefPartner, bCbc, sStatus) {
         // Do not force return false on Withdrawn, rely on next pill visibility
-        var bGenericDcVisible = this._isDCPillVisible(bDc, vDefPartner);
-        var bBill17Visible = this._isBill17PillVisible(vDefPartner, sStatus) || this._isBill17FinalPillVisible(vDefPartner, sStatus);
+        let bGenericDcVisible = this._isDCPillVisible(bDc, vDefPartner);
+        let bBill17Visible = this._isBill17PillVisible(vDefPartner, sStatus) || this._isBill17FinalPillVisible(vDefPartner, sStatus);
         
         return !!(bGenericDcVisible || bBill17Visible || bCbc || this._isStatusPillVisible(sStatus));
       },
 
       getSeparatorForDC: function (vDefPartner, bCbc, sStatus) {
-        var bBill17Visible = this._isBill17PillVisible(vDefPartner, sStatus) || this._isBill17FinalPillVisible(vDefPartner, sStatus);
+        let bBill17Visible = this._isBill17PillVisible(vDefPartner, sStatus) || this._isBill17FinalPillVisible(vDefPartner, sStatus);
         return !!(bBill17Visible || bCbc || this._isStatusPillVisible(sStatus));
       },
 
       getSeparatorForBill17: function (vDefPartner, bCbc, sStatus) {
-        var bFinalVisible = this._isBill17FinalPillVisible(vDefPartner, sStatus);
+        let bFinalVisible = this._isBill17FinalPillVisible(vDefPartner, sStatus);
         return !!(bFinalVisible || bCbc || this._isStatusPillVisible(sStatus));
       },
 
