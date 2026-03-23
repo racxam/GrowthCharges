@@ -27,3 +27,7 @@ AppVariantPreviewPayload.zip
 mergedManifestDescriptor.json
 APIExternalProducer.js
 .*/APIExternalProducer.js
+
+# Local IDE and Environment Configuration
+.che/
+.vscode/
