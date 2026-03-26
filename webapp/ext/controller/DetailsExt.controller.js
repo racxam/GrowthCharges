@@ -360,7 +360,10 @@ sap.ui.define(
           if (draftInvoiceAvailable || document.URL.includes("Workflow")) { //If the request is not yet final approved or if it is getting opened in My Inbox 
             const request_id = view.getBindingContext().getObject()?.request_id;
             const dc_version = view.getBindingContext().getObject()?.version;
-            this._sValidPath = `/sap/opu/odata/sap/ZGC_GROWTH_CHARGES_SRV/DraftInvoiceSet(dcId='${request_id}',version='${dc_version}')/$value`;
+            // Append a timestamp to bust the browser's PDF cache
+            const sTimestamp = new Date().getTime();
+            this._sValidPath = `/sap/opu/odata/sap/ZGC_GROWTH_CHARGES_SRV/DraftInvoiceSet(dcId='${request_id}',version='${dc_version}')/$value?cb=${sTimestamp}`;
+            // this._sValidPath = `/sap/opu/odata/sap/ZGC_GROWTH_CHARGES_SRV/DraftInvoiceSet(dcId='${request_id}',version='${dc_version}')/$value`;
           } else {
             const invoice_tech_details = view.getBindingContext().getObject()?.inv_tech_details;
             const aInvoiceTechDetails = invoice_tech_details.split("-");
